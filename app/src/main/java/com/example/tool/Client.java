@@ -32,7 +32,7 @@ public class Client
     private static CloseableHttpClient httpClient = httpClientBuilder.useSystemProperties().build();
 
     /*发送GET请求*/
-    public static String doGet(String url)
+    public  String doGet(String url)
     {
         /*response是用来接收获得网页内容*/
         String response = null;
@@ -75,7 +75,7 @@ public class Client
         return response;
     }
 
-    public static String doPost(String url, List<NameValuePair> nameValuePairs)
+    public  String doPost(String url, List<NameValuePair> nameValuePairs)
     {
         /*response是用来接收获得网页内容*/
         String response = null;
@@ -114,9 +114,6 @@ public class Client
         {
             /*捕获没有网络的出错信息*/
             return Constant.NO_NET;
-        } catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
         } catch (IOException e)
         {
             e.printStackTrace();

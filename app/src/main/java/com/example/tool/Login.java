@@ -43,15 +43,15 @@ public class Login
         nameValuePairs.add(new BasicNameValuePair("gotoOnFail", gotoOnFail));
         nameValuePairs.add(new BasicNameValuePair("Login.Token1", userName));
         nameValuePairs.add(new BasicNameValuePair("Login.Token2", userPassword));
-        return Client.doPost(urlLogin, nameValuePairs);
+        return client.doPost(urlLogin, nameValuePairs);
     }
 
-    public static TotalInfo getTotalInfo()
+    public  TotalInfo getTotalInfo()
     {
         /*进入教务系统*/
-        Client.doGet(urlEms);
+        client.doGet(urlEms);
         /*获得基本信息名字和学号*/
-        AllData.setBasicInfo(totalInfo, client);
+        allData.setBasicInfo(totalInfo, client);
         return totalInfo;
     }
 
@@ -66,7 +66,7 @@ public class Login
         /*绩点总和*/
         double jdCount = 0.0;
         /*获取成绩信息并保存到totalInfo*/
-        AllData.setGrades(totalInfo, client);
+        allData.setGrades(totalInfo, client);
         /*已获得的成绩信息进行整理*/
         GradesData gradesData = totalInfo.getGrades();
         /*设置列表的头部*/
