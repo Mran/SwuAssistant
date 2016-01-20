@@ -61,7 +61,7 @@ public class Client
                 return response;
             } else
             {
-                return "连接出错";
+                return Constant.CLIENT_ERROR;
             }
 
         } catch (UnknownHostException e)

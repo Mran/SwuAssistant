@@ -43,7 +43,7 @@ public class AllData
             Log.d("client", totalInfo.getName());
 //            System.out.println("学号" + totalInfo.getSwuID());
         } else return response1;
-        return Constant.OK;
+        return Constant.CLIENT_OK;
     }
 
     private static String getGrades(TotalInfo totalInfo, Client client)
@@ -71,7 +71,7 @@ public class AllData
             Gson gson = new Gson();
             totalInfo.setGrades(gson.fromJson(respones, GradesData.class));
         } else return respones;
-        return Constant.OK;
+        return Constant.CLIENT_OK;
     }
 
     public  String setBasicInfo(TotalInfo totalInfo, Client client)
