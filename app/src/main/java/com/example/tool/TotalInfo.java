@@ -14,26 +14,27 @@ public class TotalInfo
     private static String swuID = null;
 //    private static Map<String, List<String>> gradesData = null;
     private static Map<String, List<String>> classScheedul = null;
+    /*成绩*/
     private static GradesData gradesData;
 
     public void setName(String name)
     {
-        this.name = name;
+        TotalInfo.name = name;
     }
 
     public void setSwuID(String swuID)
     {
-        this.swuID = swuID;
+        TotalInfo.swuID = swuID;
     }
 
     public String getName()
     {
-        return this.name;
+        return name;
     }
 
     public String getSwuID()
     {
-        return this.swuID;
+        return swuID;
     }
 
     public void setGrades(GradesData gradesData)

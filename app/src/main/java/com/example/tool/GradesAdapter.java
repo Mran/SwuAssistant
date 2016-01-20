@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.swuassistant.R;
 
 import java.util.List;
-
+/*自定义的ListView的适配器*/
 public class GradesAdapter extends ArrayAdapter<Grades>
 {
 

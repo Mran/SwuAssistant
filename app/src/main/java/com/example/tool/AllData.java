@@ -11,6 +11,8 @@ import org.apache.http.message.BasicNameValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.tool.Client.*;
+
 /**
  * Created by 张孟尧 on 2016/1/6.
  */
@@ -19,7 +21,7 @@ public class AllData
     private static String getBasicInfo(TotalInfo totalInfo, Client client)
     {
         /*获得学号*/
-        String respones = client.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html");
+        String respones = doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html");
         /*判断是否正确获得结果*/
         if (!respones.contains(Constant.NO_NET))
         {
@@ -30,10 +32,9 @@ public class AllData
         } else
             return respones;
         /*获得姓名*/
-        String response1 = Client.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_cxYhxxIndex.html?xt=jw&gnmkdmKey=index&sessionUserKey=" + totalInfo.getSwuID());
+        String response1 = doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_cxYhxxIndex.html?xt=jw&gnmkdmKey=index&sessionUserKey=" + totalInfo.getSwuID());
 
         /*判断是否正确获得结果*/
-
         if (!response1.contains(Constant.NO_NET))
         {
            /*对结果进行切割获得姓名*/
@@ -62,10 +63,10 @@ public class AllData
         /*构建目标网址*/
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
-        String respones = client.doPost(url, postNameValuePairs);
+        String respones = doPost(url, postNameValuePairs);
         if (!respones.contains(Constant.NO_NET))
         {
-            /*因为获得数据签名有一个"null"所以对获得的内容进行整理*/
+            /*因为获得数据前面有一个"null"所以对获得的内容进行整理*/
             respones = respones.substring(4);
             /*构建gson数据来解析json数据*/
             Gson gson = new Gson();
