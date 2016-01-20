@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:title="首页"
+            />
+        <item
+            android:id="@+id/nav_grades"
+            android:title="查成绩"/>
+
+        <item
+            android:id="@+id/nav_class_table"
+            android:title="看课表"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@android:drawable/ic_menu_share"
+                android:title="Share"/>
+
+        </menu>
+    </item>
+
+</menu>
