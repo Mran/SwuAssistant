@@ -34,15 +34,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
-
-
+    /*保存成绩的列表,用于listview*/
     private static List<Grades> gradesList = new ArrayList<Grades>();
+    /*listview*/
     private static ListView listView;
+    /*账户名*/
     private static String userName;
+    /*密码*/
     private static String password;
+    /*姓名*/
     private static String name;
+    /*学号*/
     private static String swuID;
+    /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
+
     private static AlertDialog.Builder dialogsLoading;
     private static TableLayout showGradesLayout;
     private static TextView nameTextView;
