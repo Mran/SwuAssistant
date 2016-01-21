@@ -48,33 +48,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static String swuID;
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
-
+    /*等待窗口*/
     private static AlertDialog.Builder dialogsLoading;
     private static TableLayout showGradesLayout;
+    /*用于显示姓名和学号*/
     private static TextView nameTextView;
     private static TextView swuIDTextView;
+    /*登陆*/
     private static Login login = new Login();
     private static TotalInfo totalInfo = new TotalInfo();
+    /*侧边栏*/
     private static NavigationView navigationView;
+    /*listview的适配器*/
     private static GradesAdapter adapter = null;
+    /*刷新菜单按钮状态,初始化为不显示*/
     private static int freshMenuStatus = Constant.DISSHOW;
-    private static Menu menu;
-    ArrayAdapter<Grades> gradesArrayAdapter;
     private Handler handler = new Handler()
     {
         public void handleMessage(Message msg)
         {
             switch (msg.what)
             {
+                /*成功获取成绩*/
                 case Constant.GRADES_OK:
+                    /*关闭登陆窗口*/
                     progressDialogLoading.cancel();
+                    /*显示成绩的布局*/
                     showGradesLayout.setVisibility(View.VISIBLE);
                     if (adapter == null)
                     {
+                        /*设置listview适配器*/
                         adapter = new GradesAdapter(MainActivity.this, R.layout.grades_item, gradesList);
                         listView.setAdapter(adapter);
-//                        listView.set
                     } else
+                    /*如果已经设置过就更新*/
                         adapter.notifyDataSetChanged();
                     break;
                 case Constant.UPDATA:
@@ -82,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     break;
                 case Constant.MAIN:
+                    /*处在主页面的时候隐藏成绩布局*/
                     showGradesLayout.setVisibility(View.GONE);
 //                    freshMenuItem.setVisible(false);
                     break;
