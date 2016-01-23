@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.tool.Login;
-import com.example.tool.TotalInfo;
+import com.example.swujw.Login;
+import com.example.swujw.TotalInfo;
 
 /**
  * A login screen that offers login via username/password.
@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     if (response.contains("Successed"))
                     {
                         /*登陆成功获得名字和学号*/
-                        totalInfo = login.getTotalInfo();
+                        totalInfo = login.getBasicInfo();
                         /*发送ui更新*/
                         message.what = Constant.ID_SUCCESE;
                         handler.sendMessage(message);

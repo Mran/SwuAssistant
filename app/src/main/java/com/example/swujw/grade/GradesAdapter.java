@@ -1,7 +1,6 @@
-package com.example.tool;
+package com.example.swujw.grade;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +11,13 @@ import com.example.swuassistant.R;
 
 import java.util.List;
 /*自定义的ListView的适配器*/
-public class GradesAdapter extends ArrayAdapter<Grades>
+public class GradesAdapter extends ArrayAdapter<GradeItem>
 {
 
     private int resourceId;
 
     public GradesAdapter(Context context, int textViewResourceId,
-                         List<Grades> objects)
+                         List<GradeItem> objects)
     {
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
@@ -27,7 +26,7 @@ public class GradesAdapter extends ArrayAdapter<Grades>
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        Grades grades = getItem(position);
+        GradeItem gradeItem = getItem(position);
         View view;
 //        View gradesItems=getView(position, convertView, parent);
         ViewHolder viewHolder;
@@ -35,7 +34,6 @@ public class GradesAdapter extends ArrayAdapter<Grades>
         {
             view = LayoutInflater.from(getContext()).inflate(resourceId, null);
             viewHolder = new ViewHolder();
-//			viewHolder.fruitImage = (ImageView) view.findViewById(R.id.fruit_image);
             viewHolder.gradesKcmc = (TextView) view.findViewById(R.id.kcmc);
             viewHolder.gradesCj = (TextView) view.findViewById(R.id.cj);
             viewHolder.gradesJd = (TextView) view.findViewById(R.id.jd);
@@ -44,40 +42,24 @@ public class GradesAdapter extends ArrayAdapter<Grades>
             view.setTag(viewHolder);
         } else
         {
-//            if (position == -1)
-//            {
-//                convertView.setBackgroundColor(Color.parseColor("#3F51B5"));
-//            } else if (position == (parent.getChildCount() - 2))
-//            {
-//                convertView.setBackgroundColor(Color.parseColor("#3F51B5"));
-//            }else if (position == (parent.getChildCount() - 1));
-//            {
-//                convertView.setBackgroundColor(Color.parseColor("#3F51B5"));
-//
-//            }
+
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
-//		viewHolder.fruitImage.setImageResource(grades.getImageId());
-        viewHolder.gradesKcmc.setText(grades.getKcmc());
-        viewHolder.gradesXf.setText(grades.getXf());
-        viewHolder.gradesJd.setText(grades.getJd());
-        viewHolder.gradesCj.setText(grades.getCj());
+        viewHolder.gradesKcmc.setText(gradeItem.getKcmc());
+        viewHolder.gradesXf.setText(gradeItem.getXf());
+        viewHolder.gradesJd.setText(gradeItem.getJd());
+        viewHolder.gradesCj.setText(gradeItem.getCj());
 
         return view;
     }
 
     class ViewHolder
     {
-
-//		ImageView fruitImage;
-
         TextView gradesKcmc;
         TextView gradesCj;
         TextView gradesJd;
         TextView gradesXf;
-
-
     }
 
 }

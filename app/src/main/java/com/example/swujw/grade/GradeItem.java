@@ -1,6 +1,6 @@
-package com.example.tool;
-
-public class Grades
+package com.example.swujw.grade;
+/*用于listview显示*/
+public class GradeItem
 {
     /*课程名称*/
     private String kcmc;
@@ -10,7 +10,7 @@ public class Grades
     private String jd;
     /*学分*/
     private String xf;
-
+public String ss;
     public void setKcmc(String kcmc)
     {
         this.kcmc = kcmc;

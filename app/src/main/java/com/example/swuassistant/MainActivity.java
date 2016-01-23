@@ -12,22 +12,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.os.Handler;
 
-import com.example.tool.Grades;
-import com.example.tool.GradesAdapter;
-import com.example.tool.Login;
-import com.example.tool.TotalInfo;
+import com.example.swujw.grade.GradeItem;
+import com.example.swujw.grade.Grades;
+import com.example.swujw.grade.GradesAdapter;
+import com.example.swujw.Login;
+import com.example.swujw.TotalInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,34 +33,28 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
 {
     /*保存成绩的列表,用于listview*/
-    private static List<Grades> gradesList = new ArrayList<Grades>();
+    private static List<GradeItem> gradeItemList = new ArrayList<>();
     /*listview*/
     private static ListView listView;
     /*账户名*/
     private static String userName;
     /*密码*/
     private static String password;
-    /*姓名*/
-    private static String name;
-    /*学号*/
-    private static String swuID;
+
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
     /*等待窗口*/
     private static AlertDialog.Builder dialogsLoading;
     private static TableLayout showGradesLayout;
-    /*用于显示姓名和学号*/
-    private static TextView nameTextView;
-    private static TextView swuIDTextView;
     /*登陆*/
     private static Login login = new Login();
+    private static Grades grades = new Grades();
     private static TotalInfo totalInfo = new TotalInfo();
-    /*侧边栏*/
-    private static NavigationView navigationView;
     /*listview的适配器*/
     private static GradesAdapter adapter = null;
     /*刷新菜单按钮状态,初始化为不显示*/
     private static int freshMenuStatus = Constant.DISSHOW;
+
     private Handler handler = new Handler()
     {
         public void handleMessage(Message msg)
@@ -78,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (adapter == null)
                     {
                         /*设置listview适配器*/
-                        adapter = new GradesAdapter(MainActivity.this, R.layout.grades_item, gradesList);
+                        adapter = new GradesAdapter(MainActivity.this, R.layout.grades_item, gradeItemList);
                         listView.setAdapter(adapter);
                     } else
                     /*如果已经设置过就更新*/
@@ -111,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
         password = intent.getStringExtra("password");
-        name = intent.getStringExtra("name");
-        swuID = intent.getStringExtra("swuID");
+        totalInfo.setName(intent.getStringExtra("name"));
+        totalInfo.setSwuID(intent.getStringExtra("swuID"));
         listView = (ListView) findViewById(R.id.grades_list);
         progressDialogLoading = new ProgressDialog(MainActivity.this);
         dialogsLoading = new AlertDialog.Builder(MainActivity.this);
@@ -126,12 +118,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        nameTextView = (TextView) view.findViewById(R.id.name);
-        swuIDTextView = (TextView) view.findViewById(R.id.swuid);
-        swuIDTextView.setText(swuID);
-        nameTextView.setText(name);
+        TextView nameTextView = (TextView) view.findViewById(R.id.name);
+        TextView swuIDTextView = (TextView) view.findViewById(R.id.swuid);
+        swuIDTextView.setText(totalInfo.getSwuID());
+        nameTextView.setText(totalInfo.getName());
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -196,7 +188,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
 
                     login.doLogin(userName, password);
-                    gradesList = login.getGradesList();
+                    grades.setGrades(totalInfo);
+                    gradeItemList = grades.getGradesList(totalInfo);
                     Message message = new Message();
                     message.what = Constant.GRADES_OK;
                     handler.sendMessage(message);
@@ -227,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
             invalidateOptionsMenu();
 //            onPrepareOptionsMenu();
-            if (gradesList.size() == 0)
+            if (gradeItemList.size() == 0)
             {
 
                 progressDialogLoading.setTitle("查成绩");
@@ -241,7 +234,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     {
 
                         login.doLogin(userName, password);
-                        gradesList = login.getGradesList();
+                        totalInfo=login.getBasicInfo();
+                        grades.setGrades(totalInfo);
+                        gradeItemList = grades.getGradesList(totalInfo);
                         Message message = new Message();
                         message.what = Constant.GRADES_OK;
                         handler.sendMessage(message);
