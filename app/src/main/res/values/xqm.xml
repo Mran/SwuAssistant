@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="xqm">
+        <item>全部</item>
+        <item>第1学期</item>
+        <item>第2学期</item>
+        <item>第3学期</item>
+    </string-array>
+</resources>

@@ -14,45 +14,71 @@
         android:id="@+id/show_gaades_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       >
-        <TableRow>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="学年"
-                android:id="@+id/xnm"
-                android:layout_weight="1"
-                android:textSize="20dp"/>
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="学期"
-                android:id="@+id/xqm"
-                android:layout_weight="1"
-                android:textSize="20dp"/>
+        >
+
+        <LinearLayout>
 
             <Spinner
+                android:id="@+id/xnm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:entries="@array/xnm"/>
+
+
+            <Spinner
+                android:id="@+id/xqm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/xqm"/>
+        </LinearLayout>
+
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="16dp"
+                android:text="科目"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="成绩"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="绩点"
+                android:gravity="center_horizontal"
+
+                android:textSize="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="学分"
+                android:gravity="center_horizontal"
+                android:textSize="20dp"/>
 
 
         </TableRow>
 
-
-
-            <ListView
-
-                android:id="@+id/grades_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-            </ListView>
+        <ListView
+            android:id="@+id/grades_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+        </ListView>
 
 
     </TableLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="xnm">
+        <item>全部</item>
+        <item>2017-2018</item>
+        <item>2016-2017</item>
+        <item>2015-2016</item>
+        <item>2014-2015</item>
+        <item>2013-2014</item>
+        <item>2012-2013</item>
+        <item>2011-2012</item>
+        <item>2010-2011</item>
+    </string-array>
+</resources>

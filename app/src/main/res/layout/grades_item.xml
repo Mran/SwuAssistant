@@ -47,7 +47,7 @@ android:paddingLeft="16dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_toRightOf="@id/jd"
-        android:paddingRight="16dp"
+
         android:layout_weight="1"
         android:height="35dp"
         android:ellipsize="end"

@@ -16,10 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.example.swujw.grade.GradeItem;
 import com.example.swujw.grade.Grades;
@@ -30,7 +33,7 @@ import com.example.swujw.TotalInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener
 {
     /*保存成绩的列表,用于listview*/
     private static List<GradeItem> gradeItemList = new ArrayList<>();
@@ -54,6 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static GradesAdapter adapter = null;
     /*刷新菜单按钮状态,初始化为不显示*/
     private static int freshMenuStatus = Constant.DISSHOW;
+    private static Spinner spinnerXnm;
+    private static Spinner spinnerXqm;
+    private static String[] allXnm;
+    private static String[] allXqm;
+    private static String xnm;
+    private static String xqm;
+
 
     private Handler handler = new Handler()
     {
@@ -73,8 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         adapter = new GradesAdapter(MainActivity.this, R.layout.grades_item, gradeItemList);
                         listView.setAdapter(adapter);
                     } else
-                    /*如果已经设置过就更新*/
+                    {/*如果已经设置过就更新*/
+                        adapter.clear();
+                        adapter.addAll(gradeItemList);
                         adapter.notifyDataSetChanged();
+                    }
                     break;
                 case Constant.UPDATA:
 
@@ -106,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         totalInfo.setName(intent.getStringExtra("name"));
         totalInfo.setSwuID(intent.getStringExtra("swuID"));
         listView = (ListView) findViewById(R.id.grades_list);
+        spinnerXnm = (Spinner) findViewById(R.id.xnm);
+        spinnerXqm = (Spinner) findViewById(R.id.xqm);
+        /*获得下拉列表内容*/
+        allXnm = getResources().getStringArray(R.array.xnm);
+        allXqm = getResources().getStringArray(R.array.xqm);
+
         progressDialogLoading = new ProgressDialog(MainActivity.this);
         dialogsLoading = new AlertDialog.Builder(MainActivity.this);
         showGradesLayout = (TableLayout) findViewById(R.id.show_gaades_layout);
@@ -120,11 +139,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        /*侧边栏显示姓名学号*/
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView swuIDTextView = (TextView) view.findViewById(R.id.swuid);
         swuIDTextView.setText(totalInfo.getSwuID());
         nameTextView.setText(totalInfo.getName());
         navigationView.setNavigationItemSelectedListener(this);
+        spinnerXnm.setOnItemSelectedListener(MainActivity.this);
+        spinnerXqm.setOnItemSelectedListener(MainActivity.this);
+        /*学年下拉列表的默认值*/
+        spinnerXnm.setSelection(3, true);
+        /*学期下拉列表的默认值*/
+        spinnerXqm.setSelection(1, true);
+
 
     }
 
@@ -188,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 {
 
                     login.doLogin(userName, password);
-                    grades.setGrades(totalInfo);
+                    grades.setGrades(totalInfo, xnm, xqm);
                     gradeItemList = grades.getGradesList(totalInfo);
                     Message message = new Message();
                     message.what = Constant.GRADES_OK;
@@ -216,17 +243,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handler.sendMessage(message);
         } else if (id == R.id.nav_grades)
         {
+            /*设置刷新按钮可见*/
             freshMenuStatus = Constant.SHOW;
             getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
             invalidateOptionsMenu();
-//            onPrepareOptionsMenu();
+            /*如果是第一次获得成绩,即列表为空*/
             if (gradeItemList.size() == 0)
             {
-
+                /*显示等待窗口*/
                 progressDialogLoading.setTitle("查成绩");
                 progressDialogLoading.setMessage("正在查询请稍后");
                 progressDialogLoading.setCancelable(false);
                 progressDialogLoading.show();
+                /*开启线程开始查询*/
                 new Thread(new Runnable()
                 {
                     @Override
@@ -234,8 +263,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     {
 
                         login.doLogin(userName, password);
-                        totalInfo=login.getBasicInfo();
-                        grades.setGrades(totalInfo);
+                        totalInfo = login.getBasicInfo();
+                        grades.setGrades(totalInfo, xnm, xqm);
                         gradeItemList = grades.getGradesList(totalInfo);
                         Message message = new Message();
                         message.what = Constant.GRADES_OK;
@@ -280,5 +309,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+
+        if (parent == spinnerXnm)
+        {
+
+            xnm = Constant.ALL_XNM[position];
+        } else if (parent == spinnerXqm)
+        {
+            xqm = Constant.ALL_XQM[position];
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent)
+    {
+
     }
 }

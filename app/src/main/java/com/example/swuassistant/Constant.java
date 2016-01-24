@@ -21,6 +21,15 @@ public class Constant
     public static final String NO_NET = "网络出现了问题";
     public static final String CLIENT_OK = "成功";
     public static final String CLIENT_ERROR = "连接出错";
+    public static final String XQM_ONE = "3";
+    public static final String XQM_TWO = "12";
+    public static final String XQM_THREE = "16";
+    public static final String XQM_ALL = "";
+    public static final String[] ALL_XQM = {XQM_ALL, XQM_ONE, XQM_TWO, XQM_THREE};
+    public static final String[] ALL_XNM = {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"};
+
+
+
 
 
 

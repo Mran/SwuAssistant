@@ -17,19 +17,23 @@ import java.util.List;
 public class Grades extends Login
 {
 
-    public  String setGrades(TotalInfo totalInfo)
+    public String setGrades(TotalInfo totalInfo, String xnm, String xqm)
     {
         /*构建一个post的参数*/
         List<NameValuePair> postNameValuePairs = new ArrayList<>();
         postNameValuePairs.add(new BasicNameValuePair("_search", "false"));
+        /*时间*/
         postNameValuePairs.add(new BasicNameValuePair("nd", "1451922678091"));
         postNameValuePairs.add(new BasicNameValuePair("queryModel.currentPage", "1"));
-        postNameValuePairs.add(new BasicNameValuePair("queryModel.showCount", "30"));
+        /*一次请求的总数据个数*/
+        postNameValuePairs.add(new BasicNameValuePair("queryModel.showCount", "1000"));
         postNameValuePairs.add(new BasicNameValuePair("queryModel.sortName", ""));
         postNameValuePairs.add(new BasicNameValuePair("queryModel.sortOrder", "asc"));
         postNameValuePairs.add(new BasicNameValuePair("time", "0"));
-        postNameValuePairs.add(new BasicNameValuePair("xnm", "2015"));
-        postNameValuePairs.add(new BasicNameValuePair("xqm", "3"));
+        /*所查询学年*/
+        postNameValuePairs.add(new BasicNameValuePair("xnm", xnm));
+        /*所查询学期*/
+        postNameValuePairs.add(new BasicNameValuePair("xqm", xqm));
         /*构建目标网址*/
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
@@ -59,12 +63,12 @@ public class Grades extends Login
         /*已获得的成绩信息进行整理*/
         GradesData gradesData = totalInfo.getGrades();
         /*设置列表的头部*/
-        GradeItem gradeItemHeader = new GradeItem();
-        gradeItemHeader.setKcmc("科目   ");
-        gradeItemHeader.setCj("成绩");
-        gradeItemHeader.setXf("学分");
-        gradeItemHeader.setJd("绩点");
-        gradeItemList.add(gradeItemHeader);
+//        GradeItem gradeItemHeader = new GradeItem();
+//        gradeItemHeader.setKcmc("科目   ");
+//        gradeItemHeader.setCj("成绩");
+//        gradeItemHeader.setXf("学分");
+//        gradeItemHeader.setJd("绩点");
+//        gradeItemList.add(gradeItemHeader);
         GradesData.Items items;
         for (int i = 0; i < gradesData.getItems().size(); i++)
         {
@@ -97,8 +101,12 @@ public class Grades extends Login
                     break;
             }
             /*对成绩进行总和相加*/
-            xfCount += Double.valueOf(xf);
             jdCount += Double.valueOf(jd);
+            /*绩点不等于0时加学分*/
+            if (!jd.contains("0"))
+            {
+                xfCount += Double.valueOf(xf);
+            }
             GradeItem gradeItem = new GradeItem();
             gradeItem.setKcmc(kcmc);
             gradeItem.setCj(cj);
@@ -109,17 +117,17 @@ public class Grades extends Login
         }
         /*设置列表的尾部，显示平均成绩和总成绩*/
         GradeItem gradeItemFooter1 = new GradeItem();
-        gradeItemFooter1.setKcmc("平均成绩");
-        gradeItemFooter1.setCj(String.valueOf(cjCount / gradesData.getItems().size()));
-        gradeItemFooter1.setXf(String.valueOf(xfCount / gradesData.getItems().size()));
-        gradeItemFooter1.setJd(String.valueOf(jdCount / gradesData.getItems().size()));
+        gradeItemFooter1.setKcmc("平均");
+        gradeItemFooter1.setCj(String.format("%.2f", cjCount / gradesData.getItems().size()));
+        gradeItemFooter1.setXf(String.format("%.2f", xfCount / gradesData.getItems().size()));
+        gradeItemFooter1.setJd(String.format("%.2f", jdCount / gradesData.getItems().size()));
         gradeItemList.add(gradeItemFooter1);
 
         GradeItem gradeItemFooter2 = new GradeItem();
-        gradeItemFooter2.setKcmc("总成绩");
-        gradeItemFooter2.setCj(String.valueOf(cjCount));
-        gradeItemFooter2.setXf(String.valueOf(xfCount));
-        gradeItemFooter2.setJd(String.valueOf(jdCount));
+        gradeItemFooter2.setKcmc("总和");
+        gradeItemFooter2.setCj(String.format("%.2f", cjCount));
+        gradeItemFooter2.setXf(String.format("%.2f", xfCount));
+        gradeItemFooter2.setJd(String.format("%.2f", jdCount));
         gradeItemList.add(gradeItemFooter2);
         return gradeItemList;
 
