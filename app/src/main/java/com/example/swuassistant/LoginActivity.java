@@ -2,6 +2,7 @@ package com.example.swuassistant;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -33,12 +34,14 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
     private String userName;
     /*密码*/
     private String password;
-    /*接收返回信息*/
-    private String response;
+
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
     /*保存个人信息*/
     private TotalInfo totalInfo = new TotalInfo();
+    /*保存登陆信息*/
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     /*ui更新*/
     private Handler handler = new Handler()
     {
@@ -47,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         {
             switch (msg.what)
             {
-                case Constant.ID_SUCCESE:
+                case Constant.LOGIN_SUCCESE:
                     /*成功则关闭登陆等待窗口*/
                     progressDialogLoading.cancel();
                     /*开启下一个窗口*/
@@ -60,7 +63,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     startActivity(intent);
                     finish();
                     break;
-                case Constant.ID_FAILED:
+                case Constant.LOGIN_FAILED:
                     /*登陆失败*/
                     progressDialogLoading.setMessage("登陆失败");
                     progressDialogLoading.setCancelable(true);
@@ -78,8 +81,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUserNAmeView = (EditText) findViewById(R.id.username);
-        progressDialogLoading = new ProgressDialog(LoginActivity.this);
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
@@ -89,9 +90,50 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 return id == R.id.login || id == EditorInfo.IME_NULL;
             }
         });
-
+        sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(this);
+        progressDialogLoading = new ProgressDialog(LoginActivity.this);
+        userName = sharedPreferences.getString("userName", "");
+        password = sharedPreferences.getString("password", "");
+        mUserNAmeView.setText(userName);
+        mPasswordView.setText(password);
+        if (!userName.equals(""))
+        {
+            progressDialogLoading.setMessage("正在登录请稍后");
+            progressDialogLoading.setCancelable(false);
+            progressDialogLoading.show();
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                     /*接收返回信息*/
+                    String response;
+                    Login login = new Login();
+                    /*尝试登陆并获取登陆信息*/
+                    response = login.doLogin(userName, password);
+                    Message message = new Message();
+                    if (response.contains("Successed"))
+                    {
+                        /*登陆成功获得名字和学号*/
+                        totalInfo = login.getBasicInfo();
+                        editor.putString("userName", userName);
+                        editor.putString("password", password);
+                        editor.commit();
+                        /*发送ui更新*/
+                        message.what = Constant.LOGIN_SUCCESE;
+                        handler.sendMessage(message);
+                    } else
+                    {
+                        /*登陆失败更新ui*/
+                        message.what = Constant.LOGIN_FAILED;
+                        handler.sendMessage(message);
+                    }
+                }
+            }).start();
+        }
 
     }
 
@@ -102,7 +144,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         userName = mUserNAmeView.getText().toString();
         password = mPasswordView.getText().toString();
         /*显示登陆过程窗口*/
-        progressDialogLoading.setTitle("登录");
         progressDialogLoading.setMessage("正在登录请稍后");
         progressDialogLoading.setCancelable(false);
         progressDialogLoading.show();
@@ -113,6 +154,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 @Override
                 public void run()
                 {
+                     /*接收返回信息*/
+                    String response;
                     Login login = new Login();
                     /*尝试登陆并获取登陆信息*/
                     response = login.doLogin(userName, password);
@@ -121,13 +164,16 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     {
                         /*登陆成功获得名字和学号*/
                         totalInfo = login.getBasicInfo();
+                        editor.putString("userName", userName);
+                        editor.putString("password", password);
+                        editor.commit();
                         /*发送ui更新*/
-                        message.what = Constant.ID_SUCCESE;
+                        message.what = Constant.LOGIN_SUCCESE;
                         handler.sendMessage(message);
                     } else
                     {
                         /*登陆失败更新ui*/
-                        message.what = Constant.ID_FAILED;
+                        message.what = Constant.LOGIN_FAILED;
                         handler.sendMessage(message);
                     }
                 }

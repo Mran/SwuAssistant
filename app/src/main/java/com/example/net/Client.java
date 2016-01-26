@@ -1,23 +1,26 @@
 package com.example.net;
 
+import android.net.http.Headers;
 import android.util.Log;
 
 import com.example.swuassistant.Constant;
+import com.example.swujw.Login;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntityHC4;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGetHC4;
 import org.apache.http.client.methods.HttpPostHC4;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtilsHC4;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -27,16 +30,32 @@ import java.util.List;
 public class Client
 {
     /*新建一个httpClient连接*/
-    private static HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();
-    private static CloseableHttpClient httpClient = httpClientBuilder.useSystemProperties().build();
+
+    private HttpClientBuilder httpClientBuilder;
+    private CloseableHttpClient httpClient;
+    /*设置请求配置,设置了连接超时和读取超时*/
+    private static RequestConfig requestConfig = RequestConfig.custom()
+            .setConnectTimeout(Constant.TIMEOUT)
+            .setSocketTimeout(Constant.TIMEOUT)
+            .build();
+
+    public Client()
+    {
+        /*初始化连接*/
+        httpClientBuilder = HttpClientBuilder.create();
+        httpClient = httpClientBuilder.useSystemProperties().build();
+    }
 
     /*发送GET请求*/
-    public  String doGet(String url)
+    public String doGet(String url)
     {
         /*response是用来接收获得网页内容*/
         String response = null;
+
         /*创建一个GET*/
         HttpGetHC4 httpGet = new HttpGetHC4(url);
+        /*设置超时*/
+        httpGet.setConfig(requestConfig);
         try
         {
             /*发送GET请求*/
@@ -44,17 +63,13 @@ public class Client
             /*判断返回码是否是200,如果是就对返回的内容进行读取*/
             if (response1.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
             {
+                /*获得响应体*/
                 HttpEntity httpEntity = response1.getEntity();
-                InputStream inputStream = httpEntity.getContent();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String readLine;
-                while ((readLine = bufferedReader.readLine()) != null)
-                {
-                    //response = br.readLine();
-                    response = response + readLine;
-                }
-                inputStream.close();
-                bufferedReader.close();
+                /*获取响应体的正文*/
+                response = EntityUtilsHC4.toString(httpEntity);
+                /*消耗掉响应体*/
+                EntityUtilsHC4.consume(httpEntity);
+                /*释放资源*/
                 response1.close();
                 Log.d("client", response);
                 return response;
@@ -72,15 +87,17 @@ public class Client
             e.printStackTrace();
         }
         return response;
+
     }
 
-    public  String doPost(String url, List<NameValuePair> nameValuePairs)
+    public String doPost(String url, List<NameValuePair> nameValuePairs)
     {
         /*response是用来接收获得网页内容*/
         String response = null;
         /*新建一个post请求*/
         HttpPostHC4 httpPost = new HttpPostHC4(url);
-        //拼接参数
+        /*设置超时*/
+        httpPost.setConfig(requestConfig);
         try
         {
             /*对post参数体进行设置*/
@@ -90,28 +107,24 @@ public class Client
             /*对回复内容进行读取*/
             if (response2.getStatusLine().getStatusCode() == HttpStatus.SC_OK)
             {
+
+                /*获得响应体*/
                 HttpEntity httpEntity = response2.getEntity();
-            /*把内容转化成流的形式*/
-                InputStream inputStream = httpEntity.getContent();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                String readLine;
-                while ((readLine = bufferedReader.readLine()) != null)
-                {
-                    response = response + readLine;
-                }
-            /*关闭流*/
-                inputStream.close();
-                bufferedReader.close();
+                /*获取响应体的正文*/
+                response = EntityUtilsHC4.toString(httpEntity);
+
+                /*消耗掉响应体*/
+                EntityUtilsHC4.consume(httpEntity);
+                /*释放资源*/
                 response2.close();
+                Log.d("client", response);
             } else
             {
-                return "连接出错";
+                return Constant.CLIENT_ERROR;
             }
-            Log.d("client", response);
-
         } catch (UnknownHostException e)
         {
-            /*捕获没有网络的出错信息*/
+            /*捕获网络问题的出错信息*/
             return Constant.NO_NET;
         } catch (IOException e)
         {

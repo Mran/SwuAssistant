@@ -18,6 +18,13 @@
         <!--android:src="@android:drawable/sym_def_app_icon"-->
         <!--android:id="@+id/imageView"/>-->
 
+    <ImageButton
+        android:id="@+id/login_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_action_export"
+        android:layout_gravity="right"/>
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"

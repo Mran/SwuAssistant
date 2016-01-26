@@ -37,11 +37,11 @@ public class Grades extends Login
         /*构建目标网址*/
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
-        String respones = Login.client.doPost(url, postNameValuePairs);
+        String respones = client.doPost(url, postNameValuePairs);
         if (!respones.contains(Constant.NO_NET))
         {
-            /*因为获得数据前面有一个"null"所以对获得的内容进行整理*/
-            respones = respones.substring(4);
+//            /*因为获得数据前面有一个"null"所以对获得的内容进行整理*/
+//            respones = respones.substring(4);
             /*构建gson数据来解析json数据*/
             Gson gson = new Gson();
             totalInfo.setGrades(gson.fromJson(respones, GradesData.class));

@@ -41,6 +41,7 @@ public class Login
     /*登录*/
     public String doLogin(String userName, String userPassword)
     {
+
         /*构建post的参数*/
         List<NameValuePair> nameValuePairs = new ArrayList<>();
         nameValuePairs.add(new BasicNameValuePair("goto", gotos));
