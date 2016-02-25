@@ -71,7 +71,7 @@ public class Client
                 EntityUtilsHC4.consume(httpEntity);
                 /*释放资源*/
                 response1.close();
-                Log.d("client_doGet", response);
+                Log.d("client_doGet()", response);
                 return response;
             } else
             {
@@ -117,7 +117,7 @@ public class Client
                 EntityUtilsHC4.consume(httpEntity);
                 /*释放资源*/
                 response2.close();
-                Log.d("client_doPost", response);
+                Log.d("client_doPost()", response);
             } else
             {
                 return Constant.CLIENT_ERROR;
