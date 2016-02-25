@@ -1,6 +1,8 @@
 package com.example.swuassistant;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -65,9 +67,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     break;
                 case Constant.LOGIN_FAILED:
                     /*登陆失败*/
-                    progressDialogLoading.setMessage("登陆失败");
-                    progressDialogLoading.setCancelable(true);
-                    progressDialogLoading.show();
+                    new AlertDialog.Builder(LoginActivity.this).setMessage("用户不存在或密码错误!")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    progressDialogLoading.dismiss();
+                                }
+                            }).setCancelable(false).show();
+
                 default:
                     break;
             }
@@ -101,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         mPasswordView.setText(password);
         if (!userName.equals(""))
         {
-            progressDialogLoading.setMessage("正在登录请稍后");
+            progressDialogLoading.setMessage("正在登录请稍候...");
             progressDialogLoading.setCancelable(false);
             progressDialogLoading.show();
             new Thread(new Runnable()
@@ -115,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     /*尝试登陆并获取登陆信息*/
                     response = login.doLogin(userName, password);
                     Message message = new Message();
+                    //登陆成功的话response=<script type="text/javascript">(opener || parent).handleLoginSuccessed();</script>
                     if (response.contains("Successed"))
                     {
                         /*登陆成功获得名字和学号*/
@@ -134,7 +143,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 }
             }).start();
         }
-
     }
 
     @Override
@@ -144,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         userName = mUserNAmeView.getText().toString();
         password = mPasswordView.getText().toString();
         /*显示登陆过程窗口*/
-        progressDialogLoading.setMessage("正在登录请稍后");
+        progressDialogLoading.setMessage("正在登录请稍候...");
         progressDialogLoading.setCancelable(false);
         progressDialogLoading.show();
         if (v.getId() == R.id.sign_in_button)
