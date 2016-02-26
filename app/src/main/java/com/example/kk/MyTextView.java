@@ -8,9 +8,6 @@ import android.widget.TextView;
  * Created by kk on 2016/2/25.
  */
 public class MyTextView extends TextView {
-    public MyTextView(Context context) {
-        super(context);
-    }
 
     public MyTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
