@@ -7,13 +7,13 @@ import android.widget.TextView;
 /**
  * Created by kk on 2016/2/25.
  */
-public class MyTextView extends TextView {
+public class SlidingTextView extends TextView {
 
-    public MyTextView(Context context, AttributeSet attrs) {
+    public SlidingTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlidingTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
     //拦截View的焦点，设置为true

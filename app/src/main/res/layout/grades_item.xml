@@ -10,7 +10,7 @@
         android:layout_weight="3"
         android:gravity="left|center">
 
-        <com.example.kk.MyTextView
+        <com.example.kk.SlidingTextView
             android:id="@+id/kcmc"
             android:layout_width="160dp"
             android:layout_height="wrap_content"

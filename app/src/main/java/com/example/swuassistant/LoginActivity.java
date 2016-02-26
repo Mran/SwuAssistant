@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     finish();
                     break;
                 case Constant.LOGIN_FAILED:
-                    /*登陆失败*/
+                    //登陆失败
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage("用户不存在或密码错误！")
                             .setPositiveButton("我知道了", new DialogInterface.OnClickListener() {
