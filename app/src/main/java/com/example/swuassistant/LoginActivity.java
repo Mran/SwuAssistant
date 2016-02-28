@@ -1,10 +1,12 @@
 package com.example.swuassistant;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -64,10 +66,70 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     finish();
                     break;
                 case Constant.LOGIN_FAILED:
-                    /*登陆失败*/
-                    progressDialogLoading.setMessage("登陆失败");
-                    progressDialogLoading.setCancelable(true);
-                    progressDialogLoading.show();
+                    //登陆失败
+                    progressDialogLoading.cancel();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setMessage("用户不存在或密码错误！")
+                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    progressDialogLoading.dismiss();
+                                }
+                            }).setCancelable(false)
+                            .create()
+                            .show();
+                    break;
+                case Constant.LOGIN_NO_NET:
+                    progressDialogLoading.cancel();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setMessage("网络错误请检查网络")
+                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    progressDialogLoading.dismiss();
+                                }
+                            }).setCancelable(false)
+                            .create()
+                            .show();
+                    break;
+                case Constant.LOGIN_TIMEOUT:
+                    progressDialogLoading.cancel();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setMessage("登陆超时")
+                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    progressDialogLoading.dismiss();
+                                }
+                            }).setCancelable(false)
+                            .create()
+                            .show();
+                    break;
+                case Constant.LOGIN_CLIENT_ERROR:
+                    progressDialogLoading.cancel();
+                    new AlertDialog.Builder(LoginActivity.this)
+                            .setMessage("连接出现问题")
+                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    dialog.dismiss();
+                                    progressDialogLoading.dismiss();
+                                }
+                            }).setCancelable(false)
+                            .create()
+                            .show();
+                    break;
                 default:
                     break;
             }
@@ -125,12 +187,28 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                         /*发送ui更新*/
                         message.what = Constant.LOGIN_SUCCESE;
                         handler.sendMessage(message);
-                    } else
+                    } else if (response.contains("LoginFailure"))
                     {
-                        /*登陆失败更新ui*/
+                        /*密码错误*/
                         message.what = Constant.LOGIN_FAILED;
                         handler.sendMessage(message);
+                    } else if (response.contains(Constant.CLIENT_TIMEOUT))
+                    {
+                        /*登陆超时*/
+                        message.what = Constant.LOGIN_TIMEOUT;
+                        handler.sendMessage(message);
+                    } else if (response.contains(Constant.CLIENT_ERROR))
+                    {
+                        /*连接错误*/
+                        message.what = Constant.LOGIN_CLIENT_ERROR;
+                        handler.sendMessage(message);
+                    } else if (response.contains(Constant.NO_NET))
+                    {
+                        /*网络错误*/
+                        message.what = Constant.LOGIN_NO_NET;
+                        handler.sendMessage(message);
                     }
+
                 }
             }).start();
         }
@@ -170,10 +248,25 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                         /*发送ui更新*/
                         message.what = Constant.LOGIN_SUCCESE;
                         handler.sendMessage(message);
-                    } else
+                    } else if (response.contains("LoginFailure"))
                     {
-                        /*登陆失败更新ui*/
+                        /*密码错误*/
                         message.what = Constant.LOGIN_FAILED;
+                        handler.sendMessage(message);
+                    } else if (response.contains(Constant.CLIENT_TIMEOUT))
+                    {
+                        /*登陆超时*/
+                        message.what = Constant.LOGIN_TIMEOUT;
+                        handler.sendMessage(message);
+                    } else if (response.contains(Constant.CLIENT_ERROR))
+                    {
+                        /*连接错误*/
+                        message.what = Constant.LOGIN_CLIENT_ERROR;
+                        handler.sendMessage(message);
+                    } else if (response.contains(Constant.NO_NET))
+                    {
+                        /*网络错误*/
+                        message.what = Constant.LOGIN_NO_NET;
                         handler.sendMessage(message);
                     }
                 }

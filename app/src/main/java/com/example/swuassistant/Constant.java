@@ -13,14 +13,22 @@ public class Constant
 
     public static final int LOGIN_SUCCESE = 3;
     public static final int LOGIN_FAILED = 4;
+    public static final int LOGIN_TIMEOUT = 10;
+    public static final int LOGIN_CLIENT_ERROR = 11;
+    public static final int LOGIN_NO_NET = 12;
+
+
     public static final int GRADES_OK = 5;
     public static final int UPDATA = 6;
     public static final int MAIN = 7;
     public static final int SHOW = 8;
     public static final int DISSHOW = 9;
-    public static String NO_NET = "网络出现了问题";
+
+    public static final String NO_NET = "网络出现了问题";
     public static final String CLIENT_OK = "成功";
     public static final String CLIENT_ERROR = "连接出错";
+    public static final String CLIENT_TIMEOUT = "连接超时";
+
     public static final String XQM_ONE = "3";
     public static final String XQM_TWO = "12";
     public static final String XQM_THREE = "16";

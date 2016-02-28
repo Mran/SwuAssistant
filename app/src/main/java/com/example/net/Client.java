@@ -21,6 +21,8 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtilsHC4;
 
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -31,13 +33,13 @@ public class Client
 {
     /*新建一个httpClient连接*/
 
-    private HttpClientBuilder httpClientBuilder;
-    private CloseableHttpClient httpClient;
     /*设置请求配置,设置了连接超时和读取超时*/
     private static RequestConfig requestConfig = RequestConfig.custom()
             .setConnectTimeout(Constant.TIMEOUT)
             .setSocketTimeout(Constant.TIMEOUT)
             .build();
+    private HttpClientBuilder httpClientBuilder;
+    private CloseableHttpClient httpClient;
 
     public Client()
     {
@@ -78,6 +80,10 @@ public class Client
                 return Constant.CLIENT_ERROR;
             }
 
+        } catch (SocketException e)
+        {
+            /*连接超时*/
+            return Constant.CLIENT_TIMEOUT;
         } catch (UnknownHostException e)
         {
             /*捕获没有网络的出错信息*/
@@ -122,6 +128,12 @@ public class Client
             {
                 return Constant.CLIENT_ERROR;
             }
+        } catch (SocketException e)
+        {
+            /*连接超时*/
+            System.out.print("timeout");
+            return Constant.CLIENT_TIMEOUT;
+
         } catch (UnknownHostException e)
         {
             /*捕获网络问题的出错信息*/
