@@ -166,51 +166,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
             progressDialogLoading.setMessage("正在登录请稍后");
             progressDialogLoading.setCancelable(false);
             progressDialogLoading.show();
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                     /*接收返回信息*/
-                    String response;
-                    Login login = new Login();
-                    /*尝试登陆并获取登陆信息*/
-                    response = login.doLogin(userName, password);
-                    Message message = new Message();
-                    if (response.contains("Successed"))
-                    {
-                        /*登陆成功获得名字和学号*/
-                        totalInfo = login.getBasicInfo();
-                        editor.putString("userName", userName);
-                        editor.putString("password", password);
-                        editor.commit();
-                        /*发送ui更新*/
-                        message.what = Constant.LOGIN_SUCCESE;
-                        handler.sendMessage(message);
-                    } else if (response.contains("LoginFailure"))
-                    {
-                        /*密码错误*/
-                        message.what = Constant.LOGIN_FAILED;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.CLIENT_TIMEOUT))
-                    {
-                        /*登陆超时*/
-                        message.what = Constant.LOGIN_TIMEOUT;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.CLIENT_ERROR))
-                    {
-                        /*连接错误*/
-                        message.what = Constant.LOGIN_CLIENT_ERROR;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.NO_NET))
-                    {
-                        /*网络错误*/
-                        message.what = Constant.LOGIN_NO_NET;
-                        handler.sendMessage(message);
-                    }
-
-                }
-            }).start();
+            login();
         }
 
     }
@@ -227,50 +183,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         progressDialogLoading.show();
         if (v.getId() == R.id.sign_in_button)
         {
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                     /*接收返回信息*/
-                    String response;
-                    Login login = new Login();
-                    /*尝试登陆并获取登陆信息*/
-                    response = login.doLogin(userName, password);
-                    Message message = new Message();
-                    if (response.contains("Successed"))
-                    {
-                        /*登陆成功获得名字和学号*/
-                        totalInfo = login.getBasicInfo();
-                        editor.putString("userName", userName);
-                        editor.putString("password", password);
-                        editor.commit();
-                        /*发送ui更新*/
-                        message.what = Constant.LOGIN_SUCCESE;
-                        handler.sendMessage(message);
-                    } else if (response.contains("LoginFailure"))
-                    {
-                        /*密码错误*/
-                        message.what = Constant.LOGIN_FAILED;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.CLIENT_TIMEOUT))
-                    {
-                        /*登陆超时*/
-                        message.what = Constant.LOGIN_TIMEOUT;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.CLIENT_ERROR))
-                    {
-                        /*连接错误*/
-                        message.what = Constant.LOGIN_CLIENT_ERROR;
-                        handler.sendMessage(message);
-                    } else if (response.contains(Constant.NO_NET))
-                    {
-                        /*网络错误*/
-                        message.what = Constant.LOGIN_NO_NET;
-                        handler.sendMessage(message);
-                    }
-                }
-            }).start();
+            login();
         }
     }
 
@@ -283,6 +196,54 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void login()
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                     /*接收返回信息*/
+                String response;
+                Login login = new Login();
+                    /*尝试登陆并获取登陆信息*/
+                response = login.doLogin(userName, password);
+                Message message = new Message();
+                if (response.contains("Successed"))
+                {
+                        /*登陆成功获得名字和学号*/
+                    totalInfo = login.getBasicInfo();
+                    editor.putString("userName", userName);
+                    editor.putString("password", password);
+                    editor.commit();
+                        /*发送ui更新*/
+                    message.what = Constant.LOGIN_SUCCESE;
+                    handler.sendMessage(message);
+                } else if (response.contains("LoginFailure"))
+                {
+                        /*密码错误*/
+                    message.what = Constant.LOGIN_FAILED;
+                    handler.sendMessage(message);
+                } else if (response.contains(Constant.CLIENT_TIMEOUT))
+                {
+                        /*登陆超时*/
+                    message.what = Constant.LOGIN_TIMEOUT;
+                    handler.sendMessage(message);
+                } else if (response.contains(Constant.CLIENT_ERROR))
+                {
+                        /*连接错误*/
+                    message.what = Constant.LOGIN_CLIENT_ERROR;
+                    handler.sendMessage(message);
+                } else if (response.contains(Constant.NO_NET))
+                {
+                        /*网络错误*/
+                    message.what = Constant.LOGIN_NO_NET;
+                    handler.sendMessage(message);
+                }
+            }
+        }).start();
     }
 }
 
