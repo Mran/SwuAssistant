@@ -23,9 +23,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.os.Handler;
 
+import com.example.charge.ChargeFragment;
+import com.example.find_lost.FindLostFragment;
+import com.example.library.LibraryFragrment;
 import com.example.main.MainPageFragment;
+import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
+import com.example.swujw.schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
@@ -46,8 +51,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static SharedPreferences.Editor editor;
     /*主界面布局*/
     private static MainPageFragment mainPageFragment;
+    /*课程表界面布局*/
+    private static ScheduleFragment scheduleFragment;
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
+    /*学习资料界面布局*/
+    private static StudyMaterialsFragment studyMaterialsFragment;
+    /*图书馆界面布局*/
+    private static LibraryFragrment libraryFragrment;
+    /*水电费界面布局*/
+    private static ChargeFragment chargeFragment;
+    /*失物找寻界面布局*/
+    private static FindLostFragment findLostFragment;
     /*对fragmengt进行管理*/
     private FragmentManager fragmentManager;
     private Handler handler = new Handler()
@@ -168,12 +183,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_grades)
         {
             fragmentSelection(id);
-        } else if (id == R.id.nav_class_table)
+        } else if (id == R.id.nav_schedule)
         {
-            freshMenuStatus = Constant.DISSHOW;
-            getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-            invalidateOptionsMenu();
-
+            fragmentSelection(id);
+        } else if (id == R.id.nav_study_materials)
+        {
+            fragmentSelection(id);
+        } else if (id == R.id.nav_library)
+        {
+            fragmentSelection(id);
+        } else if (id == R.id.nav_charge)
+        {
+            fragmentSelection(id);
+        } else if (id == R.id.nav_find_lost)
+        {
+            fragmentSelection(id);
         } else if (id == R.id.nav_share)
         {
 
@@ -241,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
             case R.id.nav_main:
+                /*设置刷新按钮不可见*/
                 freshMenuStatus = Constant.DISSHOW;
                 getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
                 invalidateOptionsMenu();
@@ -274,6 +299,91 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 break;
+            case R.id.nav_schedule:
+                /*设置刷新按钮可见*/
+                freshMenuStatus = Constant.SHOW;
+                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+                invalidateOptionsMenu();
+
+                if (scheduleFragment == null)
+                {
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    scheduleFragment = new ScheduleFragment();
+                    transaction.add(R.id.content, scheduleFragment);
+                } else
+                {
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(scheduleFragment);
+                }
+                break;
+            case R.id.nav_charge:
+                /*设置刷新按钮可见*/
+                freshMenuStatus = Constant.SHOW;
+                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+                invalidateOptionsMenu();
+
+                if (chargeFragment == null)
+                {
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    chargeFragment = new ChargeFragment();
+                    transaction.add(R.id.content, chargeFragment);
+                } else
+                {
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(chargeFragment);
+                }
+                break;
+            case R.id.nav_study_materials:
+                /*设置刷新按钮可见*/
+                freshMenuStatus = Constant.SHOW;
+                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+                invalidateOptionsMenu();
+
+                if (studyMaterialsFragment == null)
+                {
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    studyMaterialsFragment = new StudyMaterialsFragment();
+                    transaction.add(R.id.content, studyMaterialsFragment);
+                } else
+                {
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(studyMaterialsFragment);
+                }
+                break;
+            case R.id.nav_library:
+                /*设置刷新按钮可见*/
+                freshMenuStatus = Constant.SHOW;
+                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+                invalidateOptionsMenu();
+
+                if (libraryFragrment == null)
+                {
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    libraryFragrment = new LibraryFragrment();
+                    transaction.add(R.id.content, libraryFragrment);
+                } else
+                {
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(libraryFragrment);
+                }
+                break;
+            case R.id.nav_find_lost:
+                /*设置刷新按钮可见*/
+                freshMenuStatus = Constant.SHOW;
+                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+                invalidateOptionsMenu();
+
+                if (findLostFragment == null)
+                {
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    findLostFragment = new FindLostFragment();
+                    transaction.add(R.id.content, findLostFragment);
+                } else
+                {
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(findLostFragment);
+                }
+                break;
             default:
                 break;
         }
@@ -289,6 +399,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (gradesFragment != null)
         {
             fragmentTransaction.hide(gradesFragment);
+        }
+        if (scheduleFragment != null)
+        {
+            fragmentTransaction.hide(scheduleFragment);
+        }
+        if (studyMaterialsFragment != null)
+        {
+            fragmentTransaction.hide(studyMaterialsFragment);
+        }
+        if (libraryFragrment != null)
+        {
+            fragmentTransaction.hide(libraryFragrment);
+        }
+        if (chargeFragment != null)
+        {
+            fragmentTransaction.hide(chargeFragment);
+        }
+        if (findLostFragment != null)
+        {
+            fragmentTransaction.hide(findLostFragment);
         }
     }
 
