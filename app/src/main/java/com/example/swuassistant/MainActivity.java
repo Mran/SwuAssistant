@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nameTextView.setText(totalInfo.getName());
 
         navigationView.setNavigationItemSelectedListener(this);
-
+        fragmentSelection(R.id.nav_main);
 
     }
 

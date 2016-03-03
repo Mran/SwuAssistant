@@ -1,5 +1,6 @@
 package com.example.swujw.grade;
 
+import com.example.net.Client;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.Login;
 import com.example.swuassistant.Constant;
@@ -9,6 +10,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class Grades extends Login
         List<NameValuePair> postNameValuePairs = new ArrayList<>();
         postNameValuePairs.add(new BasicNameValuePair("_search", "false"));
         /*时间*/
-        postNameValuePairs.add(new BasicNameValuePair("nd", "1451922678091"));
+        postNameValuePairs.add(new BasicNameValuePair("nd", Long.toString(new Date().getTime())));
         postNameValuePairs.add(new BasicNameValuePair("queryModel.currentPage", "1"));
         /*一次请求的总数据个数*/
         postNameValuePairs.add(new BasicNameValuePair("queryModel.showCount", "1000"));
@@ -40,8 +42,7 @@ public class Grades extends Login
         String respones = client.doPost(url, postNameValuePairs);
         if (!respones.contains(Constant.NO_NET))
         {
-//            /*因为获得数据前面有一个"null"所以对获得的内容进行整理*/
-//            respones = respones.substring(4);
+
             /*构建gson数据来解析json数据*/
             Gson gson = new Gson();
             totalInfo.setGrades(gson.fromJson(respones, GradesData.class));
@@ -63,12 +64,7 @@ public class Grades extends Login
         /*已获得的成绩信息进行整理*/
         GradesData gradesData = totalInfo.getGrades();
         /*设置列表的头部*/
-//        GradeItem gradeItemHeader = new GradeItem();
-//        gradeItemHeader.setKcmc("科目   ");
-//        gradeItemHeader.setCj("成绩");
-//        gradeItemHeader.setXf("学分");
-//        gradeItemHeader.setJd("绩点");
-//        gradeItemList.add(gradeItemHeader);
+
         GradesData.Items items;
         for (int i = 0; i < gradesData.getItems().size(); i++)
         {

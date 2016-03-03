@@ -34,7 +34,7 @@ public class Client
     /*新建一个httpClient连接*/
 
     /*设置请求配置,设置了连接超时和读取超时*/
-    private static RequestConfig requestConfig = RequestConfig.custom()
+    private RequestConfig requestConfig = RequestConfig.custom()
             .setConnectTimeout(Constant.TIMEOUT)
             .setSocketTimeout(Constant.TIMEOUT)
             .build();
@@ -73,13 +73,17 @@ public class Client
                 EntityUtilsHC4.consume(httpEntity);
                 /*释放资源*/
                 response1.close();
-                Log.d("client", response);
+                Log.d("client_doGet()", response);
                 return response;
             } else
             {
                 return Constant.CLIENT_ERROR;
             }
 
+        } catch (SocketTimeoutException e)
+        {
+            /*连接超时*/
+            return Constant.CLIENT_TIMEOUT;
         } catch (SocketException e)
         {
             /*连接超时*/
@@ -123,11 +127,15 @@ public class Client
                 EntityUtilsHC4.consume(httpEntity);
                 /*释放资源*/
                 response2.close();
-                Log.d("client", response);
+                Log.d("client_doPost()", response);
             } else
             {
                 return Constant.CLIENT_ERROR;
             }
+        } catch (SocketTimeoutException e)
+        {
+            /*连接超时*/
+            return Constant.CLIENT_TIMEOUT;
         } catch (SocketException e)
         {
             /*连接超时*/

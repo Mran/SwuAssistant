@@ -66,6 +66,7 @@ public class Login
         /*判断是否正确获得结果*/
         if (!respones.contains(Constant.NO_NET))
         {
+            Log.d("client", "setBasicInfo() id==>" + respones);
             /*对结果进行切割获得学号*/
             String swuidtmple = respones.substring(respones.indexOf("UserKey\" value=\""));
             /*将结果保存进totalInfo*/
@@ -78,6 +79,7 @@ public class Login
         /*判断是否正确获得结果*/
         if (!response1.contains(Constant.NO_NET))
         {
+            Log.d("client", "setBasicInfo() name==>" + response1);
            /*对结果进行切割获得姓名*/
             String nametmple = response1.substring(response1.indexOf("heading\">"));
             /*将结果保存进totalInfo*/
@@ -87,5 +89,9 @@ public class Login
         return Constant.CLIENT_OK;
     }
 
+    public Client getClient()
+    {
+        return client;
+    }
 }
 

@@ -42,9 +42,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     private static ProgressDialog progressDialogLoading;
 
     private static TableLayout showGradesLayout;
-    /*登陆*/
-    private static Login login = new Login();
-    private static Grades grades = new Grades();
+
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
     /*listview的适配器*/
@@ -125,9 +123,11 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         {
 
             xnm = Constant.ALL_XNM[position];
+            getGrades();
         } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/
         {
             xqm = Constant.ALL_XQM[position];
+            getGrades();
         }
     }
 
@@ -139,9 +139,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
     private void getGrades()
     {
-        /*如果是第一次获得成绩,即列表为空*/
-        if (gradeItemList.size() == 0)
-        {
+
                 /*设置等待窗口文字*/
             progressDialogLoading.setMessage("正在查询请稍后");
                 /*设置不可取消*/
@@ -155,10 +153,11 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                 public void run()
                 {
 
-                    String response = login.doLogin(userName, password);
+
+                    Grades grades = new Grades();
                     Message message = new Message();
 
-                    if (response.contains("Successed"))
+                    if (1 != 0)
                     {
                             /*登陆成功,读取信息*/
 //                            totalInfo = login.getBasicInfo();
@@ -173,11 +172,6 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                     }
                 }
             }).start();
-        } else
-        {
-            Message message = new Message();
-            message.what = Constant.GRADES_OK;
-            handler.sendMessage(message);
-        }
+
     }
 }

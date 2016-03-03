@@ -4,9 +4,39 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="课程表正在开发"/>
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sxnm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/xnm"/>
+
+
+        <Spinner
+            android:id="@+id/sxqm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/xqm"/>
+
+        <Button
+            android:id="@+id/cx"
+            android:text="查询"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/schedule_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
 </LinearLayout>

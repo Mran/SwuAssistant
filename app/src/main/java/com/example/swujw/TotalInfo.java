@@ -1,6 +1,8 @@
 package com.example.swujw;
 
 import com.example.swujw.grade.GradesData;
+import com.example.swujw.schedule.ScheduleData;
+import com.example.swujw.schedule.ScheduleItem;
 
 import java.util.List;
 import java.util.Map;
@@ -14,8 +16,10 @@ public class TotalInfo
     private static String name = null;
     //    学号
     private static String swuID = null;
-//    private static Map<String, List<String>> gradesData = null;
-    private static Map<String, List<String>> classScheedul = null;
+
+    /*课程表*/
+    private static ScheduleData scheduleData;
+
     /*成绩*/
     private static GradesData gradesData;
 
@@ -47,5 +51,15 @@ public class TotalInfo
     public GradesData getGrades()
     {
         return gradesData;
+    }
+
+    public ScheduleData getScheduleData()
+    {
+        return scheduleData;
+    }
+
+    public void setScheduleData(ScheduleData scheduleData)
+    {
+        TotalInfo.scheduleData = scheduleData;
     }
 }

@@ -4,54 +4,55 @@
               android:layout_height="match_parent"
               android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/kcmc"
-        android:layout_width="160dp"
-        android:layout_height="50dp"
-android:paddingLeft="16dp"
-        android:height="35dp"
-        android:ellipsize="marquee"
-        android:focusable="false"
-        android:focusableInTouchMode="true"
-        android:maxEms="3"
-        android:textSize="20dp"
-        />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="3"
+        android:gravity="left|center">
 
-    <TextView
-        android:id="@+id/cj"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/kcmc"
-        android:layout_weight="1"
-        android:height="35dp"
-        android:ellipsize="end"
+        <com.example.kk.SlidingTextView
+            android:id="@+id/kcmc"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:paddingLeft="16dp"
+            android:scrollbars="horizontal"
+            android:singleLine="true"
+            android:textSize="20dp"/>
+    </LinearLayout>
 
-        android:textSize="20dp"
-        android:gravity="center_horizontal"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="3"
+        android:gravity="right|center">
 
-    <TextView
-        android:id="@+id/jd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_toRightOf="@id/cj"
-        android:layout_weight="1"
-        android:height="35dp"
-        android:ellipsize="end"
+        <TextView
+            android:id="@+id/cj"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/kcmc"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:textSize="20dp"/>
 
-        android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/jd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/cj"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:textSize="20dp"/>
 
-    <TextView
-        android:id="@+id/xf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_toRightOf="@id/jd"
-
-        android:layout_weight="1"
-        android:height="35dp"
-        android:ellipsize="end"
-        android:textSize="20dp"/>
-
-
+        <TextView
+            android:id="@+id/xf"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/jd"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:textSize="20dp"/>
+    </LinearLayout>
 </LinearLayout>
