@@ -60,12 +60,11 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemSele
         {
             switch (msg.what)
             {
-                /*成功获取成绩*/
-                case Constant.GRADES_OK:
+                /*成功获取课表*/
+                case Constant.SCHEDULE_OK:
                     /*关闭登陆窗口*/
                     progressDialogLoading.cancel();
-                    /*显示成绩的布局*/
-//                    showGradesLayout.setVisibility(View.VISIBLE);
+
                     if (adapter == null)
                     {
                         /*设置listview适配器*/
@@ -107,7 +106,6 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemSele
         /*学期下拉列表的默认值*/
         spinnerXqm.setSelection(2, true);
         progressDialogLoading = new ProgressDialog(scheduleLayout.getContext());
-//        showGradesLayout = (TableLayout) scheduleLayout.findViewById(R.id.show_gaades_layout);
         MainActivity mainActivity = (MainActivity) getActivity();
         userName = mainActivity.getUserName();
         password = mainActivity.getPassword();
@@ -162,7 +160,7 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemSele
 //                            totalInfo = login.getBasicInfo();
                     schedule.setSchedule(totalInfo, xnm, xqm);
                     scheduleItemList = schedule.getScheduleList(totalInfo);
-                    message.what = Constant.GRADES_OK;
+                    message.what = Constant.SCHEDULE_OK;
                     handler.sendMessage(message);
                 } else
                 {
