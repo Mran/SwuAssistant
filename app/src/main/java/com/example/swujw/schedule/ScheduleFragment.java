@@ -109,7 +109,7 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemSele
         MainActivity mainActivity = (MainActivity) getActivity();
         userName = mainActivity.getUserName();
         password = mainActivity.getPassword();
-        getSchedule();
+//        getSchedule();
         return scheduleLayout;
     }
 

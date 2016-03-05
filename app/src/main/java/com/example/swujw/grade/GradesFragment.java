@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class GradesFragment extends Fragment implements AdapterView.OnItemSelectedListener
+public class GradesFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener
 
 {
     /*保存成绩的列表,用于listview*/
@@ -41,7 +42,6 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
 
-    private static TableLayout showGradesLayout;
 
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
@@ -54,6 +54,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     /*用户当前选择的学期和学年*/
     private static String xnm;
     private static String xqm;
+    private static Button buttonGradesInquire;
     View gradesLayout;
     private Handler handler = new Handler()
     {
@@ -65,8 +66,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                 case Constant.GRADES_OK:
                     /*关闭登陆窗口*/
                     progressDialogLoading.cancel();
-                    /*显示成绩的布局*/
-                    showGradesLayout.setVisibility(View.VISIBLE);
+
                     if (adapter == null)
                     {
                         /*设置listview适配器*/
@@ -107,11 +107,12 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         /*学期下拉列表的默认值*/
         spinnerXqm.setSelection(1, true);
         progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
-        showGradesLayout = (TableLayout) gradesLayout.findViewById(R.id.show_gaades_layout);
+
         MainActivity mainActivity = (MainActivity) getActivity();
         userName = mainActivity.getUserName();
         password = mainActivity.getPassword();
-        getGrades();
+        buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
+        buttonGradesInquire.setOnClickListener(this);
         return gradesLayout;
     }
 
@@ -123,11 +124,11 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         {
 
             xnm = Constant.ALL_XNM[position];
-            getGrades();
+
         } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/
         {
             xqm = Constant.ALL_XQM[position];
-            getGrades();
+
         }
     }
 
@@ -173,5 +174,14 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                 }
             }).start();
 
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        if (v.getId() == R.id.grade_inquire)
+        {
+            getGrades();
+        }
     }
 }

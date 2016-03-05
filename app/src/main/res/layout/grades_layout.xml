@@ -26,6 +26,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:entries="@array/xqm"/>
+
+            <Button
+                android:id="@+id/grade_inquire"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查询"/>
         </LinearLayout>
 
 

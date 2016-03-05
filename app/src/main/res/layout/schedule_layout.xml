@@ -5,7 +5,7 @@
               android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
@@ -19,17 +19,17 @@
 
         <Spinner
             android:id="@+id/sxqm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:entries="@array/xqm"/>
 
         <Button
             android:id="@+id/cx"
-            android:text="查询"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="查询"/>
     </LinearLayout>
 
     <ListView
