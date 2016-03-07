@@ -307,12 +307,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (scheduleFragment == null)
                 {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    // 如果scheduleFragment为空，则创建一个并添加到界面上
                     scheduleFragment = new ScheduleFragment();
                     transaction.add(R.id.content, scheduleFragment);
                 } else
                 {
-                    // 如果GradesFragment不为空，则直接将它显示出来
+                    // 如果scheduleFragment不为空，则直接将它显示出来
                     transaction.show(scheduleFragment);
                 }
                 break;
@@ -324,12 +324,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (chargeFragment == null)
                 {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    // 如果chargeFragment为空，则创建一个并添加到界面上
                     chargeFragment = new ChargeFragment();
                     transaction.add(R.id.content, chargeFragment);
                 } else
                 {
-                    // 如果GradesFragment不为空，则直接将它显示出来
+                    // 如果chargeFragment不为空，则直接将它显示出来
                     transaction.show(chargeFragment);
                 }
                 break;
@@ -341,12 +341,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (studyMaterialsFragment == null)
                 {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
                     studyMaterialsFragment = new StudyMaterialsFragment();
                     transaction.add(R.id.content, studyMaterialsFragment);
                 } else
                 {
-                    // 如果GradesFragment不为空，则直接将它显示出来
+                    // 如果studyMaterialsFragment不为空，则直接将它显示出来
                     transaction.show(studyMaterialsFragment);
                 }
                 break;
@@ -358,12 +358,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (libraryFragrment == null)
                 {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    // 如果libraryFragrment为空，则创建一个并添加到界面上
                     libraryFragrment = new LibraryFragrment();
                     transaction.add(R.id.content, libraryFragrment);
                 } else
                 {
-                    // 如果GradesFragment不为空，则直接将它显示出来
+                    // 如果libraryFragrment不为空，则直接将它显示出来
                     transaction.show(libraryFragrment);
                 }
                 break;
@@ -375,12 +375,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (findLostFragment == null)
                 {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    // 如果findLostFragment为空，则创建一个并添加到界面上
                     findLostFragment = new FindLostFragment();
                     transaction.add(R.id.content, findLostFragment);
                 } else
                 {
-                    // 如果GradesFragment不为空，则直接将它显示出来
+                    // 如果findLostFragment不为空，则直接将它显示出来
                     transaction.show(findLostFragment);
                 }
                 break;
