@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -42,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
-
-    /*刷新菜单按钮状态,初始化为不显示*/
-    private static int freshMenuStatus = Constant.DISSHOW;
+//
+//    /*刷新菜单按钮状态,初始化为不显示*/
+//    private static int freshMenuStatus = Constant.DISSHOW;
 
     /*用户信息的本地储存文件*/
     private static SharedPreferences sharedPreferences;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
     private static FindLostFragment findLostFragment;
+    private static int fragmentPosition = R.id.nav_main;
     /*对fragmengt进行管理*/
     private FragmentManager fragmentManager;
     private Handler handler = new Handler()
@@ -116,8 +119,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nameTextView.setText(totalInfo.getName());
 
         navigationView.setNavigationItemSelectedListener(this);
-        fragmentSelection(R.id.nav_main);
+//
+        fragmentStateCheck(savedInstanceState);
 
+    }
+
+    private void fragmentStateCheck(Bundle saveInstanceState)
+    {
+        if (saveInstanceState == null)
+        {
+
+            fragmentSelection(fragmentPosition);
+        } else
+        {
+            if (mainPageFragment != null)
+            {
+                mainPageFragment = (MainPageFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
+            }
+            if (scheduleFragment != null)
+            {
+                scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
+            }
+            if (gradesFragment != null)
+            {
+                gradesFragment = (GradesFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[2]);
+            }
+            if (studyMaterialsFragment != null)
+            {
+                studyMaterialsFragment = (StudyMaterialsFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[3]);
+            }
+            if (findLostFragment != null)
+            {
+                findLostFragment = (FindLostFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[4]);
+            }
+            if (chargeFragment != null)
+            {
+                chargeFragment = (ChargeFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[5]);
+            }
+            if (libraryFragrment != null)
+            {
+                libraryFragrment = (LibraryFragrment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
+            }
+            hideFragments(fragmentManager.beginTransaction());
+            fragmentSelection(fragmentPosition);
+        }
     }
 
     @Override
@@ -146,12 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         super.onPrepareOptionsMenu(menu);
-        MenuItem menuItem = menu.findItem(R.id.fresh);
-        if (freshMenuStatus != Constant.SHOW)
-        {
-            menuItem.setVisible(false);
-
-        }
         return true;
     }
 
@@ -265,129 +304,137 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
             case R.id.nav_main:
-                /*设置刷新按钮不可见*/
-                freshMenuStatus = Constant.DISSHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
+//                设置刷新按钮不可见
+//                freshMenuStatus = Constant.DISSHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
 
                 if (mainPageFragment == null)
                 {
                     // 如果mainPageFragment为空，则创建一个并添加到界面上
                     mainPageFragment = new MainPageFragment();
-                    transaction.add(R.id.content, mainPageFragment);
+                    transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
                 } else
                 {
                     // 如果mainPageFragment不为空，则直接将它显示出来
                     transaction.show(mainPageFragment);
                 }
-                break;
-            case R.id.nav_grades:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
-
-                if (gradesFragment == null)
-                {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
-                    gradesFragment = new GradesFragment();
-                    transaction.add(R.id.content, gradesFragment);
-                } else
-                {
-                    // 如果GradesFragment不为空，则直接将它显示出来
-                    transaction.show(gradesFragment);
-                }
-
+                /*记录当前显示页面*/
+                fragmentPosition = id;
                 break;
             case R.id.nav_schedule:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
 
                 if (scheduleFragment == null)
                 {
                     // 如果scheduleFragment为空，则创建一个并添加到界面上
                     scheduleFragment = new ScheduleFragment();
-                    transaction.add(R.id.content, scheduleFragment);
+                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
                 } else
                 {
                     // 如果scheduleFragment不为空，则直接将它显示出来
                     transaction.show(scheduleFragment);
                 }
+                /*记录当前显示页面*/
+                fragmentPosition = id;
                 break;
-            case R.id.nav_charge:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
+            case R.id.nav_grades:
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
 
-                if (chargeFragment == null)
+                if (gradesFragment == null)
                 {
-                    // 如果chargeFragment为空，则创建一个并添加到界面上
-                    chargeFragment = new ChargeFragment();
-                    transaction.add(R.id.content, chargeFragment);
+                    // 如果GradesFragment为空，则创建一个并添加到界面上
+                    gradesFragment = new GradesFragment();
+                    transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
                 } else
                 {
-                    // 如果chargeFragment不为空，则直接将它显示出来
-                    transaction.show(chargeFragment);
+                    // 如果GradesFragment不为空，则直接将它显示出来
+                    transaction.show(gradesFragment);
                 }
+                fragmentPosition = id;
                 break;
             case R.id.nav_study_materials:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
 
                 if (studyMaterialsFragment == null)
                 {
                     // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
                     studyMaterialsFragment = new StudyMaterialsFragment();
-                    transaction.add(R.id.content, studyMaterialsFragment);
+                    transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
                 } else
                 {
                     // 如果studyMaterialsFragment不为空，则直接将它显示出来
                     transaction.show(studyMaterialsFragment);
                 }
-                break;
-            case R.id.nav_library:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
-
-                if (libraryFragrment == null)
-                {
-                    // 如果libraryFragrment为空，则创建一个并添加到界面上
-                    libraryFragrment = new LibraryFragrment();
-                    transaction.add(R.id.content, libraryFragrment);
-                } else
-                {
-                    // 如果libraryFragrment不为空，则直接将它显示出来
-                    transaction.show(libraryFragrment);
-                }
+                fragmentPosition = id;
                 break;
             case R.id.nav_find_lost:
-                /*设置刷新按钮可见*/
-                freshMenuStatus = Constant.SHOW;
-                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-                invalidateOptionsMenu();
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
 
                 if (findLostFragment == null)
                 {
                     // 如果findLostFragment为空，则创建一个并添加到界面上
                     findLostFragment = new FindLostFragment();
-                    transaction.add(R.id.content, findLostFragment);
+                    transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
                 } else
                 {
                     // 如果findLostFragment不为空，则直接将它显示出来
                     transaction.show(findLostFragment);
                 }
+                fragmentPosition = id;
+                break;
+            case R.id.nav_charge:
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
+
+                if (chargeFragment == null)
+                {
+                    // 如果chargeFragment为空，则创建一个并添加到界面上
+                    chargeFragment = new ChargeFragment();
+                    transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
+                } else
+                {
+                    // 如果chargeFragment不为空，则直接将它显示出来
+                    transaction.show(chargeFragment);
+                }
+                fragmentPosition = id;
+                break;
+            case R.id.nav_library:
+//                /*设置刷新按钮可见*/
+//                freshMenuStatus = Constant.SHOW;
+//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+//                invalidateOptionsMenu();
+
+                if (libraryFragrment == null)
+                {
+                    // 如果libraryFragrment为空，则创建一个并添加到界面上
+                    libraryFragrment = new LibraryFragrment();
+                    transaction.add(R.id.content, libraryFragrment, Constant.FRAGMENTTAG[6]);
+                } else
+                {
+                    // 如果libraryFragrment不为空，则直接将它显示出来
+                    transaction.show(libraryFragrment);
+                }
+                fragmentPosition = id;
                 break;
             default:
                 break;
         }
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     private void hideFragments(FragmentTransaction fragmentTransaction)

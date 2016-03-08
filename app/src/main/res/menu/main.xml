@@ -7,11 +7,11 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
-    <item
-        android:id="@+id/fresh"
-        android:icon="@mipmap/ic_action_reload"
-        android:orderInCategory="99"
-        android:title="刷新"
-        app:showAsAction="always"
-        />
+    <!--<item-->
+    <!--android:id="@+id/fresh"-->
+    <!--android:icon="@mipmap/ic_action_reload"-->
+    <!--android:orderInCategory="99"-->
+    <!--android:title="刷新"-->
+    <!--app:showAsAction="always"-->
+    <!--/>-->
 </menu>
