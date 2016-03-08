@@ -20,23 +20,16 @@ import java.util.List;
 * 3.获取基本信息(学号、姓名)*/
 public class Login
 {
-    //    校内门户地址
-    private static final String urlUrp = "http://urp6.swu.edu.cn/login.portal";
-    //    用户信息发送目标地址
-    private static final String urlLogin = "http://urp6.swu.edu.cn/userPasswordValidate.portal";
-    //    登陆后跳转网页
-    private static final String urlPortal = "http://urp6.swu.edu.cn/index.portal";
-    //    #教务系统网站 Ems意为swu Educational management system
-    private static final String urlEms = "http://jw.swu.edu.cn/jwglxt/idstar/index.jsp";
-    private static final String urlJW = "http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html";
-    /*登陆校内门户是post的两个重要参数*/
-    private static final String gotos = "http://urp6.swu.edu.cn/loginSuccess.portal";
-    private static final String gotoOnFail = "http://urp6.swu.edu.cn/loginFailure.portal";
+
     /*新建一个连接*/
-    public static Client client = new Client();
+    public Client client;
     /*TotalInfo类用来保存用户的基本信息*/
     private static TotalInfo totalInfo = new TotalInfo();
 
+    public Login()
+    {
+        client = new Client();
+    }
 
     /*登录*/
     public String doLogin(String userName, String userPassword)
@@ -44,22 +37,23 @@ public class Login
 
         /*构建post的参数*/
         List<NameValuePair> nameValuePairs = new ArrayList<>();
-        nameValuePairs.add(new BasicNameValuePair("goto", gotos));
-        nameValuePairs.add(new BasicNameValuePair("gotoOnFail", gotoOnFail));
+        nameValuePairs.add(new BasicNameValuePair("goto", Constant.gotos));
+        nameValuePairs.add(new BasicNameValuePair("gotoOnFail", Constant.gotoOnFail));
         nameValuePairs.add(new BasicNameValuePair("Login.Token1", userName));
         nameValuePairs.add(new BasicNameValuePair("Login.Token2", userPassword));
-        return client.doPost(urlLogin, nameValuePairs);
+        return client.doPost(Constant.urlLogin, nameValuePairs);
     }
 
-    public  TotalInfo getBasicInfo()
+    public TotalInfo getBasicInfo()
     {
         /*进入教务系统*/
-        client.doGet(urlEms);
+        client.doGet(Constant.urlEms);
         /*获得基本信息名字和学号*/
         setBasicInfo(totalInfo, client);
         return totalInfo;
     }
-    private  String setBasicInfo(TotalInfo totalInfo, Client client)
+
+    private String setBasicInfo(TotalInfo totalInfo, Client client)
     {
         /*获得学号*/
         String respones = client.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html");

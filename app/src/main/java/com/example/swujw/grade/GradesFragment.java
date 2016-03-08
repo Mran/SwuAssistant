@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 
+import com.example.net.Client;
 import com.example.swuassistant.Constant;
 import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
@@ -142,37 +143,36 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     {
 
                 /*设置等待窗口文字*/
-            progressDialogLoading.setMessage("正在查询请稍后");
+        progressDialogLoading.setMessage("正在查询请稍后");
                 /*设置不可取消*/
-            progressDialogLoading.setCancelable(false);
+        progressDialogLoading.setCancelable(false);
                 /*显示等待窗口*/
-            progressDialogLoading.show();
+        progressDialogLoading.show();
                 /*开启线程开始查询*/
-            new Thread(new Runnable()
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
             {
-                @Override
-                public void run()
+
+                Login login = new Login();
+                ;
+                Message message = new Message();
+
+                if (login.doLogin(userName, password).contains("LoginSuccessed"))
                 {
-
-
-                    Grades grades = new Grades();
-                    Message message = new Message();
-
-                    if (1 != 0)
-                    {
-                            /*登陆成功,读取信息*/
-//                            totalInfo = login.getBasicInfo();
-                        grades.setGrades(totalInfo, xnm, xqm);
-                        gradeItemList = grades.getGradesList(totalInfo);
-                        message.what = Constant.GRADES_OK;
-                        handler.sendMessage(message);
-                    } else
-                    {
-                        message.what = Constant.LOGIN_FAILED;
-                        handler.sendMessage(message);
-                    }
+                    Grades grades = new Grades(login.client);
+                    grades.setGrades(totalInfo, xnm, xqm);
+                    gradeItemList = grades.getGradesList(totalInfo);
+                    message.what = Constant.GRADES_OK;
+                    handler.sendMessage(message);
+                } else
+                {
+                    message.what = Constant.LOGIN_FAILED;
+                    handler.sendMessage(message);
                 }
-            }).start();
+            }
+        }).start();
 
     }
 

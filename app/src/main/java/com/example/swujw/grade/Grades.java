@@ -16,9 +16,16 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/1/23.
  */
-public class Grades extends Login
+public class Grades
 {
+    private Client client;
 
+    public Grades(Client client)
+    {
+        this.client = client;
+        /*进入教务系统*/
+        client.doGet(Constant.urlEms);
+    }
     public String setGrades(TotalInfo totalInfo, String xnm, String xqm)
     {
         /*构建一个post的参数*/

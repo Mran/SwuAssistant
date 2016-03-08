@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.net.Client;
 import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
 

@@ -1,5 +1,6 @@
 package com.example.swujw.schedule;
 
+import com.example.net.Client;
 import com.example.swuassistant.Constant;
 import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
@@ -14,8 +15,16 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/3/4.
  */
-public class Schedule extends Login
+public class Schedule
 {
+    private Client client;
+
+    public Schedule(Client client)
+    {
+        this.client = client;
+        /*进入教务系统*/
+        client.doGet(Constant.urlEms);
+    }
     public String setSchedule(TotalInfo totalInfo, String xnm, String xqm)
     {
         /*构建一个post的参数*/

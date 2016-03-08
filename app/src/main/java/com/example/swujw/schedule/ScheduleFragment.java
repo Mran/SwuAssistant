@@ -17,7 +17,9 @@ import android.widget.Spinner;
 import com.example.swuassistant.Constant;
 import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
+import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
+import com.example.swujw.grade.Grades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,13 +153,14 @@ public class ScheduleFragment extends Fragment implements AdapterView.OnItemSele
             public void run()
             {
 
-                Schedule schedule = new Schedule();
+                Login login = new Login();
+                login.doLogin(userName, password);
+
                 Message message = new Message();
 
-                if (1 != 0)
+                if (login.doLogin(userName, password).contains("LoginSuccessed"))
                 {
-                            /*登陆成功,读取信息*/
-//                            totalInfo = login.getBasicInfo();
+                    Schedule schedule = new Schedule(login.client);
                     schedule.setSchedule(totalInfo, xnm, xqm);
                     scheduleItemList = schedule.getScheduleList(totalInfo);
                     message.what = Constant.SCHEDULE_OK;
