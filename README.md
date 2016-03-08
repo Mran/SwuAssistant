@@ -1,7 +1,7 @@
 # SwuAssistant
 
 提供给西南大学学子的西大助手
-[Demo下载](http://115.28.246.103:8002/app-release.apk) 
+[Demo下载](https://raw.githubusercontent.com/Mran/SwuAssistant/master/SwuAssistantDemo.apk) 
 ## 目前实现的功能有
 ### 登录教务系统
 
