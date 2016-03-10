@@ -2,7 +2,6 @@ package com.example.swujw.schedule;
 
 import com.example.net.Client;
 import com.example.swuassistant.Constant;
-import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
 import com.google.gson.Gson;
 
@@ -64,6 +63,11 @@ public class Schedule
             scheduleItem.setJc(kbList.getJc());
             scheduleItem.setXqmc(kbList.getXqmc());
             scheduleItem.setZcd(kbList.getZcd());
+            String temp[] = kbList.getJcor().split("-");
+            scheduleItem.setStart(Integer.valueOf(temp[0]));
+            scheduleItem.setEnd(Integer.valueOf(temp[1]));
+            scheduleItem.setClassCount(scheduleItem.getEnd() - scheduleItem.getStart() + 1);
+            scheduleItem.setXqj(Integer.valueOf(kbList.getXqj()));
             scheduleItemList.add(scheduleItem);
         }
         return scheduleItemList;

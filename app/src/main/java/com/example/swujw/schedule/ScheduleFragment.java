@@ -19,7 +19,6 @@ import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
 import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
-import com.example.swujw.grade.Grades;
 
 import java.util.ArrayList;
 import java.util.List;

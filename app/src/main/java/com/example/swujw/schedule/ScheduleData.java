@@ -27,7 +27,8 @@ public class ScheduleData
         private String xqmc;
         /*上课周*/
         private String zcd;
-
+        /*上课周数字*/
+        private String xqj;
         public String getKcmc()
         {
             return kcmc;
@@ -68,6 +69,11 @@ public class ScheduleData
             return zcd;
         }
 
+        public String getXqj()
+        {
+            return xqj;
+        }
+
         public void setCdmc(String cdmc)
         {
             this.cdmc = cdmc;
@@ -106,6 +112,11 @@ public class ScheduleData
         public void setZcd(String zcd)
         {
             this.zcd = zcd;
+        }
+
+        public void setXqj(String xqj)
+        {
+            this.xqj = xqj;
         }
     }
 

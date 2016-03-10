@@ -32,7 +32,8 @@ import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
-import com.example.swujw.schedule.ScheduleFragment;
+//import com.example.swujw.schedule.ScheduleFragment;
+import com.example.swujw.schedule.ScheduleTableFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
@@ -54,7 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*主界面布局*/
     private static MainPageFragment mainPageFragment;
     /*课程表界面布局*/
-    private static ScheduleFragment scheduleFragment;
+//    private static ScheduleFragment scheduleFragment;
+    private static ScheduleTableFragment scheduleTableFragment;
+
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
     /*学习资料界面布局*/
@@ -136,9 +139,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 mainPageFragment = (MainPageFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
             }
-            if (scheduleFragment != null)
+//            if (scheduleFragment != null)
+//            {
+//                scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
+//            }
+            if (scheduleTableFragment != null)
             {
-                scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
+                scheduleTableFragment = (ScheduleTableFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
             }
             if (gradesFragment != null)
             {
@@ -328,15 +335,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
 //                invalidateOptionsMenu();
 
-                if (scheduleFragment == null)
+//                if (scheduleFragment == null)
+//                {
+//                    // 如果scheduleFragment为空，则创建一个并添加到界面上
+//                    scheduleFragment = new ScheduleFragment();
+//                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
+//                } else
+//                {
+//                    // 如果scheduleFragment不为空，则直接将它显示出来
+//                    transaction.show(scheduleFragment);
+//                }
+                if (scheduleTableFragment == null)
                 {
-                    // 如果scheduleFragment为空，则创建一个并添加到界面上
-                    scheduleFragment = new ScheduleFragment();
-                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
+                    // 如果scheduleTableFragment为空，则创建一个并添加到界面上
+                    scheduleTableFragment = new ScheduleTableFragment();
+                    transaction.add(R.id.content, scheduleTableFragment, Constant.FRAGMENTTAG[1]);
                 } else
                 {
                     // 如果scheduleFragment不为空，则直接将它显示出来
-                    transaction.show(scheduleFragment);
+                    transaction.show(scheduleTableFragment);
                 }
                 /*记录当前显示页面*/
                 fragmentPosition = id;
@@ -447,9 +464,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             fragmentTransaction.hide(gradesFragment);
         }
-        if (scheduleFragment != null)
+//        if (scheduleFragment != null)
+//        {
+//            fragmentTransaction.hide(scheduleFragment);
+//        }
+        if (scheduleTableFragment != null)
         {
-            fragmentTransaction.hide(scheduleFragment);
+            fragmentTransaction.hide(scheduleTableFragment);
         }
         if (studyMaterialsFragment != null)
         {

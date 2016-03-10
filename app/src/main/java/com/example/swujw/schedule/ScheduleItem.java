@@ -9,7 +9,8 @@ public class ScheduleItem
     private String cdmc;
     /*上课节带节*/
     private String jc;
-
+    /*上课节不带节*/
+    private String jcor;
     /*课程名称*/
     private String kcmc;
     /*任课老师姓名*/
@@ -20,10 +21,32 @@ public class ScheduleItem
     private String xqmc;
     /*上课周*/
     private String zcd;
-
+    /*星期几*/
+    private int xqj;
+    /*课时*/
+    private int classCount;
+    /*起始节*/
+    private int start;
+    /*结束节*/
+    private int end;
     public String getKcmc()
     {
         return kcmc;
+    }
+
+    public int getEnd()
+    {
+        return end;
+    }
+
+    public int getXqj()
+    {
+        return xqj;
+    }
+
+    public int getStart()
+    {
+        return start;
     }
 
     public String getCdmc()
@@ -31,9 +54,24 @@ public class ScheduleItem
         return cdmc;
     }
 
+    public int getClassCount()
+    {
+        return classCount;
+    }
+
+    public void setClassCount(int classCount)
+    {
+        this.classCount = classCount;
+    }
+
     public String getJc()
     {
         return jc;
+    }
+
+    public String getJcor()
+    {
+        return jcor;
     }
 
 
@@ -67,6 +105,25 @@ public class ScheduleItem
         this.jc = jc;
     }
 
+    public void setJcor(String jcor)
+    {
+        this.jcor = jcor;
+    }
+
+    public void setXqj(int xqj)
+    {
+        this.xqj = xqj;
+    }
+
+    public void setEnd(int end)
+    {
+        this.end = end;
+    }
+
+    public void setStart(int start)
+    {
+        this.start = start;
+    }
 
     public void setKcmc(String kcmc)
     {
