@@ -29,6 +29,19 @@ public class ScheduleItem
     private int start;
     /*结束节*/
     private int end;
+    /**/
+    private String textShow;
+
+    public String getTextShow()
+    {
+        return textShow;
+    }
+
+    public void setTextShow(String textShow)
+    {
+        this.textShow = textShow;
+    }
+
     public String getKcmc()
     {
         return kcmc;

@@ -28,8 +28,10 @@ import java.util.List;
  */
 public class ScheduleTableFragment extends Fragment
 {
-    /*保存课程表的列表,用于listview*/
+    /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
+    /*处理后的课程表的列表,直接用*/
+    private static List<ScheduleItem> scheduleItemListSort = new ArrayList<>();
 
     /*账户名*/
     private static String userName;
@@ -140,65 +142,62 @@ public class ScheduleTableFragment extends Fragment
         int width = day1TextView.getWidth();
         /*背景颜色*/
         int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
-        for (int i = 0; i < scheduleItemList.size(); i++)
+        SortScheduleItemList();
+        for (int i = 0; i < scheduleItemListSort.size(); i++)
         {
             /*设置新的布局参数*/
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             /*获取一个课程*/
-            scheduleItem = scheduleItemList.get(i);
-            /*判断这个课程是否已经添加到textview*/
-            TextView textView = IsClassExist(scheduleItem.getKcmc(), scheduleItem.getJc());
-
-            if (textView == null)
-            {
+            scheduleItem = scheduleItemListSort.get(i);
                 /*建一个新的textview*/
-                textView = new TextView(scheduleTableLayout.getContext());
-
-                textView.setText(scheduleItem.getKcmc() + "\n" + scheduleItem.getCdmc() + "\n" + scheduleItem.getJc() + " " + scheduleItem.getZcd() + "\n");
+            TextView textView = new TextView(scheduleTableLayout.getContext());
+            textView.setText(scheduleItem.getTextShow());
                /*设置高度,用节数乘以一节课的高度*/
-                textView.setHeight(hight * scheduleItem.getClassCount());
+            textView.setHeight(hight * scheduleItem.getClassCount());
                 /*设置宽度*/
-                textView.setWidth(width);
+            textView.setWidth(width);
                 /*设置距离上边的距离,用一节课的固定高度乘以开始的节次*/
-                layoutParams.topMargin = hight * (scheduleItem.getStart() - 1);
+            layoutParams.topMargin = hight * (scheduleItem.getStart() - 1);
 //                layoutParams.setMargins(width * (scheduleItem.getXqj()-1),hight * scheduleItem.getEnd(),0,0);
                 /*设置距离左边的距离,用固定宽度乘以该课的上课日*/
-                layoutParams.leftMargin = width * (scheduleItem.getXqj() - 1);
+            layoutParams.leftMargin = width * (scheduleItem.getXqj() - 1);
 
-                textView.setLayoutParams(layoutParams);
+            textView.setLayoutParams(layoutParams);
                 /*设置背景色*/
-                textView.setBackgroundResource(background[i % 6]);
+            textView.setBackgroundResource(background[i % 6]);
                 /*将新建的textview加入列表*/
-                textViewList.add(textView);
+            textViewList.add(textView);
                 /*将新建的textview加入布局*/
-                relativeLayout.addView(textView);
-            } else
-            {
-                /*如果该课程已经存在.添加新的上课周*/
-                textView.setText(textView.getText() + scheduleItem.getZcd() + "\n");
-            }
+            relativeLayout.addView(textView);
         }
     }
 
-    private TextView IsClassExist(String className, String jc)
+
+    private void SortScheduleItemList()
     {
-        if (textViewList != null)
+        for (int i = 0; i < scheduleItemList.size(); i++)
         {
-            for (int i = 0; i < textViewList.size(); i++)
+            ScheduleItem scheduleItem = scheduleItemList.get(i);
+            scheduleItem.setTextShow(scheduleItem.getKcmc() + "\n" + scheduleItem.getCdmc() + "\n" + scheduleItem.getJc() + "\n" + scheduleItem.getZcd() + "\n");
+            int pos = 1;
+            /*判断该课程已经存在*/
+            for (int j = 0; j < scheduleItemListSort.size(); j++)
             {
-                TextView textView1 = textViewList.get(i);
-                /*通过检查已存在的textView是否包含相同的课程名和上课节次*/
-                if (textView1.getText().toString().contains(className) && textView1.getText().toString().contains(jc))
+                ScheduleItem tempSchedule = scheduleItemListSort.get(j);
+
+                if (tempSchedule.getKcmc().equals(scheduleItem.getKcmc()) && tempSchedule.getXqjmc().equals(scheduleItem.getXqjmc()) && tempSchedule.getJc().equals(scheduleItem.getJc()))
                 {
-                    /*存在就返回这个已存在的textView*/
-                    return textView1;
-                } else
-                {
-                    continue;
+
+                    scheduleItemListSort.get(j).setTextShow(tempSchedule.getTextShow() + scheduleItem.getZcd());
+                    pos = 0;
+                    break;
                 }
             }
+            if (pos == 1)
+                scheduleItemListSort.add(scheduleItem);
+            else pos = 1;
+
         }
-        return null;
     }
 
 }
