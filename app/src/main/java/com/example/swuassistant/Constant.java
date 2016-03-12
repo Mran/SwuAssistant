@@ -50,5 +50,16 @@ public class Constant
     /*登陆校内门户是post的两个重要参数*/
     public static final String gotos = "http://urp6.swu.edu.cn/loginSuccess.portal";
     public static final String gotoOnFail = "http://urp6.swu.edu.cn/loginFailure.portal";
+
+    //登陆图书馆的地址
+    public static final String loginLibrary = "http://www.lib.swu.edu.cn/webs/user_loginLib.action";
+    //我的图书馆主页
+    public static final String libraryIndexUri = "http://mylib.swu.edu.cn/space.jsp?do=home";
+    //我的书架
+    public static final String libraryBorrowUri = "http://mylib.swu.edu.cn/borry.jsp";
+    //我的借阅历史
+    public static final String libraryBorrowHistoryUri = "http://mylib.swu.edu.cn/borry.jsp?ac=userHistory";
+    //我的借阅信息
+    public static final String libraryBorrowInfo = "http://mylib.swu.edu.cn/borry.jsp?ac=borryInofor";
 }
 

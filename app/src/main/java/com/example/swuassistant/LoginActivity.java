@@ -4,12 +4,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.net.Client;
+import com.example.library.GetMyLibraryInfo;
 import com.example.swujw.Login;
 import com.example.swujw.TotalInfo;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A login screen that offers login via username/password.
@@ -28,6 +33,7 @@ import com.example.swujw.TotalInfo;
 public class LoginActivity extends AppCompatActivity implements OnClickListener
 {
 
+    private List<NameValuePair> nameValuePairsLoginLibrary;
 
     /*账号框*/
     private EditText mUserNAmeView;
@@ -167,6 +173,20 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
             progressDialogLoading.setMessage("正在登录请稍后");
             progressDialogLoading.setCancelable(false);
             progressDialogLoading.show();
+
+            //顺便登陆图书馆主页
+            nameValuePairsLoginLibrary = new ArrayList<>();
+            nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+            nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+            GetMyLibraryInfo.Init();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    GetMyLibraryInfo.libraryLogin(nameValuePairsLoginLibrary);
+                }
+            }).start();
+
+
             login();
         }
 
@@ -214,6 +234,18 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 Message message = new Message();
                 if (response.contains("Successed"))
                 {
+                    //顺便登陆图书馆主页
+                    nameValuePairsLoginLibrary = new ArrayList<>();
+                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+                    GetMyLibraryInfo.Init();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            GetMyLibraryInfo.libraryLogin(nameValuePairsLoginLibrary);
+                        }
+                    }).start();
+
                         /*登陆成功获得名字和学号*/
                     totalInfo = login.getBasicInfo();
                     editor.putString("userName", userName);

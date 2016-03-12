@@ -1,16 +1,15 @@
 package com.example.swuassistant;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,10 +19,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.os.Handler;
 
 import com.example.charge.ChargeFragment;
 import com.example.find_lost.FindLostFragment;
@@ -32,8 +29,9 @@ import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
-//import com.example.swujw.schedule.ScheduleFragment;
 import com.example.swujw.schedule.ScheduleTableFragment;
+
+//import com.example.swujw.schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         /*打开保存用户信息的文件*/
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             if (mainPageFragment != null)
             {
-                mainPageFragment = (MainPageFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
+                mainPageFragment = (MainPageFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
             }
 //            if (scheduleFragment != null)
 //            {
@@ -145,27 +143,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            }
             if (scheduleTableFragment != null)
             {
-                scheduleTableFragment = (ScheduleTableFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
+                scheduleTableFragment = (ScheduleTableFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
             }
             if (gradesFragment != null)
             {
-                gradesFragment = (GradesFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[2]);
+                gradesFragment = (GradesFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[2]);
             }
             if (studyMaterialsFragment != null)
             {
-                studyMaterialsFragment = (StudyMaterialsFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[3]);
+                studyMaterialsFragment = (StudyMaterialsFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[3]);
             }
             if (findLostFragment != null)
             {
-                findLostFragment = (FindLostFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[4]);
+                findLostFragment = (FindLostFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[4]);
             }
             if (chargeFragment != null)
             {
-                chargeFragment = (ChargeFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[5]);
+                chargeFragment = (ChargeFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[5]);
             }
             if (libraryFragrment != null)
             {
-                libraryFragrment = (LibraryFragrment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
+                libraryFragrment = (LibraryFragrment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
             }
             hideFragments(fragmentManager.beginTransaction());
             fragmentSelection(fragmentPosition);
