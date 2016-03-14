@@ -25,7 +25,8 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class LibraryFragrment extends Fragment {
+public class LibraryFragment extends Fragment
+{
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;

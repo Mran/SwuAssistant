@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.swuassistant.Constant;
 import com.example.swuassistant.MainActivity;
@@ -26,7 +30,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/3/10.
  */
-public class ScheduleTableFragment extends Fragment
+public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, View.OnTouchListener
 {
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
@@ -42,6 +46,10 @@ public class ScheduleTableFragment extends Fragment
     private static ProgressDialog progressDialogLoading;
     /*成绩表布局*/
     RelativeLayout relativeLayout;
+    /*下拉刷新布局*/
+    SwipeRefreshLayout swipeRefreshLayout;
+    /*包含在SwipeRefreshLayout中的scrollow布局*/
+    ScrollView scrollView;
     /*星期一的textView*/
     TextView day1TextView;
     /*第一节课的textView*/
@@ -60,15 +68,13 @@ public class ScheduleTableFragment extends Fragment
             {
                 /*成功获取课表*/
                 case Constant.SCHEDULE_OK:
-                    /*关闭登陆窗口*/
-                    progressDialogLoading.cancel();
+
                     setTable();
+                    swipeRefreshLayout.setRefreshing(false);
 
                     break;
                 case Constant.LOGIN_FAILED:
-                    progressDialogLoading.setMessage(Constant.NO_NET);
-                    progressDialogLoading.setCancelable(true);
-
+                    swipeRefreshLayout.setRefreshing(false);
                     break;
 
                 default:
@@ -89,8 +95,11 @@ public class ScheduleTableFragment extends Fragment
         day1TextView = (TextView) scheduleTableLayout.findViewById(R.id.z1);
         class1TextView = (TextView) scheduleTableLayout.findViewById(R.id.classs1);
         relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
-        /*获取成绩*/
-        getSchedule();
+        swipeRefreshLayout = (SwipeRefreshLayout) scheduleTableLayout.findViewById(R.id.schedule_table_SwipeRefreshLayout);
+        scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        scrollView.setOnTouchListener(this);
+
         return scheduleTableLayout;
     }
 
@@ -98,13 +107,7 @@ public class ScheduleTableFragment extends Fragment
     private void getSchedule()
     {
 
-                /*设置等待窗口文字*/
-        progressDialogLoading.setMessage("正在查询请稍后");
-                /*设置不可取消*/
-        progressDialogLoading.setCancelable(false);
-                /*显示等待窗口*/
-        progressDialogLoading.show();
-                /*开启线程开始查询*/
+//                /*开启线程开始查询*/
         new Thread(new Runnable()
         {
             @Override
@@ -126,6 +129,7 @@ public class ScheduleTableFragment extends Fragment
                 } else
                 {
                     message.what = Constant.LOGIN_FAILED;
+
                     handler.sendMessage(message);
                 }
             }
@@ -200,4 +204,32 @@ public class ScheduleTableFragment extends Fragment
         }
     }
 
+    @Override
+    public void onRefresh()
+    {
+        /*下拉时查询课表*/
+        scheduleItemListSort.clear();
+        getSchedule();
+    }
+
+    /*避免scrollow没在顶部是就允许下拉刷新*/
+    @Override
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+                if (v.getScrollY() != 0)
+                {
+                    swipeRefreshLayout.setEnabled(false);
+                } else
+                {
+                    swipeRefreshLayout.setEnabled(true);
+                }
+                break;
+        }
+        return false;
+    }
 }

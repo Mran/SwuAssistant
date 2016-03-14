@@ -29,14 +29,15 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Android Studio"
+        android:text="点我登陆"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com"
+        android:text=""
         android:id="@+id/swuid"
         android:textSize="18dp"/>
 

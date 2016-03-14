@@ -21,10 +21,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.charge.ChargeFragment;
 import com.example.find_lost.FindLostFragment;
-import com.example.library.LibraryFragrment;
+import com.example.library.LibraryFragment;
 import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static String userName;
     /*密码*/
     private static String password;
-
+    TextView nameTextView;
+    TextView swuIDTextView;
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
 //
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*学习资料界面布局*/
     private static StudyMaterialsFragment studyMaterialsFragment;
     /*图书馆界面布局*/
-    private static LibraryFragrment libraryFragrment;
+    private static LibraryFragment libraryFragment;
     /*水电费界面布局*/
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
@@ -75,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             switch (msg.what)
             {
-
+                default:
+                    break;
             }
         }
     };
@@ -89,16 +92,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("userName");
-        password = intent.getStringExtra("password");
 
-        totalInfo.setName(intent.getStringExtra("name"));
-        totalInfo.setSwuID(intent.getStringExtra("swuID"));
-
-        /*打开保存用户信息的文件*/
+ /*打开保存用户信息的文件*/
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
+        userName = sharedPreferences.getString("userName", "");
+        password = sharedPreferences.getString("password", "");
+
+        editor.commit();
+
+
         fragmentManager = getSupportFragmentManager();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -110,26 +113,63 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
         /*侧边栏显示姓名学号*/
-        TextView nameTextView = (TextView) view.findViewById(R.id.name);
-        TextView swuIDTextView = (TextView) view.findViewById(R.id.swuid);
+        nameTextView = (TextView) view.findViewById(R.id.name);
+        swuIDTextView = (TextView) view.findViewById(R.id.swuid);
         /*显示退出按钮*/
         ImageButton imageButtonLoginOut = (ImageButton) view.findViewById(R.id.login_out);
         imageButtonLoginOut.setOnClickListener(MainActivity.this);
-        /*对侧边栏的姓名和学号进行配置*/
-        swuIDTextView.setText(totalInfo.getSwuID());
-        nameTextView.setText(totalInfo.getName());
-
-        navigationView.setNavigationItemSelectedListener(this);
+        if (userName.equals(""))
+        {
+            nameTextView.setOnClickListener(this);
+            Toast.makeText(this, "您还没有登录呦", Toast.LENGTH_SHORT).show();
+        } else
+        {
+            totalInfo.setName(sharedPreferences.getString("name", ""));
+            totalInfo.setSwuID(sharedPreferences.getString("swuID", ""));
+            /*对侧边栏的姓名和学号进行配置*/
+            swuIDTextView.setText(totalInfo.getSwuID());
+            nameTextView.setText(totalInfo.getName());
+        }
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
 //
         fragmentStateCheck(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+    }
+
+    /*获得某个活动的回复信息*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode)
+        {
+            case 1:
+                if (resultCode == RESULT_OK)
+                {
+                    userName = data.getStringExtra("userName");
+                    password = data.getStringExtra("password");
+                    totalInfo.setName(data.getStringExtra("name"));
+                    totalInfo.setSwuID(data.getStringExtra("swuID"));
+                      /*对侧边栏的姓名和学号进行配置*/
+                    swuIDTextView.setText(totalInfo.getSwuID());
+                    nameTextView.setText(totalInfo.getName());
+                    nameTextView.setClickable(false);
+
+
+                }
+        }
     }
 
     private void fragmentStateCheck(Bundle saveInstanceState)
     {
         if (saveInstanceState == null)
         {
-
+            initFragment();
             fragmentSelection(fragmentPosition);
         } else
         {
@@ -137,10 +177,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 mainPageFragment = (MainPageFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
             }
-//            if (scheduleFragment != null)
-//            {
-//                scheduleFragment = (ScheduleFragment) getFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
-//            }
+
             if (scheduleTableFragment != null)
             {
                 scheduleTableFragment = (ScheduleTableFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
@@ -161,11 +198,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 chargeFragment = (ChargeFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[5]);
             }
-            if (libraryFragrment != null)
+            if (libraryFragment != null)
             {
-                libraryFragrment = (LibraryFragrment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
+                libraryFragment = (LibraryFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
             }
-            hideFragments(fragmentManager.beginTransaction());
+//            hideFragments(fragmentManager.beginTransaction());
             fragmentSelection(fragmentPosition);
         }
     }
@@ -268,36 +305,72 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClick(View v)
     {
-        /*点击退出按钮*/
-        if (v.getId() == R.id.login_out)
+        switch (v.getId())
         {
-            /*退出确认框*/
-            final AlertDialog.Builder dialogsQuit;
-            dialogsQuit = new AlertDialog.Builder(MainActivity.this);
+            /*点击退出按钮*/
+            case R.id.login_out:
 
-            dialogsQuit.setMessage("确认退出");
-            dialogsQuit.setNegativeButton("取消", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
+            /*退出确认框*/
+                final AlertDialog.Builder dialogsQuit;
+                dialogsQuit = new AlertDialog.Builder(MainActivity.this);
+
+                dialogsQuit.setMessage("确认退出");
+                dialogsQuit.setNegativeButton("取消", new DialogInterface.OnClickListener()
                 {
-                }
-            });
-            dialogsQuit.setPositiveButton("确认", new DialogInterface.OnClickListener()
-            {
-                @Override
-                public void onClick(DialogInterface dialog, int which)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                    }
+                });
+                dialogsQuit.setPositiveButton("确认", new DialogInterface.OnClickListener()
                 {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
                     /*确认退出,清除保存的用户信息,并退出应用*/
-                    editor.clear();
-                    editor.commit();
-                    finish();
-                }
-            });
+                        editor.clear();
+                        editor.commit();
+                        finish();
+                    }
+                });
             /*显示警告框*/
-            dialogsQuit.show();
+                dialogsQuit.show();
+                break;
+            case R.id.name:
+//             开启登陆活动,并要求获得回复信息
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 1);
 
         }
+    }
+
+
+    private void initFragment()
+    {
+        // 开启一个Fragment事务
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        mainPageFragment = new MainPageFragment();
+        transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
+
+
+        scheduleTableFragment = new ScheduleTableFragment();
+        transaction.add(R.id.content, scheduleTableFragment, Constant.FRAGMENTTAG[1]);
+
+        gradesFragment = new GradesFragment();
+        transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
+
+        studyMaterialsFragment = new StudyMaterialsFragment();
+        transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
+
+        findLostFragment = new FindLostFragment();
+        transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
+
+        chargeFragment = new ChargeFragment();
+        transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
+
+        libraryFragment = new LibraryFragment();
+        transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
+        transaction.commit();
     }
 
     private void fragmentSelection(int id)
@@ -309,11 +382,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id)
         {
             case R.id.nav_main:
-//                设置刷新按钮不可见
-//                freshMenuStatus = Constant.DISSHOW;
-//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-//                invalidateOptionsMenu();
-
                 if (mainPageFragment == null)
                 {
                     // 如果mainPageFragment为空，则创建一个并添加到界面上
@@ -328,21 +396,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentPosition = id;
                 break;
             case R.id.nav_schedule:
-//                /*设置刷新按钮可见*/
-//                freshMenuStatus = Constant.SHOW;
-//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-//                invalidateOptionsMenu();
-
-//                if (scheduleFragment == null)
-//                {
-//                    // 如果scheduleFragment为空，则创建一个并添加到界面上
-//                    scheduleFragment = new ScheduleFragment();
-//                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
-//                } else
-//                {
-//                    // 如果scheduleFragment不为空，则直接将它显示出来
-//                    transaction.show(scheduleFragment);
-//                }
                 if (scheduleTableFragment == null)
                 {
                     // 如果scheduleTableFragment为空，则创建一个并添加到界面上
@@ -357,10 +410,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentPosition = id;
                 break;
             case R.id.nav_grades:
-//                /*设置刷新按钮可见*/
-//                freshMenuStatus = Constant.SHOW;
-//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-//                invalidateOptionsMenu();
 
                 if (gradesFragment == null)
                 {
@@ -429,27 +478,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragmentPosition = id;
                 break;
             case R.id.nav_library:
-//                /*设置刷新按钮可见*/
-//                freshMenuStatus = Constant.SHOW;
-//                getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-//                invalidateOptionsMenu();
 
-                if (libraryFragrment == null)
+                if (libraryFragment == null)
                 {
                     // 如果libraryFragrment为空，则创建一个并添加到界面上
-                    libraryFragrment = new LibraryFragrment();
-                    transaction.add(R.id.content, libraryFragrment, Constant.FRAGMENTTAG[6]);
+                    libraryFragment = new LibraryFragment();
+                    transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
                 } else
                 {
                     // 如果libraryFragrment不为空，则直接将它显示出来
-                    transaction.show(libraryFragrment);
+                    transaction.show(libraryFragment);
                 }
                 fragmentPosition = id;
                 break;
             default:
                 break;
         }
-        transaction.commitAllowingStateLoss();
+        transaction.commit();
     }
 
     private void hideFragments(FragmentTransaction fragmentTransaction)
@@ -462,10 +507,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             fragmentTransaction.hide(gradesFragment);
         }
-//        if (scheduleFragment != null)
-//        {
-//            fragmentTransaction.hide(scheduleFragment);
-//        }
+
         if (scheduleTableFragment != null)
         {
             fragmentTransaction.hide(scheduleTableFragment);
@@ -474,9 +516,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             fragmentTransaction.hide(studyMaterialsFragment);
         }
-        if (libraryFragrment != null)
+        if (libraryFragment != null)
         {
-            fragmentTransaction.hide(libraryFragrment);
+            fragmentTransaction.hide(libraryFragment);
         }
         if (chargeFragment != null)
         {
@@ -486,6 +528,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             fragmentTransaction.hide(findLostFragment);
         }
+
     }
 
     public String getUserName()

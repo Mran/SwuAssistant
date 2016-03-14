@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/schedule_table_SwipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     >
 
     <!--<TextView-->
@@ -13,219 +14,224 @@
     <!--android:text="第一周"-->
     <!--android:gravity="center_horizontal"-->
     <!--android:textSize="20dp"/>-->
+
+
     <LinearLayout
-        android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center"
-        android:layout_gravity="center">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/z0"
-            android:layout_width="@dimen/table_width"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:id="@+id/z1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周一"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周二"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周三"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周四"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周五"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周六"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/z7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="周日"
-            android:layout_gravity="top"
-            android:gravity="center"/>
-
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/date"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:clickable="true">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/z0"
                 android:layout_width="@dimen/table_width"
-                android:id="@+id/classs"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                />
 
-                <TextView
-                    android:id="@+id/classs1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-                    android:gravity="fill"
-                    android:text="1"
-                    android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/z1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周一"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
+            <TextView
+                android:id="@+id/z2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周二"/>
 
-                    android:gravity="fill"
-                    android:text="2"
-                    android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/z3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周三"/>
+
+            <TextView
+                android:id="@+id/z4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周四"/>
+
+            <TextView
+                android:id="@+id/z5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周五"/>
+
+            <TextView
+                android:id="@+id/z6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周六"/>
+
+            <TextView
+                android:id="@+id/z7"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周日"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
+        </LinearLayout>
 
-                    android:gravity="fill"
-                    android:text="3"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="4"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="5"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="6"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="7"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="8"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="9"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="10"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="11"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-
-                    android:gravity="fill"
-                    android:text="12"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-                    android:gravity="fill"
-                    android:text="13"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/each_class_hight"
-                    android:gravity="fill"
-                    android:text="14"
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/schedule_table_ScrollView"
+            android:scrollbars="none">
 
             <RelativeLayout
-                android:id="@+id/class_table"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/classs">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:id="@+id/classs"
+                    android:layout_width="@dimen/table_width"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/classs1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="2"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="3"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="4"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="5"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="6"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="7"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="8"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="9"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="10"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="11"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="12"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="13"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/each_class_hight"
+                        android:layout_gravity="center"
+                        android:gravity="fill"
+                        android:text="14"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/class_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/classs">
+
+                </RelativeLayout>
             </RelativeLayout>
-
-
-        </RelativeLayout>
-    </ScrollView>
-
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

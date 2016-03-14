@@ -63,13 +63,13 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     /*成功则关闭登陆等待窗口*/
                     progressDialogLoading.cancel();
                     /*开启下一个窗口*/
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent();
                     intent.putExtra("userName", userName);
                     intent.putExtra("password", password);
                     intent.putExtra("name", totalInfo.getName());
                     intent.putExtra("swuID", totalInfo.getSwuID());
+                    setResult(RESULT_OK, intent);
 
-                    startActivity(intent);
                     finish();
                     break;
                 case Constant.LOGIN_FAILED:
@@ -164,31 +164,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button);
         mEmailSignInButton.setOnClickListener(this);
         progressDialogLoading = new ProgressDialog(LoginActivity.this);
-        userName = sharedPreferences.getString("userName", "");
-        password = sharedPreferences.getString("password", "");
-        mUserNAmeView.setText(userName);
-        mPasswordView.setText(password);
-        if (!userName.equals(""))
-        {
-            progressDialogLoading.setMessage("正在登录请稍后");
-            progressDialogLoading.setCancelable(false);
-            progressDialogLoading.show();
-
-            //顺便登陆图书馆主页
-            nameValuePairsLoginLibrary = new ArrayList<>();
-            nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-            nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-            GetMyLibraryInfo.Init();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    GetMyLibraryInfo.libraryLogin(nameValuePairsLoginLibrary);
-                }
-            }).start();
-
-
-            login();
-        }
 
     }
 
@@ -208,16 +183,16 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         }
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK)
-        {
-            moveTaskToBack(false);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event)
+//    {
+//        if (keyCode == KeyEvent.KEYCODE_BACK)
+//        {
+//            moveTaskToBack(false);
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     private void login()
     {
@@ -250,6 +225,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     totalInfo = login.getBasicInfo();
                     editor.putString("userName", userName);
                     editor.putString("password", password);
+                    editor.putString("name", totalInfo.getName());
+                    editor.putString("swuID", totalInfo.getSwuID());
                     editor.commit();
                         /*发送ui更新*/
                     message.what = Constant.LOGIN_SUCCESE;
