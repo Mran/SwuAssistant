@@ -24,6 +24,7 @@ public class Constant
     public static final int SHOW = 8;
     public static final int DISSHOW = 9;
     public static final int SCHEDULE_OK = 13;
+    public static final int SCHEDULE__LOADING = 14;
 
     public static final String NO_NET = "网络出现了问题";
     public static final String CLIENT_OK = "成功";

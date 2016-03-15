@@ -62,6 +62,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     private static TotalInfo totalInfo = new TotalInfo();
     private static SharedPreferences sharedPreferences;
     View scheduleTableLayout;
+    MainActivity mainActivity;
     private Handler handler = new Handler()
     {
         public void handleMessage(Message msg)
@@ -76,9 +77,19 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
 
                     break;
                 case Constant.LOGIN_FAILED:
+                    Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT).show();
                     swipeRefreshLayout.setRefreshing(false);
                     break;
+                case Constant.ERROR:
+                    Toast.makeText(getActivity(), "查不出来是服务器的锅╮(╯▽╰)╭", Toast.LENGTH_SHORT).show();
 
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
+                case Constant.SCHEDULE__LOADING:
+                    Toast.makeText(getActivity(), "正在加载课程表", Toast.LENGTH_SHORT).show();
+
+                    swipeRefreshLayout.setRefreshing(true);
+                    break;
                 default:
                     break;
             }
@@ -91,13 +102,14 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     {
         scheduleTableLayout = inflater.inflate(R.layout.schedule_table_layout, container, false);
         progressDialogLoading = new ProgressDialog(scheduleTableLayout.getContext());
-        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity = (MainActivity) getActivity();
         userName = mainActivity.getUserName();
         password = mainActivity.getPassword();
         day1TextView = (TextView) scheduleTableLayout.findViewById(R.id.z1);
         class1TextView = (TextView) scheduleTableLayout.findViewById(R.id.classs1);
         relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
         swipeRefreshLayout = (SwipeRefreshLayout) scheduleTableLayout.findViewById(R.id.schedule_table_SwipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
         swipeRefreshLayout.setOnRefreshListener(this);
         scrollView.setOnTouchListener(this);
@@ -116,29 +128,44 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     public void onHiddenChanged(boolean hidden)
     {
         super.onHiddenChanged(hidden);
-        if (hidden)
+        if (!hidden)
         {
 
-        } else
-        {
             sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
             totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
-            if (!totalInfo.getScheduleDataJson().equals(""))
-            {
-                scheduleItemList = Schedule.getScheduleList(totalInfo);
-                Message message = new Message();
-                message.what = Constant.SCHEDULE_OK;
-                handler.sendMessage(message);
-            } else
-            {
-                getSchedule();
+            userName = mainActivity.getUserName();
+            password = mainActivity.getPassword();
+            /*判断用户是否登录*/
+            if (!userName.isEmpty())
+            { /*判断是否已经获得课程表的数据*/
+                if (totalInfo.getScheduleDataJson().equals(""))
+                {
+                /*没有就去请求数据*/
+
+                    Message message = new Message();
+                /*显示加载的圆圈*/
+                    message.what = Constant.SCHEDULE__LOADING;
+                    handler.sendMessage(message);
+//
+//                scheduleItemListSort.clear();
+
+                    getSchedule();
+                } else if (scheduleItemListSort.isEmpty())
+                {
+                /*有就直接加载*/
+                    scheduleItemList = Schedule.getScheduleList(totalInfo);
+                    Message message = new Message();
+                    message.what = Constant.SCHEDULE_OK;
+                    handler.sendMessage(message);
+                }
             }
         }
     }
 
     private void getSchedule()
     {
-
+        userName = mainActivity.getUserName();
+        password = mainActivity.getPassword();
 //                /*开启线程开始查询*/
         new Thread(new Runnable()
         {
@@ -147,20 +174,26 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
             {
 
                 Login login = new Login();
-                login.doLogin(userName, password);
-
                 Message message = new Message();
 
                 if (login.doLogin(userName, password).contains("LoginSuccessed"))
                 {
                     Schedule schedule = new Schedule(login.client);
-                    schedule.setSchedule(totalInfo, "2015", "12");
-                    scheduleItemList = schedule.getScheduleList(totalInfo);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());
-                    editor.commit();
-                    message.what = Constant.SCHEDULE_OK;
-                    handler.sendMessage(message);
+                    /*判断是否课程表是否正常获得*/
+                    if (schedule.setSchedule(totalInfo, "2015", "12").equals(Constant.CLIENT_ERROR))
+                    {
+                        message.what = Constant.ERROR;
+
+                        handler.sendMessage(message);
+                    } else
+                    {
+                        scheduleItemList = schedule.getScheduleList(totalInfo);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());
+                        editor.commit();
+                        message.what = Constant.SCHEDULE_OK;
+                        handler.sendMessage(message);
+                    }
                 } else
                 {
                     message.what = Constant.LOGIN_FAILED;
@@ -232,6 +265,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
                     break;
                 }
             }
+            /*pos为1说明是新添加scheduleitem*/
             if (pos == 1)
                 scheduleItemListSort.add(scheduleItem);
             else pos = 1;

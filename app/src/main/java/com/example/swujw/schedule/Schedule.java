@@ -36,10 +36,10 @@ public class Schedule
         String url = "http://jw.swu.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html?" + "gnmkdmKey=N253508&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
         String respones = client.doPost(url, postNameValuePairs);
-        if (!respones.contains(Constant.NO_NET))
+        if (!respones.contains(Constant.NO_NET) && respones.contains("kcmc"))
         {
             totalInfo.setScheduleDataJson(respones);
-        } else return respones;
+        } else return Constant.CLIENT_ERROR;
         return Constant.CLIENT_OK;
     }
 

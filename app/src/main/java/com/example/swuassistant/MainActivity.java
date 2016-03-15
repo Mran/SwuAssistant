@@ -330,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     /*确认退出,清除保存的用户信息,并退出应用*/
                         editor.clear();
                         editor.commit();
-                        finish();
+                        System.exit(0);
                     }
                 });
             /*显示警告框*/
