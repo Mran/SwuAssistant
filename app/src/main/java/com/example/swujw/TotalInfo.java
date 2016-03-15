@@ -19,6 +19,8 @@ public class TotalInfo
 
     /*课程表*/
     private static ScheduleData scheduleData;
+    /*课表表源json数据*/
+    private static String scheduleDataJson;
 
     /*成绩*/
     private static GradesData gradesData;
@@ -31,6 +33,16 @@ public class TotalInfo
     public void setSwuID(String swuID)
     {
         TotalInfo.swuID = swuID;
+    }
+
+    public static String getScheduleDataJson()
+    {
+        return scheduleDataJson;
+    }
+
+    public static void setScheduleDataJson(String scheduleDataJson)
+    {
+        TotalInfo.scheduleDataJson = scheduleDataJson;
     }
 
     public String getName()

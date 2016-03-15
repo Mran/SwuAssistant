@@ -38,18 +38,18 @@ public class Schedule
         String respones = client.doPost(url, postNameValuePairs);
         if (!respones.contains(Constant.NO_NET))
         {
-
-            /*构建gson数据来解析json数据*/
-            Gson gson = new Gson();
-            totalInfo.setScheduleData(gson.fromJson(respones, ScheduleData.class));
+            totalInfo.setScheduleDataJson(respones);
         } else return respones;
         return Constant.CLIENT_OK;
     }
 
-    public List<ScheduleItem> getScheduleList(TotalInfo totalInfo)
+    public static List<ScheduleItem> getScheduleList(TotalInfo totalInfo)
     {
         /*储存课程表的列表*/
         List<ScheduleItem> scheduleItemList = new ArrayList<>();
+         /*构建gson数据来解析json数据*/
+        Gson gson = new Gson();
+        totalInfo.setScheduleData(gson.fromJson(totalInfo.getScheduleDataJson(), ScheduleData.class));
         ScheduleData scheduleData = totalInfo.getScheduleData();
         ScheduleData.KbList kbList;
         for (int i = 0; i < scheduleData.getKbList().size(); i++)

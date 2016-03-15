@@ -1,5 +1,6 @@
 package com.example.swujw.schedule;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.graphics.drawable.Drawable;
@@ -59,6 +60,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
 
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
+    private static SharedPreferences sharedPreferences;
     View scheduleTableLayout;
     private Handler handler = new Handler()
     {
@@ -103,6 +105,36 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
         return scheduleTableLayout;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden)
+    {
+        super.onHiddenChanged(hidden);
+        if (hidden)
+        {
+
+        } else
+        {
+            sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
+            totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
+            if (!totalInfo.getScheduleDataJson().equals(""))
+            {
+                scheduleItemList = Schedule.getScheduleList(totalInfo);
+                Message message = new Message();
+                message.what = Constant.SCHEDULE_OK;
+                handler.sendMessage(message);
+            } else
+            {
+                getSchedule();
+            }
+        }
+    }
 
     private void getSchedule()
     {
@@ -124,6 +156,9 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
                     Schedule schedule = new Schedule(login.client);
                     schedule.setSchedule(totalInfo, "2015", "12");
                     scheduleItemList = schedule.getScheduleList(totalInfo);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());
+                    editor.commit();
                     message.what = Constant.SCHEDULE_OK;
                     handler.sendMessage(message);
                 } else
@@ -212,7 +247,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
         getSchedule();
     }
 
-    /*避免scrollow没在顶部是就允许下拉刷新*/
+    /*避免scrollow没在顶部就允许下拉刷新*/
     @Override
     public boolean onTouch(View v, MotionEvent event)
     {
