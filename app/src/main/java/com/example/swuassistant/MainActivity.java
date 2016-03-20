@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.charge.ChargeFragment;
 import com.example.find_lost.FindLostFragment;
+import com.example.library.GetMyLibraryInfo;
 import com.example.library.LibraryFragment;
 import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
@@ -32,11 +33,17 @@ import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
 import com.example.swujw.schedule.ScheduleTableFragment;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //import com.example.swujw.schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
-
+    private List<NameValuePair> nameValuePairsLoginLibrary;
     /*账户名*/
     private static String userName;
     /*密码*/
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         fragmentManager = getSupportFragmentManager();
+        nameValuePairsLoginLibrary = new ArrayList<>();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,6 +137,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             /*对侧边栏的姓名和学号进行配置*/
             swuIDTextView.setText(totalInfo.getSwuID());
             nameTextView.setText(totalInfo.getName());
+            nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+            nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+            //登陆图书馆
+            loginLibrary(nameValuePairsLoginLibrary);
         }
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 //
@@ -159,8 +171,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     swuIDTextView.setText(totalInfo.getSwuID());
                     nameTextView.setText(totalInfo.getName());
                     nameTextView.setClickable(false);
-
-
+                    //登陆图书馆
+                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+                    loginLibrary(nameValuePairsLoginLibrary);
                 }
         }
     }
@@ -539,5 +553,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String getPassword()
     {
         return password;
+    }
+
+    public void loginLibrary(final List<NameValuePair> nameValuePairs){
+        GetMyLibraryInfo.Init();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GetMyLibraryInfo.libraryLogin(nameValuePairs);
+            }
+        }).start();
     }
 }
