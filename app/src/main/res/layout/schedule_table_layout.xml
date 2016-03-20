@@ -6,14 +6,7 @@
     android:layout_height="match_parent"
     >
 
-    <!--<TextView-->
-    <!--android:clipToPadding="true"-->
-    <!--android:id="@+id/week"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="第一周"-->
-    <!--android:gravity="center_horizontal"-->
-    <!--android:textSize="20dp"/>-->
+
 
 
     <LinearLayout
@@ -26,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top|center"
-            android:clickable="true">
+            >
 
             <TextView
                 android:id="@+id/z0"

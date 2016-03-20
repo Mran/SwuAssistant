@@ -3,7 +3,6 @@ package com.example.swujw.schedule;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -35,8 +33,8 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
 {
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
-    /*处理后的课程表的列表,直接用*/
-    private static List<ScheduleItem> scheduleItemListSort = new ArrayList<>();
+//    /*处理后的课程表的列表,直接用*/
+//    private static List<ScheduleItem> scheduleItemListSort = new ArrayList<>();
 
     /*账户名*/
     private static String userName;
@@ -63,6 +61,9 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     private static SharedPreferences sharedPreferences;
     View scheduleTableLayout;
     MainActivity mainActivity;
+    private int week;
+    private Boolean isLoad = false;
+
     private Handler handler = new Handler()
     {
         public void handleMessage(Message msg)
@@ -86,15 +87,33 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
                     swipeRefreshLayout.setRefreshing(false);
                     break;
                 case Constant.SCHEDULE__LOADING:
-                    Toast.makeText(getActivity(), "正在加载课程表", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "正在加载课程表", Toast.LENGTH_SHORT).show();
 
                     swipeRefreshLayout.setRefreshing(true);
                     break;
+                case 1000:
+                    init();
                 default:
                     break;
             }
         }
     };
+
+    public static final ScheduleTableFragment newInstance(int week)
+    {
+        ScheduleTableFragment scheduleTableFragment = new ScheduleTableFragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putInt("week", week);
+        scheduleTableFragment.setArguments(bundle);
+        return scheduleTableFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        week = getArguments().getInt("week");
+    }
 
     @Nullable
     @Override
@@ -102,9 +121,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     {
         scheduleTableLayout = inflater.inflate(R.layout.schedule_table_layout, container, false);
         progressDialogLoading = new ProgressDialog(scheduleTableLayout.getContext());
-        mainActivity = (MainActivity) getActivity();
-        userName = mainActivity.getUserName();
-        password = mainActivity.getPassword();
+
         day1TextView = (TextView) scheduleTableLayout.findViewById(R.id.z1);
         class1TextView = (TextView) scheduleTableLayout.findViewById(R.id.classs1);
         relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
@@ -113,6 +130,10 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
         scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
         swipeRefreshLayout.setOnRefreshListener(this);
         scrollView.setOnTouchListener(this);
+//        Message message = new Message();
+//        message.what = 1000;
+//        handler.sendMessage(message);
+//        init();
 
         return scheduleTableLayout;
     }
@@ -121,43 +142,67 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
     public void onActivityCreated(@Nullable Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+//        init();
     }
 
+    @Override
+    public void onDestroyView()
+    {
+        super.onDestroyView();
+    }
 
     @Override
-    public void onHiddenChanged(boolean hidden)
+    public void setUserVisibleHint(boolean isVisibleToUser)
     {
-        super.onHiddenChanged(hidden);
-        if (!hidden)
-        {
+        super.setUserVisibleHint(isVisibleToUser);
 
-            sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
-            totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
-            userName = mainActivity.getUserName();
-            password = mainActivity.getPassword();
-            /*判断用户是否登录*/
-            if (!userName.isEmpty())
-            { /*判断是否已经获得课程表的数据*/
-                if (totalInfo.getScheduleDataJson().equals(""))
-                {
+        if (isVisibleToUser && !isLoad)
+        {
+//            Toast.makeText(getActivity(), "xianshi" + String.valueOf(week), Toast.LENGTH_SHORT).show();
+            init();
+        }
+    }
+
+    private void init()
+    {
+        mainActivity = (MainActivity) getActivity();
+        /*获取用户名和密码*/
+        userName = mainActivity.getUserName();
+        password = mainActivity.getPassword();
+        /*打开本地存储文件*/
+        sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
+        /*加载课程表数据*/
+        totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
+        /*判断用户是否登录*/
+        if (!userName.isEmpty())
+        { /*判断是否已经获得课程表的数据*/
+            if (totalInfo.getScheduleDataJson().equals(""))
+            {
                 /*没有就去请求数据*/
 
-                    Message message = new Message();
+                Message message = new Message();
                 /*显示加载的圆圈*/
-                    message.what = Constant.SCHEDULE__LOADING;
-                    handler.sendMessage(message);
-//
-//                scheduleItemListSort.clear();
+                message.what = Constant.SCHEDULE__LOADING;
+                handler.sendMessage(message);
+                getSchedule();
+                return;
+            }
+            if (scheduleItemList.isEmpty())/*数据是否已经写入list*/
+            {
+                scheduleItemList = Schedule.getScheduleList(totalInfo);
+            }
+            if (!isLoad)
+            {
+                Message message = new Message();
+                /*显示加载的圆圈*/
+                message.what = Constant.SCHEDULE__LOADING;
+                handler.sendMessage(message);
 
-                    getSchedule();
-                } else if (scheduleItemListSort.isEmpty())
-                {
-                /*有就直接加载*/
-                    scheduleItemList = Schedule.getScheduleList(totalInfo);
-                    Message message = new Message();
-                    message.what = Constant.SCHEDULE_OK;
-                    handler.sendMessage(message);
-                }
+                Message messages= new Message();
+                messages.what = Constant.SCHEDULE_OK;
+                handler.sendMessage(messages);
+                isLoad = true;
+
             }
         }
     }
@@ -188,6 +233,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
                     } else
                     {
                         scheduleItemList = schedule.getScheduleList(totalInfo);
+                        /*将获取的课程表json信息写入本地文件*/
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());
                         editor.commit();
@@ -207,6 +253,7 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
 
     private void setTable()
     {
+        relativeLayout.removeAllViews();
         ScheduleItem scheduleItem;
         /*得到一节课的高度*/
         int hight = class1TextView.getHeight();
@@ -214,16 +261,22 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
         int width = day1TextView.getWidth();
         /*背景颜色*/
         int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
-        SortScheduleItemList();
-        for (int i = 0; i < scheduleItemListSort.size(); i++)
+
+        for (int i = 0; i < scheduleItemList.size(); i++)
         {
+            scheduleItem = scheduleItemList.get(i);
+            /*判断该课本周是否有课*/
+            if (!scheduleItem.getClassweek()[week])
+            {
+                continue;
+            }
             /*设置新的布局参数*/
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             /*获取一个课程*/
-            scheduleItem = scheduleItemListSort.get(i);
                 /*建一个新的textview*/
             TextView textView = new TextView(scheduleTableLayout.getContext());
             textView.setText(scheduleItem.getTextShow());
+            textView.setTextColor(getResources().getColor(R.color.textcolorblack));
                /*设置高度,用节数乘以一节课的高度*/
             textView.setHeight(hight * scheduleItem.getClassCount());
                 /*设置宽度*/
@@ -244,40 +297,13 @@ public class ScheduleTableFragment extends Fragment implements SwipeRefreshLayou
         }
     }
 
-
-    private void SortScheduleItemList()
-    {
-        for (int i = 0; i < scheduleItemList.size(); i++)
-        {
-            ScheduleItem scheduleItem = scheduleItemList.get(i);
-            scheduleItem.setTextShow(scheduleItem.getKcmc() + "\n" + scheduleItem.getCdmc() + "\n" + scheduleItem.getJc() + "\n" + scheduleItem.getZcd() + "\n");
-            int pos = 1;
-            /*判断该课程已经存在*/
-            for (int j = 0; j < scheduleItemListSort.size(); j++)
-            {
-                ScheduleItem tempSchedule = scheduleItemListSort.get(j);
-
-                if (tempSchedule.getKcmc().equals(scheduleItem.getKcmc()) && tempSchedule.getXqjmc().equals(scheduleItem.getXqjmc()) && tempSchedule.getJc().equals(scheduleItem.getJc()))
-                {
-
-                    scheduleItemListSort.get(j).setTextShow(tempSchedule.getTextShow() + scheduleItem.getZcd());
-                    pos = 0;
-                    break;
-                }
-            }
-            /*pos为1说明是新添加scheduleitem*/
-            if (pos == 1)
-                scheduleItemListSort.add(scheduleItem);
-            else pos = 1;
-
-        }
-    }
-
     @Override
     public void onRefresh()
     {
         /*下拉时查询课表*/
-        scheduleItemListSort.clear();
+
+        scheduleItemList.clear();
+        textViewList.clear();
         getSchedule();
     }
 

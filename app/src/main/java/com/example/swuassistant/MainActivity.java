@@ -1,5 +1,6 @@
 package com.example.swuassistant;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,7 @@ import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
+import com.example.swujw.schedule.ScheduleFragment;
 import com.example.swujw.schedule.ScheduleTableFragment;
 
 import org.apache.http.NameValuePair;
@@ -61,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*主界面布局*/
     private static MainPageFragment mainPageFragment;
     /*课程表界面布局*/
-//    private static ScheduleFragment scheduleFragment;
-    private static ScheduleTableFragment scheduleTableFragment;
+    private static ScheduleFragment scheduleFragment;
+//    private static ScheduleTableFragment scheduleTableFragment;
 
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static int fragmentPosition = R.id.nav_main;
     /*对fragmengt进行管理*/
     private FragmentManager fragmentManager;
+    private Toolbar toolbar;
     private Handler handler = new Handler()
     {
         public void handleMessage(Message msg)
@@ -94,10 +98,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
  /*打开保存用户信息的文件*/
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
@@ -162,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     nameTextView.setText(totalInfo.getName());
                     nameTextView.setClickable(false);
                 }
+                break;
+
         }
     }
 
@@ -178,9 +185,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mainPageFragment = (MainPageFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
             }
 
-            if (scheduleTableFragment != null)
+            if (scheduleFragment != null)
             {
-                scheduleTableFragment = (ScheduleTableFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
+                scheduleFragment = (ScheduleFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
             }
             if (gradesFragment != null)
             {
@@ -260,25 +267,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_main)
         {
+            toolbar.setTitle(R.string.main_page_title);
             fragmentSelection(id);
         } else if (id == R.id.nav_grades)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.grades_title);
         } else if (id == R.id.nav_schedule)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.schedule_title);
         } else if (id == R.id.nav_study_materials)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.study_materials_title);
+
         } else if (id == R.id.nav_library)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.library_title);
         } else if (id == R.id.nav_charge)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.charge_title);
+
         } else if (id == R.id.nav_find_lost)
         {
             fragmentSelection(id);
+            toolbar.setTitle(R.string.find_lost_title);
         } else if (id == R.id.nav_share)
         {
 
@@ -353,8 +369,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
 
 
-        scheduleTableFragment = new ScheduleTableFragment();
-        transaction.add(R.id.content, scheduleTableFragment, Constant.FRAGMENTTAG[1]);
+        scheduleFragment = new ScheduleFragment();
+        transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
 
         gradesFragment = new GradesFragment();
         transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
@@ -387,24 +403,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     // 如果mainPageFragment为空，则创建一个并添加到界面上
                     mainPageFragment = new MainPageFragment();
                     transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
+
                 } else
                 {
                     // 如果mainPageFragment不为空，则直接将它显示出来
                     transaction.show(mainPageFragment);
+
                 }
                 /*记录当前显示页面*/
                 fragmentPosition = id;
                 break;
             case R.id.nav_schedule:
-                if (scheduleTableFragment == null)
+                if (scheduleFragment == null)
                 {
                     // 如果scheduleTableFragment为空，则创建一个并添加到界面上
-                    scheduleTableFragment = new ScheduleTableFragment();
-                    transaction.add(R.id.content, scheduleTableFragment, Constant.FRAGMENTTAG[1]);
+                    scheduleFragment = new ScheduleFragment();
+                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
+                    ;
                 } else
                 {
                     // 如果scheduleFragment不为空，则直接将它显示出来
-                    transaction.show(scheduleTableFragment);
+
+                    transaction.show(scheduleFragment);
                 }
                 /*记录当前显示页面*/
                 fragmentPosition = id;
@@ -508,9 +528,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.hide(gradesFragment);
         }
 
-        if (scheduleTableFragment != null)
+        if (scheduleFragment != null)
         {
-            fragmentTransaction.hide(scheduleTableFragment);
+            fragmentTransaction.hide(scheduleFragment);
         }
         if (studyMaterialsFragment != null)
         {
@@ -540,4 +560,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         return password;
     }
+    public Toolbar getToolbar()
+    {return  toolbar;}
 }

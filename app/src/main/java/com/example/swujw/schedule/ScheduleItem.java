@@ -29,8 +29,32 @@ public class ScheduleItem
     private int start;
     /*结束节*/
     private int end;
-    /**/
+    /*展示在textview里的内容*/
     private String textShow;
+/*展示在总课程表textview里的*/
+    private String textShowAll;
+    /*用于判断该科目该周是否有课*/
+private Boolean[] classweek={false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+
+    public Boolean[] getClassweek()
+    {
+        return classweek;
+    }
+
+    public void setClassweek(Boolean[] classweek)
+    {
+        this.classweek = classweek;
+    }
+
+    public String getTextShowAll()
+    {
+        return textShowAll;
+    }
+
+    public void setTextShowAll(String textShowAll)
+    {
+        this.textShowAll = textShowAll;
+    }
 
     public String getTextShow()
     {

@@ -3,40 +3,18 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+    <!--<TextView-->
+        <!--android:clipToPadding="true"-->
+        <!--android:id="@+id/week"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="第1周"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:textSize="20dp"/>-->
+<android.support.v4.view.ViewPager
+    android:id="@+id/schedule_viewpager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/sxnm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/xnm"/>
-
-
-        <Spinner
-            android:id="@+id/sxqm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/xqm"/>
-
-        <Button
-            android:id="@+id/cx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="查询"/>
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/schedule_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-    </ListView>
 </LinearLayout>

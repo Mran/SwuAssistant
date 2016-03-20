@@ -1,24 +1,20 @@
 package com.example.swujw.schedule;
 
-import android.app.Fragment;
-import android.app.ProgressDialog;
+
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.swuassistant.Constant;
+
 import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
-import com.example.swujw.Login;
-import com.example.swujw.TotalInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,160 +22,98 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class ScheduleFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener
+public class ScheduleFragment extends Fragment implements View.OnLongClickListener
 {
-    /*保存课程表的列表,用于listview*/
-    private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
-    /*listview*/
-    private static ListView listView;
-    /*账户名*/
-    private static String userName;
-    /*密码*/
-    private static String password;
+    /*viewpager*/
+    private ViewPager sceduleViewPager;
+    private View schedule_layout;
+    /*viewpager的适配器*/
+    private ScheduleViewpagerAdapter scheduleViewpagerAdapter;
+    /*保存所有的单周课表fragment*/
+    private List<Fragment> scheduleTabblefragmentList;
+    /*在toolbar显示第几周*/
+    private TextView weekTextViewtoolbar;
+    /*toolbar*/
+    private Toolbar toolbar;
+    MainActivity mainActivity;
 
-    /*等待窗口*/
-    private static ProgressDialog progressDialogLoading;
-
-//    private static TableLayout showGradesLayout;
-
-    /*保存用户信息*/
-    private static TotalInfo totalInfo = new TotalInfo();
-    /*listview的适配器*/
-    private static ScheduleAdapter adapter = null;
-    /*选择学年的下拉列表*/
-    private static Spinner spinnerXnm;
-    /*选择学期的下拉列表*/
-    private static Spinner spinnerXqm;
-    /*用户当前选择的学期和学年*/
-    private static String xnm;
-    private static String xqm;
-    private static Button buttoncx;
-    View scheduleLayout;
-    private Handler handler = new Handler()
-    {
-        public void handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
-                /*成功获取课表*/
-                case Constant.SCHEDULE_OK:
-                    /*关闭登陆窗口*/
-                    progressDialogLoading.cancel();
-
-                    if (adapter == null)
-                    {
-                        /*设置listview适配器*/
-                        adapter = new ScheduleAdapter(scheduleLayout.getContext(), R.layout.schedule_item, scheduleItemList);
-                        listView.setAdapter(adapter);
-                    } else
-                    {/*如果已经设置过就更新*/
-                        adapter.clear();
-                        adapter.addAll(scheduleItemList);
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
-                case Constant.LOGIN_FAILED:
-                    progressDialogLoading.setMessage(Constant.NO_NET);
-                    progressDialogLoading.setCancelable(true);
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    };
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        scheduleLayout = inflater.inflate(R.layout.schedule_layout, container, false);
-        listView = (ListView) scheduleLayout.findViewById(R.id.schedule_list);
-        spinnerXnm = (Spinner) scheduleLayout.findViewById(R.id.sxnm);
-        spinnerXqm = (Spinner) scheduleLayout.findViewById(R.id.sxqm);
-        buttoncx = (Button) scheduleLayout.findViewById(R.id.cx);
-        buttoncx.setOnClickListener(this);
-         /*设置下拉列表的选择监听*/
-        spinnerXnm.setOnItemSelectedListener(this);
-        spinnerXqm.setOnItemSelectedListener(this);
-        /*学年下拉列表的默认值*/
-        spinnerXnm.setSelection(3, true);
-        /*学期下拉列表的默认值*/
-        spinnerXqm.setSelection(2, true);
-        progressDialogLoading = new ProgressDialog(scheduleLayout.getContext());
-        MainActivity mainActivity = (MainActivity) getActivity();
-        userName = mainActivity.getUserName();
-        password = mainActivity.getPassword();
-//        getSchedule();
-        return scheduleLayout;
+        schedule_layout = inflater.inflate(R.layout.schedule_layout, container, false);
+//        weekTextView = (TextView) schedule_layout.findViewById(R.id.week);
+        mainActivity = (MainActivity) getActivity();
+        toolbar = mainActivity.getToolbar();
+        weekTextViewtoolbar = (TextView) toolbar.findViewById(R.id.toolbarTextView);
+        weekTextViewtoolbar.setOnLongClickListener(this);
+        /*加载viewpager*/
+        setSceduleViewPager();
+        return schedule_layout;
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    public void onHiddenChanged(boolean hidden)
     {
-        /*选择了xnm的下拉列表*/
-        if (parent == spinnerXnm)
+        super.onHiddenChanged(hidden);
+        if (!hidden)
         {
+            /*当前viewpager显示设置显示第几周*/
+            weekTextViewtoolbar.setVisibility(View.VISIBLE);
+            weekTextViewtoolbar.setText("第" + String.valueOf(CurrentWeek.getweek()) + "周");
+        } else weekTextViewtoolbar.setVisibility(View.INVISIBLE);
+    }
 
-            xnm = Constant.ALL_XNM[position];
-
-        } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/
+    private void setSceduleViewPager()
+    {
+        scheduleTabblefragmentList = new ArrayList<Fragment>();
+        for (int i = 0; i < 20; i++)
         {
-            xqm = Constant.ALL_XQM[position];
-
+            /*批量加载课程表*/
+            /*参数i为周次*/
+            scheduleTabblefragmentList.add(ScheduleTableFragment.newInstance(i));
         }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
-
-    }
-
-    private void getSchedule()
-    {
-
-                /*设置等待窗口文字*/
-        progressDialogLoading.setMessage("正在查询请稍后");
-                /*设置不可取消*/
-        progressDialogLoading.setCancelable(false);
-                /*显示等待窗口*/
-        progressDialogLoading.show();
-                /*开启线程开始查询*/
-        new Thread(new Runnable()
+        /*设置适配器*/
+        scheduleViewpagerAdapter = new ScheduleViewpagerAdapter(getChildFragmentManager(), scheduleTabblefragmentList);
+        sceduleViewPager = (ViewPager) schedule_layout.findViewById(R.id.schedule_viewpager);
+        sceduleViewPager.setAdapter(scheduleViewpagerAdapter);
+        /*设置预加载页面数*/
+        sceduleViewPager.setOffscreenPageLimit(2);
+        /*第一次打开展示当前周的课表*/
+        sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
+        /*页面改变监听*/
+        sceduleViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
         {
             @Override
-            public void run()
+            public void onPageSelected(int position)
             {
+                super.onPageSelected(position);
+/*页面改变时,改变toolbar上的周次显示*/
+                weekTextViewtoolbar.setText("第" + String.valueOf(position + 1) + "周");
 
-                Login login = new Login();
-                login.doLogin(userName, password);
-
-                Message message = new Message();
-
-                if (login.doLogin(userName, password).contains("LoginSuccessed"))
-                {
-                    Schedule schedule = new Schedule(login.client);
-                    schedule.setSchedule(totalInfo, xnm, xqm);
-                    scheduleItemList = schedule.getScheduleList(totalInfo);
-                    message.what = Constant.SCHEDULE_OK;
-                    handler.sendMessage(message);
-                } else
-                {
-                    message.what = Constant.LOGIN_FAILED;
-                    handler.sendMessage(message);
-                }
             }
-        }).start();
 
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+                super.onPageScrollStateChanged(state);
+            }
+
+        });
     }
 
     @Override
-    public void onClick(View v)
+    public boolean onLongClick(View v)
     {
-        if (v.getId() == R.id.cx)
+        int id = v.getId();
+        switch (id)
         {
-            getSchedule();
+            case R.id.toolbarTextView:
+                sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
+                break;
+            default:
+                break;
         }
+        return false;
     }
 }
