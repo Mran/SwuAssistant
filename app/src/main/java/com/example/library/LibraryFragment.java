@@ -1,6 +1,7 @@
 package com.example.library;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,13 +12,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +29,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class LibraryFragment extends Fragment
-{
+public class LibraryFragment extends Fragment {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -40,6 +43,8 @@ public class LibraryFragment extends Fragment
     private LibraryContentFragment fragmentBorrowInfo;
     private FloatingActionButton floatingActionButton;
     private static ProgressDialog progressDialogLoading;
+    private String userName;
+    private String password;
 
     private static final int FRAGMENT_USERINFO_UPDATE = 0;
     private static final int FRAGMENT_HISTORY_UPDATE = 1;
@@ -90,13 +95,21 @@ public class LibraryFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        nameValuePairsLoginLibrary = new ArrayList<>();
+        userName = MainActivity.sharedPreferences.getString("userName", "none");
+        password = MainActivity.sharedPreferences.getString("password", "none");
+        nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+        nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+
+        loginLibrary(nameValuePairsLoginLibrary);
+
+        Log.d("HttpLog", "onActivityCreated userName====>" + userName);
+        Log.d("HttpLog", "onActivityCreated password====>" + password);
         progressDialogLoading = new ProgressDialog(getContext());
         tabLayout = (TabLayout) libraryLayout.findViewById(R.id.tabLayoutLibrary);
         viewPager = (ViewPager) libraryLayout.findViewById(R.id.viewPagerLibrary);
         floatingActionButton = (FloatingActionButton) libraryLayout.findViewById(R.id.fabRefresh);
-        nameValuePairsLoginLibrary = new ArrayList<>();
         books = new ArrayList<>();
-
         List<String> titles = new ArrayList<>();
         titles.add("个人信息");
         titles.add("借阅历史");
@@ -172,6 +185,16 @@ public class LibraryFragment extends Fragment
                 Message message = new Message();
                 message.what = FRAGMENT_BORROWINFO_UPDATE;
                 handler.sendMessage(message);
+            }
+        }).start();
+    }
+
+    public void loginLibrary(final List<NameValuePair> nameValuePairs){
+        GetMyLibraryInfo.Init();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GetMyLibraryInfo.libraryLogin(nameValuePairs);
             }
         }).start();
     }

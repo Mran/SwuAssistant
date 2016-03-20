@@ -43,7 +43,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
-    private List<NameValuePair> nameValuePairsLoginLibrary;
     /*账户名*/
     private static String userName;
     /*密码*/
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //    private static int freshMenuStatus = Constant.DISSHOW;
 
     /*用户信息的本地储存文件*/
-    private static SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
     /*主界面布局*/
     private static MainPageFragment mainPageFragment;
@@ -105,13 +104,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor = sharedPreferences.edit();
         userName = sharedPreferences.getString("userName", "");
         password = sharedPreferences.getString("password", "");
-
         editor.commit();
-
-
         fragmentManager = getSupportFragmentManager();
-        nameValuePairsLoginLibrary = new ArrayList<>();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -137,10 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             /*对侧边栏的姓名和学号进行配置*/
             swuIDTextView.setText(totalInfo.getSwuID());
             nameTextView.setText(totalInfo.getName());
-            nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-            nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-            //登陆图书馆
-            loginLibrary(nameValuePairsLoginLibrary);
         }
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
 //
@@ -171,10 +161,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     swuIDTextView.setText(totalInfo.getSwuID());
                     nameTextView.setText(totalInfo.getName());
                     nameTextView.setClickable(false);
-                    //登陆图书馆
-                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-                    loginLibrary(nameValuePairsLoginLibrary);
                 }
         }
     }
@@ -553,15 +539,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String getPassword()
     {
         return password;
-    }
-
-    public void loginLibrary(final List<NameValuePair> nameValuePairs){
-        GetMyLibraryInfo.Init();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GetMyLibraryInfo.libraryLogin(nameValuePairs);
-            }
-        }).start();
     }
 }
