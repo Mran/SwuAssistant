@@ -14,7 +14,7 @@ import java.util.List;
  * Created by 张孟尧 on 2016/3/18.
  * scheuleviewpager的适配器
  */
-public class ScheduleViewpagerAdapter extends FragmentStatePagerAdapter
+public class ScheduleViewpagerAdapter extends FragmentPagerAdapter
 {
     private List<Fragment> mscheduleTabblefragmentList;
     public ScheduleViewpagerAdapter(FragmentManager fm,List<Fragment> scheduleTabblefragmentList)
@@ -40,5 +40,11 @@ public class ScheduleViewpagerAdapter extends FragmentStatePagerAdapter
     {
         /*屏蔽掉viewpager销毁视图*/
 //        super.destroyItem(container, position, object);
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position)
+    {
+        return super.instantiateItem(container, position);
     }
 }

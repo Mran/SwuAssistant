@@ -29,7 +29,7 @@ public class CurrentWeek
         cal.setTime(smdate);
         long time1 = cal.getTimeInMillis();
         long time2 =System.currentTimeMillis();
-        int weeks=(int)(time2-time1)/(1000*3600*24)/7+1;
+        int weeks=(int)((time2-time1)/(1000*3600*24)/7+1);
         return weeks;
 
     }

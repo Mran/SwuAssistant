@@ -124,7 +124,7 @@ public class LibraryFragment extends Fragment {
         fragments.add(fragmentUserInfo);
         fragments.add(fragmentHistory);
         fragments.add(fragmentBorrowInfo);
-        FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragments, titles);
+        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), fragments, titles);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

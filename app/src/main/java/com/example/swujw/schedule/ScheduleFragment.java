@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class ScheduleFragment extends Fragment implements View.OnLongClickListener
+public class ScheduleFragment extends Fragment implements View.OnClickListener
 {
     /*viewpager*/
     private ViewPager sceduleViewPager;
@@ -46,10 +46,24 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
         mainActivity = (MainActivity) getActivity();
         toolbar = mainActivity.getToolbar();
         weekTextViewtoolbar = (TextView) toolbar.findViewById(R.id.toolbarTextView);
-        weekTextViewtoolbar.setOnLongClickListener(this);
+        weekTextViewtoolbar.setOnClickListener(this);
+        toolbar.setTitle(R.string.schedule_title);
         /*加载viewpager*/
-        setSceduleViewPager();
         return schedule_layout;
+    }
+
+    @Override
+    public void onStart()
+    {
+
+        super.onStart();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState)
+    {
+        setSceduleViewPager();
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -61,6 +75,7 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
             /*当前viewpager显示设置显示第几周*/
             weekTextViewtoolbar.setVisibility(View.VISIBLE);
             weekTextViewtoolbar.setText("第" + String.valueOf(CurrentWeek.getweek()) + "周");
+            sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
         } else weekTextViewtoolbar.setVisibility(View.INVISIBLE);
     }
 
@@ -78,7 +93,7 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
         sceduleViewPager = (ViewPager) schedule_layout.findViewById(R.id.schedule_viewpager);
         sceduleViewPager.setAdapter(scheduleViewpagerAdapter);
         /*设置预加载页面数*/
-        sceduleViewPager.setOffscreenPageLimit(2);
+        sceduleViewPager.setOffscreenPageLimit(1);
         /*第一次打开展示当前周的课表*/
         sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
         /*页面改变监听*/
@@ -102,18 +117,10 @@ public class ScheduleFragment extends Fragment implements View.OnLongClickListen
         });
     }
 
+
     @Override
-    public boolean onLongClick(View v)
+    public void onClick(View v)
     {
-        int id = v.getId();
-        switch (id)
-        {
-            case R.id.toolbarTextView:
-                sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
-                break;
-            default:
-                break;
-        }
-        return false;
+        sceduleViewPager.setCurrentItem(CurrentWeek.getweek() - 1);
     }
 }
