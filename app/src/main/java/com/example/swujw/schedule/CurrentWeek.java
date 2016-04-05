@@ -33,4 +33,8 @@ public class CurrentWeek
         return weeks;
 
     }
+    public static int getDayofWeek()
+    {
+        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)-1;
+    }
 }

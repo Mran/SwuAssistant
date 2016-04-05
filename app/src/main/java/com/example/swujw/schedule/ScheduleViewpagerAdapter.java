@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
+import com.example.swuassistant.Constant;
+
 import java.util.List;
 
 
@@ -46,5 +48,12 @@ public class ScheduleViewpagerAdapter extends FragmentPagerAdapter
     public Object instantiateItem(ViewGroup container, int position)
     {
         return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position)
+    {
+        return
+                Constant.SCHEDULE_WEEK_TITLE[position];
     }
 }
