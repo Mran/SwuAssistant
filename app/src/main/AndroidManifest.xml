@@ -25,9 +25,10 @@
             android:launchMode="standard"
             android:label="@string/app_name"
             >
-
         </activity>
+<service android:name="com.example.Service.ClassAlarm">
 
+</service>
     </application>
 
 </manifest>

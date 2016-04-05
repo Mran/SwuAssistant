@@ -1,6 +1,5 @@
 package com.example.swuassistant;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,30 +20,22 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Service.ClassAlarm;
 import com.example.charge.ChargeFragment;
 import com.example.find_lost.FindLostFragment;
-import com.example.library.GetMyLibraryInfo;
+
 import com.example.library.LibraryFragment;
 import com.example.main.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
 import com.example.swujw.schedule.ScheduleFragment;
-import com.example.swujw.schedule.ScheduleTableFragment;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.util.ArrayList;
-import java.util.List;
-
-//import com.example.swujw.schedule.ScheduleFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
 {
@@ -108,7 +99,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
  /*打开保存用户信息的文件*/
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -146,7 +136,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //
         fragmentStateCheck(savedInstanceState);
         Log.d("Mainactivity", "OnCreatview");
-
+        Intent statrtIntent = new Intent(this, ClassAlarm.class);
+        startService(statrtIntent);
     }
 
     @Override
@@ -177,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy()
     {
         super.onDestroy();
-        Log.d("Mainactivity","destory");
+        Log.d("Mainactivity", "destory");
     }
 
     @Override
@@ -210,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -340,6 +332,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
     }
+
     private void fragmentStateCheck(Bundle saveInstanceState)
     {
         if (saveInstanceState == null)
@@ -394,9 +387,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-
-
 
 
     private void initFragment()
@@ -588,6 +578,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         return password;
     }
+
     public Toolbar getToolbar()
-    {return  toolbar;}
+    {
+        return toolbar;
+    }
 }
