@@ -17,9 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.library.GetMyLibraryInfo;
-import com.example.swujw.Login;
-import com.example.swujw.TotalInfo;
+import com.example.ALLFragment.library.GetMyLibraryInfo;
+import com.example.ALLFragment.swujw.Login;
+import com.example.ALLFragment.swujw.TotalInfo;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;

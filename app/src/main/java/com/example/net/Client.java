@@ -1,12 +1,10 @@
 package com.example.net;
 
-import android.net.http.Headers;
 import android.util.Log;
 
 import com.example.swuassistant.Constant;
-import com.example.swujw.Login;
+import com.example.ALLFragment.swujw.Login;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -17,7 +15,6 @@ import org.apache.http.client.methods.HttpGetHC4;
 import org.apache.http.client.methods.HttpPostHC4;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtilsHC4;
 
 import java.io.IOException;

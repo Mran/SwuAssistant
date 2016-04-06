@@ -16,10 +16,10 @@ import android.util.Log;
 import com.example.swuassistant.Constant;
 import com.example.swuassistant.MainActivity;
 import com.example.swuassistant.R;
-import com.example.swujw.TotalInfo;
-import com.example.swujw.schedule.CurrentWeek;
-import com.example.swujw.schedule.Schedule;
-import com.example.swujw.schedule.ScheduleItem;
+import com.example.ALLFragment.swujw.*;
+import com.example.ALLFragment.swujw.schedule.CurrentWeek;
+import com.example.ALLFragment.swujw.schedule.Schedule;
+import com.example.ALLFragment.swujw.schedule.ScheduleItem;
 
 import java.util.ArrayList;
 import java.util.Calendar;

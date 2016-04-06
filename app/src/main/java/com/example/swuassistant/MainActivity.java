@@ -25,17 +25,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ALLFragmentControl.FragmentControl;
+import com.example.ALLFragment.FragmentControl;
 import com.example.Service.ClassAlarm;
-import com.example.charge.ChargeFragment;
-import com.example.find_lost.FindLostFragment;
-
-import com.example.library.LibraryFragment;
-import com.example.main_page.MainPageFragment;
-import com.example.study_materials.StudyMaterialsFragment;
-import com.example.swujw.TotalInfo;
-import com.example.swujw.grade.GradesFragment;
-import com.example.swujw.schedule.ScheduleFragment;
+import com.example.ALLFragment.swujw.*;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
@@ -216,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_schedule)
         {
             fragmentControl.fragmentSelection(id);
-//            toolbar.setTitle(R.string.schedule_title);
+            toolbar.setTitle(R.string.schedule_title);
             fragmentPosition=id;
 
         } else if (id == R.id.nav_study_materials)
