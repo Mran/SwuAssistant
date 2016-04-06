@@ -80,6 +80,8 @@ public class Schedule
             scheduleItem.setTextShow(scheduleItem.getKcmc() + "\n" + scheduleItem.getCdmc() + "\n" + scheduleItem.getJc() + "\n");
             scheduleItem.setTextShowAll(scheduleItem.getKcmc() + "\n" + scheduleItem.getCdmc() + "\n" + scheduleItem.getJc() + "\n" + scheduleItem.getZcd());
             scheduleItem.setClassweek(week(scheduleItem.getZcd()));
+//            scheduleItem.setClassStartTime(Constant.STARTtIMEHOUR[scheduleItem.getStart()], Constant.STARTtIMEMIN[scheduleItem.getStart()]);
+            scheduleItem.setStartTime(Constant.STARTtIMES[scheduleItem.getStart()-1]);
             int pos = 1;
             /*判断该课程已经存在*/
             for (int j = 0; j < scheduleItemListSort.size(); j++)
@@ -108,9 +110,11 @@ public class Schedule
 /*用于处理上课周*/
     private static Boolean[] week(String zcd)
     {
-        Boolean[] classWeek = new Boolean[20];
+
+        Boolean[] classWeek = new Boolean[21];
+        classWeek[0]=true;
         /*初始化为false*/
-        for (int i = 0; i < 20; i++)
+        for (int i = 1; i < 21; i++)
         {
             classWeek[i] = false;
         }
@@ -135,7 +139,7 @@ public class Schedule
                     {
                         /*上双周课的情况处理*/
                         if (i % 2 == 0)
-                            classWeek[i - 1] = true;
+                            classWeek[i] = true;
                     }
                 } else if (aaa.contains("单"))
                 {
@@ -145,7 +149,7 @@ public class Schedule
                     for (int i = Integer.valueOf(zzzzss[0]); i <= j; i++)
                     {
                         if (i % 2 != 0)
-                            classWeek[i - 1] = true;
+                            classWeek[i] = true;
                     }
                 } else
                 {
@@ -153,12 +157,12 @@ public class Schedule
                     int j = Integer.valueOf(zzzzss[1]);
                     for (int i = Integer.valueOf(zzzzss[0]); i <= j; i++)
                     {
-                        classWeek[i - 1] = true;
+                        classWeek[i] = true;
                     }
                 }
             } else
             {
-                classWeek[Integer.valueOf(aaa) - 1] = true;
+                classWeek[Integer.valueOf(aaa)] = true;
             }
         }
         return classWeek;

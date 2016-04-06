@@ -25,12 +25,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ALLFragmentControl.FragmentControl;
 import com.example.Service.ClassAlarm;
 import com.example.charge.ChargeFragment;
 import com.example.find_lost.FindLostFragment;
 
 import com.example.library.LibraryFragment;
-import com.example.main.MainPageFragment;
+import com.example.main_page.MainPageFragment;
 import com.example.study_materials.StudyMaterialsFragment;
 import com.example.swujw.TotalInfo;
 import com.example.swujw.grade.GradesFragment;
@@ -54,22 +55,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*用户信息的本地储存文件*/
     public static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    /*主界面布局*/
-    private static MainPageFragment mainPageFragment;
-    /*课程表界面布局*/
-    private static ScheduleFragment scheduleFragment;
-//    private static ScheduleTableFragment scheduleTableFragment;
-
-    /*成绩界面布局*/
-    private static GradesFragment gradesFragment;
-    /*学习资料界面布局*/
-    private static StudyMaterialsFragment studyMaterialsFragment;
-    /*图书馆界面布局*/
-    private static LibraryFragment libraryFragment;
-    /*水电费界面布局*/
-    private static ChargeFragment chargeFragment;
-    /*失物找寻界面布局*/
-    private static FindLostFragment findLostFragment;
+//    /*主界面布局*/
+//    private static MainPageFragment mainPageFragment;
+//    /*课程表界面布局*/
+//    private static ScheduleFragment scheduleFragment;
+////    private static ScheduleTableFragment scheduleTableFragment;
+//
+//    /*成绩界面布局*/
+//    private static GradesFragment gradesFragment;
+//    /*学习资料界面布局*/
+//    private static StudyMaterialsFragment studyMaterialsFragment;
+//    /*图书馆界面布局*/
+//    private static LibraryFragment libraryFragment;
+//    /*水电费界面布局*/
+//    private static ChargeFragment chargeFragment;
+//    /*失物找寻界面布局*/
+//    private static FindLostFragment findLostFragment;
+    private FragmentControl fragmentControl;
     private static int fragmentPosition = R.id.nav_main;
     /*对fragmengt进行管理*/
     private FragmentManager fragmentManager;
@@ -133,51 +135,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             nameTextView.setText(totalInfo.getName());
         }
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
-//
-        fragmentStateCheck(savedInstanceState);
+        fragmentControl=new FragmentControl(getSupportFragmentManager());
+        fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         Log.d("Mainactivity", "OnCreatview");
         Intent statrtIntent = new Intent(this, ClassAlarm.class);
         startService(statrtIntent);
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
-        Log.d("Mainactivity", "onResume");
-
-    }
-
-    @Override
-    protected void onResumeFragments()
-    {
-        super.onResumeFragments();
-        Log.d("Mainactivity", "onResumeFragments");
-
-    }
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        Log.d("Mainactivity", "onStart6");
-
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        Log.d("Mainactivity", "destory");
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState)
-    {
-        super.onSaveInstanceState(outState);
-        Log.d("Mainactivity", "onSaveInstanceState");
-
-    }
 
     /*获得某个活动的回复信息*/
     @Override
@@ -242,33 +206,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_main)
         {
             toolbar.setTitle(R.string.main_page_title);
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
+            fragmentPosition=id;
         } else if (id == R.id.nav_grades)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.grades_title);
+            fragmentPosition=id;
         } else if (id == R.id.nav_schedule)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
 //            toolbar.setTitle(R.string.schedule_title);
+            fragmentPosition=id;
+
         } else if (id == R.id.nav_study_materials)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.study_materials_title);
-
+            fragmentPosition=id;
         } else if (id == R.id.nav_library)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.library_title);
+            fragmentPosition=id;
         } else if (id == R.id.nav_charge)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.charge_title);
-
+            fragmentPosition=id;
         } else if (id == R.id.nav_find_lost)
         {
-            fragmentSelection(id);
+            fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.find_lost_title);
+            fragmentPosition=id;
         } else if (id == R.id.nav_share)
         {
 
@@ -333,48 +303,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void fragmentStateCheck(Bundle saveInstanceState)
-    {
-        if (saveInstanceState == null)
-        {
-//            initFragment();
-            fragmentSelection(fragmentPosition);
-        } else
-        {
-            if (mainPageFragment != null)
-            {
-                mainPageFragment = (MainPageFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[0]);
-            }
-
-            if (scheduleFragment != null)
-            {
-                scheduleFragment = (ScheduleFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[1]);
-            }
-            if (gradesFragment != null)
-            {
-                gradesFragment = (GradesFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[2]);
-            }
-            if (studyMaterialsFragment != null)
-            {
-                studyMaterialsFragment = (StudyMaterialsFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[3]);
-            }
-            if (findLostFragment != null)
-            {
-                findLostFragment = (FindLostFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[4]);
-            }
-            if (chargeFragment != null)
-            {
-                chargeFragment = (ChargeFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[5]);
-            }
-            if (libraryFragment != null)
-            {
-                libraryFragment = (LibraryFragment) getSupportFragmentManager().findFragmentByTag(Constant.FRAGMENTTAG[6]);
-            }
-//            hideFragments(fragmentManager.beginTransaction());
-            fragmentSelection(fragmentPosition);
-        }
-    }
-
     @Override
     public void onBackPressed()
     {
@@ -388,187 +316,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-
-    private void initFragment()
+    @Override
+    protected void onResume()
     {
-        // 开启一个Fragment事务
-        transaction = fragmentManager.beginTransaction();
-
-        mainPageFragment = new MainPageFragment();
-        transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
-
-
-        scheduleFragment = new ScheduleFragment();
-        transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
-
-        gradesFragment = new GradesFragment();
-        transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
-
-        studyMaterialsFragment = new StudyMaterialsFragment();
-        transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
-
-        findLostFragment = new FindLostFragment();
-        transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
-
-        chargeFragment = new ChargeFragment();
-        transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
-
-        libraryFragment = new LibraryFragment();
-        transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
-        transaction.commit();
-    }
-
-    private void fragmentSelection(int id)
-    {
-        transaction = fragmentManager.beginTransaction();
-
-        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
-        hideFragments(transaction);
-        switch (id)
-        {
-            case R.id.nav_main:
-                if (mainPageFragment == null)
-                {
-                    // 如果mainPageFragment为空，则创建一个并添加到界面上
-                    mainPageFragment = new MainPageFragment();
-                    transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
-
-                } else
-                {
-                    // 如果mainPageFragment不为空，则直接将它显示出来
-                    transaction.show(mainPageFragment);
-
-                }
-                /*记录当前显示页面*/
-                fragmentPosition = id;
-                break;
-            case R.id.nav_schedule:
-                if (scheduleFragment == null)
-                {
-                    // 如果scheduleTableFragment为空，则创建一个并添加到界面上
-                    scheduleFragment = new ScheduleFragment();
-                    transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
-                    ;
-                } else
-                {
-                    // 如果scheduleFragment不为空，则直接将它显示出来
-
-                    transaction.show(scheduleFragment);
-                }
-                /*记录当前显示页面*/
-                fragmentPosition = id;
-                break;
-            case R.id.nav_grades:
-
-                if (gradesFragment == null)
-                {
-                    // 如果GradesFragment为空，则创建一个并添加到界面上
-                    gradesFragment = new GradesFragment();
-                    transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
-                } else
-                {
-                    // 如果GradesFragment不为空，则直接将它显示出来
-                    transaction.show(gradesFragment);
-                }
-                fragmentPosition = id;
-                break;
-            case R.id.nav_study_materials:
-
-                if (studyMaterialsFragment == null)
-                {
-                    // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
-                    studyMaterialsFragment = new StudyMaterialsFragment();
-                    transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
-                } else
-                {
-                    // 如果studyMaterialsFragment不为空，则直接将它显示出来
-                    transaction.show(studyMaterialsFragment);
-                }
-                fragmentPosition = id;
-                break;
-            case R.id.nav_find_lost:
-
-
-                if (findLostFragment == null)
-                {
-                    // 如果findLostFragment为空，则创建一个并添加到界面上
-                    findLostFragment = new FindLostFragment();
-                    transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
-                } else
-                {
-                    // 如果findLostFragment不为空，则直接将它显示出来
-                    transaction.show(findLostFragment);
-                }
-                fragmentPosition = id;
-                break;
-            case R.id.nav_charge:
-
-                if (chargeFragment == null)
-                {
-                    // 如果chargeFragment为空，则创建一个并添加到界面上
-                    chargeFragment = new ChargeFragment();
-                    transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
-                } else
-                {
-                    // 如果chargeFragment不为空，则直接将它显示出来
-                    transaction.show(chargeFragment);
-                }
-                fragmentPosition = id;
-                break;
-            case R.id.nav_library:
-
-                if (libraryFragment == null)
-                {
-                    // 如果libraryFragrment为空，则创建一个并添加到界面上
-                    libraryFragment = new LibraryFragment();
-                    transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
-                } else
-                {
-                    // 如果libraryFragrment不为空，则直接将它显示出来
-                    transaction.show(libraryFragment);
-                }
-                fragmentPosition = id;
-                break;
-            default:
-                break;
-        }
-        transaction.commit();
-    }
-
-    private void hideFragments(FragmentTransaction fragmentTransaction)
-    {
-        if (mainPageFragment != null)
-        {
-            fragmentTransaction.hide(mainPageFragment);
-        }
-        if (gradesFragment != null)
-        {
-            fragmentTransaction.hide(gradesFragment);
-        }
-
-        if (scheduleFragment != null)
-        {
-            fragmentTransaction.hide(scheduleFragment);
-        }
-        if (studyMaterialsFragment != null)
-        {
-            fragmentTransaction.hide(studyMaterialsFragment);
-        }
-        if (libraryFragment != null)
-        {
-            fragmentTransaction.hide(libraryFragment);
-        }
-        if (chargeFragment != null)
-        {
-            fragmentTransaction.hide(chargeFragment);
-        }
-        if (findLostFragment != null)
-        {
-            fragmentTransaction.hide(findLostFragment);
-        }
+        super.onResume();
+        Log.d("Mainactivity", "onResume");
 
     }
 
+    @Override
+    protected void onResumeFragments()
+    {
+        super.onResumeFragments();
+        Log.d("Mainactivity", "onResumeFragments");
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Log.d("Mainactivity", "onStart6");
+
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        Log.d("Mainactivity", "destory");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        Log.d("Mainactivity", "onSaveInstanceState");
+
+    }
     public String getUserName()
     {
         return userName;
@@ -583,4 +368,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         return toolbar;
     }
+
+
 }

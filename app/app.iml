@@ -77,7 +77,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/release" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
@@ -109,7 +108,6 @@
     <orderEntry type="library" exported="" name="httpmime-4.3.6" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1-javadoc" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.9" level="project" />
-    <orderEntry type="library" exported="" name="android-android-23" level="project" />
     <orderEntry type="library" exported="" name="org.apache.http.legacy-android-23" level="project" />
   </component>
 </module>

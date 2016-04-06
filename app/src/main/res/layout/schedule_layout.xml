@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-    <!--<TextView-->
-        <!--android:clipToPadding="true"-->
-        <!--android:id="@+id/week"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="第1周"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:textSize="20dp"/>-->
-<android.support.v4.view.ViewPager
-    android:id="@+id/schedule_viewpager"
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/schedule_SwipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    </android.support.v4.view.ViewPager>
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/schedule_tablayout"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        >
 
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/schedule_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v4.view.ViewPager>
 </LinearLayout>
+
+
+</android.support.v4.widget.SwipeRefreshLayout>

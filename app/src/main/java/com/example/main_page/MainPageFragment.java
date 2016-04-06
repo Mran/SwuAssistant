@@ -1,4 +1,4 @@
-package com.example.main;
+package com.example.main_page;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

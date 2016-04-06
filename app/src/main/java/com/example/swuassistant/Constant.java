@@ -25,6 +25,12 @@ public class Constant
     public static final int DISSHOW = 9;
     public static final int SCHEDULE_OK = 13;
     public static final int SCHEDULE__LOADING = 14;
+    public static final int SHOW_NOTIFYCATION = 15;
+    public static final long DEFAULTIME = 1000*3;
+//    public static final long DEFAULTIME = 1000*2;
+public static final long ONE_CLASS_TIME = 1000*60*40;
+
+
 
     public static final String NO_NET = "网络出现了问题";
     public static final String CLIENT_OK = "成功";
@@ -62,5 +68,12 @@ public class Constant
     public static final String libraryBorrowHistoryUri = "http://mylib.swu.edu.cn/borry.jsp?ac=userHistory";
     //我的借阅信息
     public static final String libraryBorrowInfo = "http://mylib.swu.edu.cn/borry.jsp?ac=borryInofor";
+    public static final int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
+    public static final String[] SCHEDULE_WEEK_TITLE = {"整学期", "第一周", "第二周", "第三周", "第四周", "第五周", "第六周", "第七周", "第八周", "第九周", "第十周", "第十一周", "第十二周", "第十三周", "第十四周", "第十五周", "第十六周", "第十七周", "第十八周", "第十九周", "第二十周"};
+    public static final String[] STARTIME ={"8:00","8:50","9:40","10:40","11:30","12:30","13:50","14:30","15:20","16:10","17:00","19:00","19:50","20:40"};
+public static final int[] STARTtIMEHOUR={8,8,9,10,11,12,13,14,15,16,17,19,19,20};
+    public static final int[] STARTtIMES={8*60,8*60+50,9*60+40,10*60+40,11*60+30,12*60+30,13*60+20,14*60+30,15*60+20,16*60+10,17*60,19*60,19*60+50,20*60+40};
+
+    public static final int [] STARTtIMEMIN={0,50,40,40,30,30,50,30,20,10,0,0,50,40};
 }
 

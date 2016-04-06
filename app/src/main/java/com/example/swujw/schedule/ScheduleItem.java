@@ -31,10 +31,23 @@ public class ScheduleItem
     private int end;
     /*展示在textview里的内容*/
     private String textShow;
-/*展示在总课程表textview里的*/
+    /*展示在总课程表textview里的*/
     private String textShowAll;
     /*用于判断该科目该周是否有课*/
-private Boolean[] classweek={false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false};
+    private Boolean[] classweek = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    /*上课时间以分钟计时*/
+    private long  startTime;
+
+
+    public long getStartTime()
+    {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime)
+    {
+        this.startTime = startTime;
+    }
 
     public Boolean[] getClassweek()
     {
@@ -185,5 +198,31 @@ private Boolean[] classweek={false,false,false,false,false,false,false,false,fal
     public void setZcd(String zcd)
     {
         this.zcd = zcd;
+    }
+/*内部类,定义的是上课开始时间*/
+    public class classStartTime
+    {
+        int hour;
+        int min;
+
+        public int getHour()
+        {
+            return hour;
+        }
+
+        public void setHour(int hour)
+        {
+            this.hour = hour;
+        }
+
+        public int getMin()
+        {
+            return min;
+        }
+
+        public void setMin(int min)
+        {
+            this.min = min;
+        }
     }
 }
