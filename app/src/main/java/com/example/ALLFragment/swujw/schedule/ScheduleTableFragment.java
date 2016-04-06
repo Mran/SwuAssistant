@@ -100,9 +100,14 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         scheduleTableLayout = inflater.inflate(R.layout.schedule_table_layout, container, false);
-
         mainActivity = (MainActivity) getActivity();
-
+        day1TextView = (TextView) scheduleTableLayout.findViewById(R.id.z1);
+        class1TextView = (TextView) scheduleTableLayout.findViewById(R.id.classs1);
+        relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
+        scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
+        scrollView.setOnTouchListener(this);
+        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.schedule_SwipeRefreshLayout);
+        new MyThread().start();
         Log.d("creatview", String.valueOf(week));
 
         return scheduleTableLayout;
@@ -112,16 +117,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-
-        day1TextView = (TextView) scheduleTableLayout.findViewById(R.id.z1);
-        class1TextView = (TextView) scheduleTableLayout.findViewById(R.id.classs1);
-        relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
-        scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
-        scrollView.setOnTouchListener(this);
-        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.schedule_SwipeRefreshLayout);
-        new MyThread().start();
-
-
     }
 
     @Override
@@ -263,27 +258,22 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     public void setTable()
     {
         relativeLayout.removeAllViews();
-        ScheduleItem scheduleItem;
         /*得到一节课的高度*/
         int hight = class1TextView.getHeight();
         /*得到一天的宽度*/
         int width = day1TextView.getWidth();
-        /*背景颜色*/
-        int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
- /*设置新的布局参数*/
+        /*设置新的布局参数*/
         RelativeLayout.LayoutParams layoutParams;
-        for (int i = 0; i < scheduleItemList.size(); i++)
+        int i=0;
+        for (ScheduleItem scheduleItem : scheduleItemList)
         {
-            /*获取一个课程*/
-            scheduleItem = scheduleItemList.get(i);
+            i++;
             /*判断该课本周是否有课*/
             if (!scheduleItem.getClassweek()[week])
             {
                 continue;
-
             }
             layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-
                 /*建一个新的textview*/
             TextView textView = new TextView(scheduleTableLayout.getContext());
 
@@ -308,7 +298,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
             textView.setLayoutParams(layoutParams);
                 /*设置背景色*/
-            textView.setBackgroundResource(background[i % 6]);
+            textView.setBackgroundResource(Constant.background[i % 6]);
                 /*将新建的textview加入列表*/
             textViewList.add(textView);
                 /*将新建的textview加入布局*/
@@ -368,7 +358,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     }
 
 
-    BroadcastReceiver broadcastReceiver=new BroadcastReceiver()
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver()
     {
         @Override
         public void onReceive(Context context, Intent intent)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="schedule"
+        android:summary="课程表设置"
+        android:title="课程表设置">
+        <CheckBoxPreference
+            android:key="schedule_is_should be_remind"
+            android:summary="设置后会在上课前以状态栏通知的形式通知上课信息"
+            android:title="上课提醒"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

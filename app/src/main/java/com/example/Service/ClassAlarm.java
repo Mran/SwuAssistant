@@ -81,11 +81,17 @@ public class ClassAlarm extends Service
         /*加载课程表数据*/
         totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
         curretweek = CurrentWeek.getweek();
+       if (totalInfo.getScheduleDataJson().equals(""))
+       {
+           stopSelf();
+           return super.onStartCommand(intent, flags, startId);
+       }
         scheduleItemList = Schedule.getScheduleList(totalInfo);
         setNotification();
         timerTask = new MtimerTask();
         timer = new Timer();
         timer.schedule(timerTask, 0, Constant.DEFAULTIME);
+        stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 

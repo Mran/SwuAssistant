@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,35 +38,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView swuIDTextView;
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
-//
-//    /*刷新菜单按钮状态,初始化为不显示*/
-//    private static int freshMenuStatus = Constant.DISSHOW;
 
     /*用户信息的本地储存文件*/
     public static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-//    /*主界面布局*/
-//    private static MainPageFragment mainPageFragment;
-//    /*课程表界面布局*/
-//    private static ScheduleFragment scheduleFragment;
-////    private static ScheduleTableFragment scheduleTableFragment;
-//
-//    /*成绩界面布局*/
-//    private static GradesFragment gradesFragment;
-//    /*学习资料界面布局*/
-//    private static StudyMaterialsFragment studyMaterialsFragment;
-//    /*图书馆界面布局*/
-//    private static LibraryFragment libraryFragment;
-//    /*水电费界面布局*/
-//    private static ChargeFragment chargeFragment;
-//    /*失物找寻界面布局*/
-//    private static FindLostFragment findLostFragment;
+
     private FragmentControl fragmentControl;
     private static int fragmentPosition = R.id.nav_main;
-    /*对fragmengt进行管理*/
-    private FragmentManager fragmentManager;
-    // 开启一个Fragment事务
-    private static FragmentTransaction transaction;
+
+
     private Toolbar toolbar;
     private Handler handler = new Handler()
     {
@@ -99,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userName = sharedPreferences.getString("userName", "");
         password = sharedPreferences.getString("password", "");
         editor.commit();
-        fragmentManager = getSupportFragmentManager();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -128,7 +106,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
         fragmentControl=new FragmentControl(getSupportFragmentManager());
+        fragmentControl.initFragment(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
+
         Log.d("Mainactivity", "OnCreatview");
         Intent statrtIntent = new Intent(this, ClassAlarm.class);
         startService(statrtIntent);
@@ -184,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings)
         {
+            startActivity(new Intent(MainActivity.this,SettingActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

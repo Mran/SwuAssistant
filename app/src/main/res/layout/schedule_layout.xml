@@ -14,7 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:background="@color/colorPrimary"
+        app:tabTextColor="@color/tablayoutcolor"
+        app:tabSelectedTextColor="@color/tablayoutslectcolor"
         android:elevation="4dp"
+
         >
 
     </android.support.design.widget.TabLayout>

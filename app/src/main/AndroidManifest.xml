@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.swuassistant"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.example.swuassistant"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -13,8 +14,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -22,13 +23,19 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:launchMode="standard"
             android:label="@string/app_name"
+            android:launchMode="standard"
             >
         </activity>
-<service android:name="com.example.Service.ClassAlarm">
+        <activity
+            android:name=".SettingActivity"
+            android:launchMode="standard">
 
-</service>
+        </activity>
+
+        <service android:name="com.example.Service.ClassAlarm">
+
+        </service>
     </application>
 
 </manifest>

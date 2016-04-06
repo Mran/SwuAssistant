@@ -56,8 +56,6 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                 /*成功获取课表*/
                 case Constant.SCHEDULE_OK:
 
-//                    setTable();
-//                    isLoad = true;
                     swipeRefreshLayout.setRefreshing(false);
 
                     break;
@@ -101,7 +99,17 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
     {
         schedule_layout = inflater.inflate(R.layout.schedule_layout, container, false);
 
-        /*加载viewpager*/
+        sceduleViewPager = (ViewPager) schedule_layout.findViewById(R.id.schedule_viewpager);
+        setSceduleViewPager();
+        mainActivity = (MainActivity) getActivity();
+        toolbar = mainActivity.getToolbar();
+        toolbar.setTitle(R.string.schedule_title);
+        swipeRefreshLayout = (SwipeRefreshLayout) schedule_layout.findViewById(R.id.schedule_SwipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        tabLayout = (TabLayout) schedule_layout.findViewById(R.id.schedule_tablayout);
+        tabLayout.setupWithViewPager(sceduleViewPager);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         return schedule_layout;
     }
 
@@ -124,18 +132,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
     {
         Log.d("ScheduleFm", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
-        mainActivity = (MainActivity) getActivity();
-        toolbar = mainActivity.getToolbar();
-        toolbar.setTitle(R.string.schedule_title);
-        swipeRefreshLayout = (SwipeRefreshLayout) schedule_layout.findViewById(R.id.schedule_SwipeRefreshLayout);
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
-        swipeRefreshLayout.setOnRefreshListener(this);
 
-        sceduleViewPager = (ViewPager) schedule_layout.findViewById(R.id.schedule_viewpager);
-        setSceduleViewPager();
-        tabLayout = (TabLayout) schedule_layout.findViewById(R.id.schedule_tablayout);
-        tabLayout.setupWithViewPager(sceduleViewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
     private void setSceduleViewPager()

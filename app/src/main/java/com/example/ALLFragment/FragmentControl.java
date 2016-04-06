@@ -8,6 +8,7 @@ import com.example.ALLFragment.charge.ChargeFragment;
 import com.example.ALLFragment.find_lost.FindLostFragment;
 import com.example.ALLFragment.library.LibraryFragment;
 import com.example.ALLFragment.main_page.MainPageFragment;
+import com.example.ALLFragment.setting.SettingFragment;
 import com.example.ALLFragment.study_materials.StudyMaterialsFragment;
 import com.example.swuassistant.Constant;
 import com.example.swuassistant.R;
@@ -35,16 +36,16 @@ public class FragmentControl
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
     private static FindLostFragment findLostFragment;
-
+private static SettingFragment settingFragment;
 
     private FragmentManager fragmentManager;
     public FragmentControl(FragmentManager fragmentManager)
     {
         this.fragmentManager=fragmentManager;
     }
-    private void initFragment(FragmentManager fragmentManager)
+    public void initFragment(FragmentManager fragmentManager)
     {
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        FragmentTransaction transaction;
         // 开启一个Fragment事务
         transaction = fragmentManager.beginTransaction();
 
@@ -70,6 +71,7 @@ public class FragmentControl
         libraryFragment = new LibraryFragment();
         transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
         transaction.commit();
+        hideFragments(transaction);
     }
 
 
@@ -109,14 +111,13 @@ public class FragmentControl
             {
                 libraryFragment = (LibraryFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
             }
-//            hideFragments(fragmentManager.beginTransaction());
             fragmentSelection(fragmentPosition);
         }
     }
 
     public void fragmentSelection(int id)
     {
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        FragmentTransaction transaction;
         transaction = fragmentManager.beginTransaction();
 
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
@@ -221,6 +222,9 @@ public class FragmentControl
                     transaction.show(libraryFragment);
                 }
                 break;
+            case R.id.action_settings:
+                    settingFragment=new SettingFragment();
+//                    transaction.add(R.id.content,settingFragment,Constant.FRAGMENTTAG[6]);
             default:
                 break;
         }
