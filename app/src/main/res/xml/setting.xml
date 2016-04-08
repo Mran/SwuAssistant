@@ -11,6 +11,7 @@
             android:defaultValue="true"/>
         <ListPreference
             android:key="headway_before_class"
+            android:dependency="schedule_is_should be_remind"
             android:title="@string/remind_time"
             android:dialogTitle="@string/set_remind_time"
             android:summary="@string/remind_time_detail"

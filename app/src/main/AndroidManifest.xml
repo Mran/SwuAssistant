@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.example.swuassistant"
+    package="com.swuos.swuassistant"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name="com.swuos.swuassistant.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask">
             <intent-filter>
@@ -22,16 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name="com.swuos.swuassistant.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="standard"
             >
         </activity>
-        <activity android:name=".SettingActivity"/>
+        <activity android:name="com.swuos.swuassistant.SettingActivity"/>
 
-        <service android:name="com.example.Service.ClassAlarmService">
-
-        </service>
+        <service android:name="com.swuos.Service.ClassAlarmService"></service>
+        <receiver android:name="com.swuos.ALLFragment.swujw.schedule.DateChangeRecevier">
+            <intent-filter>
+                <action android:name="com.swuos.ALLFragment.swujw.schedule.SCHEDULEDATECHANGE"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

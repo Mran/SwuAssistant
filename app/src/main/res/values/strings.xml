@@ -23,6 +23,7 @@
     <string name="login_timeout">登陆超时</string>
     <string name="connect_error">连接出现问题</string>
     <string name="loging_and_wait">正在登录请稍后</string>
+    <string name="school_servier_boom">查不出来是服务器的锅╮(╯▽╰)╭</string>
 
 
     <string name="action_settings">设置</string>

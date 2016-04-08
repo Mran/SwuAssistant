@@ -10,7 +10,7 @@
         android:layout_weight="3"
         android:gravity="left|center">
 
-        <com.example.ALLFragment.swujw.grade.SlidingTextView
+        <com.swuos.ALLFragment.swujw.grade.SlidingTextView
             android:id="@+id/kcmc"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
