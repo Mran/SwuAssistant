@@ -5,13 +5,18 @@
               android:clipToPadding="true"
               android:orientation="vertical">
 
-    <android.widget.Toolbar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"></android.widget.Toolbar>
+        android:minHeight="?attr/actionBarSize"/>
+<FrameLayout
+    android:id="@+id/setting_fragment"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    />
 
     <ListView
         android:id="@android:id/list"

@@ -36,7 +36,7 @@ public class FragmentControl
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
     private static FindLostFragment findLostFragment;
-private static SettingFragment settingFragment;
+    private static SettingFragment settingFragment;
 
     private FragmentManager fragmentManager;
     public FragmentControl(FragmentManager fragmentManager)
@@ -222,9 +222,6 @@ private static SettingFragment settingFragment;
                     transaction.show(libraryFragment);
                 }
                 break;
-            case R.id.action_settings:
-                    settingFragment=new SettingFragment();
-//                    transaction.add(R.id.content,settingFragment,Constant.FRAGMENTTAG[6]);
             default:
                 break;
         }

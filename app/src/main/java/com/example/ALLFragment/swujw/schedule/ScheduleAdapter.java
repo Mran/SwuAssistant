@@ -16,6 +16,7 @@ import java.util.List;
  * Created by 张孟尧 on 2016/3/4.
  */
 /*自定义的ListView的适配器*/
+@Deprecated
 public class ScheduleAdapter extends ArrayAdapter<ScheduleItem>
 {
 

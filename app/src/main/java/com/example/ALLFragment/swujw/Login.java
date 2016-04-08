@@ -83,9 +83,5 @@ public class Login
         return Constant.CLIENT_OK;
     }
 
-    public Client getClient()
-    {
-        return client;
-    }
 }
 

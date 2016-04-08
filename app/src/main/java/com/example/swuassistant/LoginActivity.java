@@ -76,8 +76,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     //登陆失败
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage("用户不存在或密码错误！")
-                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            .setMessage(R.string.no_user_or_password_error)
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which)
@@ -92,8 +92,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 case Constant.LOGIN_NO_NET:
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage("网络错误请检查网络")
-                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            .setMessage(R.string.net_error_please_check_net)
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which)
@@ -108,8 +108,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 case Constant.LOGIN_TIMEOUT:
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage("登陆超时")
-                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            .setMessage(R.string.login_timeout)
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which)
@@ -124,8 +124,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 case Constant.LOGIN_CLIENT_ERROR:
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage("连接出现问题")
-                            .setPositiveButton("我知道了", new DialogInterface.OnClickListener()
+                            .setMessage(R.string.connect_error)
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
                             {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which)
@@ -174,7 +174,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         userName = mUserNAmeView.getText().toString();
         password = mPasswordView.getText().toString();
         /*显示登陆过程窗口*/
-        progressDialogLoading.setMessage("正在登录请稍后");
+        progressDialogLoading.setMessage(this.getString(R.string.loging_and_wait));
         progressDialogLoading.setCancelable(false);
         progressDialogLoading.show();
         if (v.getId() == R.id.sign_in_button)
@@ -182,17 +182,6 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
             login();
         }
     }
-
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event)
-//    {
-//        if (keyCode == KeyEvent.KEYCODE_BACK)
-//        {
-//            moveTaskToBack(false);
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
 
     private void login()
     {
@@ -209,20 +198,10 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                 Message message = new Message();
                 if (response.contains("Successed"))
                 {
-                    //顺便登陆图书馆主页
-                    nameValuePairsLoginLibrary = new ArrayList<>();
-                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-                    nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-                    GetMyLibraryInfo.Init();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            GetMyLibraryInfo.libraryLogin(nameValuePairsLoginLibrary);
-                        }
-                    }).start();
-
                         /*登陆成功获得名字和学号*/
                     totalInfo = login.getBasicInfo();
+                    totalInfo.setUserName(userName);
+                    totalInfo.setPassword(password);
                     editor.putString("userName", userName);
                     editor.putString("password", password);
                     editor.putString("name", totalInfo.getName());

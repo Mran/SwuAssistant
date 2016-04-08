@@ -107,9 +107,9 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         spinnerXqm.setSelection(1, true);
         progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
 
-        MainActivity mainActivity = (MainActivity) getActivity();
-        userName = mainActivity.getUserName();
-        password = mainActivity.getPassword();
+//        MainActivity mainActivity = (MainActivity) getActivity();
+        userName = totalInfo.getUserName();
+        password = totalInfo.getPassword();
         buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
         buttonGradesInquire.setOnClickListener(this);
         return gradesLayout;

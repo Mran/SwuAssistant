@@ -9,6 +9,13 @@
             android:summary="设置后会在上课前以状态栏通知的形式通知上课信息"
             android:title="上课提醒"
             android:defaultValue="true"/>
+        <ListPreference
+            android:key="headway_before_class"
+            android:title="@string/remind_time"
+            android:dialogTitle="@string/set_remind_time"
+            android:summary="@string/remind_time_detail"
+            android:entries="@array/headway_before_class_string"
+            android:entryValues="@array/headway_before_class"/>
     </PreferenceCategory>
 
 

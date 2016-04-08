@@ -34,8 +34,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 {
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
-//    /*处理后的课程表的列表,直接用*/
-//    private static List<ScheduleItem> scheduleItemListSort = new ArrayList<>();
 
     /*账户名*/
     private static String userName = "";
@@ -86,8 +84,8 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             mainActivity = (MainActivity) getActivity();
 
         /*获取用户名和密码*/
-            userName = mainActivity.getUserName();
-            password = mainActivity.getPassword();
+            userName = totalInfo.getUserName();
+            password = totalInfo.getPassword();
         /*打开本地存储文件*/
             sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
         /*加载课程表数据*/
@@ -182,10 +180,10 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     {
 
         /*判断用户是否登录*/
-        if (userName.isEmpty())
+        if (userName!=null&&userName.isEmpty())
         {  /*获取用户名和密码*/
-            userName = mainActivity.getUserName();
-            password = mainActivity.getPassword();
+            userName = totalInfo.getUserName();
+            password = totalInfo.getPassword();
         /*打开本地存储文件*/
             sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
         /*加载课程表数据*/
@@ -213,8 +211,8 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
     private void getSchedule()
     {
-        userName = mainActivity.getUserName();
-        password = mainActivity.getPassword();
+        userName = totalInfo.getUserName();
+        password = totalInfo.getPassword();
 //                /*开启线程开始查询*/
         new Thread(new Runnable()
         {

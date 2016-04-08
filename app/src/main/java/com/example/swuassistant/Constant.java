@@ -26,9 +26,9 @@ public class Constant
     public static final int SCHEDULE_OK = 13;
     public static final int SCHEDULE__LOADING = 14;
     public static final int SHOW_NOTIFYCATION = 15;
-    public static final long DEFAULTIME = 1000*3;
-//    public static final long DEFAULTIME = 1000*2;
-public static final long ONE_CLASS_TIME = 1000*60*40;
+    public static final long DEFAULHEADWAY = 1000*60;
+    public static final long DEFAULTIME = 1000*60;//60秒
+    public static final long ONE_CLASS_TIME = 1000*60*40;
 
 
 

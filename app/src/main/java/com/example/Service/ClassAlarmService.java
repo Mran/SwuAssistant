@@ -6,10 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Handler;
+
 import android.os.IBinder;
-import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -30,7 +28,7 @@ import java.util.TimerTask;
 /**
  * Created by 张孟尧 on 2016/4/4.
  */
-public class ClassAlarm extends Service
+public class ClassAlarmService extends Service
 {
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
@@ -42,24 +40,7 @@ public class ClassAlarm extends Service
     private Timer timer = new Timer();
 
     private TimerTask timerTask;
-    private Handler handler = new Handler(new Handler.Callback()
-    {
-        @Override
-        public boolean handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
-                case Constant.SHOW_NOTIFYCATION:
-                    setNotification();
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        }
-    });
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent)
     {
@@ -88,9 +69,8 @@ public class ClassAlarm extends Service
        }
         scheduleItemList = Schedule.getScheduleList(totalInfo);
         setNotification();
-        timerTask = new MtimerTask();
         timer = new Timer();
-        timer.schedule(timerTask, 0, Constant.DEFAULTIME);
+        timer.schedule(new MtimerTask(), 0, Constant.DEFAULHEADWAY);
         stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -114,15 +94,13 @@ public class ClassAlarm extends Service
             {
                 continue;
             }
-            if (isApproachClass(scheduleItem))
+            if (isApproachClass(scheduleItem,15))
             {
                 showNotify(scheduleItem);
                 timer.cancel();
                 timer = null;
                 timer = new Timer();
-                timerTask = null;
-                timerTask = new MtimerTask();
-                timer.schedule(timerTask, Constant.ONE_CLASS_TIME, Constant.DEFAULTIME);
+                timer.schedule(new MtimerTask(), Constant.ONE_CLASS_TIME, Constant.DEFAULHEADWAY);
                 break;
             }
 
@@ -130,15 +108,15 @@ public class ClassAlarm extends Service
 
     }
 
-    private boolean isApproachClass(ScheduleItem scheduleItem)
+    private boolean isApproachClass(ScheduleItem scheduleItem, long headwayMin)
     {
         long time = scheduleItem.getStartTime() - (Calendar.getInstance().get(Calendar.HOUR_OF_DAY) * 60 + Calendar.getInstance().get(Calendar.MINUTE));
-        if ((time <= 15) && (time >= 0))
+        if ((time <= headwayMin) && (time >= 0))
         {
-            Log.d("ClassAlam", String.valueOf(time) + "---" + String.valueOf(scheduleItem.getStartTime()));
+            Log.d("ClassAlamok", String.valueOf(time) + "---" + String.valueOf(scheduleItem.getStartTime()));
             return true;
         } else
-            Log.d("ClassAlam", String.valueOf(time) + "---" + String.valueOf(scheduleItem.getStartTime()));
+            Log.d("ClassAlamnot", String.valueOf(time) + "---" + String.valueOf(scheduleItem.getStartTime()));
         return false;
     }
 
@@ -153,10 +131,7 @@ public class ClassAlarm extends Service
         public void run()
         {
             Log.d("ClassAlam", "测试一次");
-
-            Message message = new Message();
-            message.what = Constant.SHOW_NOTIFYCATION;
-            handler.sendMessage(message);
+setNotification();
         }
     }
 

@@ -27,13 +27,9 @@
             android:launchMode="standard"
             >
         </activity>
-        <activity
-            android:name=".SettingActivity"
-            android:launchMode="standard">
+        <activity android:name=".SettingActivity"/>
 
-        </activity>
-
-        <service android:name="com.example.Service.ClassAlarm">
+        <service android:name="com.example.Service.ClassAlarmService">
 
         </service>
     </application>
