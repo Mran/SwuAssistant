@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
@@ -36,11 +35,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
 
-    /*账户名*/
-    private static String userName = "";
-    /*密码*/
-    private static String password = "";
-
     /*课程表布局*/
     private RelativeLayout relativeLayout;
 
@@ -50,17 +44,14 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     /*第一节课的textView*/
     private TextView class1TextView;
     /*保存所有课程的textview列表*/
-    private static List<TextView> textViewList = new ArrayList<>();
+    private List<TextView> textViewList = new ArrayList<>();
 
-    /*保存用户信息*/
-    private static TotalInfo totalInfo = new TotalInfo();
-    private static SharedPreferences sharedPreferences;
     View scheduleTableLayout;
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static MainActivity mainActivity;
     private int week;
     private static int curretweek = -1;
-    private Boolean isLoad = false;
+    private Boolean late_Load = false;
     private IntentFilter intentFilter;
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
@@ -82,7 +73,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             curretweek = CurrentWeek.getweek();
             mainActivity = (MainActivity) getActivity();
         }
-        scheduleItemList = ScheduleFragment.scheduleItemList;
     }
 
     @Nullable
@@ -152,6 +142,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
     public void setTable() {
         relativeLayout.removeAllViews();
+        //        textViewList.clear();
         /*得到一节课的高度*/
         int hight = class1TextView.getHeight();
         /*得到一天的宽度*/
@@ -159,6 +150,9 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         /*设置新的布局参数*/
         RelativeLayout.LayoutParams layoutParams;
         int i = 0;
+        if (!isAdded()) {
+            this.onDetach();
+        }
         for (ScheduleItem scheduleItem : ScheduleFragment.scheduleItemList) {
             i++;
             /*判断该课本周是否有课*/
@@ -192,11 +186,14 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
                 /*设置背景色*/
             textView.setBackgroundResource(Constant.background[i % 6]);
                 /*将新建的textview加入列表*/
-            textViewList.add(textView);
+            //            textViewList.add(textView);
                 /*将新建的textview加入布局*/
             relativeLayout.addView(textView);
-        }
 
+        }
+        /*加载完成取消刷新动画*/
+        swipeRefreshLayout.setRefreshing(false);
+        Log.d("Scheduletable", String.valueOf(week));
 
     }
 
@@ -232,11 +229,52 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         }
     }
 
+    class MyUpdate extends AsyncTask {
+        /**
+         * Override this method to perform a computation on a background thread. The
+         * specified parameters are the parameters passed to {@link #execute}
+         * by the caller of this task.
+         * <p/>
+         * This method can call {@link #publishProgress} to publish updates
+         * on the UI thread.
+         *
+         * @param params The parameters of the task.
+         * @return A result, defined by the subclass of this task.
+         * @see #onPreExecute()
+         * @see #onPostExecute
+         * @see #publishProgress
+         */
+        @Override
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
+
+        /**
+         * <p>Runs on the UI thread after {@link #doInBackground}. The
+         * specified result is the value returned by {@link #doInBackground}.</p>
+         * <p/>
+         * <p>This method won't be invoked if the task was cancelled.</p>
+         *
+         * @param o The result of the operation computed by {@link #doInBackground}.
+         * @see #onPreExecute
+         * @see #doInBackground
+         * @see #onCancelled(Object)
+         */
+        @Override
+        protected void onPostExecute(Object o) {
+            init();
+            super.onPostExecute(o);
+        }
+    }
+
     class LocalRecevier extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            //            Toast.makeText(context, "收到刷新请求", Toast.LENGTH_SHORT).show();
-            new MyThread().start();
+            if (isAdded())
+                new MyThread().start();
+            else
+                late_Load = true;
+            //  new MyUpdate().execute();
         }
     }
 
@@ -282,7 +320,11 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     @Override
     public void onResume() {
         Log.d("resume", String.valueOf(week));
-
+        if (late_Load) {
+            late_Load = false;
+            new MyThread().start();
+            Log.d("resume", "随后刷新" + String.valueOf(week));
+        }
         super.onResume();
     }
 
@@ -293,15 +335,34 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         super.onStop();
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("onAttach", String.valueOf(week));
+
+    }
+
+    /**
+     * Called when the fragment is no longer attached to its activity.  This
+     * is called after {@link #onDestroy()}.
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("onDetach", String.valueOf(week));
+
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        Log.d("可见1", String.valueOf(week));
 
-        if (isVisibleToUser && !isLoad) {
-            Log.d("可见2", String.valueOf(week));
-
-        }
     }
 
 }

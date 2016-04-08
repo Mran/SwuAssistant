@@ -61,12 +61,11 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
             switch (msg.what) {
 
                 case Constant.SCHEDULE_OK: /*成功获取课表*/
-                    swipeRefreshLayout.setRefreshing(false);
                     /*获得课程表成功,发送广播要求所有页面加载课表*/
                     Intent intent = new Intent("com.swuos.ALLFragment.swujw.schedule" +
                             ".SCHEDULEDATECHANGE");
                     localBroadcastManager.sendBroadcast(intent);
-                    //                    Toast.makeText(getActivity(), "发送刷新请求", Toast.LENGTH_SHORT).show();
+
                     break;
                 case Constant.LOGIN_FAILED://登录失败
                     Toast.makeText(getActivity(), R.string.no_user_or_password_error, Toast
@@ -170,7 +169,14 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
+        if (totalInfo.getSwuID() != null) {
+            scheduleItemList.clear();
+            getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
+        } else {
+            Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
+            swipeRefreshLayout.setRefreshing(false);
+        }
+
     }
 
     private void initScheduleDate() {
