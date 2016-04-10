@@ -40,7 +40,7 @@ public class ScheduleViewpagerAdapter extends FragmentStatePagerAdapter
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        /*屏蔽掉viewpager销毁视图*/
+
         super.destroyItem(container, position, object);
     }
 

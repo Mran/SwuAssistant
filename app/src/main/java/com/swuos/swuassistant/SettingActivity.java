@@ -24,13 +24,14 @@ public class SettingActivity extends AppCompatActivity {
         //透明导航栏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.setting_layout);
+        /*设置toolbar*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.setTitle(R.string.action_settings);
-        toolbar.setTitle(R.string.action_settings);
         toolbar.setTitleTextColor(Color.WHITE);
         Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationIcon(d);
+        /*打开preferenceFragment*/
         SettingFragment settingFragment=new SettingFragment();
         FragmentManager fragmentManager=getFragmentManager();
         FragmentTransaction transaction=fragmentManager.beginTransaction();

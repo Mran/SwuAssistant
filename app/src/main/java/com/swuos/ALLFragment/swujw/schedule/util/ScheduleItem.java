@@ -35,7 +35,7 @@ public class ScheduleItem
     private String textShowAll;
     /*用于判断该科目该周是否有课*/
     private Boolean[] classweek = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
-    /*上课时间以分钟计时*/
+    /*上课时间以毫秒计时,以一星期为周期*/
     private long  startTime;
 
 
@@ -44,7 +44,7 @@ public class ScheduleItem
         return startTime;
     }
 
-    public void setStartTime(int startTime)
+    public void setStartTime(long startTime)
     {
         this.startTime = startTime;
     }

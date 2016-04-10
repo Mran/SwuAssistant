@@ -59,18 +59,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        //        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
         initView();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
         fragmentControl.initFragment(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(
                 savedInstanceState, getSupportFragmentManager(),
-                fragmentPosition);
+                fragmentPosition
+        );
 
         Log.d("Mainactivity", "OnCreatview");
-        Intent statrtIntent = new Intent(this, ClassAlarmService.class);
-        startService(statrtIntent);
+        startServier();
     }
 
 
@@ -80,13 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
-                    userName = data.getStringExtra("userName");
-                    password = data.getStringExtra("password");
-
-                      /*对侧边栏的姓名和学号进行配置*/
-                    swuIDTextView.setText(totalInfo.getSwuID());
-                    nameTextView.setText(totalInfo.getName());
-                    nameTextView.setClickable(false);
+                    setNavigationViewHeader();
                 }
                 break;
 
@@ -118,13 +112,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         nameTextView = (TextView) view.findViewById(R.id.name);
         swuIDTextView = (TextView) view.findViewById(R.id.swuid);
 
-        /*打开保存用户信息的文件*/
+        inintdate();
+        setNavigationViewHeader();
+    }
+
+    private void startServier() {
+        SharedPreferences settingSharedPreferences = getSharedPreferences("com.swuos.swuassistant_preferences", MODE_PRIVATE);
+        Boolean isRemind = settingSharedPreferences.getBoolean("schedule_is_should be_remind", false);
+        if (isRemind) {
+            Intent statrtIntent = new Intent(this, ClassAlarmService.class);
+            startService(statrtIntent);
+        }
+    }
+
+    private void inintdate() {
+         /*打开保存用户信息的文件*/
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         totalInfo.setUserName(sharedPreferences.getString("userName", ""));
         totalInfo.setName(sharedPreferences.getString("name", ""));
         totalInfo.setPassword(sharedPreferences.getString("password", ""));
         totalInfo.setSwuID(sharedPreferences.getString("swuID", ""));
-        setNavigationViewHeader();
+        totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
     }
 
     private void setNavigationViewHeader() {
@@ -135,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             /*对侧边栏的姓名和学号进行配置*/
             swuIDTextView.setText(totalInfo.getSwuID());
             nameTextView.setText(totalInfo.getName());
+            nameTextView.setClickable(false);
         }
     }
 
@@ -163,9 +172,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             startActivity(new Intent(MainActivity.this, SettingActivity.class));
             return true;
         }
-        if(id==R.menu.main)
-        {
-            Log.d("MainActivity","click_main");
+        if (id == R.menu.main) {
+            Log.d("MainActivity", "click_main");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -179,41 +187,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             toolbar.setTitle(R.string.main_page_title);
             fragmentControl.fragmentSelection(id);
             fragmentPosition = id;
-        } else
-            if (id == R.id.nav_grades) {
-                fragmentControl.fragmentSelection(id);
-                toolbar.setTitle(R.string.grades_title);
-                fragmentPosition = id;
-            } else
-                if (id == R.id.nav_schedule) {
-                    fragmentControl.fragmentSelection(id);
-                    toolbar.setTitle(R.string.schedule_title);
-                    fragmentPosition = id;
+        } else if (id == R.id.nav_grades) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.grades_title);
+            fragmentPosition = id;
+        } else if (id == R.id.nav_schedule) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.schedule_title);
+            fragmentPosition = id;
 
-                } else
-                    if (id == R.id.nav_study_materials) {
-                        fragmentControl.fragmentSelection(id);
-                        toolbar.setTitle(R.string.study_materials_title);
-                        fragmentPosition = id;
-                    } else
-                        if (id == R.id.nav_library) {
-                            fragmentControl.fragmentSelection(id);
-                            toolbar.setTitle(R.string.library_title);
-                            fragmentPosition = id;
-                        } else
-                            if (id == R.id.nav_charge) {
-                                fragmentControl.fragmentSelection(id);
-                                toolbar.setTitle(R.string.charge_title);
-                                fragmentPosition = id;
-                            } else
-                                if (id == R.id.nav_find_lost) {
-                                    fragmentControl.fragmentSelection(id);
-                                    toolbar.setTitle(R.string.find_lost_title);
-                                    fragmentPosition = id;
-                                } else
-                                    if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_study_materials) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.study_materials_title);
+            fragmentPosition = id;
+        } else if (id == R.id.nav_library) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.library_title);
+            fragmentPosition = id;
+        } else if (id == R.id.nav_charge) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.charge_title);
+            fragmentPosition = id;
+        } else if (id == R.id.nav_find_lost) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.find_lost_title);
+            fragmentPosition = id;
+        } else if (id == R.id.nav_share) {
 
-                                    }
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                     /*确认退出,清除保存的用户信息,并退出应用*/
-                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
                                 editor.clear();
                                 editor.commit();
                                 System.exit(0);
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 dialogsQuit.show();
                 break;
             case R.id.name:
-//             开启登陆活动,并要求获得回复信息
+                //             开启登陆活动,并要求获得回复信息
                 startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 1);
 
         }

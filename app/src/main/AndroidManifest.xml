@@ -28,13 +28,10 @@
             >
         </activity>
         <activity android:name="com.swuos.swuassistant.SettingActivity"/>
-
         <service android:name="com.swuos.Service.ClassAlarmService"></service>
-        <receiver android:name="com.swuos.ALLFragment.swujw.schedule.DateChangeRecevier">
-            <intent-filter>
-                <action android:name="com.swuos.ALLFragment.swujw.schedule.SCHEDULEDATECHANGE"/>
-            </intent-filter>
-        </receiver>
+        <service android:name="com.swuos.Service.NotifycationService"></service>
+
+        <receiver android:name="com.swuos.Service.ClassAlarmService$MAlarmReceiver"></receiver>
     </application>
 
 </manifest>

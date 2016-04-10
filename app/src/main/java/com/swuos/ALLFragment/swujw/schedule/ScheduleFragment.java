@@ -25,7 +25,6 @@ import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
-import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
@@ -54,7 +53,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private List<Fragment> scheduleTabblefragmentList;    //保存所有的单周课表fragment
     private TotalInfo totalInfo = new TotalInfo();
-    public static List<ScheduleItem> scheduleItemList = new ArrayList<>();    //保存课程表的列表
+    //    public static List<ScheduleItem> scheduleItemList = new ArrayList<>();    //保存课程表的列表
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -105,16 +104,20 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
         schedule_layout = inflater.inflate(R.layout.schedule_layout, container, false);
 
         sceduleViewPager = (ViewPager) schedule_layout.findViewById(R.id.schedule_viewpager);
+
         setSceduleViewPager();
+
         mainActivity = (MainActivity) getActivity();
         toolbar = mainActivity.getToolbar();
-        toolbar.setTitle(R.string.schedule_title);
+
+        /*设置下拉刷新*/
         swipeRefreshLayout = (SwipeRefreshLayout) schedule_layout.findViewById(R.id
                 .schedule_SwipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R
                 .color.holo_red_light, android.R.color.holo_orange_light, android.R.color
                 .holo_green_light);
         swipeRefreshLayout.setOnRefreshListener(this);
+        /*设置tablayout*/
         tabLayout = (TabLayout) schedule_layout.findViewById(R.id.schedule_tablayout);
         tabLayout.setupWithViewPager(sceduleViewPager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -169,25 +172,25 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        if (totalInfo.getSwuID() != null) {
-            scheduleItemList.clear();
-            getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
-        } else {
+        if (totalInfo.getSwuID().equals("")) {
             Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(false);
+        } else {
+            totalInfo.getScheduleItemList().clear();
+            getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
         }
 
     }
 
     private void initScheduleDate() {
-        if (totalInfo.getSwuID() != null) {
+
+        if (!totalInfo.getSwuID().equals("")) {
             totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
             if (totalInfo.getScheduleDataJson().equals("")) {
-                /*没有就去请求数据*/
-                //                getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
                 return;
-            } else if (scheduleItemList.isEmpty()) {
-                scheduleItemList = Schedule.getScheduleList(totalInfo);
+            } else if (totalInfo.getScheduleItemList().isEmpty()) {
+                totalInfo.setScheduleItemList(Schedule.getScheduleList(totalInfo));
+
             }
 
         }
@@ -212,7 +215,8 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                         message.what = Constant.SCHOOL_SERVER_BOOM;
                         handler.sendMessage(message);
                     } else {
-                        scheduleItemList = schedule.getScheduleList(totalInfo);
+                        //                        scheduleItemList = schedule.getScheduleList(totalInfo);
+                        totalInfo.setScheduleItemList(schedule.getScheduleList(totalInfo));
                         /*将获取的课程表json信息写入本地文件*/
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());

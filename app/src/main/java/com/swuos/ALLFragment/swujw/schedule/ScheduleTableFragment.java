@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
@@ -32,8 +33,6 @@ import java.util.List;
  * Created by 张孟尧 on 2016/3/10.
  */
 public class ScheduleTableFragment extends Fragment implements View.OnTouchListener {
-    /*保存课程表的列表*/
-    private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
 
     /*课程表布局*/
     private RelativeLayout relativeLayout;
@@ -45,13 +44,13 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     private TextView class1TextView;
     /*保存所有课程的textview列表*/
     private List<TextView> textViewList = new ArrayList<>();
-
+    private static TotalInfo totalInfo = new TotalInfo();
     View scheduleTableLayout;
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static MainActivity mainActivity;
     private int week;
     private static int curretweek = -1;
-    private Boolean late_Load = false;
+    private Boolean late_Load = false;  //标记是否需要刷新
     private IntentFilter intentFilter;
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
@@ -96,7 +95,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
 
     private void init() {
-        if (ScheduleFragment.scheduleItemList.isEmpty()) {
+        if (totalInfo.getScheduleItemList().isEmpty()) {
             return;
         } else {
             setTable();
@@ -142,7 +141,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
     public void setTable() {
         relativeLayout.removeAllViews();
-        //        textViewList.clear();
         /*得到一节课的高度*/
         int hight = class1TextView.getHeight();
         /*得到一天的宽度*/
@@ -153,7 +151,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         if (!isAdded()) {
             this.onDetach();
         }
-        for (ScheduleItem scheduleItem : ScheduleFragment.scheduleItemList) {
+        for (ScheduleItem scheduleItem : totalInfo.getScheduleItemList()) {
             i++;
             /*判断该课本周是否有课*/
             if (!scheduleItem.getClassweek()[week]) {
@@ -193,8 +191,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         }
         /*加载完成取消刷新动画*/
         swipeRefreshLayout.setRefreshing(false);
-        Log.d("Scheduletable", String.valueOf(week));
-
     }
 
 
@@ -267,6 +263,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         }
     }
 
+    /*设置广播接收刷新消息*/
     class LocalRecevier extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -320,6 +317,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     @Override
     public void onResume() {
         Log.d("resume", String.valueOf(week));
+        /*延后刷新*/
         if (late_Load) {
             late_Load = false;
             new MyThread().start();
