@@ -3,8 +3,6 @@ package com.swuos.Service;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -144,14 +142,5 @@ public class ClassAlarmService extends Service {
             }
         }
 
-    }
-
-
-    public class MAlarmReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Intent intent1 = new Intent(context, ClassAlarmService.class);
-            context.startService(intent1);
-        }
     }
 }
