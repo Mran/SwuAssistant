@@ -124,6 +124,29 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
         return schedule_layout;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.d("ScheduleFm", "onViewCreated");
+        super.onViewCreated(view, savedInstanceState);
+        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+         /*打开本地存储文件*/
+        sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
+        initScheduleDate();
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        Log.d("ScheduleFm", "onActivityCreated");
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+    }
+
     private void setSceduleViewPager() {
 
         /*设置适配器*/
@@ -231,30 +254,6 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                 }
             }
         }).start();
-
-    }
-
-    /*============================================分割线=================================================*/
-    @Override
-    public void onStart() {
-
-        super.onStart();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("ScheduleFm", "onActivityCreated");
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d("ScheduleFm", "onViewCreated");
-        super.onViewCreated(view, savedInstanceState);
-        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
-         /*打开本地存储文件*/
-        sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
-        initScheduleDate();
 
     }
 

@@ -73,6 +73,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         startServier();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("Mainactivity", "onStart6");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("Mainactivity", "onResume");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("Mainactivity", "destory");
+    }
+
 
     /*获得某个活动的回复信息*/
     @Override
@@ -281,30 +301,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("Mainactivity", "onResume");
-
-    }
-
-    @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
         Log.d("Mainactivity", "onResumeFragments");
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d("Mainactivity", "onStart6");
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("Mainactivity", "destory");
     }
 
     @Override

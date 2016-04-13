@@ -48,7 +48,7 @@ public class ClassAlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         SharedPreferences settingSharedPreferences = getSharedPreferences("com.swuos.swuassistant_preferences", MODE_PRIVATE);
-        String remind = settingSharedPreferences.getString("headway_before_class be_remind", "15");
+        String remind = settingSharedPreferences.getString("headway_before_class", "15");
         remindtime = Integer.valueOf(remind);
         if (totalInfo.getScheduleItemList().isEmpty()) {
             if (totalInfo.getScheduleDataJson() == null) { /*打开本地存储文件*/

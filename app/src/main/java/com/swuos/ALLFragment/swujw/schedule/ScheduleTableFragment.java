@@ -55,13 +55,25 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
 
-
     public static final ScheduleTableFragment newInstance(int week) {
         ScheduleTableFragment scheduleTableFragment = new ScheduleTableFragment();
         Bundle bundle = new Bundle(1);
         bundle.putInt("week", week);
         scheduleTableFragment.setArguments(bundle);
         return scheduleTableFragment;
+    }
+
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("onAttach", String.valueOf(week));
+
     }
 
     @Override
@@ -93,6 +105,70 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         return scheduleTableLayout;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.swuos.ALLFragment.swujw.schedule.SCHEDULEDATECHANGE");
+        localRecevier = new LocalRecevier();
+        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        localBroadcastManager.registerReceiver(localRecevier, intentFilter);
+        new MyThread().start();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        Log.d("start", String.valueOf(week));
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        Log.d("resume", String.valueOf(week));
+        /*延后刷新*/
+        if (late_Load) {
+            late_Load = false;
+            new MyThread().start();
+            Log.d("resume", "随后刷新" + String.valueOf(week));
+        }
+        super.onResume();
+    }
+
+    @Override
+    public void onStop() {
+        Log.d("stop", String.valueOf(week));
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.d("Destroyview", String.valueOf(week));
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("Destroy", String.valueOf(week));
+
+        super.onDestroy();
+    }
+
+    /**
+     * Called when the fragment is no longer attached to its activity.  This
+     * is called after {@link #onDestroy()}.
+     */
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("onDetach", String.valueOf(week));
+
+    }
 
     private void init() {
         if (totalInfo.getScheduleItemList().isEmpty()) {
@@ -160,8 +236,8 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams
                     .WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                 /*建一个新的textview*/
-            TextView textView = new TextView(scheduleTableLayout.getContext());
-
+            //            TextView textView = new TextView(scheduleTableLayout.getContext());
+            TextView textView = new TextView(getContext());
             if (week == 0) {
                 textView.setText(scheduleItem.getTextShowAll());
             } else {
@@ -273,88 +349,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
                 late_Load = true;
             //  new MyUpdate().execute();
         }
-    }
-
-    /*============================================分割线=================================================*/
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        intentFilter = new IntentFilter();
-        intentFilter.addAction("com.swuos.ALLFragment.swujw.schedule.SCHEDULEDATECHANGE");
-        localRecevier = new LocalRecevier();
-        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
-        localBroadcastManager.registerReceiver(localRecevier, intentFilter);
-        new MyThread().start();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.d("Destroyview", String.valueOf(week));
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.d("Destroy", String.valueOf(week));
-
-        super.onDestroy();
-    }
-
-    @Override
-    public void onStart() {
-        Log.d("start", String.valueOf(week));
-
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d("resume", String.valueOf(week));
-        /*延后刷新*/
-        if (late_Load) {
-            late_Load = false;
-            new MyThread().start();
-            Log.d("resume", "随后刷新" + String.valueOf(week));
-        }
-        super.onResume();
-    }
-
-    @Override
-    public void onStop() {
-        Log.d("stop", String.valueOf(week));
-
-        super.onStop();
-    }
-
-    /**
-     * Called when a fragment is first attached to its context.
-     * {@link #onCreate(Bundle)} will be called after this.
-     *
-     * @param context
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d("onAttach", String.valueOf(week));
-
-    }
-
-    /**
-     * Called when the fragment is no longer attached to its activity.  This
-     * is called after {@link #onDestroy()}.
-     */
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("onDetach", String.valueOf(week));
-
     }
 
     @Override

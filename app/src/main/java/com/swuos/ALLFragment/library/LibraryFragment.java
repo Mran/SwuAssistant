@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
 
@@ -44,7 +45,7 @@ public class LibraryFragment extends Fragment {
     private static ProgressDialog progressDialogLoading;
     private String userName;
     private String password;
-
+    private TotalInfo totalInfo = new TotalInfo();
     private static final int FRAGMENT_USERINFO_UPDATE = 0;
     private static final int FRAGMENT_HISTORY_UPDATE = 1;
     private static final int FRAGMENT_BORROWINFO_UPDATE = 2;
@@ -95,12 +96,8 @@ public class LibraryFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         nameValuePairsLoginLibrary = new ArrayList<>();
-        userName = MainActivity.sharedPreferences.getString("userName", "none");
-        password = MainActivity.sharedPreferences.getString("password", "none");
-        nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-        nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
 
-        loginLibrary(nameValuePairsLoginLibrary);
+
 
         Log.d("HttpLog", "onActivityCreated userName====>" + userName);
         Log.d("HttpLog", "onActivityCreated password====>" + password);
@@ -131,6 +128,12 @@ public class LibraryFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userName = MainActivity.sharedPreferences.getString("userName", "none");
+                password = MainActivity.sharedPreferences.getString("password", "none");
+                nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+                nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+                loginLibrary(nameValuePairsLoginLibrary);
+
                 progressDialogLoading.setMessage("正在查询请稍后");
                 progressDialogLoading.setCancelable(false);
                 progressDialogLoading.show();
