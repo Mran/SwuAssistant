@@ -3,6 +3,7 @@ package com.swuos.net;
 import com.swuos.swuassistant.Constant;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +66,8 @@ public class OkhttpNet {
                 responses = response.body().string();
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

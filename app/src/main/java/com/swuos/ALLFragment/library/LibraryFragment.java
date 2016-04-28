@@ -88,14 +88,6 @@ public class LibraryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         libraryLayout = inflater.inflate(R.layout.library_layout, container, false);
-        return libraryLayout;
-    }
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
         Log.d("HttpLog", "onActivityCreated userName====>" + userName);
         Log.d("HttpLog", "onActivityCreated password====>" + password);
         progressDialogLoading = new ProgressDialog(getContext());
@@ -122,18 +114,16 @@ public class LibraryFragment extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabsFromPagerAdapter(adapter);
+        userName = MainActivity.sharedPreferences.getString("userName", "none");
+        password = MainActivity.sharedPreferences.getString("password", "none");
+
+        requestBody = new FormBody.Builder().add("passWord", password).add("userName", userName).build();
+        GetMyLibraryInfo.Init();
+
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = MainActivity.sharedPreferences.getString("userName", "none");
-                password = MainActivity.sharedPreferences.getString("password", "none");
-                //                nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-                //                nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-                requestBody = new FormBody.Builder()
-                        .add("passWord", password)
-                        .add("userName", userName)
-                        .build();
-                loginLibrary(requestBody);
+
 
                 progressDialogLoading.setMessage("正在查询请稍后");
                 progressDialogLoading.setCancelable(false);
@@ -147,12 +137,22 @@ public class LibraryFragment extends Fragment {
                 }
             }
         });
+        return libraryLayout;
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
     }
 
     private void UpdateFragmentHistory() {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                GetMyLibraryInfo.libraryLogin(requestBody);
                 String history = GetMyLibraryInfo.getMyBorrowHistory();
                 if (history != "nothing") {
                     books = HtmlParserTools.parserHtml(history, "td");
@@ -168,6 +168,7 @@ public class LibraryFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                GetMyLibraryInfo.libraryLogin(requestBody);
                 String history = GetMyLibraryInfo.ToMyBookShelf();
                 if (history != "nothing") {
                     userInfo = HtmlParserTools.parserHtmlNormal(history, "td");
@@ -183,6 +184,7 @@ public class LibraryFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                GetMyLibraryInfo.libraryLogin(requestBody);
                 String info = GetMyLibraryInfo.libraryBorrowInfo();
                 borrowedInfo = HtmlParserTools.parserHtmlForBookInfo(info, "td");
                 Message message = new Message();
@@ -192,7 +194,7 @@ public class LibraryFragment extends Fragment {
         }).start();
     }
 
-    public void loginLibrary(final RequestBody requestBody1) {
+ /*   public void loginLibrary(final RequestBody requestBody1) {
         GetMyLibraryInfo.Init();
         new Thread(new Runnable() {
             @Override
@@ -200,5 +202,5 @@ public class LibraryFragment extends Fragment {
                 GetMyLibraryInfo.libraryLogin(requestBody1);
             }
         }).start();
-    }
+    }*/
 }
