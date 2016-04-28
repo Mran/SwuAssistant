@@ -204,5 +204,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             }
         }).start();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        /*阻止活动被销毁*/
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 
