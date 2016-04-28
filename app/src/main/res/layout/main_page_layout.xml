@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这里是主页"/>
-</LinearLayout>
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/schedyle_recycleview"-->
+    <!--&gt;</android.support.v7.widget.RecyclerView>-->
+    <Button
+        android:id="@+id/main_page_wifi"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:background="@drawable/wifi"
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:id="@+id/main_page_card"
+        android:layout_width="73dp"
+        android:layout_height="73dp"
+        android:layout_weight="0.02"
+        android:background="@drawable/acredit_card"
+        android:layout_marginRight="51dp"
+        android:layout_marginEnd="51dp"
+        android:layout_alignTop="@+id/main_page_wifi"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

@@ -2,50 +2,48 @@ package com.swuos.ALLFragment.swujw.grade;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfo;
-import com.swuos.net.Client;
+import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by 张孟尧 on 2016/1/23.
  */
 public class Grades
 {
-    private Client client;
 
-    public Grades(Client client)
+    private OkhttpNet okhttpNet;
+
+    public Grades(OkhttpNet okhttpNet)
     {
-        this.client = client;
+        this.okhttpNet = okhttpNet;
         /*进入教务系统*/
-        client.doGet(Constant.urlEms);
+        okhttpNet.doGet(Constant.urlEms);
     }
     public String setGrades(TotalInfo totalInfo, String xnm, String xqm)
     {
         /*构建一个post的参数*/
-        List<NameValuePair> postNameValuePairs = new ArrayList<>();
-        postNameValuePairs.add(new BasicNameValuePair("_search", "false"));
-        /*时间*/
-        postNameValuePairs.add(new BasicNameValuePair("nd", Long.toString(new Date().getTime())));
-        postNameValuePairs.add(new BasicNameValuePair("queryModel.currentPage", "1"));
-        /*一次请求的总数据个数*/
-        postNameValuePairs.add(new BasicNameValuePair("queryModel.showCount", "1000"));
-        postNameValuePairs.add(new BasicNameValuePair("queryModel.sortName", ""));
-        postNameValuePairs.add(new BasicNameValuePair("queryModel.sortOrder", "asc"));
-        postNameValuePairs.add(new BasicNameValuePair("time", "0"));
-        /*所查询学年*/
-        postNameValuePairs.add(new BasicNameValuePair("xnm", xnm));
-        /*所查询学期*/
-        postNameValuePairs.add(new BasicNameValuePair("xqm", xqm));
+        RequestBody requestBody = new FormBody.Builder()
+                .add("_search", "false")
+                .add("nd", Long.toString(new Date().getTime()))
+                .add("queryModel.currentPage", "1")
+                .add("queryModel.showCount", "1000")
+                .add("queryModel.sortName", "")
+                .add("queryModel.sortOrder", "asc")
+                .add("time", "0")
+                .add("xnm", xnm)
+                .add("xqm", xqm)
+                .build();
         /*构建目标网址*/
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
-        String respones = client.doPost(url, postNameValuePairs);
+        String respones = okhttpNet.doPost(url, requestBody);
         if (!respones.contains(Constant.NO_NET))
         {
 

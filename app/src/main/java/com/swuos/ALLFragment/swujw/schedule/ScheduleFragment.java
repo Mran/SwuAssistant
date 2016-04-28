@@ -231,7 +231,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                 Message message = new Message();
 
                 if (login.doLogin(userName, password).contains("LoginSuccessed")) {
-                    Schedule schedule = new Schedule(login.client);
+                    Schedule schedule = new Schedule(login.okhttpNet);
                     /*判断是否课程表是否正常获得*/
                     if (schedule.setSchedule(totalInfo, "2015", "12").equals(Constant
                             .CLIENT_ERROR)) {

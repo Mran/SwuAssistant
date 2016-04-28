@@ -1,37 +1,24 @@
 package com.swuos.ALLFragment.library;
 
+import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.List;
+import okhttp3.RequestBody;
 
 /**
  * Created by ASUS on 2016/3/11.
  */
 public class GetMyLibraryInfo {
-    private static HttpClient httpClient;
-
+    //    private static HttpClient httpClient;
+    private static OkhttpNet okhttpNet;
     public static void Init(){
-        httpClient=new DefaultHttpClient();
+        //        httpClient=new DefaultHttpClient();
+        okhttpNet = new OkhttpNet();
     }
 
     //登录到图书馆主页
-    public static String libraryLogin(List<NameValuePair> nameValuePairs) {
+    public static String libraryLogin(RequestBody requestBody) {
+/*
         HttpPost httpPost = new HttpPost(Constant.loginLibrary);
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -49,10 +36,14 @@ public class GetMyLibraryInfo {
             e.printStackTrace();
         }
         return "nothing";
+*/
+        return okhttpNet.doPost(Constant.loginLibrary, requestBody);
+
     }
 
     //跳转到我的图书馆页面主页
     public static String libraryBorrowInfo(){
+        /*
         HttpGet httpGet = new HttpGet(Constant.libraryBorrowInfo);
         StringBuilder stringBuilder = new StringBuilder();
         try {
@@ -70,12 +61,13 @@ public class GetMyLibraryInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "nothing";
+        return "nothing";*/
+        return okhttpNet.doGet(Constant.libraryBorrowInfo);
     }
 
     //跳转到我的书架
     public static String ToMyBookShelf(){
-        HttpGet httpGet = new HttpGet(Constant.libraryBorrowUri);
+        /*HttpGet httpGet = new HttpGet(Constant.libraryBorrowUri);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             HttpResponse response = httpClient.execute(httpGet);
@@ -94,10 +86,12 @@ public class GetMyLibraryInfo {
             e.printStackTrace();
         }
         return "nothing";
+        */
+        return okhttpNet.doGet(Constant.libraryBorrowUri);
     }
 
     public static String getMyBorrowHistory(){
-        HttpGet httpGet = new HttpGet(Constant.libraryBorrowHistoryUri);
+/*        HttpGet httpGet = new HttpGet(Constant.libraryBorrowHistoryUri);
         StringBuilder stringBuilder = new StringBuilder();
         try {
             HttpResponse response = httpClient.execute(httpGet);
@@ -115,6 +109,7 @@ public class GetMyLibraryInfo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "nothing";
+        return "nothing";*/
+        return okhttpNet.doGet(Constant.libraryBorrowHistoryUri);
     }
 }

@@ -30,6 +30,8 @@
     <string name="remind_time">设置提醒时间</string>
     <string name="remind_time_detail">应用会在距上课设定时间提醒你</string>
     <string name="set_remind_time">设置提醒时间</string>
+
+    <string name="wifi">WiFi</string>
     <string-array name="headway_before_class_string">
         <item>10分钟</item>
         <item>15分钟</item>

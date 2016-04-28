@@ -20,11 +20,11 @@ import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by 张孟尧 on 2016/2/29.
@@ -34,7 +34,7 @@ public class LibraryFragment extends Fragment {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private FloatingActionButton fabRefresh;
-    private List<NameValuePair> nameValuePairsLoginLibrary;
+    private RequestBody requestBody;
     private List<BookCell> books;
     private List<BookCell> userInfo;
     private List<BookInfo> borrowedInfo;
@@ -95,9 +95,6 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        nameValuePairsLoginLibrary = new ArrayList<>();
-
-
 
         Log.d("HttpLog", "onActivityCreated userName====>" + userName);
         Log.d("HttpLog", "onActivityCreated password====>" + password);
@@ -130,9 +127,13 @@ public class LibraryFragment extends Fragment {
             public void onClick(View v) {
                 userName = MainActivity.sharedPreferences.getString("userName", "none");
                 password = MainActivity.sharedPreferences.getString("password", "none");
-                nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
-                nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
-                loginLibrary(nameValuePairsLoginLibrary);
+                //                nameValuePairsLoginLibrary.add(new BasicNameValuePair("passWord", password));
+                //                nameValuePairsLoginLibrary.add(new BasicNameValuePair("userName", userName));
+                requestBody = new FormBody.Builder()
+                        .add("passWord", password)
+                        .add("userName", userName)
+                        .build();
+                loginLibrary(requestBody);
 
                 progressDialogLoading.setMessage("正在查询请稍后");
                 progressDialogLoading.setCancelable(false);
@@ -191,12 +192,12 @@ public class LibraryFragment extends Fragment {
         }).start();
     }
 
-    public void loginLibrary(final List<NameValuePair> nameValuePairs){
+    public void loginLibrary(final RequestBody requestBody1) {
         GetMyLibraryInfo.Init();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                GetMyLibraryInfo.libraryLogin(nameValuePairs);
+                GetMyLibraryInfo.libraryLogin(requestBody1);
             }
         }).start();
     }

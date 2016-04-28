@@ -15,18 +15,18 @@
             android:id="@+id/nav_grades"
             android:icon="@drawable/ic_action_bargraph"
             android:title="成绩"/>
-        <item
-            android:id="@+id/nav_study_materials"
-            android:icon="@drawable/ic_action_document"
-            android:title="学习资料"/>
-        <item
-            android:id="@+id/nav_find_lost"
-            android:icon="@drawable/ic_action_bug"
-            android:title="失物找寻"/>
-        <item
-            android:id="@+id/nav_charge"
-            android:icon="@drawable/ic_action_creditcard"
-            android:title="水电费"/>
+        <!--<item-->
+        <!--android:id="@+id/nav_study_materials"-->
+        <!--android:icon="@drawable/ic_action_document"-->
+        <!--android:title="学习资料"/>-->
+        <!--<item-->
+        <!--android:id="@+id/nav_find_lost"-->
+        <!--android:icon="@drawable/ic_action_bug"-->
+        <!--android:title="失物找寻"/>-->
+        <!--<item-->
+        <!--android:id="@+id/nav_charge"-->
+        <!--android:icon="@drawable/ic_action_creditcard"-->
+        <!--android:title="水电费"/>-->
         <item
             android:id="@+id/nav_library"
             android:icon="@drawable/ic_action_book"

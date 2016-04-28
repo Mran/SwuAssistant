@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.swuos.ALLFragment.FragmentControl;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
+import com.swuos.util.SALog;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView
@@ -63,20 +64,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_main);
         initView();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
-        fragmentControl.initFragment(getSupportFragmentManager());
+        //        fragmentControl.initFragment(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(
                 savedInstanceState, getSupportFragmentManager(),
                 fragmentPosition
         );
-
-        Log.d("Mainactivity", "OnCreatview");
+        SALog.d("Mainactivity", "OnCreatview");
         startServier();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Mainactivity", "onStart6");
+        Log.d("Mainactivity", "onStart");
 
     }
 
@@ -88,11 +88,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        Log.d("Mainactivity", "onResumeFragments");
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d("Mainactivity", "onSaveInstanceState");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d("Mainactivity", "destory");
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("Mainactivity", "onRestart");
+
+    }
 
     /*获得某个活动的回复信息*/
     @Override
@@ -216,13 +235,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             toolbar.setTitle(R.string.schedule_title);
             fragmentPosition = id;
 
-        } else if (id == R.id.nav_study_materials) {
-            fragmentControl.fragmentSelection(id);
-            toolbar.setTitle(R.string.study_materials_title);
-            fragmentPosition = id;
         } else if (id == R.id.nav_library) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.library_title);
+            fragmentPosition = id;
+        }/*else if (id == R.id.nav_study_materials) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.study_materials_title);
             fragmentPosition = id;
         } else if (id == R.id.nav_charge) {
             fragmentControl.fragmentSelection(id);
@@ -234,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             fragmentPosition = id;
         } else if (id == R.id.nav_share) {
 
-        }
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -300,19 +319,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         }
     }
 
-    @Override
-    protected void onResumeFragments() {
-        super.onResumeFragments();
-        Log.d("Mainactivity", "onResumeFragments");
 
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.d("Mainactivity", "onSaveInstanceState");
-
-    }
 
     public Toolbar getToolbar() {
         return toolbar;

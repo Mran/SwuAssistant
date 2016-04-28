@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final int TIMEOUT = 4000;
+    public static final long TIMEOUT = 4000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;
@@ -16,6 +16,7 @@ public class Constant {
     public static final int LOGIN_CLIENT_ERROR = 11;
     public static final int LOGIN_NO_NET = 12;
     public static final int SCHOOL_SERVER_BOOM = 16;
+    public static final boolean DEBUG = true;
 
 
     public static final int GRADES_OK = 5;
@@ -48,7 +49,7 @@ public class Constant {
     public static final String[] ALL_XQM = {XQM_ALL, XQM_ONE, XQM_TWO, XQM_THREE};
     public static final String[] ALL_XNM = {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"};
     public static final String NET_TIMEOUT = "NET_TIMEOUT";
-    public static final String[] FRAGMENTTAG = {"mainPageFragment", "scheduleFragment", "gradesFragment", "studyMaterialsFragment", "findLostFragment", "chargeFragment", "libraryFragrment"};
+    public static final String[] FRAGMENTTAG = {"mainPageFragment", "scheduleFragment", "gradesFragment", "studyMaterialsFragment", "findLostFragment", "chargeFragment", "libraryFragrment", "wifiFragment"};
     //    校内门户地址
     public static final String urlUrp = "http://urp6.swu.edu.cn/login.portal";
     //    用户信息发送目标地址

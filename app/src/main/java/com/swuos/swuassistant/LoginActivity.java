@@ -20,17 +20,14 @@ import android.widget.TextView;
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 
-import org.apache.http.NameValuePair;
-
-import java.util.List;
+import okhttp3.RequestBody;
 
 /**
  * A login screen that offers login via username/password.
  */
-public class LoginActivity extends AppCompatActivity implements OnClickListener
-{
+public class LoginActivity extends AppCompatActivity implements OnClickListener {
 
-    private List<NameValuePair> nameValuePairsLoginLibrary;
+    private RequestBody requestBody;
 
     /*账号框*/
     private EditText mUserNAmeView;
@@ -49,13 +46,10 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     /*ui更新*/
-    private Handler handler = new Handler()
-    {
+    private Handler handler = new Handler() {
         @Override
-        public void handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 case Constant.LOGIN_SUCCESE:
                     /*成功则关闭登陆等待窗口*/
                     progressDialogLoading.cancel();
@@ -74,11 +68,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage(R.string.no_user_or_password_error)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
-                            {
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     progressDialogLoading.dismiss();
                                 }
@@ -90,11 +82,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage(R.string.net_error_please_check_net)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
-                            {
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     progressDialogLoading.dismiss();
                                 }
@@ -106,11 +96,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage(R.string.login_timeout)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
-                            {
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     progressDialogLoading.dismiss();
                                 }
@@ -122,11 +110,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                     progressDialogLoading.cancel();
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage(R.string.connect_error)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener()
-                            {
+                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which)
-                                {
+                                public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
                                     progressDialogLoading.dismiss();
                                 }
@@ -141,18 +127,15 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUserNAmeView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent)
-            {
+            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 return id == R.id.login || id == EditorInfo.IME_NULL;
             }
         });
@@ -165,8 +148,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
     }
 
     @Override
-    public void onClick(View v)
-    {
+    public void onClick(View v) {
         /*从登陆框获取账号和密码*/
         userName = mUserNAmeView.getText().toString();
         password = mPasswordView.getText().toString();
@@ -174,27 +156,22 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
         progressDialogLoading.setMessage(this.getString(R.string.loging_and_wait));
         progressDialogLoading.setCancelable(false);
         progressDialogLoading.show();
-        if (v.getId() == R.id.sign_in_button)
-        {
+        if (v.getId() == R.id.sign_in_button) {
             login();
         }
     }
 
-    private void login()
-    {
-        new Thread(new Runnable()
-        {
+    private void login() {
+        new Thread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
                      /*接收返回信息*/
                 String response;
                 Login login = new Login();
                     /*尝试登陆并获取登陆信息*/
                 response = login.doLogin(userName, password);
                 Message message = new Message();
-                if (response.contains("Successed"))
-                {
+                if (response.contains("Successed")) {
                         /*登陆成功获得名字和学号*/
                     totalInfo = login.getBasicInfo();
                     totalInfo.setUserName(userName);
@@ -207,23 +184,19 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener
                         /*发送ui更新*/
                     message.what = Constant.LOGIN_SUCCESE;
                     handler.sendMessage(message);
-                } else if (response.contains("LoginFailure"))
-                {
+                } else if (response.contains("LoginFailure")) {
                         /*密码错误*/
                     message.what = Constant.LOGIN_FAILED;
                     handler.sendMessage(message);
-                } else if (response.contains(Constant.CLIENT_TIMEOUT))
-                {
+                } else if (response.contains(Constant.CLIENT_TIMEOUT)) {
                         /*登陆超时*/
                     message.what = Constant.LOGIN_TIMEOUT;
                     handler.sendMessage(message);
-                } else if (response.contains(Constant.CLIENT_ERROR))
-                {
+                } else if (response.contains(Constant.CLIENT_ERROR)) {
                         /*连接错误*/
                     message.what = Constant.LOGIN_CLIENT_ERROR;
                     handler.sendMessage(message);
-                } else if (response.contains(Constant.NO_NET))
-                {
+                } else if (response.contains(Constant.NO_NET)) {
                         /*网络错误*/
                     message.what = Constant.LOGIN_NO_NET;
                     handler.sendMessage(message);

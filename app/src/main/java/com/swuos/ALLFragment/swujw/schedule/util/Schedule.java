@@ -2,38 +2,39 @@ package com.swuos.ALLFragment.swujw.schedule.util;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfo;
-import com.swuos.net.Client;
+import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by 张孟尧 on 2016/3/4.
  */
 public class Schedule {
-    private Client client;
 
-    public Schedule(Client client) {
-        this.client = client;
+    private OkhttpNet okhttpNet;
+
+    public Schedule(OkhttpNet okhttpNet) {
+
+        this.okhttpNet = okhttpNet;
         /*进入教务系统*/
-        client.doGet(Constant.urlEms);
+        okhttpNet.doGet(Constant.urlEms);
     }
 
     public String setSchedule(TotalInfo totalInfo, String xnm, String xqm) {
-        /*构建一个post的参数*/
-        List<NameValuePair> postNameValuePairs = new ArrayList<>();
-        /*所查询学年*/
-        postNameValuePairs.add(new BasicNameValuePair("xnm", xnm));
-        /*所查询学期*/
-        postNameValuePairs.add(new BasicNameValuePair("xqm", xqm));
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("xnm", xnm)
+                .add("xqm", xqm)
+                .build();
          /*构建目标网址*/
         String url = "http://jw.swu.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html?" + "gnmkdmKey=N253508&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
-        String respones = client.doPost(url, postNameValuePairs);
+        String respones = okhttpNet.doPost(url, requestBody);
         if (!respones.contains(Constant.NO_NET) && respones.contains("kcmc")) {
             totalInfo.setScheduleDataJson(respones);
         } else

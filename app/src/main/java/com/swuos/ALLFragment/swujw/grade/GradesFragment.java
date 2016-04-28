@@ -158,7 +158,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
                 if (login.doLogin(userName, password).contains("LoginSuccessed"))
                 {
-                    Grades grades = new Grades(login.client);
+                    Grades grades = new Grades(login.okhttpNet);
                     grades.setGrades(totalInfo, xnm, xqm);
                     gradeItemList = grades.getGradesList(totalInfo);
                     message.what = Constant.GRADES_OK;
