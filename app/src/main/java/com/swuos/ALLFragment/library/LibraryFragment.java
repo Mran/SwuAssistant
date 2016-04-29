@@ -117,7 +117,14 @@ public class LibraryFragment extends Fragment {
         userName = MainActivity.sharedPreferences.getString("userName", "none");
         password = MainActivity.sharedPreferences.getString("password", "none");
 
-        requestBody = new FormBody.Builder().add("passWord", password).add("userName", userName).build();
+        requestBody = new FormBody.Builder()
+                .add("password", password)
+                .add("username", userName)
+                .add("loginsubmit", "登录")
+                .add("backUrl", "")
+                .add("formhash", "2966b2fd")
+                .add("refer", "spce.jsp?do=home")
+                .build();
         GetMyLibraryInfo.Init();
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {

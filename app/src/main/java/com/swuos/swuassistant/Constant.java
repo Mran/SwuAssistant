@@ -65,6 +65,8 @@ public class Constant {
 
     //登陆图书馆的地址
     public static final String loginLibrary = "http://www.lib.swu.edu.cn/webs/user_loginLib.action";
+    //登录我的图书馆的地址
+    public static final String loginMyLibrary = "http://mylib.swu.edu.cn/do.jsp?ac=c64db6a3accfd5d750e9b26c1ad46d76&ref";
     //我的图书馆主页
     public static final String libraryIndexUri = "http://mylib.swu.edu.cn/space.jsp?do=home";
     //我的书架

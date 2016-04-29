@@ -18,7 +18,8 @@ public class GetMyLibraryInfo {
 
     //登录到图书馆主页
     public static String libraryLogin(RequestBody requestBody) {
-        return okhttpNet.doPost(Constant.loginLibrary, requestBody);
+
+        return okhttpNet.doPost(Constant.loginMyLibrary, requestBody);
     }
 
     //跳转到我的图书馆页面主页
