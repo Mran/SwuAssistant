@@ -19,7 +19,7 @@
         <!--android:id="@+id/imageView"/>-->
 
     <ImageButton
-        android:id="@+id/login_out"
+        android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_action_export"

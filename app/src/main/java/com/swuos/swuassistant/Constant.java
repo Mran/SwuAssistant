@@ -12,21 +12,21 @@ public class Constant {
 
     public static final int LOGIN_SUCCESE = 3;
     public static final int LOGIN_FAILED = 4;
-    public static final int LOGIN_TIMEOUT = 10;
-    public static final int LOGIN_CLIENT_ERROR = 11;
-    public static final int LOGIN_NO_NET = 12;
-    public static final int SCHOOL_SERVER_BOOM = 16;
+    public static final int LOGIN_TIMEOUT = 5;
+    public static final int LOGIN_CLIENT_ERROR = 6;
+    public static final int LOGIN_NO_NET = 7;
+    public static final int SCHOOL_SERVER_BOOM = 8;
     public static final boolean DEBUG = true;
 
 
-    public static final int GRADES_OK = 5;
-    public static final int UPDATA = 6;
-    public static final int MAIN = 7;
-    public static final int SHOW = 8;
-    public static final int DISSHOW = 9;
-    public static final int SCHEDULE_OK = 13;
-    public static final int SCHEDULE__LOADING = 14;
-    public static final int SHOW_NOTIFYCATION = 15;
+    public static final int GRADES_OK = 9;
+    public static final int UPDATA = 10;
+    public static final int MAIN = 11;
+    public static final int SHOW = 12;
+    public static final int DISSHOW = 13;
+    public static final int SCHEDULE_OK = 14;
+    public static final int SCHEDULE__LOADING = 15;
+    public static final int SHOW_NOTIFYCATION = 16;
     public static final long DEFAULHEADWAY = 1000 * 60;
     public static final long DEFAULTIME = 1000 * 60;//60秒
 
@@ -75,6 +75,46 @@ public class Constant {
     public static final String libraryBorrowHistoryUri = "http://mylib.swu.edu.cn/borry.jsp?ac=userHistory";
     //我的借阅信息
     public static final String libraryBorrowInfo = "http://mylib.swu.edu.cn/borry.jsp?ac=borryInofor";
+
+
+    public static final String urlSwuDormWifi = "http://222.198.120.8:8080/loginPhoneServlet";
+    public static final String urlSwuWifi = "http://202.202.96.57:9060/login/login1.jsp";
+    public static final String urlWifiLogout = "http://service.swu.edu.cn/fee/remote_logout2.jsp";
+
+    public static final String swuWifiLoginSuccessed = "您已通过登录审核";
+    public static final String swuWifiLoginNameOrPasswordError = "密码错误";
+    public static final String swuWifiLoginAnotherDeviceLogined = "账号已在其他计算机上登录";
+    public static final String swuWifiLoginSomeThError = "未知错误";
+
+    public static final String swuWifiLogoutPasswordError = "密码输入有误";
+    public static final String swuWifiLogoutSuccessed = "成功退出";
+    public static final String swuWifiLogoutNoLogined = "没有登录";
+
+    public static final String dormWifiLoginSuccessed = "登录成功";
+    public static final String dormWifiAnotherDeviceLoginedE = "You are already logged in";
+    public static final String dormWifiAnotherDeviceLoginedC = "账号已经在其他地方登陆,请退出";
+    public static final String dormWifiLoginReject = "请求被拒绝";
+    public static final String dormWifiLoginShortE = "short";
+    public static final String dormWifiLoginShortC = "登陆频繁,请稍后重试";
+    public static final String dormWifiLoginEmptyE = "不能为空";
+    public static final String dormWifiLoginEmptyC = "用户名不能为空";
+    public static final String dormWifiLoginPasswordWrongE = "Password check failed";
+    public static final String dormWifiLoginPasswordWrongC = "密码错误";
+    public static final String dormWifiLoginNotExistE = "exist";
+    public static final String dormWifiLoginNotExistC = "用户名不存在";
+    public static final String dormWifiLoginSomeTHError = "未知错误";
+    public static final String noWifi = "请连接swu-dorm-wifi或者swu-wifi后尝试登陆";
+
+
+
+
+
+
+
+
+
+
+
     public static final int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
     public static final String[] SCHEDULE_WEEK_TITLE = {"整学期", "第一周", "第二周", "第三周", "第四周", "第五周", "第六周", "第七周", "第八周", "第九周", "第十周", "第十一周", "第十二周", "第十三周", "第十四周", "第十五周", "第十六周", "第十七周", "第十八周", "第十九周", "第二十周"};
     public static final String[] STARTIME = {"8:00", "8:50", "9:40", "10:40", "11:30", "12:30", "13:50", "14:30", "15:20", "16:10", "17:00", "19:00", "19:50", "20:40"};

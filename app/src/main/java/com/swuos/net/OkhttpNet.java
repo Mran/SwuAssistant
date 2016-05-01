@@ -1,8 +1,11 @@
 package com.swuos.net;
 
 import com.swuos.swuassistant.Constant;
+import com.swuos.util.SALog;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class OkhttpNet {
             .connectTimeout(Constant.TIMEOUT, TimeUnit.MILLISECONDS)
             .build();
 
+    //采用utf-8编码
     public String doGet(String url) {
         Request request = new Request.Builder().url(url).build();
         Response response = null;
@@ -47,15 +51,26 @@ public class OkhttpNet {
         try {
             response = okHttpClient.newCall(request).execute();
             if (response.isSuccessful()) {
-                responses = response.body().string();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), "GBK"));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                //                    将收到的内容转化为字符串
+                responses = stringBuilder.toString();
+
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        SALog.d("post", responses);
         return responses;
     }
-
     public String doPost(String url, RequestBody requestBody) {
         Request request = new Request.Builder().url(url).post(requestBody).build();
         Response response = null;
@@ -68,9 +83,67 @@ public class OkhttpNet {
                 responses = Constant.CLIENT_ERROR;
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        SALog.d("post", responses);
         return responses;
     }
+
+    //设置指定编码
+    public String doGet(String url, String parse) {
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+        String responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), parse));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                responses = stringBuilder.toString();
+
+            } else
+                responses = Constant.CLIENT_ERROR;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SALog.d("post", responses);
+        return responses;
+    }
+
+    public String doPost(String url, String parse, RequestBody requestBody) {
+        Request request = new Request.Builder().url(url).post(requestBody).build();
+        Response response = null;
+        String responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), parse));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                responses = stringBuilder.toString();
+            } else
+                responses = Constant.CLIENT_ERROR;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SALog.d("post", responses);
+        return responses;
+    }
+
+
 }

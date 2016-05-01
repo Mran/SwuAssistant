@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
 
         /*显示退出按钮*/
-        ImageButton imageButtonLoginOut = (ImageButton) view.findViewById(R.id.login_out);
+        ImageButton imageButtonLoginOut = (ImageButton) view.findViewById(R.id.logout);
         imageButtonLoginOut.setOnClickListener(MainActivity.this);
 
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
@@ -275,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     public void onClick(View v) {
         switch (v.getId()) {
             /*点击退出按钮*/
-            case R.id.login_out:
+            case R.id.logout:
 
             /*退出确认框*/
                 final AlertDialog.Builder dialogsQuit;
