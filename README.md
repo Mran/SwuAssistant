@@ -19,3 +19,9 @@
     * 查询借书记录
     * 查询当前借书
 ![查图书](https://github.com/Mran/SwuAssistant/blob/master/app%2FScreenshot_2016-04-11-09-02-45_com.swuos.swuassis.png)
+### 登录/退出WIFI
+    * 登录校园wifi
+    * 登录寝室wifi
+    * 退出wifi登录
+    * 定时退出wifi(未完成)
+![查图书](https://github.com/Mran/SwuAssistant/blob/master/app%2wifi.png)
