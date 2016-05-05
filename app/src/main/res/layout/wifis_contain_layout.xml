@@ -16,20 +16,39 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/wifi_state"
+                android:text="没有连接wifi"
+                android:textSize="30sp"
+                android:paddingTop="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorclass5"
+                android:background="@color/colorPrimary"/>
             <Button
                 android:id="@+id/wifi_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="登录"/>
+                android:text="登录"
+
+                android:layout_marginRight="46dp"
+                android:layout_marginEnd="46dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/wifi_logout_button"
+                android:layout_toStartOf="@+id/wifi_logout_button"/>
 
             <Button
                 android:id="@+id/wifi_logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/wifi_login_button"
-                android:layout_centerHorizontal="true"
-                android:text="登出"/>
+                android:text="登出"
+                android:layout_marginRight="81dp"
+                android:layout_marginEnd="81dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
         </RelativeLayout>
 
     </ScrollView>

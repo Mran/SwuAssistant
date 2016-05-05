@@ -49,7 +49,7 @@ public class Login {
 
     private String setBasicInfo(TotalInfo totalInfo) {
 /*获得学号*/
-        String respones = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html");
+        String respones = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html", "utf-8");
 /*判断是否正确获得结果*/
         if (!respones.contains(Constant.NO_NET)) {
             Log.d("client", "setBasicInfo() id==>" + respones);
@@ -60,7 +60,7 @@ public class Login {
         } else
             return respones;
 /*获得姓名*/
-        String response1 = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_cxYhxxIndex.html?xt=jw&gnmkdmKey=index&sessionUserKey=" + totalInfo.getSwuID());
+        String response1 = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_cxYhxxIndex.html?xt=jw&gnmkdmKey=index&sessionUserKey=" + totalInfo.getSwuID(), "utf-8");
 
 /*判断是否正确获得结果*/
         if (!response1.contains(Constant.NO_NET)) {

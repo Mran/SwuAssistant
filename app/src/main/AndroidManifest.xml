@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.swuos.swuassistant"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.swuos.swuassistant"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-
 
     <application
         android:allowBackup="true"
@@ -14,28 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.swuos.swuassistant.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name="com.swuos.swuassistant.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            >
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".WifiActivity"
             android:label="@string/app_name"
-            android:launchMode="standard"></activity>
-        <activity android:name="com.swuos.swuassistant.SettingActivity"/>
+            android:launchMode="standard"/>
+        <activity android:name=".SettingActivity"/>
 
-        <service android:name="com.swuos.Service.ClassAlarmService"></service>
-        <service android:name="com.swuos.Service.NotifycationService"></service>
+        <service android:name="com.swuos.Service.ClassAlarmService"/>
+        <service android:name="com.swuos.Service.NotifycationService"/>
+
+
+        <receiver android:name="com.swuos.widget.wifi.wifi_widgets">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="wifi_login"/>
+                <action android:name="wifi_logout"/>
+            </intent-filter>
+
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wifi_widgets_info"/>
+        </receiver>
     </application>
 
 </manifest>

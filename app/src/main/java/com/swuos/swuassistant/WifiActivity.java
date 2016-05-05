@@ -1,5 +1,9 @@
 package com.swuos.swuassistant;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.wifi.WifiInfo;
@@ -8,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,11 +22,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
-import com.swuos.ALLFragment.wifi.util.SwuDormWifiLogin;
-import com.swuos.ALLFragment.wifi.util.SwuWifiLogin;
-import com.swuos.ALLFragment.wifi.util.WifiExit;
+import com.swuos.util.wifi.WifiExit;
+import com.swuos.util.wifi.WifiLogin;
 
 /**
  * Created by 张孟尧 on 2016/4/27.
@@ -34,6 +39,8 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
     private TotalInfo totalInfo = new TotalInfo();
     private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private TextView wifiStateTextView;
+    private WifiStateBroad wifiStateBroad;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,11 +79,19 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
         swipeRefreshLayout.setOnRefreshListener(this);
         login_button = (Button) findViewById(R.id.wifi_login_button);
         logout_button = (Button) findViewById(R.id.wifi_logout_button);
+        wifiStateTextView = (TextView) findViewById(R.id.wifi_state);
         logout_button.setOnClickListener(this);
         login_button.setOnClickListener(this);
+        wifiStateTextView.setOnClickListener(this);
     }
 
     private void initdata() {
+        wifiStateBroad = new WifiStateBroad();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        this.registerReceiver(wifiStateBroad, filter);
         username = totalInfo.getUserName();
         password = totalInfo.getPassword();
     }
@@ -105,32 +120,20 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
                 swipeRefreshLayout.setRefreshing(true);
                 logout(wifiSsid);
                 break;
+            case R.id.wifi_state:
+                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
             default:
                 break;
         }
     }
 
     private void login(String wifissid) {
-        if (wifissid.contains("swu-wifi-dorm")) {
-            new Mytask().execute(1);
-        } else if (wifissid.contains("swu-wifi")) {
-
-            new Mytask().execute(2);
-        } else {
-
-            new Mytask().execute(4);
-
-        }
+        new Mytask().execute(wifissid, "login");
     }
 
     private void logout(String wifissid) {
 
-        if (wifissid.contains("swu-wifi")) {
-            new Mytask().execute(3);
-        } else {
-            new Mytask().execute(4);
-
-        }
+        new Mytask().execute(wifissid, "logout");
     }
 
 
@@ -139,18 +142,17 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    class Mytask extends AsyncTask<Integer, Integer, String> {
+    class Mytask extends AsyncTask<String, Integer, String> {
 
 
         @Override
-        protected String doInBackground(Integer... params) {
-            int position = params[0];
-            if (position == 1) {
-                return SwuDormWifiLogin.Login(username, password);
-            } else if (position == 2) {
-                return SwuWifiLogin.login(username, password);
-            } else if (position == 3) {return WifiExit.Logout(username, password);} else
-                return Constant.noWifi;
+        protected String doInBackground(String... params) {
+            String wifissid = params[0];
+            String todo = params[1];
+            if (todo.equals("logout")) {
+                return WifiExit.logout(username, password, wifissid);
+            } else
+                return WifiLogin.login(username, password, wifissid);
 
         }
 
@@ -162,5 +164,37 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
             Snackbar.make(view, s, Snackbar.LENGTH_SHORT).show();
         }
     }
+
+    class WifiStateBroad extends BroadcastReceiver {
+        @Override
+
+
+        public void onReceive(Context context, Intent intent) {
+            System.out.println(intent.getAction());
+
+            WifiManager wifiManager = (WifiManager) context
+                    .getSystemService(Context.WIFI_SERVICE);
+            //            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int wifiState = wifiManager.getWifiState();
+            if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
+                wifiStateTextView.setText("正在打开WIFI");
+            } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+
+                String wifissid = wifiInfo.getSSID();
+                wifiStateTextView.setText(wifissid.replace("\"", ""));
+            } else if (wifiState == WifiManager.WIFI_STATE_DISABLED) {
+                wifiStateTextView.setText("WIFI已关闭");
+            }
+
+        }
+    }
+
+    public int getStrength(Context context) {
+
+        return 0;
+    }
+
 
 }

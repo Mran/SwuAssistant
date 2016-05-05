@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final long TIMEOUT = 4000;
+    public static final long TIMEOUT = 8000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;
@@ -92,7 +92,7 @@ public class Constant {
 
     public static final String dormWifiLoginSuccessed = "登录成功";
     public static final String dormWifiAnotherDeviceLoginedE = "You are already logged in";
-    public static final String dormWifiAnotherDeviceLoginedC = "账号已经在其他地方登陆,请退出";
+    public static final String dormWifiAnotherDeviceLoginedC = "账号已经在其他地方登录,请退出";
     public static final String dormWifiLoginReject = "请求被拒绝";
     public static final String dormWifiLoginShortE = "short";
     public static final String dormWifiLoginShortC = "登陆频繁,请稍后重试";
@@ -103,7 +103,7 @@ public class Constant {
     public static final String dormWifiLoginNotExistE = "exist";
     public static final String dormWifiLoginNotExistC = "用户名不存在";
     public static final String dormWifiLoginSomeTHError = "未知错误";
-    public static final String noWifi = "请连接swu-dorm-wifi或者swu-wifi后尝试登陆";
+    public static final String noWifi = "请连接swu-dorm-wifi或者swu-wifi后尝试登录";
 
 
 

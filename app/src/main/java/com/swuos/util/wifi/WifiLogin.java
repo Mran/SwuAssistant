@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.wifi.util;
+package com.swuos.util.wifi;
 
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
@@ -7,13 +7,47 @@ import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
 /**
- * Created by 张孟尧 on 2016/5/1.
+ * Created by 张孟尧 on 2016/5/2.
  */
-public class SwuDormWifiLogin {
+public class WifiLogin {
     private static OkhttpNet okhttpNet = new OkhttpNet();
     private static String result = null;
 
-    public static String Login(final String userName,
+    public static String login(String username, String password, String wifissid) {
+        if (wifissid.contains("swu-wifi-dorm")) {
+            return swuDormWifiLogin(username, password);
+        } else if (wifissid.contains("swu-wifi")) {
+            return swuWifiLogin(username, password);
+        } else
+            return Constant.noWifi;
+    }
+
+
+    private static String swuWifiLogin(String username, String password) {
+        final RequestBody requestBody = new FormBody.Builder()
+                .add("username", username)
+                .add("password", password)
+                .add("if_login", "")
+                .add("B2", "").build();
+
+        String responses = okhttpNet.doPost(Constant.urlSwuWifi, "gb2312", requestBody);
+
+        if (responses.contains(Constant.swuWifiLoginSuccessed)) {
+            result = Constant.swuWifiLoginSuccessed;
+        } else if (responses.contains(Constant.swuWifiLoginNameOrPasswordError)) {
+            result = Constant.swuWifiLoginNameOrPasswordError;
+        } else if (responses.contains(Constant.swuWifiLoginAnotherDeviceLogined)) {
+            result = Constant.swuWifiLoginAnotherDeviceLogined;
+        } else if (responses.contains(Constant.CLIENT_TIMEOUT))
+            result = Constant.CLIENT_TIMEOUT;
+        else
+            result = Constant.swuWifiLoginSomeThError;
+
+        return result;
+    }
+
+
+    private static String swuDormWifiLogin(final String userName,
             final String password) {
         final RequestBody requestBody = new FormBody.Builder()
                 .add("username", userName)
@@ -46,3 +80,4 @@ public class SwuDormWifiLogin {
     }
 
 }
+
