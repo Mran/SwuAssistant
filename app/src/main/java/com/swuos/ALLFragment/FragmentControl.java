@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.swuos.ALLFragment.card.Cardfragment;
 import com.swuos.ALLFragment.charge.ChargeFragment;
 import com.swuos.ALLFragment.find_lost.FindLostFragment;
 import com.swuos.ALLFragment.library.LibraryFragment;
@@ -26,6 +27,8 @@ public class FragmentControl {
     /*课程表界面布局*/
     private static ScheduleFragment scheduleFragment;
     //    private static ScheduleTableFragment scheduleTableFragment;
+
+    private static Cardfragment cardfragment;
 
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
@@ -59,6 +62,9 @@ public class FragmentControl {
 
         gradesFragment = new GradesFragment();
         transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
+
+        cardfragment = new Cardfragment();
+        transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
 
         studyMaterialsFragment = new StudyMaterialsFragment();
         transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
@@ -95,6 +101,10 @@ public class FragmentControl {
             if (gradesFragment != null) {
                 gradesFragment = (GradesFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[2]);
             }
+            if (cardfragment != null) {
+                cardfragment = (Cardfragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
+            }
+
             if (studyMaterialsFragment != null) {
                 studyMaterialsFragment = (StudyMaterialsFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
             }
@@ -175,6 +185,16 @@ public class FragmentControl {
                 } else
                     transaction.show(wifiFragment);
                 break;
+            case R.id.nav_ecard:
+                if (cardfragment == null) {
+                    // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
+                    cardfragment = new Cardfragment();
+                    transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
+                } else {
+                    // 如果studyMaterialsFragment不为空，则直接将它显示出来
+                    transaction.show(cardfragment);
+                }
+                break;
             /*case R.id.nav_study_materials:
 
                 if (studyMaterialsFragment == null) {
@@ -236,6 +256,10 @@ public class FragmentControl {
             SALog.d("MainActity", "HideLibrary");
             fragmentTransaction.hide(libraryFragment);
         }
+        if (cardfragment != null) {
+            fragmentTransaction.hide(cardfragment);
+        }
+
         if (chargeFragment != null) {
             fragmentTransaction.hide(chargeFragment);
         }

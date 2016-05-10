@@ -12,6 +12,7 @@
     <string name="main_page_title">SwuAssistant</string>
     <string name="study_materials_title">学习资料</string>
     <string name="library_title">图书馆</string>
+    <string name="ecard_title">一卡通</string>
     <string name="grades_title">成绩</string>
     <string name="find_lost_title">失物找寻</string>
     <string name="charge_title">水电费</string>

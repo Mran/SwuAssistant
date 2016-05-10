@@ -5,7 +5,9 @@ import com.swuos.util.SALog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import okhttp3.Response;
 /**
  * Created by 张孟尧 on 2016/4/28.
  */
-public class OkhttpNet {
+public class OkhttpNet implements Serializable{
     private static CookieJar cookieJar = new CookieJar() {
         List<Cookie> cookies;
 
@@ -71,6 +73,24 @@ public class OkhttpNet {
         SALog.d("post", responses);
         return responses;
     }
+
+    //返回get请求得到的输入流
+    public InputStream doGetInputStream(String url) {
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+        InputStream responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                responses = response.body().byteStream();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responses;
+    }
+
+
     public String doPost(String url, RequestBody requestBody) {
         Request request = new Request.Builder().url(url).post(requestBody).build();
         Response response = null;

@@ -239,6 +239,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.library_title);
             fragmentPosition = id;
+        }else if (id == R.id.nav_ecard) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.ecard_title);
+            fragmentPosition = id;
         }/*else if (id == R.id.nav_study_materials) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.study_materials_title);

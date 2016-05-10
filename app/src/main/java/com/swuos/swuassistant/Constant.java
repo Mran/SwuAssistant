@@ -107,6 +107,10 @@ public class Constant {
 
 
 
+    public static final String CARD_FRAGMENT_ID="card_id";
+    public static final String CARD_FRAGMENT_PD="card_pd";
+    public static final String CARD_FRAGMENT_ECARD="card_ecard";
+
 
 
 
