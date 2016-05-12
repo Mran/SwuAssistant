@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="108dp"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/textViewCardConsumeKind1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="5dp"
+        android:text="交易类型" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeKind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCardConsumeKind1"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="6dp"
+        android:text="圈存机充值"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeAddress1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="交易地点" />
+
+
+    <TextView
+        android:id="@+id/textViewCardConsumeAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCardConsumeAddress1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="橘园教育超市"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeTime1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:text="交易时间" />
+
+
+    <TextView
+        android:id="@+id/textViewCardConsumeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/textViewCardConsumeTime1"
+        android:layout_marginTop="3dp"
+        android:text="2016-3-5 10:10:38"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+
+
+    <TextView
+        android:id="@+id/textViewCardConsumeBefore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="5dp"
+        android:text="182.23"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeBefore1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewCardConsumeBefore"
+        android:layout_marginBottom="3dp"
+        android:text="交易前金额" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeDelta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="4dp"
+        android:text="4.3"
+        android:textSize="15sp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeDelta1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewCardConsumeDelta"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="3dp"
+        android:text="交易金额" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeAfter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:text="108.8"
+        android:layout_marginBottom="5dp"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewCardConsumeAfter1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/textViewCardConsumeAfter"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="3dp"
+        android:text="交易后金额" />
+
+</RelativeLayout>

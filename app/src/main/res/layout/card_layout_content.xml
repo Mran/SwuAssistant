@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:visibility="gone"
+        android:id="@+id/swipeRefreshCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
+            android:id="@+id/recyclerViewCardContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCardError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="获取数据失败,点击重试"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#f0f0f0"
+            android:layout_weight="6"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="bottom|center"
+            android:paddingBottom="8dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#f0f0f0"
+            android:gravity="top|center"
+            android:paddingTop="10dp"
+            android:text="请检查是否连接swu-wifi或者swu-wifi-dom"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            android:background="#f0f0f0"
+            android:gravity="top|center"
+            android:paddingTop="10dp"
+            android:text="或者在wifi信号好的地方重试"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
