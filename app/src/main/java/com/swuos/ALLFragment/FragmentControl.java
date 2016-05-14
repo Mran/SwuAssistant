@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.swuos.ALLFragment.card.Cardfragment;
+import com.swuos.ALLFragment.card.EcardFragmentImp;
 import com.swuos.ALLFragment.charge.ChargeFragment;
 import com.swuos.ALLFragment.find_lost.FindLostFragment;
 import com.swuos.ALLFragment.library.LibraryFragment;
@@ -28,7 +28,7 @@ public class FragmentControl {
     private static ScheduleFragment scheduleFragment;
     //    private static ScheduleTableFragment scheduleTableFragment;
 
-    private static Cardfragment cardfragment;
+    private static EcardFragmentImp cardfragment;
 
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
@@ -63,7 +63,7 @@ public class FragmentControl {
         gradesFragment = new GradesFragment();
         transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
 
-        cardfragment = new Cardfragment();
+        cardfragment = new EcardFragmentImp();
         transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
 
         studyMaterialsFragment = new StudyMaterialsFragment();
@@ -102,7 +102,7 @@ public class FragmentControl {
                 gradesFragment = (GradesFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[2]);
             }
             if (cardfragment != null) {
-                cardfragment = (Cardfragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
+                cardfragment = (EcardFragmentImp) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
             }
 
             if (studyMaterialsFragment != null) {
@@ -188,7 +188,7 @@ public class FragmentControl {
             case R.id.nav_ecard:
                 if (cardfragment == null) {
                     // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
-                    cardfragment = new Cardfragment();
+                    cardfragment = new EcardFragmentImp();
                     transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
                 } else {
                     // 如果studyMaterialsFragment不为空，则直接将它显示出来

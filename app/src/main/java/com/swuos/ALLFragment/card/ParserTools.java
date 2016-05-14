@@ -1,5 +1,12 @@
 package com.swuos.ALLFragment.card;
 
+
+import android.util.Log;
+
+
+import com.swuos.ALLFragment.card.ConsumeInfo;
+import com.swuos.ALLFragment.card.EcardInfo;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,6 +43,7 @@ public class ParserTools {
         for (Element item : elements) {
             items.add(item.text());
         }
+        Log.d("kklog", "**********************************");
         for(int i=items.size()-6;i>=27;i-=7){
             ConsumeInfo info=new ConsumeInfo();
             info.setTime(items.get(i-6));
@@ -45,6 +53,28 @@ public class ParserTools {
             info.setDelta(items.get(i-2));
             info.setAfter(items.get(i-1));
             info.setAddress(items.get(i));
+            consumeInfos.add(info);
+        }
+        return consumeInfos;
+    }
+    //最后一页和非最后一页的分解规则不同。此方法针对非最后一页的分解
+    public static List<ConsumeInfo> parserHtmlToConsumeInfos2(String data, String selector){
+        List<String> items = new ArrayList<>();
+        List<ConsumeInfo> consumeInfos = new ArrayList<>();
+        Document document = Jsoup.parse(data);
+        Elements elements = document.select(selector);
+        for (Element item : elements) {
+            items.add(item.text());
+        }
+        for(int i=items.size()-10;i>=27;i-=7){
+            ConsumeInfo info=new ConsumeInfo();
+            info.setTime(items.get(i-4));
+            info.setKind(items.get(i-3));
+            info.setTimes(items.get(i-2));
+            info.setBefore(items.get(i-1));
+            info.setDelta(items.get(i));
+            info.setAfter(items.get(i+1));
+            info.setAddress(items.get(i+2));
             consumeInfos.add(info);
         }
         return consumeInfos;

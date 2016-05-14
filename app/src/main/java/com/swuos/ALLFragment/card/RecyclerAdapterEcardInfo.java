@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import com.swuos.swuassistant.R;
 
 import java.util.List;
+
 
 /**
  * Created by codekk on 2016/5/3.

@@ -38,7 +38,6 @@ public class SettingActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Log.d("settingActivity","onOptionsItemSelected");

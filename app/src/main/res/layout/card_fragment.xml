@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:visibility="gone"
-        android:id="@+id/swipeRefreshCard"
+        android:id="@+id/swipeRefreshEcard"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:visibility="gone"
-            android:id="@+id/recyclerViewCardContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/recyclerViewEcard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
+    </android.support.v7.widget.RecyclerView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayoutCardError"
+        android:id="@+id/linearLayoutEcardError"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -56,4 +58,13 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-</RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabCard"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginRight="16dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="18dp"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/consume"/>
+</android.support.design.widget.CoordinatorLayout>

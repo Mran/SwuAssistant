@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
 import com.swuos.swuassistant.R;
 
 import java.util.List;
+
 
 /**
  * Created by codekk on 2016/5/3.
@@ -38,7 +40,6 @@ public class RecyclerAdapterConsume extends RecyclerView.Adapter<RecyclerAdapter
         holder.textViewDelta.setText(consumeInfos.get(position).getDelta());
         holder.textViewAfter.setText(consumeInfos.get(position).getAfter());
     }
-
     @Override
     public int getItemCount() {
         return consumeInfos.size();

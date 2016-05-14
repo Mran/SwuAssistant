@@ -192,7 +192,6 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public int getStrength(Context context) {
-
         return 0;
     }
 

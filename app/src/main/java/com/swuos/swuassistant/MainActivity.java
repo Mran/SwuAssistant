@@ -309,7 +309,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             case R.id.name:
                 //             开启登陆活动,并要求获得回复信息
                 startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 1);
-
         }
     }
 

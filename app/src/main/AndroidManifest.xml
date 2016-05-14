@@ -17,7 +17,6 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -32,7 +31,11 @@
             android:launchMode="standard"/>
         <activity android:name=".SettingActivity"/>
 
+        <activity android:name="com.swuos.ALLFragment.card.ConsumeActivityImp"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+
         <service android:name="com.swuos.Service.ClassAlarmService"/>
+
         <service android:name="com.swuos.Service.NotifycationService"/>
 
 

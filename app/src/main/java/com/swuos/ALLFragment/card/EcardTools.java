@@ -2,6 +2,7 @@ package com.swuos.ALLFragment.card;
 
 import android.util.Log;
 
+
 import com.swuos.net.OkhttpNet;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class EcardTools implements Serializable {
     private OkhttpNet okhttpNet;
+    private String lastIndex = "0";
 
     public EcardTools() {
         okhttpNet = new OkhttpNet();
@@ -52,8 +54,9 @@ public class EcardTools implements Serializable {
     }
 
     public List<ConsumeInfo> GetConsumeInfos(String index) {
+        Log.d("kklog", "EcardTools lastIndex===>" + lastIndex);
         List<ConsumeInfo> consumeInfos;
-        InputStream in = okhttpNet.doGetInputStream(" http://ecard.swu.edu.cn/search/oracle/finance.asp?offset="+index);
+        InputStream in = okhttpNet.doGetInputStream("http://ecard.swu.edu.cn/search/oracle/finance.asp?offset=" + index);
         String s = "none";
         StringBuilder builder = new StringBuilder();
         try {
@@ -74,11 +77,15 @@ public class EcardTools implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        consumeInfos = ParserTools.parserHtmlToConsumeInfos(s, "TD");
+        if (lastIndex.equals(index)) {
+            consumeInfos = ParserTools.parserHtmlToConsumeInfos(s, "TD");
+        }else{
+            consumeInfos=ParserTools.parserHtmlToConsumeInfos2(s,"TD");
+        }
         return consumeInfos;
     }
 
-    public String GetLastIndex() throws StringIndexOutOfBoundsException{
+    public String GetLastIndex() throws StringIndexOutOfBoundsException {
         InputStream in = okhttpNet.doGetInputStream("http://ecard.swu.edu.cn/search/oracle/finance.asp");
         String s = "none";
         StringBuilder builder = new StringBuilder();
@@ -100,9 +107,10 @@ public class EcardTools implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int start=s.indexOf("共有<font color=red>");
-        int end=s.indexOf("</font>页&");
-        String ss=s.substring(start+18,end);
+        int start = s.indexOf("共有<font color=red>");
+        int end = s.indexOf("</font>页&");
+        String ss = s.substring(start + 18, end);
+        lastIndex=ss;
         return ss;
     }
 }
