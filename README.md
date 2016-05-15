@@ -25,3 +25,8 @@
     * 退出wifi登录
     * 定时退出wifi(未完成)
 ![wifi](https://github.com/Mran/SwuAssistant/blob/master/app%2Fwifi.png)
+### 查询一卡通信息
+    * 查看一卡通信息
+    * 查看消费记录
+![card1](https://github.com/Mran/SwuAssistant/blob/master/app%2Fcard.png)
+![card2](https://github.com/Mran/SwuAssistant/blob/master/app%2Fconsumer.png)
