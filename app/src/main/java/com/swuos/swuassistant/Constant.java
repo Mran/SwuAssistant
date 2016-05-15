@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final long TIMEOUT = 8000;
+    public static final long TIMEOUT = 4000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;
@@ -105,7 +105,12 @@ public class Constant {
     public static final String dormWifiLoginSomeTHError = "未知错误";
     public static final String noWifi = "请连接swu-dorm-wifi或者swu-wifi后尝试登录";
 
+    public static final String WIDGET_LOGIN = "WIDGET_LOGIN";
+    public static final String WIDGET_LOGOUT = "WIDGET_LOGOUT";
+    public static final String WIDGET_LOGINFO = "WIDGET_LOGINFO";
 
+    public static final String NOTIFICATION_LOGIN = "NOTIFICATION_LOGIN";
+    public static final String NOTIFICATION_LOGOUT = "NOTIFICATION_LOGOUT";
 
     public static final String CARD_FRAGMENT_ID="card_id";
     public static final String CARD_FRAGMENT_PD="card_pd";

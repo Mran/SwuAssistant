@@ -24,4 +24,4 @@
     * 登录寝室wifi
     * 退出wifi登录
     * 定时退出wifi(未完成)
-![查图书](https://github.com/Mran/SwuAssistant/blob/master/app%2Fwifi.png)
+![wifi](https://github.com/Mran/SwuAssistant/blob/master/app%2Fwifi.png)

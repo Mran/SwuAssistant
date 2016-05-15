@@ -118,7 +118,7 @@ public class ClassAlarmService extends Service {
                 /*距离上课提醒剩余的时间*/
                 int timeToclass = (int) (scheduleItem.getStartTime() - curTime - remindtime * Constant.ONE_MIN_TIME);
                 manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                Intent intent1 = new Intent(this, NotifycationService.class);
+                Intent intent1 = new Intent(this, ScheduleNotificationService.class);
                 PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent1, 0);
                 Log.d("ClassAlam", "发送通知" + String.valueOf(timeToclass / Constant.ONE_MIN_TIME));
                 totalInfo.setPosition(i);

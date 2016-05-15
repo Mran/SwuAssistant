@@ -17,7 +17,7 @@ import com.swuos.swuassistant.R;
 /**
  * Created by 张孟尧 on 2016/4/9.
  */
-public class NotifycationService extends Service {
+public class ScheduleNotificationService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

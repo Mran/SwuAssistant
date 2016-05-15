@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -41,18 +41,7 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView wifiStateTextView;
     private WifiStateBroad wifiStateBroad;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case Constant.SHOW_RESPONSE:
-                    Snackbar.make(view, (String) msg.obj, Snackbar.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    private TextView wifiUsername;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,9 +55,8 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitleTextColor(Color.WHITE);
         Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationIcon(d);
-
-        initview();
         initdata();
+        initview();
     }
 
     private void initview() {
@@ -76,13 +64,16 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R
                 .color.holo_red_light, android.R.color.holo_orange_light, android.R.color
                 .holo_green_light);
+        swipeRefreshLayout.setEnabled(false);
         swipeRefreshLayout.setOnRefreshListener(this);
         login_button = (Button) findViewById(R.id.wifi_login_button);
         logout_button = (Button) findViewById(R.id.wifi_logout_button);
         wifiStateTextView = (TextView) findViewById(R.id.wifi_state);
+        wifiUsername = (TextView) findViewById(R.id.wifi_username);
         logout_button.setOnClickListener(this);
         login_button.setOnClickListener(this);
         wifiStateTextView.setOnClickListener(this);
+        wifiUsername.setText("当前用户:" + username);
     }
 
     private void initdata() {
@@ -111,14 +102,15 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
         WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String wifiSsid = wifiInfo.toString();
+        //        int ip=wifiInfo.getIpAddress();
         switch (id) {
             case R.id.wifi_login_button:
-                swipeRefreshLayout.setRefreshing(true);
                 login(wifiSsid);
+                swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_logout_button:
-                swipeRefreshLayout.setRefreshing(true);
                 logout(wifiSsid);
+                swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_state:
                 startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
@@ -179,20 +171,30 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
             if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
                 wifiStateTextView.setText("正在打开WIFI");
             } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
+                wifiStateTextView.setText("WIFI未连接");
 
-                String wifissid = wifiInfo.getSSID();
-                wifiStateTextView.setText(wifissid.replace("\"", ""));
+                ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                        String wifissid = wifiInfo.getSSID();
+                        wifiStateTextView.setText(wifissid.replace("\"", ""));
+                    }
+                } else if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+                    if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                        String wifissid = wifiInfo.getSSID();
+                        wifiStateTextView.setText("正在连接 " + wifissid);
+                    }
+
+                }
             } else if (wifiState == WifiManager.WIFI_STATE_DISABLED) {
                 wifiStateTextView.setText("WIFI已关闭");
             }
 
         }
-    }
-
-    public int getStrength(Context context) {
-        return 0;
     }
 
 

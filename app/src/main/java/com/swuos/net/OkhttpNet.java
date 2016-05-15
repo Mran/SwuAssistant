@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,11 +65,17 @@ public class OkhttpNet implements Serializable{
 
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
         }
         SALog.d("post", responses);
         return responses;
@@ -87,6 +94,7 @@ public class OkhttpNet implements Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return responses;
     }
 
@@ -101,11 +109,17 @@ public class OkhttpNet implements Serializable{
                 responses = response.body().string();
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
         }
         SALog.d("post", responses);
         return responses;
@@ -129,11 +143,17 @@ public class OkhttpNet implements Serializable{
 
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
         }
         SALog.d("post", responses);
         return responses;
@@ -155,11 +175,17 @@ public class OkhttpNet implements Serializable{
                 responses = stringBuilder.toString();
             } else
                 responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             responses = Constant.CLIENT_TIMEOUT;
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
         }
         SALog.d("post", responses);
         return responses;

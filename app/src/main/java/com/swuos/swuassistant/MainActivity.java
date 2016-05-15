@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.swuos.ALLFragment.FragmentControl;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
+import com.swuos.Service.WifiNotificationService;
 import com.swuos.util.SALog;
 
 
@@ -159,9 +160,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         SharedPreferences settingSharedPreferences = getSharedPreferences("com.swuos.swuassistant_preferences", MODE_PRIVATE);
         Boolean isRemind = settingSharedPreferences.getBoolean("schedule_is_should be_remind", false);
         if (isRemind) {
-            Intent statrtIntent = new Intent(this, ClassAlarmService.class);
-            startService(statrtIntent);
+            Intent statrtClassAlarmIntent = new Intent(this, ClassAlarmService.class);
+            startService(statrtClassAlarmIntent);
         }
+        Intent statrtWifiIntent = new Intent(this, WifiNotificationService.class);
+        startService(statrtWifiIntent);
     }
 
     private void inintdate() {

@@ -29,7 +29,7 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="点我登陆"
+        android:text="点我登录"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20dp"
         />

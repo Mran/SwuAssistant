@@ -42,4 +42,6 @@ dependencies {
     compile files('libs/okio-1.7.0.jar')
 
     compile 'com.robbypond:material-dialogs:1.0.0'
+    compile 'io.github.zhitaocai:toastcompat:0.1.0'
+
 }

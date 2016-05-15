@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +20,7 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -30,26 +34,33 @@
             android:label="@string/app_name"
             android:launchMode="standard"/>
         <activity android:name=".SettingActivity"/>
-
-        <activity android:name="com.swuos.ALLFragment.card.ConsumeActivityImp"
+        <activity
+            android:name="com.swuos.ALLFragment.card.ConsumeActivityImp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
         <service android:name="com.swuos.Service.ClassAlarmService"/>
-
-        <service android:name="com.swuos.Service.NotifycationService"/>
-
+        <service android:name="com.swuos.Service.ScheduleNotificationService"/>
 
         <receiver android:name="com.swuos.widget.wifi.wifi_widgets">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="wifi_login"/>
-                <action android:name="wifi_logout"/>
+                <action android:name="WIDGET_LOGIN"/>
+                <action android:name="WIDGET_LOGOUT"/>
+                <action android:name="WIDGET_LOGINFO"/>
             </intent-filter>
-
 
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/wifi_widgets_info"/>
+        </receiver>
+
+        <service android:name="com.swuos.Service.WifiNotificationService"></service>
+        <receiver android:name="com.swuos.Service.WifiNotificationService$MwifiBroadcast">
+            <intent-filter android:priority="100">
+                <action android:name="NOTIFICATION_LOGIN"/>
+                <action android:name="NOTIFICATION_LOGOUT"/>
+
+            </intent-filter>
         </receiver>
     </application>
 

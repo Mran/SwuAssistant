@@ -38,9 +38,11 @@ public class WifiLogin {
             result = Constant.swuWifiLoginNameOrPasswordError;
         } else if (responses.contains(Constant.swuWifiLoginAnotherDeviceLogined)) {
             result = Constant.swuWifiLoginAnotherDeviceLogined;
-        } else if (responses.contains(Constant.CLIENT_TIMEOUT))
+        } else if (responses.contains(Constant.CLIENT_TIMEOUT)) {
             result = Constant.CLIENT_TIMEOUT;
-        else
+        } else if (responses.contains(Constant.NO_NET)) {
+            result = Constant.NO_NET;
+        } else
             result = Constant.swuWifiLoginSomeThError;
 
         return result;
@@ -72,6 +74,8 @@ public class WifiLogin {
             result = Constant.dormWifiLoginNotExistC;
         } else if (responses.contains(Constant.CLIENT_TIMEOUT)) {
             result = Constant.CLIENT_TIMEOUT;
+        } else if (responses.contains(Constant.NO_NET)) {
+            result = Constant.NO_NET;
         } else
             result = Constant.dormWifiLoginSomeTHError;
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:paddingTop="10dp"
+        android:id="@+id/wifi_notification_icon"
+        android:src="@drawable/wifi"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:foregroundGravity="center"
+
+        />
+
+    <Button
+        android:id="@+id/wifi_notification_login"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:text="登录"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:textColor="@android:color/background_dark"/>
+
+    <Button
+        android:id="@+id/wifi_notification_logout"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+
+        android:text="登出"
+        android:layout_weight="1"
+        android:textColor="@android:color/background_dark"
+        />
+</LinearLayout>

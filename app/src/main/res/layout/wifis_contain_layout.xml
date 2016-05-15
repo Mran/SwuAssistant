@@ -7,8 +7,8 @@
 
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:id="@+id/wifi_contain"
@@ -17,37 +17,49 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/wifi_state"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:id="@+id/wifi_state"
-                android:text="没有连接wifi"
-                android:textSize="30sp"
-                android:paddingTop="20dp"
+                android:background="@color/colorPrimary"
                 android:gravity="center_horizontal"
-                android:textColor="@color/colorclass5"
-                android:background="@color/colorPrimary"/>
+                android:paddingTop="20dp"
+                android:text="没有连接wifi"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/wifi_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="当前用户:"
+                android:textAlignment="center"
+                android:textColor="@android:color/primary_text_dark_nodisable"
+                android:textSize="20sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
             <Button
                 android:id="@+id/wifi_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="登录"
-
-                android:layout_marginRight="46dp"
-                android:layout_marginEnd="46dp"
-                android:layout_alignParentBottom="true"
-                android:layout_toLeftOf="@+id/wifi_logout_button"
-                android:layout_toStartOf="@+id/wifi_logout_button"/>
+                android:layout_marginLeft="100dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="22dp"
+                android:layout_below="@+id/wifi_state"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
 
             <Button
                 android:id="@+id/wifi_logout_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="登出"
-                android:layout_marginRight="81dp"
-                android:layout_marginEnd="81dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_toRightOf="@+id/wifi_login_button"
+                android:layout_toEndOf="@+id/wifi_login_button"/>
+
 
         </RelativeLayout>
 

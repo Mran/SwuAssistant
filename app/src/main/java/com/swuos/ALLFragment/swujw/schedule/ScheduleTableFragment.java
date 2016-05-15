@@ -179,41 +179,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     }
 
 
-    //    private void getSchedule() {
-    //        userName = totalInfo.getUserName();
-    //        password = totalInfo.getPassword();
-    //        //                /*开启线程开始查询*/
-    //        new Thread(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //
-    //                Login login = new Login();
-    //                Message message = new Message();
-    //
-    //                if (login.doLogin(userName, password).contains("LoginSuccessed")) {
-    //                    Schedule schedule = new Schedule(login.client);
-    //                    /*判断是否课程表是否正常获得*/
-    //                    if (schedule.setSchedule(totalInfo, "2015", "12").equals(Constant
-    //                            .CLIENT_ERROR)) {
-    //                        message.what = Constant.ERROR;
-    //
-    //                        //                        handler.sendMessage(message);
-    //                    } else {
-    //                        scheduleItemList = schedule.getScheduleList(totalInfo);
-    //                        /*将获取的课程表json信息写入本地文件*/
-    //                        SharedPreferences.Editor editor = sharedPreferences.edit();
-    //                        editor.putString("scheduleDataJson", totalInfo.getScheduleDataJson());
-    //                        editor.commit();
-    //                        message.what = Constant.SCHEDULE_OK;
-    //                        //                        handler.sendMessage(message);
-    //                    }
-    //                } else {
-    //                    message.what = Constant.LOGIN_FAILED;
-    //                }
-    //            }
-    //        }).start();
-    //
-    //    }
 
     public void setTable() {
         relativeLayout.removeAllViews();

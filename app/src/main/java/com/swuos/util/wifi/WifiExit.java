@@ -27,6 +27,8 @@ public class WifiExit {
                 result = Constant.swuWifiLogoutNoLogined;
             } else if (respones.contains(Constant.CLIENT_TIMEOUT))
                 result = Constant.CLIENT_TIMEOUT;
+            else
+                result = respones;
         } else
             result = Constant.noWifi;
         return result;
