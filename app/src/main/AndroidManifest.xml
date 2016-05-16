@@ -55,10 +55,12 @@
         </receiver>
 
         <service android:name="com.swuos.Service.WifiNotificationService"></service>
-        <receiver android:name="com.swuos.Service.WifiNotificationService$MwifiBroadcast">
+        <receiver android:name="com.swuos.BroacastReceiver.MwifiBroadcast">
             <intent-filter android:priority="100">
                 <action android:name="NOTIFICATION_LOGIN"/>
                 <action android:name="NOTIFICATION_LOGOUT"/>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
 
             </intent-filter>
         </receiver>

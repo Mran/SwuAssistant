@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -158,13 +159,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     private void startServier() {
         SharedPreferences settingSharedPreferences = getSharedPreferences("com.swuos.swuassistant_preferences", MODE_PRIVATE);
-        Boolean isRemind = settingSharedPreferences.getBoolean("schedule_is_should be_remind", false);
-        if (isRemind) {
+        Boolean scheduleIsRemind = settingSharedPreferences.getBoolean("schedule_is_should be_remind", false);
+        if (scheduleIsRemind) {
             Intent statrtClassAlarmIntent = new Intent(this, ClassAlarmService.class);
             startService(statrtClassAlarmIntent);
         }
-        Intent statrtWifiIntent = new Intent(this, WifiNotificationService.class);
-        startService(statrtWifiIntent);
+        Boolean wifiNotification = settingSharedPreferences.getBoolean("wifi_notification_show", true);
+        if (wifiNotification) {
+            WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+            int wifistate = wifiManager.getWifiState();
+            if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
+                Intent statrtWifiIntent = new Intent(this, WifiNotificationService.class);
+                startService(statrtWifiIntent);
+            }
+        }
     }
 
     private void inintdate() {
@@ -242,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.library_title);
             fragmentPosition = id;
-        }else if (id == R.id.nav_ecard) {
+        } else if (id == R.id.nav_ecard) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.ecard_title);
             fragmentPosition = id;
@@ -324,7 +332,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             super.onBackPressed();
         }
     }
-
 
 
     public Toolbar getToolbar() {

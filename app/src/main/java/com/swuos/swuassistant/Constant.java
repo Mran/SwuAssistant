@@ -111,6 +111,7 @@ public class Constant {
 
     public static final String NOTIFICATION_LOGIN = "NOTIFICATION_LOGIN";
     public static final String NOTIFICATION_LOGOUT = "NOTIFICATION_LOGOUT";
+    public static final int NOTIFICATION_WIFI_ID = 100001;
 
     public static final String CARD_FRAGMENT_ID="card_id";
     public static final String CARD_FRAGMENT_PD="card_pd";

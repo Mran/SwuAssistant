@@ -162,7 +162,6 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
 
 
         public void onReceive(Context context, Intent intent) {
-            System.out.println(intent.getAction());
 
             WifiManager wifiManager = (WifiManager) context
                     .getSystemService(Context.WIFI_SERVICE);
@@ -171,7 +170,6 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
             if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
                 wifiStateTextView.setText("正在打开WIFI");
             } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-
                 wifiStateTextView.setText("WIFI未连接");
 
                 ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(CONNECTIVITY_SERVICE);

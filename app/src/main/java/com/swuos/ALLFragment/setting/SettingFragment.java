@@ -7,25 +7,28 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import com.swuos.Service.ClassAlarmService;
+import com.swuos.Service.WifiNotificationService;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/4/7.
  */
 /* 本fragment不受fragment管理*/
 public class SettingFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
-    private CheckBoxPreference checkBoxPreference;
+    private CheckBoxPreference scheduleCheckBoxPreference;
     private ListPreference listPreference;
+    private CheckBoxPreference wifiNotificationCheckBoxPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.setting);
-        checkBoxPreference = (CheckBoxPreference) findPreference("schedule_is_should be_remind");
+        scheduleCheckBoxPreference = (CheckBoxPreference) findPreference("schedule_is_should be_remind");
         listPreference = (ListPreference) findPreference("headway_before_class");
+        wifiNotificationCheckBoxPreference = (CheckBoxPreference) findPreference("wifi_notification_show");
         listPreference.setOnPreferenceChangeListener(this);
 
     }
@@ -33,14 +36,24 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if ("schedule_is_should be_remind".equals(preference.getKey())) {
-            if (checkBoxPreference.isChecked()) {
+            if (scheduleCheckBoxPreference.isChecked()) {
                 Intent statrtIntent = new Intent(getActivity(), ClassAlarmService.class);
                 getActivity().startService(statrtIntent);
-                Log.d("setting", "开启服务");
+                SALog.d("setting", "开启课程提示服务");
             } else {
                 Intent statrtIntent = new Intent(getActivity(), ClassAlarmService.class);
                 getActivity().stopService(statrtIntent);
-                Log.d("setting", "停止服务");
+                SALog.d("setting", "停止课程提示服务");
+            }
+        } else if ("wifi_notification_show".equals(preference.getKey())) {
+            if (wifiNotificationCheckBoxPreference.isChecked()) {
+                Intent statrtIntent = new Intent(getActivity(), WifiNotificationService.class);
+                getActivity().startService(statrtIntent);
+                SALog.d("setting", "开启前台服务");
+            } else {
+                Intent stopIntent = new Intent(getActivity(), WifiNotificationService.class);
+                getActivity().stopService(stopIntent);
+                SALog.d("setting", "停止前台服务");
             }
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -54,7 +67,7 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
             Intent statrtIntent = new Intent(getActivity(), ClassAlarmService.class);
             getActivity().stopService(statrtIntent);
             getActivity().startService(statrtIntent);
-            Log.d("setting", "设定时间改变,重启服务");
+            SALog.d("setting", "设定时间改变,重启服务");
         }
         return true;
     }

@@ -19,6 +19,16 @@
             android:entryValues="@array/headway_before_class"
             android:defaultValue="15"/>
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="wifi"
+        android:summary="wifi登录/登出设置"
+        android:title="wifi登录/登出设置">
+        <CheckBoxPreference
+            android:key="wifi_notification_show"
+            android:summary="在打开wifi的情况下显示快捷登录/登出按钮"
+            android:title="wifi登录/登出快捷入口"
+            android:defaultValue="true"/>
 
+    </PreferenceCategory>
 
 </PreferenceScreen>
