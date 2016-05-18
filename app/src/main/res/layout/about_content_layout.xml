@@ -100,20 +100,41 @@
         android:layout_height="wrap_content"
         android:text="Copyright© 2016 linux.swu.edu.cn\nAll rights reserved"
         android:gravity="center"
+        android:layout_marginBottom="21dp"
         android:layout_above="@+id/swuos"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"/>
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/swuos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="54dp"
+        android:layout_marginBottom="50dp"
         android:text="@string/swuos"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/relativeLayout"
         android:layout_centerHorizontal="true"/>
 
-    <Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Toolbar>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="捐赠我们"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="12dp"
+            />
+
+        <TextView
+            android:id="@+id/about_feedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="反馈"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            />
+    </RelativeLayout>
 </RelativeLayout>

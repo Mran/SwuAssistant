@@ -33,8 +33,11 @@
             android:name=".WifiActivity"
             android:label="@string/app_name"
             android:launchMode="standard"/>
-        <activity android:name=".SettingActivity"/>
         <activity
+            android:name=".SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
             android:name=".AboutActivity"
             android:launchMode="standard"/>
         <activity
