@@ -98,22 +98,49 @@
         android:id="@+id/copy_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Copyright© 2016 linux.swu.edu.cn\nAll rights reserved"
-        android:gravity="center"
         android:layout_above="@+id/swuos"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"/>
+        android:layout_marginBottom="38dp"
+        android:gravity="center"
+        android:text="Copyright© 2016 linux.swu.edu.cn\nAll rights reserved"/>
 
     <TextView
         android:id="@+id/swuos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="54dp"
-        android:text="@string/swuos"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="54dp"
+        android:text="@string/swuos"/>
 
     <Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></Toolbar>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="捐赠我们"
+                android:layout_alignParentLeft="true"
+                />
+
+            <TextView
+                android:id="@+id/about_feedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="反馈"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                />
+        </RelativeLayout>
+
+
+    </Toolbar>
 </RelativeLayout>

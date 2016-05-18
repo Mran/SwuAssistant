@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/feedback_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="联系方式"
+            android:maxLines="1"
+            />
+
+        <EditText
+            android:id="@+id/feedback_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/feedback_contact"
+            android:hint="反馈内容"
+            android:background="@null"
+            />
+
+        <!--<Button-->
+        <!--android:id="@+id/feedback_ok"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:text="确定"/>-->
+    </RelativeLayout>
+</LinearLayout>
