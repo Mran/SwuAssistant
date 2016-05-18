@@ -31,6 +31,7 @@ import com.swuos.util.wifi.WifiLogin;
 /**
  * Created by 张孟尧 on 2016/4/27.
  */
+@Deprecated
 public class WifiActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private Button login_button;
     private Button logout_button;

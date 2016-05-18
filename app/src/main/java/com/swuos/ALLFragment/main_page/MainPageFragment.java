@@ -1,6 +1,5 @@
 package com.swuos.ALLFragment.main_page;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,7 +11,6 @@ import android.widget.Button;
 
 import com.swuos.ALLFragment.FragmentControl;
 import com.swuos.swuassistant.R;
-import com.swuos.swuassistant.WifiActivity;
 
 /**
  * Created by 张孟尧 on 2016/2/29.
@@ -42,23 +40,23 @@ public class MainPageFragment extends Fragment implements View.OnClickListener {
         schdeduleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         schdeduleRecyclerView.setHasFixedSize(true);
         schdeduleRecyclerView.setAdapter(new ScheduleRecycleViewAdapter(getContext()));*/
-        wifi_button = (Button) mainPageLayout.findViewById(R.id.main_page_wifi);
-        wifi_button.setOnClickListener(this);
-        card_button = (Button) mainPageLayout.findViewById(R.id.main_page_card);
-        card_button.setOnClickListener(this);
+        //        wifi_button = (Button) mainPageLayout.findViewById(R.id.main_page_wifi);
+        //        wifi_button.setOnClickListener(this);
+        //        card_button = (Button) mainPageLayout.findViewById(R.id.main_page_card);
+        //        card_button.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.main_page_wifi:
-                Intent intent = new Intent();
-                intent.setClass(getContext(), WifiActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.main_page_card:
-                break;
+            //            case R.id.main_page_wifi:
+            //                Intent intent = new Intent();
+            //                intent.setClass(getContext(), WifiActivity.class);
+            //                startActivity(intent);
+            //                break;
+            //            case R.id.main_page_card:
+            //                break;
             default:
                 break;
         }

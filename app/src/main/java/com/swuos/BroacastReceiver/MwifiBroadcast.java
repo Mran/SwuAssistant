@@ -50,10 +50,14 @@ public class MwifiBroadcast extends BroadcastReceiver {
             }
 
             if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
-                Intent statrtIntent = new Intent(context, WifiNotificationService.class);
-                context.startService(statrtIntent);
-                SALog.d("setting", "开启前台服务");
-                Log.d("wifi", "WIFI开启");
+                SharedPreferences settingSharedPreferences = context.getSharedPreferences("com.swuos.swuassistant_preferences", context.MODE_PRIVATE);
+                Boolean wifiNotification = settingSharedPreferences.getBoolean("wifi_notification_show", true);
+                if (wifiNotification) {
+                    Intent statrtIntent = new Intent(context, WifiNotificationService.class);
+                    context.startService(statrtIntent);
+                    SALog.d("setting", "开启前台服务");
+                    Log.d("wifi", "WIFI开启");
+                }
             }
         }
 

@@ -8,6 +8,11 @@
             android:title="首页"
             />
         <item
+            android:id="@+id/nav_wifi"
+            android:icon="@drawable/wifi"
+            android:title="@string/wifi"
+            />
+        <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/ic_action_calendar_month"
             android:title="课程表"/>
@@ -43,10 +48,16 @@
 
     <item android:title="Communicate">
         <menu>
+            <!--<item-->
+            <!--android:id="@+id/nav_share"-->
+            <!--android:icon="@android:drawable/ic_menu_share"-->
+            <!--android:title="Share"/>-->
             <item
-                android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="Share"/>
+                android:title="关于"
+                android:id="@+id/about"
+                android:icon="@drawable/about"
+                />
+
         </menu>
     </item>
 

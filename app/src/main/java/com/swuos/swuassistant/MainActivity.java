@@ -254,7 +254,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.ecard_title);
             fragmentPosition = id;
-        }/*else if (id == R.id.nav_study_materials) {
+        } else if (id == R.id.nav_wifi) {
+            fragmentControl.fragmentSelection(id);
+            toolbar.setTitle(R.string.wifi);
+            fragmentPosition = id;
+        } else if (id == R.id.about) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.about_activity_in, 0);
+            return true;
+        }
+        /*else if (id == R.id.nav_study_materials) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.study_materials_title);
             fragmentPosition = id;

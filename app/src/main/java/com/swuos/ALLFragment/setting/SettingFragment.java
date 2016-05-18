@@ -1,6 +1,7 @@
 package com.swuos.ALLFragment.setting;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -47,9 +48,14 @@ public class SettingFragment extends PreferenceFragment implements Preference.On
             }
         } else if ("wifi_notification_show".equals(preference.getKey())) {
             if (wifiNotificationCheckBoxPreference.isChecked()) {
-                Intent statrtIntent = new Intent(getActivity(), WifiNotificationService.class);
-                getActivity().startService(statrtIntent);
-                SALog.d("setting", "开启前台服务");
+                WifiManager wifiManager = (WifiManager) getActivity().getSystemService(getActivity().WIFI_SERVICE);
+                int wifistate = wifiManager.getWifiState();
+                if (wifistate == WifiManager.WIFI_STATE_ENABLED) {
+                    Intent statrtWifiIntent = new Intent(getActivity(), WifiNotificationService.class);
+                    getActivity().startService(statrtWifiIntent);
+                    SALog.d("setting", "开始前台服务");
+
+                }
             } else {
                 Intent stopIntent = new Intent(getActivity(), WifiNotificationService.class);
                 getActivity().stopService(stopIntent);

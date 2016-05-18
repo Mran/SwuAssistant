@@ -35,6 +35,9 @@
             android:launchMode="standard"/>
         <activity android:name=".SettingActivity"/>
         <activity
+            android:name=".AboutActivity"
+            android:launchMode="standard"/>
+        <activity
             android:name="com.swuos.ALLFragment.card.ConsumeActivityImp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 

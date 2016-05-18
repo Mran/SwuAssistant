@@ -178,7 +178,7 @@ public class FragmentControl {
                     transaction.show(libraryFragment);
                 }
                 break;
-            case R.id.main_page_wifi:
+            case R.id.nav_wifi:
                 if (wifiFragment == null) {
                     wifiFragment = new WifiFragment();
                     transaction.add(R.id.content, wifiFragment, Constant.FRAGMENTTAG[7]);
@@ -251,6 +251,9 @@ public class FragmentControl {
         }
         if (studyMaterialsFragment != null) {
             fragmentTransaction.hide(studyMaterialsFragment);
+        }
+        if (wifiFragment != null) {
+            fragmentTransaction.hide(wifiFragment);
         }
         if (libraryFragment != null) {
             SALog.d("MainActity", "HideLibrary");
