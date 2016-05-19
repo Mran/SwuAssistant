@@ -59,7 +59,8 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                     intent.putExtra("password", password);
                     intent.putExtra("name", totalInfo.getName());
                     intent.putExtra("swuID", totalInfo.getSwuID());
-                    setResult(RESULT_OK, intent);
+                    //                    setResult(RESULT_OK, intent);
+                    setResult(Constant.LOGIN_RESULT_CODE, intent);
 
                     finish();
                     break;
@@ -213,6 +214,11 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
     }
 }
 

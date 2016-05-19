@@ -35,6 +35,7 @@ public class Constant {
     public static final long ONE_DAY_TIME = 1000 * 60 * 60 * 24; //一天的秒数
     public static final long ONE_HOUR_TIME = 1000 * 60 * 60; //一小时的毫毫秒秒数
     public static final long ONE_MIN_TIME = 1000 * 60; //一分钟的毫秒秒数
+    public static final int LOGIN_RESULT_CODE = 17;
 
 
     public static final String NO_NET = "网络出现了问题";

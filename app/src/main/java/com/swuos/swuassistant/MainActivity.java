@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK) {
+            case Constant.LOGIN_RESULT_CODE:
+                if (resultCode == Constant.LOGIN_RESULT_CODE) {
                     setNavigationViewHeader();
                 }
                 break;
@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.name:
                 //             开启登陆活动,并要求获得回复信息
-                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), 1);
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Constant.LOGIN_RESULT_CODE);
         }
     }
 
