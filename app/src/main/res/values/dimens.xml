@@ -8,6 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="each_class_hight">55dp</dimen>
     <dimen name="table_width">20dp</dimen>
+    <dimen name="scedule_detail_image">35dp</dimen>
 
     <!--
 Refer to App Widget Documentation for margin information

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,10 +20,13 @@ import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
+import com.swuos.ALLFragment.swujw.schedule.util.ScheduleDetail;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
+import com.swuos.swuassistant.SchedulDetialActivity;
+import com.swuos.util.SALog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/3/10.
  */
-public class ScheduleTableFragment extends Fragment implements View.OnTouchListener {
+public class ScheduleTableFragment extends Fragment implements View.OnTouchListener, View.OnClickListener {
 
     /*课程表布局*/
     private RelativeLayout relativeLayout;
@@ -43,7 +45,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     /*第一节课的textView*/
     private TextView class1TextView;
     /*保存所有课程的textview列表*/
-    private List<TextView> textViewList = new ArrayList<>();
+    private List<ScheduleDetail> textViewList = new ArrayList<>();
     private static TotalInfo totalInfo = new TotalInfo();
     View scheduleTableLayout;
     private static SwipeRefreshLayout swipeRefreshLayout;
@@ -97,8 +99,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         relativeLayout = (RelativeLayout) scheduleTableLayout.findViewById(R.id.class_table);
         scrollView = (ScrollView) scheduleTableLayout.findViewById(R.id.schedule_table_ScrollView);
         scrollView.setOnTouchListener(this);
-        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id
-                .schedule_SwipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.schedule_SwipeRefreshLayout);
 
         Log.d("creatview", String.valueOf(week));
 
@@ -179,7 +180,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     }
 
 
-
     public void setTable() {
         relativeLayout.removeAllViews();
         /*得到一节课的高度*/
@@ -193,7 +193,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             this.onDetach();
         }
         for (ScheduleItem scheduleItem : totalInfo.getScheduleItemList()) {
-            i++;
+
             /*判断该课本周是否有课*/
             if (!scheduleItem.getClassweek()[week]) {
                 continue;
@@ -224,11 +224,17 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             textView.setLayoutParams(layoutParams);
                 /*设置背景色*/
             textView.setBackgroundResource(Constant.background[i % 6]);
+            textView.setOnClickListener(this);
+            textView.setId(i);
+            ScheduleDetail scheduleDetail = new ScheduleDetail();
+            scheduleDetail.setScheduleItem(scheduleItem);
+            scheduleDetail.setTextView(textView);
+            scheduleDetail.setColor(getResources().getColor(Constant.background[i % 6]));
                 /*将新建的textview加入列表*/
-            //            textViewList.add(textView);
+            textViewList.add(scheduleDetail);
                 /*将新建的textview加入布局*/
             relativeLayout.addView(textView);
-
+            i++;
         }
         /*加载完成取消刷新动画*/
         swipeRefreshLayout.setRefreshing(false);
@@ -253,6 +259,22 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         return false;
     }
 
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        SALog.d("scheduletable", String.valueOf(id));
+
+        Intent intent = new Intent(getActivity(), SchedulDetialActivity.class);
+        intent.putExtra("title", textViewList.get(id).getScheduleItem().getKcmc());
+        intent.putExtra("xm", textViewList.get(id).getScheduleItem().getXm());
+        intent.putExtra("cdmc", textViewList.get(id).getScheduleItem().getCdmc());
+        intent.putExtra("jc", textViewList.get(id).getScheduleItem().getJc());
+        intent.putExtra("color", textViewList.get(id).getColor());
+
+        startActivity(intent);
+
+    }
+
 
     class MyThread extends Thread {
         @Override
@@ -266,43 +288,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         }
     }
 
-    class MyUpdate extends AsyncTask {
-        /**
-         * Override this method to perform a computation on a background thread. The
-         * specified parameters are the parameters passed to {@link #execute}
-         * by the caller of this task.
-         * <p/>
-         * This method can call {@link #publishProgress} to publish updates
-         * on the UI thread.
-         *
-         * @param params The parameters of the task.
-         * @return A result, defined by the subclass of this task.
-         * @see #onPreExecute()
-         * @see #onPostExecute
-         * @see #publishProgress
-         */
-        @Override
-        protected Object doInBackground(Object[] params) {
-            return null;
-        }
-
-        /**
-         * <p>Runs on the UI thread after {@link #doInBackground}. The
-         * specified result is the value returned by {@link #doInBackground}.</p>
-         * <p/>
-         * <p>This method won't be invoked if the task was cancelled.</p>
-         *
-         * @param o The result of the operation computed by {@link #doInBackground}.
-         * @see #onPreExecute
-         * @see #doInBackground
-         * @see #onCancelled(Object)
-         */
-        @Override
-        protected void onPostExecute(Object o) {
-            init();
-            super.onPostExecute(o);
-        }
-    }
 
     /*设置广播接收刷新消息*/
     class LocalRecevier extends BroadcastReceiver {

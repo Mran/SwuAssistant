@@ -18,7 +18,6 @@ import android.widget.TextView;
  * Created by 张孟尧 on 2016/5/17.
  */
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
-    private View view;
     private TextView zmy;
     private TextView yk;
     private TextView csd;
@@ -30,7 +29,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
-        view = (View) findViewById(R.id.wifi_contain);
         /*设置toolbar*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

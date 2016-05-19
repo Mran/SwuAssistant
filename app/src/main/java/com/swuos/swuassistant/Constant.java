@@ -50,7 +50,7 @@ public class Constant {
     public static final String[] ALL_XQM = {XQM_ALL, XQM_ONE, XQM_TWO, XQM_THREE};
     public static final String[] ALL_XNM = {"", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010"};
     public static final String NET_TIMEOUT = "NET_TIMEOUT";
-    public static final String[] FRAGMENTTAG = {"mainPageFragment", "scheduleFragment", "gradesFragment", "studyMaterialsFragment", "findLostFragment", "chargeFragment", "libraryFragrment", "wifiFragment"};
+    public static final String[] FRAGMENTTAG = {"mainPageFragment", "scheduleFragment", "gradesFragment", "studyMaterialsFragment", "findLostFragment", "chargeFragment", "libraryFragrment", "wifiFragment", "ecardFragment"};
     //    校内门户地址
     public static final String urlUrp = "http://urp6.swu.edu.cn/login.portal";
     //    用户信息发送目标地址

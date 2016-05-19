@@ -102,7 +102,7 @@ public class FragmentControl {
                 gradesFragment = (GradesFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[2]);
             }
             if (cardfragment != null) {
-                cardfragment = (EcardFragmentImp) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
+                cardfragment = (EcardFragmentImp) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[8]);
             }
 
             if (studyMaterialsFragment != null) {
@@ -113,6 +113,9 @@ public class FragmentControl {
             }
             if (chargeFragment != null) {
                 chargeFragment = (ChargeFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[5]);
+            }
+            if (wifiFragment != null) {
+                wifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
             }
             if (libraryFragment != null) {
                 libraryFragment = (LibraryFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
@@ -189,7 +192,7 @@ public class FragmentControl {
                 if (cardfragment == null) {
                     // 如果studyMaterialsFragment为空，则创建一个并添加到界面上
                     cardfragment = new EcardFragmentImp();
-                    transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
+                    transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[8]);
                 } else {
                     // 如果studyMaterialsFragment不为空，则直接将它显示出来
                     transaction.show(cardfragment);
