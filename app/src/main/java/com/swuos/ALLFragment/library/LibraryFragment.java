@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.swuassistant.MainActivity;
@@ -29,11 +30,10 @@ import okhttp3.RequestBody;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements ViewPager.OnPageChangeListener {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private FloatingActionButton fabRefresh;
     private RequestBody requestBody;
     private List<BookCell> books;
     private List<BookCell> userInfo;
@@ -49,6 +49,10 @@ public class LibraryFragment extends Fragment {
     private static final int FRAGMENT_USERINFO_UPDATE = 0;
     private static final int FRAGMENT_HISTORY_UPDATE = 1;
     private static final int FRAGMENT_BORROWINFO_UPDATE = 2;
+    private boolean page1 = false;
+    private boolean page2 = false;
+    private boolean page3 = false;
+    private boolean isLogin = false;
 
     private View libraryLayout;
 
@@ -63,6 +67,7 @@ public class LibraryFragment extends Fragment {
                     } else {
                         fragmentHistory.UpdateHistory(books);
                     }
+                    floatingActionButton.show();
                     break;
                 case FRAGMENT_USERINFO_UPDATE:
                     progressDialogLoading.dismiss();
@@ -71,6 +76,7 @@ public class LibraryFragment extends Fragment {
                     } else {
                         fragmentUserInfo.UpdateUserInfo(userInfo);
                     }
+                    floatingActionButton.show();
                     break;
                 case FRAGMENT_BORROWINFO_UPDATE:
                     progressDialogLoading.dismiss();
@@ -79,6 +85,7 @@ public class LibraryFragment extends Fragment {
                     } else {
                         fragmentBorrowInfo.UpdateBorrowedInfo(borrowedInfo);
                     }
+                    floatingActionButton.show();
                     break;
             }
         }
@@ -112,11 +119,18 @@ public class LibraryFragment extends Fragment {
         FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), fragments, titles);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabsFromPagerAdapter(adapter);
         userName = MainActivity.sharedPreferences.getString("userName", "none");
         password = MainActivity.sharedPreferences.getString("password", "none");
 
+        if (!password.equals("none") && !userName.equals("none")) {
+            isLogin = true;
+        }
+
+        progressDialogLoading.setMessage("正在查询请稍后");
+        progressDialogLoading.setCancelable(true);
         requestBody = new FormBody.Builder()
                 .add("password", password)
                 .add("username", userName)
@@ -130,16 +144,15 @@ public class LibraryFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                progressDialogLoading.setMessage("正在查询请稍后");
-                progressDialogLoading.setCancelable(false);
                 progressDialogLoading.show();
                 if (viewPager.getCurrentItem() == 0) {
+                    floatingActionButton.hide();
                     UpdateFragmentUserInfo();
                 } else if (viewPager.getCurrentItem() == 1) {
+                    floatingActionButton.hide();
                     UpdateFragmentHistory();
                 } else if (viewPager.getCurrentItem() == 2) {
+                    floatingActionButton.hide();
                     UpdateFragmentBorrowInfo();
                 }
             }
@@ -151,8 +164,12 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
+        if (isLogin) {
+            progressDialogLoading.show();
+            UpdateFragmentUserInfo();
+        }else{
+            Toast.makeText(getContext(), "你好像还没登录吧(∩_∩)", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void UpdateFragmentHistory() {
@@ -166,6 +183,7 @@ public class LibraryFragment extends Fragment {
                     Message message = new Message();
                     message.what = FRAGMENT_HISTORY_UPDATE;
                     handler.sendMessage(message);
+                    page2 = true;
                 }
             }
         }).start();
@@ -182,6 +200,7 @@ public class LibraryFragment extends Fragment {
                     Message message = new Message();
                     message.what = FRAGMENT_USERINFO_UPDATE;
                     handler.sendMessage(message);
+                    page1 = true;
                 }
             }
         }).start();
@@ -194,6 +213,7 @@ public class LibraryFragment extends Fragment {
                 GetMyLibraryInfo.libraryLogin(requestBody);
                 String info = GetMyLibraryInfo.libraryBorrowInfo();
                 borrowedInfo = HtmlParserTools.parserHtmlForBookInfo(info, "td");
+                page3 = true;
                 Message message = new Message();
                 message.what = FRAGMENT_BORROWINFO_UPDATE;
                 handler.sendMessage(message);
@@ -201,13 +221,30 @@ public class LibraryFragment extends Fragment {
         }).start();
     }
 
- /*   public void loginLibrary(final RequestBody requestBody1) {
-        GetMyLibraryInfo.Init();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                GetMyLibraryInfo.libraryLogin(requestBody1);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (!isLogin) {
+            Toast.makeText(getContext(), "你好像还没登录吧(∩_∩)", Toast.LENGTH_SHORT).show();
+        } else {
+            if (position == 0 && !page1) {
+                progressDialogLoading.show();
+                UpdateFragmentUserInfo();
+            } else if (position == 1 && !page2) {
+                progressDialogLoading.show();
+                UpdateFragmentHistory();
+            } else if (position == 2 && !page3) {
+                progressDialogLoading.show();
+                UpdateFragmentBorrowInfo();
             }
-        }).start();
-    }*/
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

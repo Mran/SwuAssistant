@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,8 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
     private MaterialDialog materialDialog;
     private String id;
     private String pd;
-    private Handler  mHandler = new Handler() {
+    private boolean pdVaild = false;
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -51,6 +53,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
                     iEcardPresenter.setSwipeRefreshVisible(View.INVISIBLE);
                     iEcardPresenter.setProgressDialogVisible(View.INVISIBLE);
                     iEcardPresenter.setErrorPageVisible(View.INVISIBLE);
+                    iEcardPresenter.setInputDialogVisible(View.INVISIBLE);
                     recyclerAdapter = new RecyclerAdapterEcardInfo(getContext(), ecardInfos);
                     recyclerView.setAdapter(recyclerAdapter);
                     recyclerAdapter.notifyDataSetChanged();
@@ -60,9 +63,16 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
                     iEcardPresenter.setErrorPageVisible(View.VISIBLE);
                     Toast.makeText(getContext(), "刷新失败", Toast.LENGTH_SHORT).show();
                     break;
+                case 3:
+                    iEcardPresenter.setProgressDialogVisible(View.INVISIBLE);
+                    Toast.makeText(getContext(), "密码错误", Toast.LENGTH_LONG).show();
+                    initInputDialog();
+                    iEcardPresenter.setInputDialogVisible(View.VISIBLE);
+                    break;
             }
         }
-    };;
+    };
+    ;
 
 
     @Nullable
@@ -85,7 +95,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
         progressDialog.setMessage("Loading...");
         id = iEcardPresenter.getSwuId();
         if (id.equals("nothing")) {   //表示用户还没有登录
-            initTipDialog();
+            initTipDialog("请先登录再执行对应操作");
         } else {
             initInputDialog();
         }
@@ -96,19 +106,19 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
         recyclerView.setAdapter(recyclerAdapter);
         linearLayoutError.setOnClickListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
-        if (!iEcardPresenter.ckeckPdSaved(id)) {  //每次启动时，判断是否已经储存了密码
+        if (!iEcardPresenter.checkPdSaved(id)) {  //每次启动时，判断是否已经储存了密码
             iEcardPresenter.setInputDialogVisible(View.VISIBLE);
-        }else{
-            pd=iEcardPresenter.getPd(id);
+        } else {
+            pd = iEcardPresenter.getPd(id);
             iEcardPresenter.setProgressDialogVisible(View.VISIBLE);
             updateInfos();
         }
     }
 
-    private void initTipDialog() {
+    private void initTipDialog(String s) {
         materialDialog = new MaterialDialog.Builder(getActivity())
                 .title("注意")
-                .content("请先登录再执行对应操作")
+                .content(s)
                 .positiveText("确定")
                 .cancelable(true)
                 .positiveColor(Color.parseColor("#48b360"))
@@ -117,7 +127,6 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
             @Override
             public void onClick(View v) {
                 iEcardPresenter.setInputDialogVisible(View.INVISIBLE);
-
             }
         });
     }
@@ -127,7 +136,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
         materialDialog = new MaterialDialog.Builder(getActivity())
                 .title("请输入")
                 .positiveText("确定")
-                .cancelable(false)
+                .cancelable(true)
                 .positiveColor(Color.parseColor("#48b360"))
                 .customView(R.layout.card_dialog_view)
                 .build();
@@ -136,11 +145,16 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
         materialDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), edittextPd.getText().toString(), Toast.LENGTH_SHORT).show();
                 pd = edittextPd.getText().toString();
+                Log.d("kklog","input pd==>"+pd);
                 iEcardPresenter.setInputDialogVisible(View.INVISIBLE);
-                iEcardPresenter.savePassWord(id, pd);
-                updateInfos();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        iEcardPresenter.checkPdVailed(id, pd);
+                    }
+                }).start();
+                iEcardPresenter.setProgressDialogVisible(View.VISIBLE);
             }
         });
     }
@@ -185,6 +199,19 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
             materialDialog.dismiss();
         } else if (!materialDialog.isShowing() && visible == View.VISIBLE) {
             materialDialog.show();
+        }
+    }
+
+    @Override
+    public void onCheckPdVaild(boolean flag) {
+        if(!flag){
+            Message message = new Message();
+            message.what = 3;
+            mHandler.sendMessage(message);
+
+        }else{
+            iEcardPresenter.savePassWord(id, pd);
+            updateInfos();
         }
     }
 

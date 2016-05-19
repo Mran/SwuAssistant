@@ -12,7 +12,8 @@ public interface IEcardPresenter  {
     void setSwipeRefreshVisible(int visible);
     void setInputDialogVisible(int visible);
     void savePassWord(String id,String pd);
-    boolean ckeckPdSaved(String swuId);
+    boolean checkPdSaved(String swuId);
     String getSwuId();
     String getPd(String swuId);
+    void checkPdVailed(String id,String pd);
 }

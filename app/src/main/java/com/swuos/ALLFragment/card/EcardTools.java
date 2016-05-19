@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,11 @@ public class EcardTools implements Serializable {
                 builder.append(temp);
             }
             s = builder.toString();
+            Log.d("kklog","s===>"+s);
+            if (s.contains("卡号密码不对")) {
+                List<EcardInfo> temp1 = new ArrayList<>();
+                return temp1;
+            }
         } catch (UnsupportedEncodingException e) {
             Log.d("kklog", "UnsupportedEncodingException");
             e.printStackTrace();
@@ -79,8 +85,8 @@ public class EcardTools implements Serializable {
         }
         if (lastIndex.equals(index)) {
             consumeInfos = ParserTools.parserHtmlToConsumeInfos(s, "TD");
-        }else{
-            consumeInfos=ParserTools.parserHtmlToConsumeInfos2(s,"TD");
+        } else {
+            consumeInfos = ParserTools.parserHtmlToConsumeInfos2(s, "TD");
         }
         return consumeInfos;
     }
@@ -110,7 +116,7 @@ public class EcardTools implements Serializable {
         int start = s.indexOf("共有<font color=red>");
         int end = s.indexOf("</font>页&");
         String ss = s.substring(start + 18, end);
-        lastIndex=ss;
+        lastIndex = ss;
         return ss;
     }
 }

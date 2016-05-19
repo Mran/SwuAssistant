@@ -71,14 +71,14 @@ public class EcardPresenterImp implements IEcardPresenter {
     }
 
     @Override
-    public void savePassWord(String id,String pd) {
-        editor.putString(id,pd);
+    public void savePassWord(String id, String pd) {
+        editor.putString(id, pd);
         editor.commit();
-        Log.d("kklog","editor.commit()");
+        Log.d("kklog", "editor.commit()");
     }
 
     @Override
-    public boolean ckeckPdSaved(String swuId) {
+    public boolean checkPdSaved(String swuId) {
         String pd = sharedPreferences.getString(swuId, "nothing");
         if (pd.equals("nothing")) {
             return false;
@@ -86,6 +86,7 @@ public class EcardPresenterImp implements IEcardPresenter {
             return true;
         }
     }
+
 
     @Override
     public String getSwuId() {
@@ -95,8 +96,18 @@ public class EcardPresenterImp implements IEcardPresenter {
 
     @Override
     public String getPd(String swuId) {
-        String pd=null;
-        pd=sharedPreferences.getString(swuId,"nothing");
+        String pd = null;
+        pd = sharedPreferences.getString(swuId, "nothing");
         return pd;
+    }
+
+    @Override
+    public void checkPdVailed(String id, String pd) {
+        List<EcardInfo> temp = ecardTools.GetEcardInfos(id, pd);
+        if (temp==null || temp.isEmpty()) {
+            iEcardView.onCheckPdVaild(false);
+        } else {
+            iEcardView.onCheckPdVaild(true);
+        }
     }
 }

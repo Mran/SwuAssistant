@@ -15,4 +15,5 @@ public interface IEcardView {
     void onSetErrorPageVisible(int visible);
     void onSetSwipeRefreshVisible(int visible);
     void onSetInputDialogVisible(int visible);
+    void onCheckPdVaild(boolean flag);
 }

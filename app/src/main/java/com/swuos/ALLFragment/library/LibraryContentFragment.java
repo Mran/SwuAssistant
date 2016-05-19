@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.swuos.ALLFragment.card.MyItemDecoration;
 import com.swuos.swuassistant.R;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class LibraryContentFragment extends Fragment {
     private List<BookCell> userInfo;
     private List<BookInfo> borrowInfo;
     private MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapterUserinfo adapterUserinfo;
+
     private MyRecyclerViewAdapter_BorrowedInfo adapter_borrowedInfo;
 
     @Nullable
@@ -35,6 +38,7 @@ public class LibraryContentFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        recyclerView.addItemDecoration(new MyItemDecoration(getContext()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -46,6 +50,7 @@ public class LibraryContentFragment extends Fragment {
         }
         adapter=new MyRecyclerViewAdapter(getActivity(),cells);
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new MyItemDecoration(getContext()));
         adapter.notifyDataSetChanged();
     }
 
@@ -55,13 +60,14 @@ public class LibraryContentFragment extends Fragment {
         for(BookCell s:userInfo){
             Log.d("HttpLog","LibraryContentFragment s===>"+s);
         }
-        adapter=new MyRecyclerViewAdapter(getActivity(),userInfo);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapterUserinfo=new MyRecyclerViewAdapterUserinfo(getActivity(),userInfo);
+        recyclerView.setAdapter(adapterUserinfo);
+        adapterUserinfo.notifyDataSetChanged();
     }
     public void UpdateBorrowedInfo(List<BookInfo> info){
         this.borrowInfo=info;
         adapter_borrowedInfo=new MyRecyclerViewAdapter_BorrowedInfo(getActivity(),borrowInfo);
+        recyclerView.addItemDecoration(new MyItemDecoration(getContext()));
         recyclerView.setAdapter(adapter_borrowedInfo);
         adapter_borrowedInfo.notifyDataSetChanged();
     }

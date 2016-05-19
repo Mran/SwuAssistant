@@ -1,64 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="80dp"
-                                    android:layout_marginBottom="2dp"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_marginRight="5dp"
-                                    android:layout_marginTop="2dp"
-                                    android:foreground="?attr/selectableItemBackground"
-                                    app:cardCornerRadius="5dp"
-                                    android:clickable="true"
-                                    app:elevation="1dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="12dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#17131212"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="12dp">
+    <TextView
+        android:id="@+id/textViewLibraryContentItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="14sp" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+    <TextView
+        android:id="@+id/textViewLibraryContentItemSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLibraryContentItemTitle"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="SuTitle"
+        android:textSize="8sp" />
 
-            <TextView
-                android:id="@+id/textViewLibraryContentItemTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/textViewLibraryContentItemSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewLibraryContentItemTitle"
-                android:layout_marginLeft="14dp"
-                android:layout_marginTop="8dp"
-                android:text="SuTitle"
-                android:textSize="8sp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/textViewLibraryContentItemTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Title"
-                android:textSize="9sp"/>
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-
-</android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/textViewLibraryContentItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="8dp"
+        android:text="Title"
+        android:textSize="9sp" />
+</RelativeLayout>

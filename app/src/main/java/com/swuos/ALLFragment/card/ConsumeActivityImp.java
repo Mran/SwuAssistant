@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,6 +39,7 @@ public class ConsumeActivityImp extends AppCompatActivity implements IConsumeVie
     private LinearLayout linearLayoutError;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager layoutManager;
+    private  int currentPos = 0;
     private int count;
 
     private Handler mHandler = new Handler() {
@@ -52,6 +54,7 @@ public class ConsumeActivityImp extends AppCompatActivity implements IConsumeVie
                     recyclerView.setAdapter(recyclerAdapter);
                     recyclerAdapter.notifyDataSetChanged();
                     count = recyclerAdapter.getItemCount();
+                    recyclerView.smoothScrollToPosition(currentPos);
                     break;
                 case 2:
                     consmuePresenter.setProgressDialogVisible(View.INVISIBLE);
@@ -93,7 +96,7 @@ public class ConsumeActivityImp extends AppCompatActivity implements IConsumeVie
         linearLayoutError.setOnClickListener(this);
         consmuePresenter.setProgressDialogVisible(View.VISIBLE);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int currentPos = 0;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
