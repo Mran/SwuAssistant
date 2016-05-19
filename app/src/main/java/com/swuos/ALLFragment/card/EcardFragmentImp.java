@@ -253,7 +253,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
                 Intent intent = new Intent(getActivity(), ConsumeActivityImp.class);
                 intent.putExtra("lastIndex", lastIndex);
                 startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.fragment_in, R.anim.fragment_out);
+                getActivity().overridePendingTransition(R.anim.cardConsume_activity_in, R.anim.cardConsume_activity_out);
                 break;
             case R.id.linearLayoutEcardError:
                 iEcardPresenter.setProgressDialogVisible(View.VISIBLE);
