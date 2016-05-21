@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
-    <color name="colorclass1">#D7FFF1</color>
-    <color name="colorclass2">#76e6f4</color>
-    <color name="colorclass3">#fbc8f593</color>
-    <color name="colorclass4">#CDDC39</color>
-    <color name="colorclass5">#f9db82</color>
-    <color name="colorclass6">#d998fffd</color>
+
+    <color name="colorclass1">#F77D8A</color>
+    <color name="colorclass2">#FE8D41</color>
+    <color name="colorclass3">#91C606</color>
+    <color name="colorclass4">#13CA9A</color>
+    <color name="colorclass5">#6D9FF6</color>
+    <color name="colorclass6">#BA8ADE</color>
+    <color name="colorclass7">#d998fffd</color>
     <color name="textcolorblack">#000000</color>
     <color name="tablayoutcolor">#5cc761</color>
     <color name="tablayoutslectcolor">#48f550</color>
+    <color name="white">#ffffff</color>
 
 
 </resources>

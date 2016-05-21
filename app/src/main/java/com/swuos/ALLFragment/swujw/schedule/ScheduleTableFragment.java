@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
-import com.swuos.ALLFragment.swujw.schedule.util.ScheduleDetail;
+import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity;
@@ -45,7 +46,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     /*第一节课的textView*/
     private TextView class1TextView;
     /*保存所有课程的textview列表*/
-    private List<ScheduleDetail> textViewList = new ArrayList<>();
+    private List<ScheduleData.ScheduleDetail> textViewList = new ArrayList<>();
     private static TotalInfo totalInfo = new TotalInfo();
     View scheduleTableLayout;
     private static SwipeRefreshLayout swipeRefreshLayout;
@@ -224,9 +225,13 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
             textView.setLayoutParams(layoutParams);
                 /*设置背景色*/
             textView.setBackgroundResource(Constant.background[i % 6]);
+            textView.setTextColor(getResources().getColor(R.color.white));
+            TextPaint tp = textView.getPaint();
+            tp.setFakeBoldText(true);
+            textView.setPadding(10, 0, 10, 0);
             textView.setOnClickListener(this);
             textView.setId(i);
-            ScheduleDetail scheduleDetail = new ScheduleDetail();
+            ScheduleData.ScheduleDetail scheduleDetail = new ScheduleData.ScheduleDetail();
             scheduleDetail.setScheduleItem(scheduleItem);
             scheduleDetail.setTextView(textView);
             scheduleDetail.setColor(getResources().getColor(Constant.background[i % 6]));

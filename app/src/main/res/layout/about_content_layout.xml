@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imageView"
@@ -10,7 +10,7 @@
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:src="@drawable/linux" />
+        android:src="@drawable/linux"/>
 
     <TextView
         android:id="@+id/version"
@@ -21,92 +21,78 @@
         android:layout_marginTop="10dp"
         android:text="版本: 1.0.0"
         android:textColor="#000000"
-        android:textSize="18sp" />
+        android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/developer"
+    <TableLayout
+        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/version"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="开发人员"
-        android:textColor="#000000"
-        android:textSize="22sp" />
+        android:layout_below="@id/version">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/developer"
-        android:layout_marginTop="10dp">
+        <TableRow
+            android:layout_marginLeft="100dp">
 
-
-        <TextView
-            android:id="@+id/android_developer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="0.4"
-            android:gravity="right"
-            android:text="安卓客户端:"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:orientation="horizontal"
-            android:gravity="left">
+            <TextView
+                android:layout_weight="1"
+                android:text="开发人员:"/>
 
             <TextView
                 android:id="@+id/developer_zmy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="20dp"
+
                 android:text="@string/zmy"
-                android:textSize="18sp" />
+                />
 
             <TextView
                 android:id="@+id/developer_yk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_column="2"
+
+                android:paddingLeft="20dp"
                 android:text="@string/yk"
-                android:textSize="18sp" />
-        </LinearLayout>
+                />
+        </TableRow>
 
-    </LinearLayout>
+        <TableRow
+            android:layout_marginLeft="100dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+            <TextView
+                android:gravity="right"
+                android:text="服务器:"
+                />
 
-        <TextView
-            android:id="@+id/server_developer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
-            android:layout_weight="0.4"
-            android:gravity="right"
-            android:text="服务器:"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/developer_csd"
+                android:paddingLeft="20dp"
 
-        <TextView
-            android:id="@+id/developer_csd"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:gravity="left"
-            android:text="@string/csd"
-            android:paddingLeft="10dp"
-            android:textSize="18sp" />
+                android:text="@string/csd"
+                />
 
-    </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginLeft="100dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="美工:"/>
+
+            <TextView
+                android:id="@+id/developer_tp"
+                android:paddingLeft="20dp"
+
+                android:text="@string/tp"
+                />
+
+            <TextView
+                android:id="@+id/developer_gky"
+                android:layout_column="2"
+
+                android:paddingLeft="20dp"
+                android:text="@string/gky"
+                />
+        </TableRow>
+    </TableLayout>
 
     <TextView
         android:id="@+id/copy_right"
@@ -116,7 +102,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="21dp"
         android:gravity="center"
-        android:text="Copyright© 2016 linux.swu.edu.cn\nAll rights reserved" />
+        android:text="Copyright© 2016 linux.swu.edu.cn\nAll rights reserved"/>
 
     <TextView
         android:id="@+id/swuos"
@@ -125,7 +111,7 @@
         android:layout_above="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:text="@string/swuos" />
+        android:text="@string/swuos"/>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -138,15 +124,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="12dp"
-            android:text="捐赠我们" />
+            android:layout_marginLeft="12dp"
+
+            android:text="捐赠我们"/>
 
         <TextView
             android:id="@+id/about_feedback"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:text="反馈" />
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="12dp"
+            android:layout_marginRight="12dp"
+
+            android:text="反馈"/>
     </RelativeLayout>
 </RelativeLayout>
