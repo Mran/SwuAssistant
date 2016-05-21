@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -54,24 +55,19 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     private static String xqm;
     private static Button buttonGradesInquire;
     View gradesLayout;
-    private Handler handler = new Handler()
-    {
-        public void handleMessage(Message msg)
-        {
-            switch (msg.what)
-            {
+    private Handler handler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
                 /*成功获取成绩*/
                 case Constant.GRADES_OK:
                     /*关闭登陆窗口*/
                     progressDialogLoading.cancel();
 
-                    if (adapter == null)
-                    {
+                    if (adapter == null) {
                         /*设置listview适配器*/
                         adapter = new GradesAdapter(gradesLayout.getContext(), R.layout.grades_item, gradeItemList);
                         listView.setAdapter(adapter);
-                    } else
-                    {/*如果已经设置过就更新*/
+                    } else {/*如果已经设置过就更新*/
                         adapter.clear();
                         adapter.addAll(gradeItemList);
                         adapter.notifyDataSetChanged();
@@ -91,14 +87,18 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         gradesLayout = inflater.inflate(R.layout.grades_layout, container, false);
         listView = (ListView) gradesLayout.findViewById(R.id.grades_list);
         spinnerXnm = (Spinner) gradesLayout.findViewById(R.id.xnm);
         spinnerXqm = (Spinner) gradesLayout.findViewById(R.id.xqm);
-        //        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(getActivity(),R.array.xnm,R.layout.grades_spinner_layout);
-        //        spinnerXnm.setAdapter(arrayAdapter);
+        ArrayAdapter<CharSequence> arrayAdapterxnm = ArrayAdapter.createFromResource(getActivity(), R.array.xnm, R.layout.grades_spinner_layout);
+        arrayAdapterxnm.setDropDownViewResource(R.layout.grades_spinnerdown_layout);
+        spinnerXnm.setAdapter(arrayAdapterxnm);
+
+        ArrayAdapter<CharSequence> arrayAdapterxqm = ArrayAdapter.createFromResource(getActivity(), R.array.xqm, R.layout.grades_spinner_layout);
+        arrayAdapterxqm.setDropDownViewResource(R.layout.grades_spinnerdown_layout);
+        spinnerXqm.setAdapter(arrayAdapterxqm);
 
          /*设置下拉列表的选择监听*/
         spinnerXnm.setOnItemSelectedListener(this);
@@ -109,7 +109,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         spinnerXqm.setSelection(1, true);
         progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
 
-//        MainActivity mainActivity = (MainActivity) getActivity();
+        //        MainActivity mainActivity = (MainActivity) getActivity();
         userName = totalInfo.getUserName();
         password = totalInfo.getPassword();
         buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
@@ -118,29 +118,24 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         /*选择了xnm的下拉列表*/
-        if (parent == spinnerXnm)
-        {
+        if (parent == spinnerXnm) {
 
             xnm = Constant.ALL_XNM[position];
 
-        } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/
-        {
+        } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/ {
             xqm = Constant.ALL_XQM[position];
 
         }
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent)
-    {
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
-    private void getGrades()
-    {
+    private void getGrades() {
 
                 /*设置等待窗口文字*/
         progressDialogLoading.setMessage("正在查询请稍后");
@@ -149,25 +144,21 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                 /*显示等待窗口*/
         progressDialogLoading.show();
                 /*开启线程开始查询*/
-        new Thread(new Runnable()
-        {
+        new Thread(new Runnable() {
             @Override
-            public void run()
-            {
+            public void run() {
 
                 Login login = new Login();
                 ;
                 Message message = new Message();
 
-                if (login.doLogin(userName, password).contains("LoginSuccessed"))
-                {
+                if (login.doLogin(userName, password).contains("LoginSuccessed")) {
                     Grades grades = new Grades(login.okhttpNet);
                     grades.setGrades(totalInfo, xnm, xqm);
                     gradeItemList = grades.getGradesList(totalInfo);
                     message.what = Constant.GRADES_OK;
                     handler.sendMessage(message);
-                } else
-                {
+                } else {
                     message.what = Constant.LOGIN_FAILED;
                     handler.sendMessage(message);
                 }
@@ -177,10 +168,8 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     }
 
     @Override
-    public void onClick(View v)
-    {
-        if (v.getId() == R.id.grade_inquire)
-        {
+    public void onClick(View v) {
+        if (v.getId() == R.id.grade_inquire) {
             getGrades();
         }
     }
