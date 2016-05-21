@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         >
 
-        <LinearLayout>
+        <LinearLayout
+            android:background="@color/colorPrimary">
 
             <Spinner
                 android:id="@+id/xnm"

@@ -97,6 +97,9 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         listView = (ListView) gradesLayout.findViewById(R.id.grades_list);
         spinnerXnm = (Spinner) gradesLayout.findViewById(R.id.xnm);
         spinnerXqm = (Spinner) gradesLayout.findViewById(R.id.xqm);
+        //        ArrayAdapter<CharSequence> arrayAdapter=ArrayAdapter.createFromResource(getActivity(),R.array.xnm,R.layout.grades_spinner_layout);
+        //        spinnerXnm.setAdapter(arrayAdapter);
+
          /*设置下拉列表的选择监听*/
         spinnerXnm.setOnItemSelectedListener(this);
         spinnerXqm.setOnItemSelectedListener(this);

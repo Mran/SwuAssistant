@@ -53,7 +53,6 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private List<Fragment> scheduleTabblefragmentList;    //保存所有的单周课表fragment
     private TotalInfo totalInfo = new TotalInfo();
-    //    public static List<ScheduleItem> scheduleItemList = new ArrayList<>();    //保存课程表的列表
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -147,6 +146,31 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
         super.onStart();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (totalInfo.getScheduleDataJson() == null) {
+                swipeRefreshLayout.setRefreshing(true);
+                getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
+
+            }
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            if (totalInfo.getScheduleDataJson().equals("")) {
+                swipeRefreshLayout.setRefreshing(true);
+                getSchedule(totalInfo.getSwuID(), totalInfo.getPassword());
+
+            }
+
+        }
+    }
+
     private void setSceduleViewPager() {
 
         /*设置适配器*/
@@ -209,8 +233,10 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         if (!totalInfo.getSwuID().equals("")) {
             totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
+           /*判断为课程表从未被获取,开始获取课程表*/
             if (totalInfo.getScheduleDataJson().equals("")) {
-                return;
+                swipeRefreshLayout.setRefreshing(true);
+                getSchedule(totalInfo.getUserName(), totalInfo.getPassword());
             } else if (totalInfo.getScheduleItemList().isEmpty()) {
                 totalInfo.setScheduleItemList(Schedule.getScheduleList(totalInfo));
 
@@ -221,19 +247,17 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void getSchedule(final String userName, final String password) {
-
         //                /*开启线程开始查询*/
         new Thread(new Runnable() {
             @Override
             public void run() {
-
+                final Message message = new Message();
                 Login login = new Login();
-                Message message = new Message();
 
                 if (login.doLogin(userName, password).contains("LoginSuccessed")) {
                     Schedule schedule = new Schedule(login.okhttpNet);
                     /*判断是否课程表是否正常获得*/
-                    if (schedule.setSchedule(totalInfo, "2014", "12").equals(Constant
+                    if (schedule.setSchedule(totalInfo, "2015", "12").equals(Constant
                             .CLIENT_ERROR)) {
                         message.what = Constant.SCHOOL_SERVER_BOOM;
                         handler.sendMessage(message);
