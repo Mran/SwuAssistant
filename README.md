@@ -10,11 +10,12 @@
 
     * 查询所有成绩和指定成绩
     * 计算总成绩,总绩点,总学分,平均成绩,平均学分,平均绩点
-![成绩查询](https://github.com/Mran/SwuAssistant/blob/master/app%2FScreenshot_2016-04-11-09-03-53_com.swuos.swuassis.png)
+![成绩查询](https://github.com/Mran/SwuAssistant/blob/master/app/chachengji.png)
 ### 查课表
     * 查询指定学期的课表
     * 上课前提醒
-![查课表](https://github.com/Mran/SwuAssistant/blob/master/app%2FScreenshot_2016-04-11-08-55-29_com.swuos.swuassis.png)   
+![查课表](https://github.com/Mran/SwuAssistant/blob/master/app/new_schedule.png)   
+![课程详情](https://github.com/Mran/SwuAssistant/blob/master/app/xiangqing.png)
 ### 查图书记录
     * 查询借书记录
     * 查询当前借书
@@ -30,3 +31,5 @@
     * 查看消费记录
 ![card1](https://github.com/Mran/SwuAssistant/blob/master/app%2Fcard.png)
 ![card2](https://github.com/Mran/SwuAssistant/blob/master/app%2Fconsumer.png)
+### 关于我们
+![about](https://github.com/Mran/SwuAssistant/blob/master/app/about.png)
