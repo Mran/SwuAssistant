@@ -28,6 +28,7 @@ import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
 import com.swuos.util.SALog;
+import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         );
         SALog.d("Mainactivity", "OnCreatview");
         startServier();
+        XiaomiUpdateAgent.update(this);
+        XiaomiUpdateAgent.arrange();
+
     }
 
     @Override

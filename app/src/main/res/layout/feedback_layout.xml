@@ -16,7 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="联系方式"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:autoText="false"
+            android:inputType="textEmailAddress"
+            android:phoneNumber="true"
+            android:singleLine="true"/>
 
         <EditText
             android:id="@+id/feedback_content"
@@ -24,7 +28,8 @@
             android:layout_height="match_parent"
             android:layout_below="@id/feedback_contact"
             android:hint="反馈内容"
-            android:background="@null"/>
+            android:background="@null"
+            android:maxLength="200"/>
 
         <!--<Button-->
         <!--android:id="@+id/feedback_ok"-->

@@ -28,7 +28,7 @@
 
     <string name="you_hava_logined_successful">您已通过登录审核</string>
 
-    <string name="action_settings">设置</string>
+    <string name="action_settings">Setting</string>
     <string name="remind_time">设置提醒时间</string>
     <string name="remind_time_detail">应用会在距上课设定时间提醒你</string>
     <string name="set_remind_time">设置提醒时间</string>

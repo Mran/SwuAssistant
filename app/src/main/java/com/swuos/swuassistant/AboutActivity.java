@@ -6,15 +6,22 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+import com.swuos.net.OkhttpNet;
 
 /**
  * Created by 张孟尧 on 2016/5/17.
@@ -29,6 +36,22 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private TextView swuos;
     private TextView feedback;
 
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case Constant.SHOW:
+                    Toast.makeText(getApplicationContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
+                    break;
+                case Constant.EMPTY:
+                    Toast.makeText(getApplicationContext(), (String) msg.obj, Toast.LENGTH_LONG).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,11 +105,46 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         int id = v.getId();
         switch (id) {
             case R.id.about_feedback:
+
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-                dialog.setView(R.layout.feedback_layout);
+                //                dialog.setView(R.layout.feedback_layout);
+                LayoutInflater layoutInflater = getLayoutInflater();
+                final View view = layoutInflater.inflate(R.layout.feedback_layout, null);
+                dialog.setView(view);
+                final TextView conactTextView = (TextView) view.findViewById(R.id.feedback_contact);
+                final TextView contentTextView = (TextView) view.findViewById(R.id.feedback_content);
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+
+                        final String contact = conactTextView.getText().toString();
+                        final String issue = contentTextView.getText().toString();
+                        if (issue != null && !issue.equals("")) {
+                            final JsonObject postjson = new JsonObject();
+                            postjson.addProperty("swuID", "");
+                            postjson.addProperty("contact", contact);
+                            postjson.addProperty("issue", issue);
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    OkhttpNet okhttpNet = new OkhttpNet();
+                                    String response = okhttpNet.doPost(Constant.urlReportIssue, postjson);
+                                    Message message = new Message();
+                                    message.what = Constant.SHOW;
+                                    message.obj = response;
+                                    handler.sendMessage(message);
+                                }
+                            }).start();
+
+                        } else if (issue.equals("")) {
+                            Message message = new Message();
+                            message.what = Constant.EMPTY;
+                            message.obj = "反馈内容为空";
+                            handler.sendMessage(message);
+                        }
+
                     }
                 });
 

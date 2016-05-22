@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">设置</string>
+    <string name="action_sign_in">登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_name">西大助手</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="charge_title">水电费</string>
+    <string name="connect_error">连接出现问题</string>
+    <string name="csd"><a href="https://github.com/xndxcsd">xndxcsd</a></string>
+    <string name="ecard_title">一卡通</string>
+    <string name="find_lost_title">失物找寻</string>
+    <string name="gky"><a href="610524299@qq.com">管苛伊</a></string>
+    <string name="grades_title">成绩</string>
+    <string name="i_know">我知道了</string>
+    <string name="library_title">图书馆</string>
+    <string name="login_timeout">登陆超时</string>
+    <string name="loging_and_wait">正在登录请稍后</string>
+    <string name="main_page_title">西大助手</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="net_error_please_check_net">网络错误请检查网络</string>
+    <string name="no_user_or_password_error">用户不存在或密码错误</string>
+    <string name="not_logged_in">您还没有登录呦</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_username">UserName</string>
+    <string name="remind_time">设置提醒时间</string>
+    <string name="remind_time_detail">应用会在距上课设定时间提醒你</string>
+    <string name="schedule_title">课程表</string>
+    <string name="school_servier_boom">查不出来是服务器的锅╮(╯▽╰)╭</string>
+    <string name="set_remind_time">设置提醒时间</string>
+    <string name="study_materials_title">学习资料</string>
+    <string name="swuos"><a href="https://github.com/swuos/openswu-android">西南大学开源协会</a></string>
+    <string name="tp"><a href="99240947@qq.com">鲨鱼辣椒</a></string>
+    <string name="wifi">WiFi</string>
+    <string name="yk"><a href="https://github.com/youngkaaa/">youngkaaa</a></string>
+    <string name="you_hava_logined_successful">您已通过登录审核</string>
+    <string name="zmy"><a href="https://www.github.com/mran">Mran</a></string>
+    <string-array name="headway_before_class_string">
+        <item>10分钟</item>
+        <item>15分钟</item>
+        <item>20分钟</item>
+    </string-array>
+    <string-array name="headway_before_class">
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+</resources>

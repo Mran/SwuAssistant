@@ -41,7 +41,7 @@ public class FragmentControl {
     /*失物找寻界面布局*/
     private static FindLostFragment findLostFragment;
     private static SettingFragment settingFragment;
-    private static WifiFragment wifiFragment;
+    private static WifiFragment WifiFragment;
     private static FragmentManager fragmentManager;
 
     public FragmentControl(FragmentManager fragmentManager) {
@@ -114,8 +114,8 @@ public class FragmentControl {
             if (chargeFragment != null) {
                 chargeFragment = (ChargeFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[5]);
             }
-            if (wifiFragment != null) {
-                wifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
+            if (WifiFragment != null) {
+                WifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
             }
             if (libraryFragment != null) {
                 libraryFragment = (LibraryFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
@@ -182,11 +182,11 @@ public class FragmentControl {
                 }
                 break;
             case R.id.nav_wifi:
-                if (wifiFragment == null) {
-                    wifiFragment = new WifiFragment();
-                    transaction.add(R.id.content, wifiFragment, Constant.FRAGMENTTAG[7]);
+                if (WifiFragment == null) {
+                    WifiFragment = new WifiFragment();
+                    transaction.add(R.id.content, WifiFragment, Constant.FRAGMENTTAG[7]);
                 } else
-                    transaction.show(wifiFragment);
+                    transaction.show(WifiFragment);
                 break;
             case R.id.nav_ecard:
                 if (cardfragment == null) {
@@ -241,6 +241,7 @@ public class FragmentControl {
 
     private static void hideFragments(FragmentTransaction fragmentTransaction) {
         if (mainPageFragment != null) {
+            SALog.d("MainActity", "Hidemain");
             fragmentTransaction.hide(mainPageFragment);
         }
         if (gradesFragment != null) {
@@ -255,8 +256,10 @@ public class FragmentControl {
         if (studyMaterialsFragment != null) {
             fragmentTransaction.hide(studyMaterialsFragment);
         }
-        if (wifiFragment != null) {
-            fragmentTransaction.hide(wifiFragment);
+        if (WifiFragment != null) {
+            SALog.d("MainActity", "HideWifi");
+
+            fragmentTransaction.hide(WifiFragment);
         }
         if (libraryFragment != null) {
             SALog.d("MainActity", "HideLibrary");

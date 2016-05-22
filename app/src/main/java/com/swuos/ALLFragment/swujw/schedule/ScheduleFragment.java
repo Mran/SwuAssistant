@@ -78,6 +78,11 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                 case Constant.SCHEDULE__LOADING:
                     swipeRefreshLayout.setRefreshing(true);
                     break;
+                case Constant.SHOW:
+                    Toast.makeText(getActivity(), (CharSequence) msg.obj, Toast
+                            .LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false);
+                    break;
                 default:
                     break;
             }
@@ -253,8 +258,8 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void run() {
                 final Message message = new Message();
                 Login login = new Login();
-
-                if (login.doLogin(userName, password).contains("LoginSuccessed")) {
+                String response = login.doLogin(userName, password);
+                if (response.contains("LoginSuccessed")) {
                     Schedule schedule = new Schedule(login.okhttpNet);
                     /*判断是否课程表是否正常获得*/
                     if (schedule.setSchedule(totalInfo, "2015", "12").equals(Constant
@@ -271,10 +276,13 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
                         message.what = Constant.SCHEDULE_OK;
                         handler.sendMessage(message);
                     }
-                } else {
+                } else if (response.contains("LoginFailure")) {
                     message.what = Constant.LOGIN_FAILED;
                     handler.sendMessage(message);
-
+                } else {
+                    message.what = Constant.SHOW;
+                    message.obj = response;
+                    handler.sendMessage(message);
                 }
             }
         }).start();

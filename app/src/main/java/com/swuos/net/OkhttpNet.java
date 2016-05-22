@@ -1,5 +1,6 @@
 package com.swuos.net;
 
+import com.google.gson.JsonObject;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 
@@ -14,18 +15,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Authenticator;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
+import okhttp3.Credentials;
 import okhttp3.HttpUrl;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.Route;
 
 /**
  * Created by 张孟尧 on 2016/4/28.
  */
-public class OkhttpNet implements Serializable{
+public class OkhttpNet implements Serializable {
+
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static CookieJar cookieJar = new CookieJar() {
         List<Cookie> cookies;
 
@@ -42,6 +49,15 @@ public class OkhttpNet implements Serializable{
 
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .cookieJar(cookieJar)
+            .authenticator(new Authenticator() {
+                @Override
+                public Request authenticate(Route route, Response response) throws IOException {
+                    String credential = Credentials.basic("opensource", "freedom");
+                    SALog.d("okhttp", "认证");
+                    Request request = response.request().newBuilder().header("Authorization", credential).build();
+                    return request;
+                }
+            })
             .readTimeout(Constant.TIMEOUT, TimeUnit.MILLISECONDS)
             .connectTimeout(Constant.TIMEOUT, TimeUnit.MILLISECONDS)
             .build();
@@ -191,5 +207,34 @@ public class OkhttpNet implements Serializable{
         return responses;
     }
 
+    public String doPost(String url, JsonObject jsonObject) {
+        RequestBody requestBody = RequestBody.create(JSON, jsonObject.toString());
 
+        Request request = new Request.Builder().url(url).post(requestBody).build();
+        Response response = null;
+        String responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            SALog.d("okhttp", String.valueOf(response.code()));
+
+            if (response.isSuccessful()) {
+                //                SALog.d("okhttp", String.valueOf(response.code()));
+                responses = response.body().string();
+            } else
+                responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
+        }
+        SALog.d("post", responses);
+        return responses;
+    }
 }

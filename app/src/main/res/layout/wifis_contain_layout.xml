@@ -1,67 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/wifi_SwipeRefreshLayout"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/wifi_SwipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/wifi_contain"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/wifi_state"
+            <RelativeLayout
+                android:id="@+id/wifi_contain"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@color/colorPrimary"
-                android:gravity="center_horizontal"
-                android:paddingTop="20dp"
-                android:text="没有连接wifi"
-                android:textColor="@color/cardview_light_background"
-                android:textSize="30sp"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/wifi_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="当前用户:"
-                android:textAlignment="center"
-                android:textColor="@android:color/primary_text_dark_nodisable"
-                android:textSize="20sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/wifi_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="20dp"
+                    android:text="没有连接wifi"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="30sp"/>
 
-            <Button
-                android:id="@+id/wifi_login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登录"
-                android:layout_marginLeft="100dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="22dp"
-                android:layout_below="@+id/wifi_state"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/wifi_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:text="当前用户:"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/primary_text_dark_nodisable"
+                    android:textSize="20sp"/>
 
-            <Button
-                android:id="@+id/wifi_logout_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登出"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/wifi_login_button"
-                android:layout_toEndOf="@+id/wifi_login_button"/>
+                <Button
+                    android:id="@+id/wifi_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/wifi_state"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="22dp"
+                    android:text="登录"/>
+
+                <Button
+                    android:id="@+id/wifi_logout_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/wifi_login_button"
+                    android:layout_toRightOf="@+id/wifi_login_button"
+                    android:text="登出"/>
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
-    </ScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</FrameLayout>

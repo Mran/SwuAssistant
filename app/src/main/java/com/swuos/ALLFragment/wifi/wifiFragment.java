@@ -50,7 +50,7 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-      view = inflater.inflate(R.layout.wifis_contain_layout, container, false);
+        view = inflater.inflate(R.layout.wifis_contain_layout, container, false);
 
         initdata();
         initview();
@@ -84,6 +84,20 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         username = totalInfo.getUserName();
         password = totalInfo.getPassword();
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            //            if (swipeRefreshLayout != null) {
+            //                swipeRefreshLayout.setRefreshing(false);
+            //                swipeRefreshLayout.destroyDrawingCache();
+            //                swipeRefreshLayout.clearAnimation();
+            //            }
+        }
+
+    }
+
 
 
     @Override
