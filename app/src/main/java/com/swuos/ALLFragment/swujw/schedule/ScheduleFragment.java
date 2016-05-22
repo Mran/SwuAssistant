@@ -13,7 +13,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +27,7 @@ import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +130,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        Log.d("ScheduleFm", "onViewCreated");
+        SALog.d("ScheduleFm", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
          /*打开本地存储文件*/
@@ -141,7 +141,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Log.d("ScheduleFm", "onActivityCreated");
+        SALog.d("ScheduleFm", "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
     }
 

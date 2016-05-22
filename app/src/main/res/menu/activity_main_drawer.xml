@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_main"
-            android:icon="@drawable/ic_action_home"
-            android:title="首页"
-            />
+        <!--<item-->
+        <!--android:id="@+id/nav_main"-->
+        <!--android:icon="@drawable/ic_action_home"-->
+        <!--android:title="首页"-->
+        <!--/>-->
         <item
             android:id="@+id/nav_wifi"
             android:icon="@drawable/wifi"

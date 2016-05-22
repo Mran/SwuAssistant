@@ -132,7 +132,7 @@ public class FragmentControl {
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         hideFragments(transaction);
         switch (id) {
-            case R.id.nav_main:
+           /* case R.id.nav_main:
                 if (mainPageFragment == null) {
                     // 如果mainPageFragment为空，则创建一个并添加到界面上
                     mainPageFragment = new MainPageFragment();
@@ -144,7 +144,7 @@ public class FragmentControl {
 
                 }
 
-                break;
+                break;*/
             case R.id.nav_schedule:
                 if (scheduleFragment == null) {
                     // 如果scheduleTableFragment为空，则创建一个并添加到界面上

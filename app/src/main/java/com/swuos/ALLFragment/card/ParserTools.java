@@ -1,11 +1,7 @@
 package com.swuos.ALLFragment.card;
 
 
-import android.util.Log;
-
-
-import com.swuos.ALLFragment.card.ConsumeInfo;
-import com.swuos.ALLFragment.card.EcardInfo;
+import com.swuos.util.SALog;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,7 +39,7 @@ public class ParserTools {
         for (Element item : elements) {
             items.add(item.text());
         }
-        Log.d("kklog", "**********************************");
+        SALog.d("kklog", "**********************************");
         for(int i=items.size()-6;i>=27;i-=7){
             ConsumeInfo info=new ConsumeInfo();
             info.setTime(items.get(i-6));

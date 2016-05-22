@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,7 +146,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
             @Override
             public void onClick(View v) {
                 pd = edittextPd.getText().toString();
-                Log.d("kklog","input pd==>"+pd);
+                SALog.d("kklog", "input pd==>" + pd);
                 iEcardPresenter.setInputDialogVisible(View.INVISIBLE);
                 new Thread(new Runnable() {
                     @Override

@@ -1,9 +1,7 @@
 package com.swuos.ALLFragment.card;
 
-import android.util.Log;
-
-
 import com.swuos.net.OkhttpNet;
+import com.swuos.util.SALog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +22,7 @@ public class EcardTools implements Serializable {
 
     public EcardTools() {
         okhttpNet = new OkhttpNet();
-        Log.d("kklog", "!!!!!Inits()!!!!!!");
+        SALog.d("kklog", "!!!!!Inits()!!!!!!");
     }
 
     public List<EcardInfo> GetEcardInfos(String id, String pd) {
@@ -44,13 +42,13 @@ public class EcardTools implements Serializable {
                 builder.append(temp);
             }
             s = builder.toString();
-            Log.d("kklog","s===>"+s);
+            SALog.d("kklog", "s===>" + s);
             if (s.contains("卡号密码不对")) {
                 List<EcardInfo> temp1 = new ArrayList<>();
                 return temp1;
             }
         } catch (UnsupportedEncodingException e) {
-            Log.d("kklog", "UnsupportedEncodingException");
+            SALog.d("kklog", "UnsupportedEncodingException");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,7 +58,7 @@ public class EcardTools implements Serializable {
     }
 
     public List<ConsumeInfo> GetConsumeInfos(String index) {
-        Log.d("kklog", "EcardTools lastIndex===>" + lastIndex);
+        SALog.d("kklog", "EcardTools lastIndex===>" + lastIndex);
         List<ConsumeInfo> consumeInfos;
         InputStream in = okhttpNet.doGetInputStream("http://ecard.swu.edu.cn/search/oracle/finance.asp?offset=" + index);
         String s = "none";
@@ -78,7 +76,7 @@ public class EcardTools implements Serializable {
             }
             s = builder.toString();
         } catch (UnsupportedEncodingException e) {
-            Log.d("kklog", "UnsupportedEncodingException");
+            SALog.d("kklog", "UnsupportedEncodingException");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,7 +106,7 @@ public class EcardTools implements Serializable {
             }
             s = builder.toString();
         } catch (UnsupportedEncodingException e) {
-            Log.d("kklog", "UnsupportedEncodingException");
+            SALog.d("kklog", "UnsupportedEncodingException");
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

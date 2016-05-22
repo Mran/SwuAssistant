@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -75,7 +74,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("onAttach", String.valueOf(week));
+        SALog.d("onAttach", String.valueOf(week));
 
     }
 
@@ -102,7 +101,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         scrollView.setOnTouchListener(this);
         swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.schedule_SwipeRefreshLayout);
 
-        Log.d("creatview", String.valueOf(week));
+        SALog.d("creatview", String.valueOf(week));
 
         return scheduleTableLayout;
     }
@@ -125,38 +124,38 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
     @Override
     public void onStart() {
-        Log.d("start", String.valueOf(week));
+        SALog.d("start", String.valueOf(week));
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Log.d("resume", String.valueOf(week));
+        SALog.d("resume", String.valueOf(week));
         /*延后刷新*/
         if (late_Load) {
             late_Load = false;
             new MyThread().start();
-            Log.d("resume", "随后刷新" + String.valueOf(week));
+            SALog.d("resume", "随后刷新" + String.valueOf(week));
         }
         super.onResume();
     }
 
     @Override
     public void onStop() {
-        Log.d("stop", String.valueOf(week));
+        SALog.d("stop", String.valueOf(week));
 
         super.onStop();
     }
 
     @Override
     public void onDestroyView() {
-        Log.d("Destroyview", String.valueOf(week));
+        SALog.d("Destroyview", String.valueOf(week));
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        Log.d("Destroy", String.valueOf(week));
+        SALog.d("Destroy", String.valueOf(week));
 
         super.onDestroy();
     }
@@ -168,7 +167,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d("onDetach", String.valueOf(week));
+        SALog.d("onDetach", String.valueOf(week));
 
     }
 
@@ -182,6 +181,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
 
     public void setTable() {
+        textViewList.clear();
         relativeLayout.removeAllViews();
         /*得到一节课的高度*/
         int hight = class1TextView.getHeight();

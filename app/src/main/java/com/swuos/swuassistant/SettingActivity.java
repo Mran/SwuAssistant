@@ -8,10 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.swuos.ALLFragment.setting.SettingFragment;
+import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/4/8.
@@ -40,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("settingActivity","onOptionsItemSelected");
+        SALog.d("settingActivity", "onOptionsItemSelected");
        onBackPressed();
         return super.onOptionsItemSelected(item);
     }

@@ -5,13 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.swuos.ALLFragment.card.MyItemDecoration;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 import java.util.List;
 
@@ -44,9 +44,9 @@ public class LibraryContentFragment extends Fragment {
 
     public void UpdateHistory(List<BookCell> cells){
         this.books=cells;
-        Log.d("HttpLog","LibraryContentFragment Books Updated!!");
+        SALog.d("HttpLog", "LibraryContentFragment Books Updated!!");
         for(BookCell ce:cells){
-            Log.d("HttpLog","LibraryContentFragment cell===>"+ce.getBookName());
+            SALog.d("HttpLog", "LibraryContentFragment cell===>" + ce.getBookName());
         }
         adapter=new MyRecyclerViewAdapter(getActivity(),cells);
         recyclerView.setAdapter(adapter);
@@ -56,9 +56,9 @@ public class LibraryContentFragment extends Fragment {
 
     public void UpdateUserInfo(List<BookCell> info){
         this.userInfo=info;
-        Log.d("HttpLog","LibraryContentFragment UserInfo Updated!!");
+        SALog.d("HttpLog", "LibraryContentFragment UserInfo Updated!!");
         for(BookCell s:userInfo){
-            Log.d("HttpLog","LibraryContentFragment s===>"+s);
+            SALog.d("HttpLog", "LibraryContentFragment s===>" + s);
         }
         adapterUserinfo=new MyRecyclerViewAdapterUserinfo(getActivity(),userInfo);
         recyclerView.setAdapter(adapterUserinfo);

@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/5/19.
@@ -70,7 +71,7 @@ public class SchedulDetialActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("settingActivity", "onOptionsItemSelected");
+        SALog.d("settingActivity", "onOptionsItemSelected");
         onBackPressed();
         return super.onOptionsItemSelected(item);
     }

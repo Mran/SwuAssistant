@@ -11,7 +11,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +95,8 @@ public class LibraryFragment extends Fragment implements ViewPager.OnPageChangeL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         libraryLayout = inflater.inflate(R.layout.library_layout, container, false);
-        Log.d("HttpLog", "onActivityCreated userName====>" + userName);
-        Log.d("HttpLog", "onActivityCreated password====>" + password);
+        SALog.d("HttpLog", "onActivityCreated userName====>" + userName);
+        SALog.d("HttpLog", "onActivityCreated password====>" + password);
         progressDialogLoading = new ProgressDialog(getContext());
         tabLayout = (TabLayout) libraryLayout.findViewById(R.id.tabLayoutLibrary);
         viewPager = (ViewPager) libraryLayout.findViewById(R.id.viewPagerLibrary);

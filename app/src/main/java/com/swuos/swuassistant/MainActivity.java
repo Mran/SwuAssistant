@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     public static SharedPreferences sharedPreferences;
 
     private FragmentControl fragmentControl;
-    private static int fragmentPosition = R.id.nav_main;
+    private static int fragmentPosition = R.id.nav_wifi;
 
 
     private Toolbar toolbar;
@@ -67,11 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_main);
         initView();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
-        //        fragmentControl.initFragment(getSupportFragmentManager());
-        fragmentControl.fragmentStateCheck(
-                savedInstanceState, getSupportFragmentManager(),
-                fragmentPosition
-        );
+        fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
         startServier();
         XiaomiUpdateAgent.update(this);
@@ -237,11 +233,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_main) {
+        /*if (id == R.id.nav_main) {
             toolbar.setTitle(R.string.main_page_title);
             fragmentControl.fragmentSelection(id);
             fragmentPosition = id;
-        } else if (id == R.id.nav_grades) {
+        } else */
+        if (id == R.id.nav_grades) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.grades_title);
             fragmentPosition = id;

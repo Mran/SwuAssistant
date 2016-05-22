@@ -8,13 +8,13 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
-import android.util.Log;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
+import com.swuos.util.SALog;
 
 import java.util.Calendar;
 import java.util.List;
@@ -69,7 +69,7 @@ public class ClassAlarmService extends Service {
             manager = (AlarmManager) getSystemService(ALARM_SERVICE);
             Intent intent1 = new Intent(this, ClassAlarmService.class);
             PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent1, 0);
-            Log.d("ClassAlam", "上发送通知");
+            SALog.d("ClassAlam", "上发送通知");
             /*已经发送了本次的通知,截止上课前就不再通知*/
             manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + (remindtime + 1) * Constant.ONE_MIN_TIME, pendingIntent);
 
@@ -89,7 +89,7 @@ public class ClassAlarmService extends Service {
         Intent intent1 = new Intent(this, ClassAlarmService.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent1, 0);
         manager.cancel(pendingIntent);
-        Log.d("ClassAlam", "停止闹钟");
+        SALog.d("ClassAlam", "停止闹钟");
         return super.stopService(name);
 
     }
@@ -120,7 +120,7 @@ public class ClassAlarmService extends Service {
                 manager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 Intent intent1 = new Intent(this, ScheduleNotificationService.class);
                 PendingIntent pendingIntent = PendingIntent.getService(this, 0, intent1, 0);
-                Log.d("ClassAlam", "发送通知" + String.valueOf(timeToclass / Constant.ONE_MIN_TIME));
+                SALog.d("ClassAlam", "发送通知" + String.valueOf(timeToclass / Constant.ONE_MIN_TIME));
                 totalInfo.setPosition(i);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     manager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + timeToclass, pendingIntent);

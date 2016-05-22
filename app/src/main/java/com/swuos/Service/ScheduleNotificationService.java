@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/4/9.
@@ -41,7 +41,7 @@ public class ScheduleNotificationService extends Service {
             return super.onStartCommand(intent, flags, startId);
         }
         //        Toast.makeText(this,"上课通知",Toast.LENGTH_SHORT).show();
-        Log.d("ClassAlam", "接到通知");
+        SALog.d("ClassAlam", "接到通知");
 
         showNotify(totalInfo.getScheduleItemList().get(totalInfo.getPosition()));
         Intent intent1 = new Intent(this, ClassAlarmService.class);

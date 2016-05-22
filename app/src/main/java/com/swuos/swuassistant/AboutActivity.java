@@ -13,7 +13,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.swuos.net.OkhttpNet;
+import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/5/17.
@@ -89,7 +89,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("settingActivity", "onOptionsItemSelected");
+        SALog.d("settingActivity", "onOptionsItemSelected");
         onBackPressed();
         return super.onOptionsItemSelected(item);
     }
@@ -163,7 +163,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                     startActivity(Intent.createChooser(intent1, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException e) {
                     e.printStackTrace();
-                    Log.d("Email error:", e.toString());
+                    SALog.d("Email error:", e.toString());
                 }
                 break;
             case R.id.developer_gky:
@@ -180,7 +180,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 
                 } catch (android.content.ActivityNotFoundException e) {
                     e.printStackTrace();
-                    Log.d("Email error:", e.toString());
+                    SALog.d("Email error:", e.toString());
                 }
                 break;
             default:

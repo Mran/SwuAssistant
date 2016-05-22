@@ -2,9 +2,9 @@ package com.swuos.ALLFragment.card;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.swuos.swuassistant.MainActivity;
+import com.swuos.util.SALog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class EcardPresenterImp implements IEcardPresenter {
     public void savePassWord(String id, String pd) {
         editor.putString(id, pd);
         editor.commit();
-        Log.d("kklog", "editor.commit()");
+        SALog.d("kklog", "editor.commit()");
     }
 
     @Override
