@@ -125,6 +125,5 @@
     <orderEntry type="library" exported="" scope="TEST" name="junit-4.12" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="gson-2.3.1-javadoc" level="project" />
-    <orderEntry type="library" exported="" name="MiPush_SDK_Client_2_2_21" level="project" />
   </component>
 </module>
