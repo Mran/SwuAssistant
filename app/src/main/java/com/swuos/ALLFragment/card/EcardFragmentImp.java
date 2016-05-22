@@ -160,6 +160,7 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
     }
 
     private void updateInfos() {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -204,12 +205,12 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
 
     @Override
     public void onCheckPdVaild(boolean flag) {
-        if(!flag){
+        if (!flag) {
             Message message = new Message();
             message.what = 3;
             mHandler.sendMessage(message);
 
-        }else{
+        } else {
             iEcardPresenter.savePassWord(id, pd);
             updateInfos();
         }
@@ -256,6 +257,22 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
                 getActivity().overridePendingTransition(R.anim.cardconsume_activity_in, R.anim.cardconsume_activity_out);
                 break;
             case R.id.linearLayoutEcardError:
+                id = iEcardPresenter.getSwuId();
+                if (id.equals("nothing")) {   //表示用户还没有登录
+                    initTipDialog("请先登录再执行对应操作");
+                    iEcardPresenter.setInputDialogVisible(View.VISIBLE);
+                    break;
+                } else if (!id.equals("nothing")) {
+                    initInputDialog();
+                    if (!iEcardPresenter.checkPdSaved(id)) {  //每次启动时，判断是否已经储存了密码
+                        iEcardPresenter.setInputDialogVisible(View.VISIBLE);
+                    } else {
+                        pd = iEcardPresenter.getPd(id);
+                        iEcardPresenter.setProgressDialogVisible(View.VISIBLE);
+                        updateInfos();
+                    }
+                    break;
+                }
                 iEcardPresenter.setProgressDialogVisible(View.VISIBLE);
                 updateInfos();
                 break;
