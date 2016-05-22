@@ -78,7 +78,6 @@
             <TextView
                 android:id="@+id/developer_tp"
                 android:paddingLeft="20dp"
-
                 android:text="@string/tp"
                 />
 

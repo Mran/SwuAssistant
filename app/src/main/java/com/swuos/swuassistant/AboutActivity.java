@@ -75,9 +75,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         csd = (TextView) findViewById(R.id.developer_csd);
         csd.setMovementMethod(LinkMovementMethod.getInstance());
         tp = (TextView) findViewById(R.id.developer_tp);
-        tp.setMovementMethod(LinkMovementMethod.getInstance());
+        //        tp.setMovementMethod(LinkMovementMethod.getInstance());
         gky = (TextView) findViewById(R.id.developer_gky);
-        gky.setMovementMethod(LinkMovementMethod.getInstance());
+        //        gky.setMovementMethod(LinkMovementMethod.getInstance());
         swuos = (TextView) findViewById(R.id.swuos);
         swuos.setMovementMethod(LinkMovementMethod.getInstance());
 
