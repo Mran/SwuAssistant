@@ -2,6 +2,8 @@ package com.swuos.swuassistant;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -32,6 +34,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private TextView csd;
     private TextView tp;
     private TextView gky;
+    private TextView version;
 
     private TextView swuos;
     private TextView feedback;
@@ -75,9 +78,14 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         csd = (TextView) findViewById(R.id.developer_csd);
         csd.setMovementMethod(LinkMovementMethod.getInstance());
         tp = (TextView) findViewById(R.id.developer_tp);
-        //        tp.setMovementMethod(LinkMovementMethod.getInstance());
         gky = (TextView) findViewById(R.id.developer_gky);
-        //        gky.setMovementMethod(LinkMovementMethod.getInstance());
+
+        version = (TextView) findViewById(R.id.version);
+        try {
+            version.setText("版本 :" + getVersionName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         swuos = (TextView) findViewById(R.id.swuos);
         swuos.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -188,5 +196,13 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    private String getVersionName() throws Exception {
+        // 获取packagemanager的实例
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+        String version = packInfo.versionName;
+        return version;
+    }
 
 }
