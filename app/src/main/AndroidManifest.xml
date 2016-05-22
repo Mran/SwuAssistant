@@ -58,6 +58,7 @@
 
         <service android:name="com.swuos.Service.ClassAlarmService"/>
         <service android:name="com.swuos.Service.ScheduleNotificationService"/>
+        <service android:name="com.swuos.Service.WifiNotificationService"></service>
 
         <receiver android:name="com.swuos.widget.wifi.wifi_widgets">
             <intent-filter>
@@ -72,7 +73,6 @@
                 android:resource="@xml/wifi_widgets_info"/>
         </receiver>
 
-        <service android:name="com.swuos.Service.WifiNotificationService"></service>
         <receiver android:name="com.swuos.BroacastReceiver.MwifiBroadcast">
             <intent-filter android:priority="100">
                 <action android:name="NOTIFICATION_LOGIN"/>

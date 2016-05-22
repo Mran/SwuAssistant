@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,9 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
     private TextView wifiStateTextView;
     private WifiStateBroad wifiStateBroad;
     private TextView wifiUsername;
-
+    private IntentFilter intentFilter;
+    private LocalRecevier localRecevier;
+    private LocalBroadcastManager localBroadcastManager;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,7 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
 
         initdata();
         initview();
+        setReceiver();
         return view;
     }
 
@@ -83,19 +87,6 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         getActivity().registerReceiver(wifiStateBroad, filter);
         username = totalInfo.getUserName();
         password = totalInfo.getPassword();
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (hidden) {
-            //            if (swipeRefreshLayout != null) {
-            //                swipeRefreshLayout.setRefreshing(false);
-            //                swipeRefreshLayout.destroyDrawingCache();
-            //                swipeRefreshLayout.clearAnimation();
-            //            }
-        }
-
     }
 
 
@@ -197,6 +188,23 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
             } else if (wifiState == WifiManager.WIFI_STATE_DISABLED) {
                 wifiStateTextView.setText("WIFI已关闭");
             }
+
+        }
+    }
+
+    private void setReceiver() {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.swuos.Logined");
+        localRecevier = new LocalRecevier();
+        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        localBroadcastManager.registerReceiver(localRecevier, intentFilter);
+    }
+
+    /*设置广播接收刷新消息*/
+    class LocalRecevier extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            wifiUsername.setText("当前用户:" + totalInfo.getUserName());
 
         }
     }

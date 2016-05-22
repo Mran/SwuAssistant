@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     private FragmentControl fragmentControl;
     private static int fragmentPosition = R.id.nav_wifi;
 
+    private LocalBroadcastManager localBroadcastManager;
 
     private Toolbar toolbar;
     private Handler handler = new Handler() {
@@ -122,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             case Constant.LOGIN_RESULT_CODE:
                 if (resultCode == Constant.LOGIN_RESULT_CODE) {
                     setNavigationViewHeader();
+                    localBroadcastManager = LocalBroadcastManager.getInstance(this);
+                    Intent intent = new Intent("com.swuos.Logined");
+                    localBroadcastManager.sendBroadcast(intent);
                 }
                 break;
 

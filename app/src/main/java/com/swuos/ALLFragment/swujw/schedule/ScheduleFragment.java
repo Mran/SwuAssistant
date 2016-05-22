@@ -60,8 +60,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 case Constant.SCHEDULE_OK: /*成功获取课表*/
                     /*获得课程表成功,发送广播要求所有页面加载课表*/
-                    Intent intent = new Intent("com.swuos.ALLFragment.swujw.schedule" +
-                            ".SCHEDULEDATECHANGE");
+                    Intent intent = new Intent("com.swuos.ALLFragment.swujw.schedule.SCHEDULEDATECHANGE");
                     localBroadcastManager.sendBroadcast(intent);
 
                     break;
