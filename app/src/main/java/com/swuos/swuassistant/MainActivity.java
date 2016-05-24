@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,40 +79,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("Mainactivity", "onStart");
+        SALog.d("Mainactivity", "onStart");
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Mainactivity", "onResume");
+        SALog.d("Mainactivity", "onResume");
 
     }
 
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        Log.d("Mainactivity", "onResumeFragments");
+        SALog.d("Mainactivity", "onResumeFragments");
 
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("Mainactivity", "onSaveInstanceState");
+        SALog.d("Mainactivity", "onSaveInstanceState");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("Mainactivity", "destory");
+        SALog.d("Mainactivity", "destory");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("Mainactivity", "onRestart");
+        SALog.d("Mainactivity", "onRestart");
 
     }
 
@@ -228,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             return true;
         }
         if (id == R.menu.main) {
-            Log.d("MainActivity", "click_main");
+            SALog.d("MainActivity", "click_main");
         }
         return super.onOptionsItemSelected(item);
     }

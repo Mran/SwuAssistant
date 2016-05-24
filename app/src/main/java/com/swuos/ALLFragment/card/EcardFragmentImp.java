@@ -1,7 +1,10 @@
 package com.swuos.ALLFragment.card;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +12,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +49,9 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
     private String id;
     private String pd;
     private boolean pdVaild = false;
+    private IntentFilter intentFilter;
+    private LocalRecevier localRecevier;
+    private LocalBroadcastManager localBroadcastManager;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -282,5 +289,13 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
     @Override
     public void onRefresh() {
         updateInfos();
+    }
+
+    /*设置广播接收刷新消息*/
+    class LocalRecevier extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+        }
     }
 }

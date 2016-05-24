@@ -19,6 +19,7 @@ import okhttp3.Authenticator;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.Credentials;
+import okhttp3.Headers;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -176,6 +177,7 @@ public class OkhttpNet implements Serializable {
     }
 
     public String doPost(String url, String parse, RequestBody requestBody) {
+
         Request request = new Request.Builder().url(url).post(requestBody).build();
         Response response = null;
         String responses = null;
@@ -237,4 +239,39 @@ public class OkhttpNet implements Serializable {
         SALog.d("post", responses);
         return responses;
     }
+
+    public String doPost(String url, RequestBody requestBody, Headers headers) {
+        Request request;
+        if (headers != null)
+            request = new Request.Builder().headers(headers).url(url).post(requestBody).build();
+        else
+            request = new Request.Builder().url(url).post(requestBody).build();
+
+        Response response = null;
+        String responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            SALog.d("okhttp", String.valueOf(response.code()));
+
+            if (response.isSuccessful()) {
+                //                SALog.d("okhttp", String.valueOf(response.code()));
+                responses = response.body().string();
+            } else
+                responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
+        }
+        SALog.d("post", responses);
+        return responses;
+    }
+
 }

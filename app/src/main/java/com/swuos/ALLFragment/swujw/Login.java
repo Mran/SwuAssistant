@@ -1,9 +1,8 @@
 package com.swuos.ALLFragment.swujw;
 
-import android.util.Log;
-
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
+import com.swuos.util.SALog;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -52,7 +51,7 @@ public class Login {
         String respones = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html", "utf-8");
 /*判断是否正确获得结果*/
         if (!respones.contains(Constant.NO_NET)) {
-            Log.d("client", "setBasicInfo() id==>" + respones);
+            SALog.d("client", "setBasicInfo() id==>" + respones);
 /*对结果进行切割获得学号*/
             String swuidtmple = respones.substring(respones.indexOf("UserKey\" value=\""));
 /*将结果保存进totalInfo*/
@@ -64,12 +63,12 @@ public class Login {
 
 /*判断是否正确获得结果*/
         if (!response1.contains(Constant.NO_NET)) {
-            Log.d("client", "setBasicInfo() name==>" + response1);
+            SALog.d("client", "setBasicInfo() name==>" + response1);
 /*对结果进行切割获得姓名*/
             String nametmple = response1.substring(response1.indexOf("heading\">"));
 /*将结果保存进totalInfo*/
             totalInfo.setName(nametmple.substring(9, nametmple.indexOf("</h4>")));
-            Log.d("client", totalInfo.getName());
+            SALog.d("client", totalInfo.getName());
         } else
             return response1;
         return Constant.CLIENT_OK;
