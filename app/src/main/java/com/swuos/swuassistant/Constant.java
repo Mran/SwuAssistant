@@ -141,5 +141,7 @@ public class Constant {
     public static final int[] STARTtIMES = {8 * 60, 8 * 60 + 50, 9 * 60 + 40, 10 * 60 + 40, 11 * 60 + 30, 12 * 60 + 30, 13 * 60 + 20, 14 * 60 + 30, 15 * 60 + 20, 16 * 60 + 10, 17 * 60, 19 * 60, 19 * 60 + 50, 20 * 60 + 40};
 
     public static final int[] STARTtIMEMIN = {0, 50, 40, 40, 30, 30, 50, 30, 20, 10, 0, 0, 50, 40};
+
+    public static final int REQUEST_CODE_ASK_CALL_PHONE = 123;
 }
 

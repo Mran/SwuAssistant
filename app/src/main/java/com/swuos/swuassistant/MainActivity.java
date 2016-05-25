@@ -1,14 +1,18 @@
 package com.swuos.swuassistant;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -71,8 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
         startServier();
-        XiaomiUpdateAgent.update(this);
-        XiaomiUpdateAgent.arrange();
+        startUpdate();
 
     }
 
@@ -159,6 +162,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
         inintdate();
         setNavigationViewHeader();
+    }
+
+    private void startUpdate() {
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, Constant.REQUEST_CODE_ASK_CALL_PHONE);
+            return;
+        } else {
+            XiaomiUpdateAgent.update(this);
+            XiaomiUpdateAgent.arrange();
+        }
     }
 
     private void startServier() {
