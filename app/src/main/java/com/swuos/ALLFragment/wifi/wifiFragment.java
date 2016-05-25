@@ -204,7 +204,9 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
     class LocalRecevier extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            wifiUsername.setText("当前用户:" + totalInfo.getUserName());
+            username = totalInfo.getUserName();
+            password = totalInfo.getPassword();
+            wifiUsername.setText("当前用户:" + username);
 
         }
     }

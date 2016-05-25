@@ -45,7 +45,7 @@
             android:background="#f0f0f0"
             android:gravity="top|center"
             android:paddingTop="10dp"
-            android:text="请检查是否连接swu-wifi或者swu-wifi-dom"
+            android:text="请检查是否连接swu-wifi或者swu-wifi-dorm"
             android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"

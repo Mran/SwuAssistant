@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -152,6 +154,14 @@ public class EcardFragmentImp extends Fragment implements IEcardView, View.OnCli
         materialDialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //wifi ssid状态获取
+                WifiManager wifiManager = (WifiManager) getActivity().getSystemService(getActivity().WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                String wifiSsid = wifiInfo.toString();
+                if (!wifiSsid.contains("swu-wifi")) {
+                    Toast.makeText(getActivity(), "请连接swu-wifi或者swu-wifi-dorm后重试", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 pd = edittextPd.getText().toString();
                 SALog.d("kklog", "input pd==>" + pd);
                 iEcardPresenter.setInputDialogVisible(View.INVISIBLE);
