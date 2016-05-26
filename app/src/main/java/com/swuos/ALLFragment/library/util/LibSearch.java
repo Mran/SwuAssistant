@@ -15,6 +15,7 @@ public class LibSearch {
      * @param bookName 书名
      * @return 只能返回搜索结果的第一页, 搜索更多请使用下面的方法
      */
+    private static String sessionid = null;
     @Deprecated
     public String bookSearch(String bookName) {
         RequestBody requestBody = new FormBody.Builder()
@@ -38,7 +39,13 @@ public class LibSearch {
         Headers header = new Headers.Builder()
                 .add("Content-Type", "application/x-www-form-urlencoded")
                 .build();
-        return okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+
+        String response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+        /*如果内容有包含标记词则直接返回,否则再次请求*/
+        if (response.contains("用时 <")) {
+            return response;
+        } else
+            return response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
     }
 
     /**
@@ -68,7 +75,13 @@ public class LibSearch {
         Headers header = new Headers.Builder()
                 .add("Content-Type", "application/x-www-form-urlencoded")
                 .build();
-        return okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+        okhttpNet.doGet(Constant.librarySearch);
+        String response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+        /*如果内容有包含标记词则直接返回,否则再次请求*/
+        if (response.contains("用时 <")) {
+            return response;
+        } else
+            return response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
     }
 
     /**
@@ -76,6 +89,16 @@ public class LibSearch {
      * @return 书的详情
      */
     public String bookDetail(int boodId) {
+        String url = Constant.libraryBookDetail + boodId;
+        OkhttpNet okhttpNet = new OkhttpNet();
+        return okhttpNet.doGet(url);
+    }
+
+    /**
+     * @param boodId 书的id可以从搜索的结果中获得
+     * @return 书的馆藏信息, 返回json
+     */
+    public String HoldingsInformation(int boodId) {
         String url = Constant.libraryBookDetail + boodId;
         OkhttpNet okhttpNet = new OkhttpNet();
         return okhttpNet.doGet(url);
