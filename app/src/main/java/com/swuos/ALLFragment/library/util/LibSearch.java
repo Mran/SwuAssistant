@@ -99,7 +99,7 @@ public class LibSearch {
      * @return 书的馆藏信息, 返回json
      */
     public String HoldingsInformation(int boodId) {
-        String url = Constant.libraryBookDetail + boodId;
+        String url = Constant.libraryHoldingsInformation + boodId;
         OkhttpNet okhttpNet = new OkhttpNet();
         return okhttpNet.doGet(url);
     }

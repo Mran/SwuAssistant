@@ -81,7 +81,7 @@ public class Constant {
 
     public static final String librarySearch = "http://202.202.121.3:99/opac/search";
     public static final String libraryBookDetail = "http://202.202.121.3:99/opac/book/";
-
+    public static final String libraryHoldingsInformation = "http://202.202.121.3:99/opac/book/getHoldingsInformation/";
     public static final String urlSwuDormWifi = "http://222.198.120.8:8080/loginPhoneServlet";
     public static final String urlSwuWifi = "http://202.202.96.57:9060/login/login1.jsp";
     public static final String urlWifiLogout = "http://service.swu.edu.cn/fee/remote_logout2.jsp";
