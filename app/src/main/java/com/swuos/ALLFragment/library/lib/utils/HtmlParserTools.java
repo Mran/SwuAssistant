@@ -1,4 +1,8 @@
-package com.swuos.ALLFragment.library;
+package com.swuos.ALLFragment.library.lib.utils;
+
+import com.swuos.ALLFragment.library.lib.model.BookCell;
+import com.swuos.ALLFragment.library.lib.model.BookInfo;
+import com.swuos.util.SALog;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,12 +18,14 @@ import java.util.List;
 public class HtmlParserTools {
 
     public static List<BookCell> parserHtml(String data, String selector){
+        SALog.d("kklog","HtmlParserTools parserHtml==>parserHtml()");
         List<BookCell> books=new ArrayList<>();
         List<String> items = new ArrayList<>();
         Document document = Jsoup.parse(data);
         Elements elements = document.select(selector);
         for (Element item : elements) {
             items.add(item.text());
+//            SALog.d("kklog","HtmlParserTools parserHtml==>"+item.text());
         }
         //将数据存入BookCell对象中去
         for(int i=4;i<items.size()-1;i+=4){
@@ -46,7 +52,7 @@ public class HtmlParserTools {
         return books;
     }
 
-    public static List<BookInfo> parserHtmlForBookInfo(String data,String selector){
+    public static List<BookInfo> parserHtmlForBookInfo(String data, String selector){
         List<String> items = new ArrayList<>();
         List<BookInfo> bookInfos = new ArrayList<>();
         Document document = Jsoup.parse(data);

@@ -1,4 +1,6 @@
-package com.swuos.ALLFragment.library;
+package com.swuos.ALLFragment.library.lib.utils;
+
+
 
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;

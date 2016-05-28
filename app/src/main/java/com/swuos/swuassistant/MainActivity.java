@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.swuos.ALLFragment.FragmentControl;
+import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     private static int fragmentPosition = R.id.nav_wifi;
 
     private LocalBroadcastManager localBroadcastManager;
+    private boolean isFragmentLibSelected=false;
 
     private Toolbar toolbar;
     private Handler handler = new Handler() {
@@ -76,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         SALog.d("Mainactivity", "OnCreatview");
         startServier();
         startUpdate();
-
     }
 
     @Override
@@ -224,8 +225,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        return true;
+        if(isFragmentLibSelected)
+        {
+            menu.findItem(R.id.search).setVisible(true);
+        }else
+        {
+            menu.findItem(R.id.search).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -235,15 +242,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(MainActivity.this, SettingActivity.class));
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
+            case R.menu.main:
+                SALog.d("MainActivity", "click_main");
+                break;
+            case R.id.search:
+                Toast.makeText(MainActivity.this, "Search!!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this,SearchAtyImp.class));
+                break;
         }
-        if (id == R.menu.main) {
-            SALog.d("MainActivity", "click_main");
-        }
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -260,27 +272,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.grades_title);
             fragmentPosition = id;
+            isFragmentLibSelected=false;
         } else if (id == R.id.nav_schedule) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.schedule_title);
             fragmentPosition = id;
-
+            isFragmentLibSelected=false;
         } else if (id == R.id.nav_library) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.library_title);
             fragmentPosition = id;
+            isFragmentLibSelected=true;
         } else if (id == R.id.nav_ecard) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.ecard_title);
             fragmentPosition = id;
+            isFragmentLibSelected=false;
         } else if (id == R.id.nav_wifi) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.wifi);
             fragmentPosition = id;
+            isFragmentLibSelected=false;
         } else if (id == R.id.about) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.about_activity_in, 0);
+            isFragmentLibSelected=false;
             return true;
         }
         /*else if (id == R.id.nav_study_materials) {
@@ -301,6 +318,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        invalidateOptionsMenu();
         return true;
     }
 
@@ -313,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
 
     @Override

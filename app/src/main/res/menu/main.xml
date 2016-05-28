@@ -14,4 +14,10 @@
     <!--android:title="刷新"-->
     <!--app:showAsAction="always"-->
     <!--/>-->
+
+    <item android:id="@+id/search"
+        android:title="搜索"
+        app:showAsAction="always"
+        android:icon="@drawable/lib_search" />
+
 </menu>

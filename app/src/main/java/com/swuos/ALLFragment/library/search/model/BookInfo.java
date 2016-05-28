@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library;
+package com.swuos.ALLFragment.library.search.model;
 
 /**
  * Created by ASUS on 2016/3/12.
@@ -9,7 +9,7 @@ public class BookInfo {
     private String dateOut;
     private String dateBack;
 
-    BookInfo(String bookName,String dateOut,String dateBack,String renewTimes){
+    public BookInfo(String bookName, String dateOut, String dateBack, String renewTimes){
         this.bookName=bookName;
         this.renewTimes=renewTimes;
         this.dateBack=dateBack;

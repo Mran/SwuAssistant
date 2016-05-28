@@ -1,6 +1,12 @@
-package com.swuos.ALLFragment.library.util;
+package com.swuos.ALLFragment.library.search.model;
 
-public class HoldingsInformation implements java.io.Serializable {
+import java.io.Serializable;
+
+/**
+ * Created by youngkaaa on 2016/5/26.
+ * Email:  645326280@qq.com
+ */
+public class LibHoldInfo implements Serializable{
     private static final long serialVersionUID = 6826503247279416307L;
     /**
      * 虚拟库室
@@ -9,9 +15,9 @@ public class HoldingsInformation implements java.io.Serializable {
     /**
      * 刊价
      */
-    private int issuePrice;
+    private float issuePrice;
     /**
-     * 是否可以借出,不如杂志就不能借出,exp: borrowstatus=流通部（可借）
+     * 是否可以借出,比如杂志就不能借出,exp: borrowstatus=流通部（可借）
      */
     private String borrowstatus;
     /**
@@ -23,7 +29,7 @@ public class HoldingsInformation implements java.io.Serializable {
      */
     private String isbn;
     /**
-     * 外界状态,已借出就是1,未借出就是0
+     * 外借状态,已借出就是1,未借出就是0
      */
     private String outState;
     /**
@@ -49,7 +55,7 @@ public class HoldingsInformation implements java.io.Serializable {
     /**
      * 单位名
      */
-    private String deptname;
+    private String deptName;
     /**
      * 不知道是意思
      */
@@ -67,11 +73,11 @@ public class HoldingsInformation implements java.io.Serializable {
         this.virtualLibraryRoom = VirtualLibraryRoom;
     }
 
-    public int getIssuePrice() {
+    public float getIssuePrice() {
         return this.issuePrice;
     }
 
-    public void setIssuePrice(int IssuePrice) {
+    public void setIssuePrice(float IssuePrice) {
         this.issuePrice = IssuePrice;
     }
 
@@ -147,12 +153,12 @@ public class HoldingsInformation implements java.io.Serializable {
         this.accessionNumber = accessionNumber;
     }
 
-    public String getdeptname() {
-        return this.deptname;
+    public String getDeptName() {
+        return this.deptName;
     }
 
-    public void setdeptname(String deptname) {
-        this.deptname = deptname;
+    public void setDeptName(String deptname) {
+        this.deptName = deptname;
     }
 
     public boolean getCanExtracted() {

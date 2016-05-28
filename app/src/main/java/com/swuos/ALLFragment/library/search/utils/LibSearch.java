@@ -1,4 +1,6 @@
-package com.swuos.ALLFragment.library.util;
+package com.swuos.ALLFragment.library.search.utils;
+
+
 
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
@@ -11,11 +13,13 @@ import okhttp3.RequestBody;
  * Created by 张孟尧 on 2016/5/24.
  */
 public class LibSearch {
+
     /**
      * @param bookName 书名
      * @return 只能返回搜索结果的第一页, 搜索更多请使用下面的方法
      */
     private static String sessionid = null;
+
     @Deprecated
     public String bookSearch(String bookName) {
         RequestBody requestBody = new FormBody.Builder()
@@ -88,19 +92,26 @@ public class LibSearch {
      * @param boodId 书的id可以从搜索的结果中获得
      * @return 书的详情
      */
-    public String bookDetail(int boodId) {
+    public String bookDetail(String boodId) {
         String url = Constant.libraryBookDetail + boodId;
         OkhttpNet okhttpNet = new OkhttpNet();
-        return okhttpNet.doGet(url);
+        return okhttpNet.doGet(url, "utf-8");
     }
 
     /**
-     * @param boodId 书的id可以从搜索的结果中获得
+     * @param bookId 书的id可以从搜索的结果中获得
      * @return 书的馆藏信息, 返回json
      */
-    public String HoldingsInformation(int boodId) {
-        String url = Constant.libraryHoldingsInformation + boodId;
+    public String holdingsInformation(String bookId) {
+        String url = Constant.libraryHoldingsInformation + bookId;
         OkhttpNet okhttpNet = new OkhttpNet();
-        return okhttpNet.doGet(url);
+        return okhttpNet.doGet(url, "utf-8");
     }
+
+    public String getCollectAddress(String barCode){
+        String url= Constant.libraryCollectingAddress+barCode;
+        OkhttpNet okhttpNet = new OkhttpNet();
+        return okhttpNet.doGet(url,"gb2312");
+    }
+
 }

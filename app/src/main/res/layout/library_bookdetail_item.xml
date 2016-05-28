@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textViewLibHoldingCollectPlace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="馆藏地址: 南区中文(崇实馆)" />
+
+
+    <TextView
+        android:id="@+id/textViewLibHoldingDeptName"
+        android:layout_below="@id/textViewLibHoldingCollectPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dp"
+        android:text="所属校区: 图书馆" />
+
+    <TextView
+        android:id="@+id/textViewLibHoldingBookStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/textViewLibHoldingCollectPlace"
+        android:gravity="right"
+        android:paddingRight="4dp"
+        android:text="书刊状态: 在架	" />
+
+    <TextView
+        android:id="@+id/textViewLibHoldingisbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLibHoldingDeptName"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="索书号: I287.7/Z136" />
+
+    <TextView
+        android:id="@+id/textViewLibAccessNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLibHoldingisbn"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="登录号: 0439936" />
+
+    <TextView
+        android:id="@+id/textViewLibBarCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLibAccessNum"
+        android:layout_marginTop="4dp"
+        android:gravity="right"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="条形码: B370650" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnLibInfoShowCollectPlace"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignBaseline="@id/textViewLibBarCode"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/textViewLibHoldingCollectPlace"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#8c3dfa"
+        android:layout_alignLeft="@id/textViewLibHoldingBookStatus"
+        android:text="查看馆藏" />
+
+</RelativeLayout>

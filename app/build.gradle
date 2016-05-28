@@ -40,4 +40,5 @@ dependencies {
     compile 'com.robbypond:material-dialogs:1.0.0'
     compile 'io.github.zhitaocai:toastcompat:0.1.0'
     compile files('libs/xiaomi_sdk.jar')
+    compile 'me.relex:circleindicator:1.2.1@aar'
 }

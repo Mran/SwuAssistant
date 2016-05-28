@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerBookName"
+        android:text="你离平面设计师有多远,Photoshop/Illustrator篇"
+        android:gravity="left"
+        android:paddingLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:paddingBottom="4dp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerAuthor"
+        android:layout_below="@id/textViewSearchRecyclerBookName"
+        android:text="— 晓梦斜阳著"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        android:layout_marginRight="4dp"
+        android:gravity="left"
+        android:paddingLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerCallNum"
+        android:layout_below="@id/textViewSearchRecyclerAuthor"
+        android:text="I247.57/X648.2"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerIsbn"
+        android:layout_below="@id/textViewSearchRecyclerCallNum"
+        android:text="978-7-221-09582-4"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerBookkind"
+        android:layout_below="@id/textViewSearchRecyclerAuthor"
+        android:text="中文图书"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="18dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginRight="4dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/textViewSearchRecyclerPublisher"
+        android:text="贵州人民出版社  2011.09  贵阳"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:textStyle="bold"
+        android:layout_below="@id/textViewSearchRecyclerIsbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

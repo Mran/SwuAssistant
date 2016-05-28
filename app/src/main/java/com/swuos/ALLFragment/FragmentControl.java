@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.swuos.ALLFragment.card.EcardFragmentImp;
 import com.swuos.ALLFragment.charge.ChargeFragment;
 import com.swuos.ALLFragment.find_lost.FindLostFragment;
-import com.swuos.ALLFragment.library.LibraryFragment;
+import com.swuos.ALLFragment.library.lib.views.LibFragment;
 import com.swuos.ALLFragment.main_page.MainPageFragment;
 import com.swuos.ALLFragment.setting.SettingFragment;
 import com.swuos.ALLFragment.study_materials.StudyMaterialsFragment;
@@ -15,6 +15,7 @@ import com.swuos.ALLFragment.swujw.grade.GradesFragment;
 import com.swuos.ALLFragment.swujw.schedule.ScheduleFragment;
 import com.swuos.ALLFragment.wifi.WifiFragment;
 import com.swuos.swuassistant.Constant;
+import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -35,7 +36,7 @@ public class FragmentControl {
     /*学习资料界面布局*/
     private static StudyMaterialsFragment studyMaterialsFragment;
     /*图书馆界面布局*/
-    private static LibraryFragment libraryFragment;
+    private static LibFragment libraryFragment;
     /*水电费界面布局*/
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
@@ -43,9 +44,13 @@ public class FragmentControl {
     private static SettingFragment settingFragment;
     private static WifiFragment WifiFragment;
     private static FragmentManager fragmentManager;
+    private static String name;
+    private static String pd;
 
     public FragmentControl(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
+        name = MainActivity.sharedPreferences.getString("userName", "nothing");
+        pd = MainActivity.sharedPreferences.getString("password", "nothing");
     }
 
     public void initFragment(FragmentManager fragmentManager) {
@@ -75,7 +80,8 @@ public class FragmentControl {
         chargeFragment = new ChargeFragment();
         transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
 
-        libraryFragment = new LibraryFragment();
+
+        libraryFragment = new LibFragment();
         transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
         transaction.commit();
         hideFragments(transaction);
@@ -118,7 +124,7 @@ public class FragmentControl {
                 WifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
             }
             if (libraryFragment != null) {
-                libraryFragment = (LibraryFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
+                libraryFragment = (LibFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
                 SALog.d("MainActity", "saveInstanceState存在数据,findLibraryFragment");
             }
             fragmentSelection(fragmentPosition);
@@ -174,7 +180,7 @@ public class FragmentControl {
 
                 if (libraryFragment == null) {
                     // 如果libraryFragrment为空，则创建一个并添加到界面上
-                    libraryFragment = new LibraryFragment();
+                    libraryFragment = new  LibFragment();
                     transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
                 } else {
                     // 如果libraryFragrment不为空，则直接将它显示出来
