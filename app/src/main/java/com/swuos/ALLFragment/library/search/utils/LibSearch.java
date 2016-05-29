@@ -4,6 +4,7 @@ package com.swuos.ALLFragment.library.search.utils;
 
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
+import com.swuos.util.SALog;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
@@ -109,7 +110,9 @@ public class LibSearch {
     }
 
     public String getCollectAddress(String barCode){
+        SALog.d("kklog","LibSearch getCollectAddress barCode==>"+barCode);
         String url= Constant.libraryCollectingAddress+barCode;
+        SALog.d("kklog","LibSearch getCollectAddress url=>"+url);
         OkhttpNet okhttpNet = new OkhttpNet();
         return okhttpNet.doGet(url,"gb2312");
     }

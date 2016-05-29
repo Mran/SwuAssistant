@@ -56,4 +56,9 @@ public class SearchPresenterImp implements ISearchPresenter {
     public void finishThisView() {
         iSearchView.onFinishThisView();
     }
+
+    @Override
+    public void setLinearTipVisible(int visible) {
+        iSearchView.onSetLinearTipVisible(visible);
+    }
 }

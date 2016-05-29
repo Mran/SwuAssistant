@@ -1,5 +1,6 @@
 package com.swuos.ALLFragment.library.search.views;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.swuos.ALLFragment.library.search.model.LibHoldInfo;
 import com.swuos.ALLFragment.library.search.utils.LibTools;
 import com.swuos.swuassistant.R;
+import com.swuos.util.SALog;
 
 
 /**
@@ -34,12 +38,14 @@ public class FragmentViewPagerItem extends Fragment {
     private LibHoldInfo libHoldInfo;
     private LibTools libTools;
     private String address;
-    private Handler mHandler=new Handler(){
+    private MaterialDialog dialog;
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
-                    Toast.makeText(getContext(), address, Toast.LENGTH_SHORT).show();
+                    initDialog("馆藏地址: "+address);
+                    dialog.show();
                     break;
             }
         }
@@ -70,24 +76,42 @@ public class FragmentViewPagerItem extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        libTools=new LibTools();
+        libTools = new LibTools();
         libHoldInfo = (LibHoldInfo) getArguments().getSerializable(KEY_FRAGMENT_LIBINFO);
         textViewCollectPlace.setText("馆藏地址:" + libHoldInfo.getindustryTitle());
-        textViewDeptName.setText("所属校区:" +libHoldInfo.getDeptName());
+        textViewDeptName.setText("所属校区:" + libHoldInfo.getDeptName());
         textViewisbn.setText("索书号:" + libHoldInfo.getisbn());
         textViewAccessNum.setText("登录号:" + libHoldInfo.getaccessionNumber());
         textViewBarCode.setText("条形码:" + libHoldInfo.getbarCode());
-        textViewBookStatus.setText("书刊状态:" +libHoldInfo.getBookstatus());
+        textViewBookStatus.setText("书刊状态:" + libHoldInfo.getBookstatus());
         buttonShowCollectPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "馆藏查询中...", Toast.LENGTH_SHORT).show();
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        address= libTools.getCollectAddress(libHoldInfo.getbarCode());
+                        SALog.d("kklog","FragmentViewPagerItem barCode==>"+libHoldInfo.getbarCode());
+                        address = libTools.getCollectAddress(libHoldInfo.getbarCode());
                         mHandler.sendEmptyMessage(0);
                     }
                 }).start();
+            }
+        });
+    }
+
+    private void initDialog(String s) {
+        dialog = new MaterialDialog.Builder(getActivity())
+                .title("结果")
+                .content(s)
+                .positiveText("确定")
+                .cancelable(true)
+                .positiveColor(Color.parseColor("#48b360"))
+                .build();
+        dialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
     }

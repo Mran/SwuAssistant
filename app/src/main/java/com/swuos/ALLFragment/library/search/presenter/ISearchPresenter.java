@@ -10,4 +10,5 @@ public interface ISearchPresenter {
     void setSwipeRefreshRefreshing(int refreshable);
     void updateBookInfoSearch(String bookName, int pageIndex);
     void finishThisView();
+    void setLinearTipVisible(int visible);
 }

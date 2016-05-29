@@ -70,7 +70,6 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
                     deatilPresenter.setProgressDialogVisible(View.GONE);
                     break;
                 case 3:
-                    deatilPresenter.setProgressDialogVisible(View.GONE);
                     deatilPresenter.setIndicatorAndPagerVisible(View.VISIBLE);
                     deatilPresenter.setErrorTextVisible(View.GONE, "");
                     if (libHoldInfos == null) {
@@ -105,6 +104,7 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookdetail);
         inits();
+
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarBookDetail);
 //        if (toolbar == null) {
 //            SALog.d("kklog", "toolbar==null");
@@ -114,6 +114,7 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
 //        setSupportActionBar(toolbar);
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
 //        getActionBar().setDisplayShowHomeEnabled(true);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));

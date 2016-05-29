@@ -15,4 +15,5 @@ public interface ISearchView {
     void onSetSwipeRefreshRefreshing(int refreshable);
     void onUpdateBookInfoSearch(int code, List<BookInfoSearch> bookInfoSearches);
     void onFinishThisView();
+    void onSetLinearTipVisible(int visible);
 }

@@ -250,7 +250,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 SALog.d("MainActivity", "click_main");
                 break;
             case R.id.search:
-                Toast.makeText(MainActivity.this, "Search!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this,SearchAtyImp.class));
                 break;
         }

@@ -70,17 +70,24 @@ public class LibTools {
             SALog.d("kklog", "LibTools getLibHoldInfos 数据获取成功");
             List<LibHoldInfo> libHoldInfos = HtmlParserTools.parserJsonForLibHoldInfo(s);
             return libHoldInfos;
-        }else{
+        } else {
             SALog.d("kklog", "LibTools getLibHoldInfos 表示并没有从服务器获得到信息数据，有可能是网络原因");
             return null;
         }
     }
 
-    public String  getCollectAddress(String barCode){
-        String s=libSearch.getCollectAddress(barCode);
-        SALog.d("kklog", "getCollectAddress s==>" + s);
-        String result= HtmlParserTools.parserCollectAddress(s);
-        SALog.d("kklog", "getCollectAddress result==>" + result);
+    public String getCollectAddress(String barCode) {
+        String result = null;
+        SALog.d("kklog", "LibTools getCollectAddress barCode==>" + barCode);
+        if (barCode.isEmpty() || barCode.equals("")) {
+            SALog.d("kklog", "LibTools getCollectAddress barCode equals \"\" ");
+            result = "非自助借还(RFID)图书，无法定位";
+        } else {
+            String s = libSearch.getCollectAddress(barCode);
+            SALog.d("kklog", "LibTools getCollectAddress s==>" + s);
+            result = HtmlParserTools.parserCollectAddress(s);
+            SALog.d("kklog", "getCollectAddress result==>" + result);
+        }
         return result;
     }
 }

@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,7 @@ import com.swuos.util.SALog;
 
 import java.util.List;
 
-public class SearchAtyImp extends AppCompatActivity implements View.OnClickListener, ISearchView, RecycleAdapterSearch.OnRecyclerItemClickedListener{
+public class SearchAtyImp extends AppCompatActivity implements View.OnClickListener, ISearchView, RecycleAdapterSearch.OnRecyclerItemClickedListener,SwipeRefreshLayout.OnRefreshListener{
     private AppCompatEditText editText;
     private ImageButton imageButtonBack;
     private ImageButton imageButtonClear;
@@ -40,6 +41,7 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
     private ISearchPresenter iSearchPresenter;
     private List<BookInfoSearch> bookInfoSearches;
     private RecycleAdapterSearch recycleAdapter;
+    private LinearLayout linearLayoutTip;
 
     public static final int REFRESH_BEGIN = 0;
     public static final int REFRESH_STOP = 1;
@@ -50,6 +52,7 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
+                    iSearchPresenter.setLinearTipVisible(View.GONE);
                     iSearchPresenter.setSwipeRefreshRefreshing(REFRESH_STOP);
                     iSearchPresenter.setRecyclerViewVisible(View.VISIBLE);
                     recycleAdapter=new RecycleAdapterSearch(SearchAtyImp.this,bookInfoSearches);
@@ -89,13 +92,17 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
         imageButtonClear = (ImageButton) findViewById(R.id.imgBtnSearchClear);
         editText = (AppCompatEditText) findViewById(R.id.editTextInput);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerViewSearch);
+        linearLayoutTip= (LinearLayout) findViewById(R.id.linearLayoutSearchTip);
         recyclerView.setLayoutManager(new LinearLayoutManager(SearchAtyImp.this));
         recyclerView.addItemDecoration(new MyItemDecoration(this));
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshSearch);
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R
+                .color.holo_red_light, android.R.color.holo_orange_light, android.R.color
+                .holo_green_light);
         imageButtonBack.setOnClickListener(this);
         imageButtonClear.setOnClickListener(this);
         libSearch = new LibSearch();
+        iSearchPresenter.setLinearTipVisible(View.VISIBLE);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -133,7 +140,6 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgBtnSearchBack:
-                SALog.d("kklog", "imgBtnSearchBack");
                 iSearchPresenter.finishThisView();
                 break;
             case R.id.imgBtnSearchClear:
@@ -174,12 +180,9 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
     public void onUpdateBookInfoSearch(int code, List<BookInfoSearch> bookInfoSearches) {
         if (code == SearchPresenterImp.BOOK_NET_ERROR) {
             mHandler.sendEmptyMessage(2);
-            SALog.d("hlog", "code == SearchPresenterImp.BOOK_NET_ERROR");
         } else if (code == SearchPresenterImp.BOOK_NO_INFO) {
-            SALog.d("hlog", "code == SearchPresenterImp.BOOK_NO_INFO");
             mHandler.sendEmptyMessage(3);
         } else {
-            SALog.d("hlog", "code == else");
             this.bookInfoSearches = bookInfoSearches;
             mHandler.sendEmptyMessage(1);
 //            for (BookInfoSearch bookInfoSearch : bookInfoSearches) {
@@ -200,11 +203,25 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onSetLinearTipVisible(int visible) {
+        if (visible == View.VISIBLE && linearLayoutTip.getVisibility() == View.GONE) {
+            linearLayoutTip.setVisibility(visible);
+        } else if (visible == View.GONE && linearLayoutTip.getVisibility() == View.VISIBLE) {
+            linearLayoutTip.setVisibility(visible);
+        }
+    }
+
+    @Override
     public void onItemClick(View view, int position) {
         Intent intent=new Intent(SearchAtyImp.this,BookDetailViewAty.class);
         intent.putExtra("bookId",bookInfoSearches.get(position).getBookId());
         intent.putExtra("bookName",bookInfoSearches.get(position).getBookName());
         intent.putExtra("author",bookInfoSearches.get(position).getAuthor());
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        iSearchPresenter.setSwipeRefreshRefreshing(REFRESH_STOP);
     }
 }

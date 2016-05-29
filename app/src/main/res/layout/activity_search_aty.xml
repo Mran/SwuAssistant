@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@null">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbarLayoutSearch"
@@ -17,7 +16,7 @@
             android:layout_height="50dp"
             android:layout_marginBottom="4dp"
             android:layout_marginRight="4dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp">
 
             <ImageButton
@@ -55,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_below="@id/appbarLayoutSearch">
 
     <android.support.v7.widget.RecyclerView
@@ -65,7 +64,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v7.widget.RecyclerView>
-
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linearLayoutSearchTip"
+        android:layout_below="@id/appbarLayoutSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:paddingTop="54dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:text="由于我校图书馆查询系统本就很慢\n所以查询慢请谅解\n程序猿正在火速优化中"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </RelativeLayout>

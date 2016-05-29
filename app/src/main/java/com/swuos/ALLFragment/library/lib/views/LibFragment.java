@@ -92,7 +92,7 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
         if (userName.equals("nothing") || passwd.equals("nothing")) { //表示未登录
             iLibPresenter.setTipDialogVisible(View.VISIBLE);
             iLibPresenter.setErrorLayoutVisible(View.VISIBLE);
-            isLogin=false;
+            isLogin = false;
         } else {
             isLogin = true;
             new Thread(new Runnable() {
@@ -139,6 +139,9 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new MyItemDecoration(getContext()));
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R
+                .color.holo_red_light, android.R.color.holo_orange_light, android.R.color
+                .holo_green_light);
         swipeRefreshLayout.setOnRefreshListener(this);
     }
 
@@ -213,13 +216,12 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
                     boolean userInfos = ((LibPresenterImp) iLibPresenter).getUserInfos(userName, passwd);
                     if (userInfos) {
                         iLibPresenter.updateBookItems();
+                        mHandler.sendEmptyMessage(1);
                     } else {
                         mHandler.sendEmptyMessage(2);
                     }
                 }
             }).start();
-        } else {
-            iLibPresenter.setTipDialogVisible(View.VISIBLE);
         }
     }
 
@@ -227,11 +229,13 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.linearLayoutLibError:
+                iLibPresenter.setProgressDialogVisible(View.VISIBLE);
                 userName = MainActivity.sharedPreferences.getString("userName", "nothing");
                 passwd = MainActivity.sharedPreferences.getString("password", "nothing");
                 if (userName.equals("nothing") || passwd.equals("nothing")) {
-                    iLibPresenter.setTipDialogVisible(View.VISIBLE);
                     isLogin = false;
+                    iLibPresenter.setProgressDialogVisible(View.GONE);
+                    iLibPresenter.setTipDialogVisible(View.VISIBLE);
                 } else {
                     new Thread(new Runnable() {
                         @Override
