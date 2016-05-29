@@ -18,18 +18,22 @@
 ![课程详情](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/xiangqing.png)
 ### 查图书记录
     * 查询借书记录
-    * 查询当前借书
-![查图书](https://github.com/Mran/SwuAssistant/blob/master/app%2FScreenshot_2016-04-11-09-02-45_com.swuos.swuassis.png)
+    * 搜索图书馆藏信息
+    * 查看对应图书详情和定位馆藏地址
+![查图书](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/libMain.jpg)
+![查馆藏信息](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/libSearch.png)
+![查图书详情](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/libdetail.png)
+![定位馆藏地址](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/libCollectAddress.png)
 ### 登录/退出WIFI
     * 登录校园wifi
     * 登录寝室wifi
     * 退出wifi登录
     * 定时退出wifi(未完成)
-![wifi](https://github.com/Mran/SwuAssistant/blob/master/app%2Fwifi.png)
+![wifi](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/wifi.png)
 ### 查询一卡通信息
     * 查看一卡通信息
     * 查看消费记录
-![card1](https://github.com/Mran/SwuAssistant/blob/master/app%2Fcard.png)
-![card2](https://github.com/Mran/SwuAssistant/blob/master/app%2Fconsumer.png)
+![card1](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/card.png)
+![card2](https://raw.githubusercontent.com/swuos/openswu-android/master/app/screens/consumer.png)
 ### 关于我们
 ![about](https://github.com/Mran/SwuAssistant/blob/master/app/about.png)
