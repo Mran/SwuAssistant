@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.util.tools.Tools;
 
 import okhttp3.RequestBody;
 
@@ -156,13 +157,9 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         userName = mUserNAmeView.getText().toString();
         password = mPasswordView.getText().toString();
 
-
         //关闭软键盘
-        View peekDecorView=getWindow().peekDecorView();
-        if(peekDecorView!=null){
-            InputMethodManager inputmanger = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputmanger.hideSoftInputFromWindow(peekDecorView.getWindowToken(), 0);
-        }
+        Tools.closeSoftKeyBoard(this);
+
 
         /*显示登陆过程窗口*/
         progressDialogLoading.setMessage(this.getString(R.string.loging_and_wait));

@@ -47,8 +47,7 @@
                 android:id="@+id/developer_yk"
                 android:layout_column="2"
                 android:paddingLeft="10dp"
-                android:text="@string/yk"
-                />
+                android:text="@string/yk" />
         </TableRow>
 
         <TableRow

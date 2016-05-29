@@ -25,7 +25,7 @@
                 android:layout_height="48dp"
                 android:background="@null"
                 android:scaleType="centerInside"
-                android:src="@drawable/back" />
+                android:src="@drawable/lib_back" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/editTextInput"
@@ -34,6 +34,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="50dp"
                 android:background="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:hint="请键入搜索内容" />
 
 
@@ -44,7 +46,7 @@
                 android:background="@null"
                 android:scaleType="centerInside"
                 android:layout_gravity="right"
-                android:src="@drawable/clear"
+                android:src="@drawable/lib_clear"
                 android:visibility="gone"/>
         </android.support.v7.widget.CardView>
     </android.support.design.widget.AppBarLayout>
@@ -78,7 +80,7 @@
             android:paddingTop="54dp"
             android:gravity="center_horizontal"
             android:textSize="18sp"
-            android:text="由于我校图书馆查询系统本就很慢\n所以查询慢请谅解\n程序猿正在火速优化中"
+            android:text="由于学校图书馆查询系统本就很慢\n所以查询慢请谅解\n程序猿正在火速优化中"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

@@ -26,6 +26,7 @@ import com.swuos.ALLFragment.library.search.presenter.SearchPresenterImp;
 import com.swuos.ALLFragment.library.search.utils.LibSearch;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
+import com.swuos.util.tools.Tools;
 
 import java.util.List;
 
@@ -55,6 +56,8 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
                     iSearchPresenter.setLinearTipVisible(View.GONE);
                     iSearchPresenter.setSwipeRefreshRefreshing(REFRESH_STOP);
                     iSearchPresenter.setRecyclerViewVisible(View.VISIBLE);
+                    //关闭软键盘
+                    Tools.closeSoftKeyBoard(SearchAtyImp.this);
                     recycleAdapter=new RecycleAdapterSearch(SearchAtyImp.this,bookInfoSearches);
                     recyclerView.setAdapter(recycleAdapter);
                     recycleAdapter.notifyDataSetChanged();

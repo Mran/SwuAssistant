@@ -66,5 +66,5 @@
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="18dp"
         app:backgroundTint="@color/colorPrimaryDark"
-        android:src="@drawable/consume"/>
+        android:src="@drawable/lib_consume"/>
 </android.support.design.widget.CoordinatorLayout>
