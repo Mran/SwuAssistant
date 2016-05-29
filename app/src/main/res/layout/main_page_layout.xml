@@ -6,77 +6,151 @@
                 android:weightSum="1"
     >
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/main_page_schedule_card"
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:id="@+id/main_page_schedule_card"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:clickable="true"-->
+    <!--android:foreground="?attr/selectableItemBackground">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/main_page_schedule_notice"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="今日课程"-->
+    <!--android:textColor="#000000"-->
+    <!--android:textSize="25sp"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/main_page_schedule_notice_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/main_page_schedule_notice"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:text="植物病理学"-->
+    <!--android:textColor="#000000"-->
+    <!--android:textSize="20sp"/>-->
+    <!--</RelativeLayout>-->
+    <!--</android.support.v7.widget.CardView>-->
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:id="@+id/main_page_school_card"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/main_page_schedule_card"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:clickable="true"-->
+    <!--android:foreground="?attr/selectableItemBackground">-->
+
+    <!--<RelativeLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/main_page_schoole_notice"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="学校通知"-->
+    <!--android:textColor="#000000"-->
+    <!--android:textSize="25sp"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/main_page_schoole_notice_content"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/main_page_schoole_notice"-->
+    <!--android:layout_marginLeft="20dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:text="四六级报名"-->
+    <!--android:textColor="#000000"-->
+    <!--android:textSize="20sp"/>-->
+    <!--</RelativeLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+    <RelativeLayout
+        android:id="@+id/main_page_wifi_block"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackground">
+        android:layout_height="230dp"
+        android:background="#009900"></RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/main_page_schedule_notice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="今日课程"
-                android:textColor="#000000"
-                android:textSize="25sp"/>
-
-            <TextView
-                android:id="@+id/main_page_schedule_notice_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/main_page_schedule_notice"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="植物病理学"
-                android:textColor="#000000"
-                android:textSize="20sp"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/main_page_school_card"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main_page_schedule_card"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackground">
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_page_wifi_block">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <TableRow>
 
-            <TextView
-                android:id="@+id/main_page_schoole_notice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="学校通知"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                android:id="@+id/main_page_schoole_notice_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/main_page_schoole_notice"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="四六级报名"
-                android:textColor="#000000"
-                android:textSize="20sp"/>
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_action_calendar_month"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/schedule_title"
+                    />
+            </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_action_bargraph"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/grades_title"/>
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_action_book"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/library_title"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_action_creditcard"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="@string/ecard_title"/>
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
 </RelativeLayout>

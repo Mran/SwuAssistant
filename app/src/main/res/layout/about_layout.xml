@@ -30,6 +30,10 @@
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
+        <FrameLayout
+            android:id="@+id/about_frameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></FrameLayout>
         <include layout="@layout/about_content_layout">
 
         </include>

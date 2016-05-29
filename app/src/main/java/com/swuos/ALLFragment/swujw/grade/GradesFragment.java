@@ -1,11 +1,16 @@
 package com.swuos.ALLFragment.swujw.grade;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.grade.util.GradeItem;
+import com.swuos.ALLFragment.swujw.grade.util.Grades;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 
@@ -54,14 +62,19 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     private static String xnm;
     private static String xqm;
     private static Button buttonGradesInquire;
+
+    private IntentFilter intentFilter;
+    private LocalRecevier localRecevier;
+    private LocalBroadcastManager localBroadcastManager;
     View gradesLayout;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
+            progressDialogLoading.cancel();
+
             switch (msg.what) {
                 /*成功获取成绩*/
                 case Constant.GRADES_OK:
                     /*关闭登陆窗口*/
-                    progressDialogLoading.cancel();
 
                     if (adapter == null) {
                         /*设置listview适配器*/
@@ -73,12 +86,17 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                         adapter.notifyDataSetChanged();
                     }
                     break;
-                case Constant.LOGIN_FAILED:
-                    progressDialogLoading.setMessage(Constant.NO_NET);
-                    progressDialogLoading.setCancelable(true);
+                case Constant.LOGIN_FAILED://登录失败
+
+                    Toast.makeText(getActivity(), R.string.no_user_or_password_error, Toast
+                            .LENGTH_SHORT).show();
+                    break;
+                case Constant.SHOW:
+
+                    Toast.makeText(getActivity(), (CharSequence) msg.obj, Toast
+                            .LENGTH_SHORT).show();
 
                     break;
-
                 default:
                     break;
             }
@@ -149,17 +167,21 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
             public void run() {
 
                 Login login = new Login();
-                ;
-                Message message = new Message();
 
-                if (login.doLogin(userName, password).contains("LoginSuccessed")) {
+                Message message = new Message();
+                String response = login.doLogin(userName, password);
+                if (response.contains("LoginSuccessed")) {
                     Grades grades = new Grades(login.okhttpNet);
                     grades.setGrades(totalInfo, xnm, xqm);
                     gradeItemList = grades.getGradesList(totalInfo);
                     message.what = Constant.GRADES_OK;
                     handler.sendMessage(message);
-                } else {
+                } else if (response.contains("LoginFailure")) {
                     message.what = Constant.LOGIN_FAILED;
+                    handler.sendMessage(message);
+                } else {
+                    message.what = Constant.SHOW;
+                    message.obj = response;
                     handler.sendMessage(message);
                 }
             }
@@ -170,7 +192,28 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.grade_inquire) {
-            getGrades();
+            if (totalInfo.getUserName() != null && !totalInfo.getUserName().equals(""))
+                getGrades();
+            else
+                Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setReceiver() {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("com.swuos.Logined");
+        localRecevier = new LocalRecevier();
+        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        localBroadcastManager.registerReceiver(localRecevier, intentFilter);
+    }
+
+    /*设置广播接收刷新消息*/
+    class LocalRecevier extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            userName = totalInfo.getUserName();
+            password = totalInfo.getPassword();
+
         }
     }
 }

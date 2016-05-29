@@ -50,7 +50,7 @@ public class LibSearch {
         if (response.contains("用时 <")) {
             return response;
         } else
-            return response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+            return okhttpNet.doPost(Constant.librarySearch, requestBody, header);
     }
 
     /**
@@ -86,7 +86,7 @@ public class LibSearch {
         if (response.contains("用时 <")) {
             return response;
         } else
-            return response = okhttpNet.doPost(Constant.librarySearch, requestBody, header);
+            return okhttpNet.doPost(Constant.librarySearch, requestBody, header);
     }
 
     /**

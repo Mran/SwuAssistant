@@ -138,19 +138,19 @@ public class FragmentControl {
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         hideFragments(transaction);
         switch (id) {
-           /* case R.id.nav_main:
-                if (mainPageFragment == null) {
-                    // 如果mainPageFragment为空，则创建一个并添加到界面上
-                    mainPageFragment = new MainPageFragment();
-                    transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
-
-                } else {
-                    // 如果mainPageFragment不为空，则直接将它显示出来
-                    transaction.show(mainPageFragment);
-
-                }
-
-                break;*/
+            //            case R.id.nav_main:
+            //                if (mainPageFragment == null) {
+            //                    // 如果mainPageFragment为空，则创建一个并添加到界面上
+            //                    mainPageFragment = new MainPageFragment();
+            //                    transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
+            //
+            //                } else {
+            //                    // 如果mainPageFragment不为空，则直接将它显示出来
+            //                    transaction.show(mainPageFragment);
+            //
+            //                }
+            //
+            //                break;
             case R.id.nav_schedule:
                 if (scheduleFragment == null) {
                     // 如果scheduleTableFragment为空，则创建一个并添加到界面上

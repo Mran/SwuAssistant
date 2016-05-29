@@ -25,7 +25,6 @@ import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity;
 import com.swuos.swuassistant.R;
-import com.swuos.swuassistant.SchedulDetialActivity;
 import com.swuos.util.SALog;
 
 import java.util.ArrayList;

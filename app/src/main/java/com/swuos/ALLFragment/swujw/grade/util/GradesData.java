@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade;
+package com.swuos.ALLFragment.swujw.grade.util;
 
 import java.util.List;
 
