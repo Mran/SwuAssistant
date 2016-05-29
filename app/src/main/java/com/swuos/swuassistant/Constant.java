@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final long TIMEOUT = 4000;
+    public static final long TIMEOUT = 8*1000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;

@@ -105,17 +105,6 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
         setContentView(R.layout.activity_bookdetail);
         inits();
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarBookDetail);
-//        if (toolbar == null) {
-//            SALog.d("kklog", "toolbar==null");
-//        } else {
-//            toolbar.setTitle("图书详情");
-//        }
-//        setSupportActionBar(toolbar);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
-//        getActionBar().setDisplayShowHomeEnabled(true);
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }

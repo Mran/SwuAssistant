@@ -44,7 +44,7 @@ public class FragmentViewPagerItem extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    initDialog("馆藏地址: "+address);
+                    initDialog("结果: "+address);
                     dialog.show();
                     break;
             }

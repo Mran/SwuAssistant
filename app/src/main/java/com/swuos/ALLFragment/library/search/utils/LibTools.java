@@ -49,6 +49,14 @@ public class LibTools {
         }
     }
 
+    private boolean checkResponseDataVaild1(String data) {
+        if (data.equals(Constant.CLIENT_TIMEOUT)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     public BookDetail getBookDetails(String bookId) {
         BookDetail bookDetail = null;
         String s = libSearch.bookDetail(bookId);
@@ -85,7 +93,11 @@ public class LibTools {
         } else {
             String s = libSearch.getCollectAddress(barCode);
             SALog.d("kklog", "LibTools getCollectAddress s==>" + s);
-            result = HtmlParserTools.parserCollectAddress(s);
+            if(checkResponseDataVaild1(s)){
+               result = HtmlParserTools.parserCollectAddress(s);
+            }else{
+                result="图书馆现在很忙，请稍候再试吧 ╮(╯_╰)╭ ";
+            }
             SALog.d("kklog", "getCollectAddress result==>" + result);
         }
         return result;

@@ -59,7 +59,6 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
                     recyclerView.setAdapter(recycleAdapter);
                     recycleAdapter.notifyDataSetChanged();
                     recycleAdapter.setOnRecyclerItemClickListener(SearchAtyImp.this);
-                    Toast.makeText(SearchAtyImp.this, "获取数据成功！！", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
                     iSearchPresenter.setRecyclerViewVisible(View.INVISIBLE);
