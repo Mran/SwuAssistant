@@ -110,7 +110,7 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarBookDetail);
         setSupportActionBar(toolbar);
         this.setTitle(bookName);
-        this.setTitleColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.WHITE);
         Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationIcon(drawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
