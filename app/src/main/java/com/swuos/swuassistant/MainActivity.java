@@ -72,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         //        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
+
+
         initView();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
@@ -262,11 +264,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        /*if (id == R.id.nav_main) {
-            toolbar.setTitle(R.string.main_page_title);
-            fragmentControl.fragmentSelection(id);
-            fragmentPosition = id;
-        } else */
+        //        if (id == R.id.nav_main) {
+        //            toolbar.setTitle(R.string.main_page_title);
+        //            fragmentControl.fragmentSelection(id);
+        //            fragmentPosition = id;
+        //        } else
         if (id == R.id.nav_grades) {
             fragmentControl.fragmentSelection(id);
             toolbar.setTitle(R.string.grades_title);

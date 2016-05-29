@@ -10,7 +10,7 @@
         android:layout_height="150dp"
         android:background="@color/colorPrimary"
         android:paddingLeft="18dp"
-        android:paddingTop="18dp"
+        android:paddingTop="24dp"
         android:text="植物病理学"
         android:textColor="#ffffff"
         android:textSize="30sp"/>
@@ -23,10 +23,10 @@
 
         <ImageView
             android:id="@+id/schedule_detail_time_image"
-            android:layout_width="@dimen/scedule_detail_image"
-            android:layout_height="@dimen/scedule_detail_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="12dp"
-            android:src="@mipmap/time"/>
+            android:src="@mipmap/ic_action_clock"/>
 
         <TextView
             android:id="@+id/schedule_detail_time"

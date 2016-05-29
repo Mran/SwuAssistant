@@ -7,7 +7,7 @@
 
     <color name="colorclass1">#F77D8A</color>
     <color name="colorclass2">#FE8D41</color>
-    <color name="colorclass3">#91C606</color>
+    <color name="colorclass3">#009900</color>
     <color name="colorclass4">#13CA9A</color>
     <color name="colorclass5">#6D9FF6</color>
     <color name="colorclass6">#BA8ADE</color>
@@ -16,6 +16,7 @@
     <color name="tablayoutcolor">#5cc761</color>
     <color name="tablayoutslectcolor">#48f550</color>
     <color name="white">#ffffff</color>
+    <color name="newcolor">#009900</color>
 
 
 </resources>

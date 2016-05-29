@@ -1,6 +1,6 @@
 package com.swuos.ALLFragment.swujw;
 
-import com.swuos.ALLFragment.swujw.grade.GradesData;
+import com.swuos.ALLFragment.swujw.grade.util.GradesData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 

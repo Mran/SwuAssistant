@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade;
+package com.swuos.ALLFragment.swujw.grade.util;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfo;

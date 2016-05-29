@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade;
+package com.swuos.ALLFragment.swujw.grade.util;
 /*用于listview显示*/
 public class GradeItem
 {

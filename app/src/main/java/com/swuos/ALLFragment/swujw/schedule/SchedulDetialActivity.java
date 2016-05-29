@@ -1,15 +1,17 @@
-package com.swuos.swuassistant;
+package com.swuos.ALLFragment.swujw.schedule;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.WindowManager;
+import android.view.View;
 import android.widget.TextView;
 
+import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
 /**
@@ -25,14 +27,12 @@ public class SchedulDetialActivity extends AppCompatActivity {
     private String classTeacher;
     private String classLocation;
     private int colors;
-
+    private static View mStatusBarView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.schedule_detial_layout);
-        //透明状态栏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         initdate();
         /*设置toolbar*/
@@ -40,10 +40,13 @@ public class SchedulDetialActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colors);
         setSupportActionBar(toolbar);
         this.setTitle("");
-        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable d = getResources().getDrawable(android.support.design.R.drawable.abc_ic_ab_back_mtrl_am_alpha);
         toolbar.setNavigationIcon(d);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(colors);
+        }
         initview();
-        toolbar.setBackgroundColor(colors);
+
 
     }
 
