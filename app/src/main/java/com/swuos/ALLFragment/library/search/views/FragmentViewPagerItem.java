@@ -1,6 +1,8 @@
 package com.swuos.ALLFragment.library.search.views;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,8 +19,11 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.swuos.ALLFragment.library.search.model.LibHoldInfo;
 import com.swuos.ALLFragment.library.search.utils.LibTools;
+import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
+
+import io.github.zhitaocai.toastcompat.ToastCompat;
 
 
 /**
@@ -106,11 +111,21 @@ public class FragmentViewPagerItem extends Fragment {
                 .content(s)
                 .positiveText("确定")
                 .cancelable(true)
+                .negativeText("在浏览器打开")
                 .positiveColor(Color.parseColor("#48b360"))
                 .build();
         dialog.getActionButton(DialogAction.POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.getActionButton(DialogAction.NEGATIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri=Uri.parse(Constant.libraryCollectingAddress+libHoldInfo.getbarCode());
+                Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+                startActivity(intent);
                 dialog.dismiss();
             }
         });

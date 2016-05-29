@@ -1,6 +1,8 @@
 package com.swuos.ALLFragment.library.search.views;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -104,7 +107,12 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookdetail);
         inits();
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarBookDetail);
+        setSupportActionBar(toolbar);
+        this.setTitle(bookName);
+        this.setTitleColor(Color.WHITE);
+        Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        toolbar.setNavigationIcon(drawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }

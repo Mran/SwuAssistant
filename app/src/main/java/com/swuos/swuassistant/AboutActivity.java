@@ -114,7 +114,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         switch (id) {
             case R.id.about_feedback:
 
-
                 AlertDialog.Builder dialog = new AlertDialog.Builder(this);
                 //                dialog.setView(R.layout.feedback_layout);
                 LayoutInflater layoutInflater = getLayoutInflater();
@@ -125,8 +124,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                 dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
-
                         final String contact = conactTextView.getText().toString();
                         final String issue = contentTextView.getText().toString();
                         if (issue != null && !issue.equals("")) {
