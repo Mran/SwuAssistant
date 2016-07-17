@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.swuos.swuassistant.R;
@@ -27,7 +26,6 @@ public class SchedulDetialActivity extends AppCompatActivity {
     private String classTeacher;
     private String classLocation;
     private int colors;
-    private static View mStatusBarView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

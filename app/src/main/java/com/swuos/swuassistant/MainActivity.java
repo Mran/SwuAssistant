@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
         startServier();
-        startUpdate();
+        //        startUpdate();
     }
 
     @Override
