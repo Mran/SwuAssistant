@@ -10,7 +10,15 @@ public class GradeItem
     private String jd;
     /*学分*/
     private String xf;
-public String ss;
+    private String jxb_id;
+
+    public String getJxb_id() {
+        return jxb_id;
+    }
+
+    public void setJxb_id(String jxb_id) {
+        this.jxb_id = jxb_id;
+    }
     public void setKcmc(String kcmc)
     {
         this.kcmc = kcmc;

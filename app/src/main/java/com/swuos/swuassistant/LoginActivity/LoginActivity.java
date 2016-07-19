@@ -1,7 +1,6 @@
-package com.swuos.swuassistant;
+package com.swuos.swuassistant.LoginActivity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,23 +13,20 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.swuassistant.Constant;
+import com.swuos.swuassistant.R;
 import com.swuos.util.tools.Tools;
-
-import okhttp3.RequestBody;
 
 /**
  * A login screen that offers login via username/password.
  */
 public class LoginActivity extends AppCompatActivity implements OnClickListener {
-
-    private RequestBody requestBody;
 
     /*账号框*/
     private EditText mUserNAmeView;
@@ -43,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
 
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
+    private AlertDialog alertDialog;
     /*保存个人信息*/
     private TotalInfo totalInfo = new TotalInfo();
     /*保存登陆信息*/
@@ -70,60 +67,23 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
                 case Constant.LOGIN_FAILED:
                     //登陆失败
                     progressDialogLoading.cancel();
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(R.string.no_user_or_password_error)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    progressDialogLoading.dismiss();
-                                }
-                            }).setCancelable(false)
-                            .create()
-                            .show();
+                    alertDialog.setMessage(getResources().getString(R.string.no_user_or_password_error));
+                    alertDialog.show();
                     break;
                 case Constant.LOGIN_NO_NET:
                     progressDialogLoading.cancel();
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(R.string.net_error_please_check_net)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    progressDialogLoading.dismiss();
-                                }
-                            }).setCancelable(false)
-                            .create()
-                            .show();
+                    alertDialog.setMessage(getResources().getString(R.string.net_error_please_check_net));
+                    alertDialog.show();
                     break;
                 case Constant.LOGIN_TIMEOUT:
                     progressDialogLoading.cancel();
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(R.string.login_timeout)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    progressDialogLoading.dismiss();
-                                }
-                            }).setCancelable(false)
-                            .create()
-                            .show();
+                    alertDialog.setMessage(getResources().getString(R.string.login_timeout));
+                    alertDialog.show();
                     break;
                 case Constant.LOGIN_CLIENT_ERROR:
                     progressDialogLoading.cancel();
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(R.string.connect_error)
-                            .setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    progressDialogLoading.dismiss();
-                                }
-                            }).setCancelable(false)
-                            .create()
-                            .show();
-                    break;
+                    alertDialog.setMessage(getResources().getString(R.string.connect_error));
+                    alertDialog.show();
                 default:
                     break;
             }
@@ -149,6 +109,12 @@ public class LoginActivity extends AppCompatActivity implements OnClickListener 
         mEmailSignInButton.setOnClickListener(this);
         progressDialogLoading = new ProgressDialog(LoginActivity.this);
 
+        alertDialog = new AlertDialog.Builder(this).setPositiveButton(R.string.i_know, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).setCancelable(true).create();
     }
 
     @Override

@@ -16,7 +16,15 @@ public class GradesData
         private String jd;
         private String kcmc;
         private String xf;
+        private String jxb_id;
 
+        public String getJxb_id() {
+            return jxb_id;
+        }
+
+        public void setJxb_id(String jxb_id) {
+            this.jxb_id = jxb_id;
+        }
         public void setCj(String cj)
         {
             this.cj = cj;

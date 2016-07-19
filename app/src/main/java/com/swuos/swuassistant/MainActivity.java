@@ -32,6 +32,7 @@ import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
+import com.swuos.swuassistant.LoginActivity.view.LonginActivity;
 import com.swuos.util.SALog;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
     }
 
     private void setNavigationViewHeader() {
-        if (totalInfo.getName().equals("")) {
+        if (totalInfo.getUserName().equals("")) {
             nameTextView.setOnClickListener(this);
             Toast.makeText(this, R.string.not_logged_in, Toast.LENGTH_SHORT).show();
         } else {
@@ -368,7 +369,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.name:
                 //             开启登陆活动,并要求获得回复信息
-                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Constant.LOGIN_RESULT_CODE);
+                startActivityForResult(new Intent(MainActivity.this, LonginActivity.class), Constant.LOGIN_RESULT_CODE);
         }
     }
 

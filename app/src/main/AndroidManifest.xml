@@ -30,11 +30,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginActivity.LoginActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:launchMode="standard">
         </activity>
+        <activity
+            android:name=".LoginActivity.view.LonginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name"
+            android:launchMode="standard"></activity>
         <activity
             android:name=".WifiActivity"
             android:label="@string/app_name"

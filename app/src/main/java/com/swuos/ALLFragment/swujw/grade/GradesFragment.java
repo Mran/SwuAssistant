@@ -34,7 +34,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class GradesFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener
+public class GradesFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener
 
 {
     /*保存成绩的列表,用于listview*/
@@ -132,6 +132,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         password = totalInfo.getPassword();
         buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
         buttonGradesInquire.setOnClickListener(this);
+        listView.setOnItemClickListener(this);
         return gradesLayout;
     }
 
@@ -205,6 +206,12 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         localRecevier = new LocalRecevier();
         localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
         localBroadcastManager.registerReceiver(localRecevier, intentFilter);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getActivity(), (CharSequence) gradeItemList.get(position).getKcmc(), Toast.LENGTH_SHORT).show();
+
     }
 
     /*设置广播接收刷新消息*/
