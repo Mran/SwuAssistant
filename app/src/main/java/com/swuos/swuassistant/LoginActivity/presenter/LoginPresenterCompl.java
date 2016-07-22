@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.LoginActivity.pressenler;
+package com.swuos.swuassistant.LoginActivity.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -40,10 +40,10 @@ public class LoginPresenterCompl implements ILoginPresenter {
             public void run() {
                 String response;
                 Login login = new Login();
-        /*尝试登陆并获取登陆信息*/
+                /*尝试登陆并获取登陆信息*/
                 response = login.doLogin(userName, password);
                 if (response.contains("Successed")) {
-            /*登陆成功获得名字和学号*/
+                    /*登陆成功获得名字和学号*/
                     totalInfo = login.getBasicInfo();
                     totalInfo.setUserName(userName);
                     totalInfo.setPassword(password);
@@ -85,10 +85,6 @@ public class LoginPresenterCompl implements ILoginPresenter {
 
     }
 
-    @Override
-    public String loginResult(String result) {
-        return null;
-    }
 
     @Override
     public void storageInfo() {

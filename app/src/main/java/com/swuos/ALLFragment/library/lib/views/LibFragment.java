@@ -1,6 +1,8 @@
 package com.swuos.ALLFragment.library.lib.views;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,7 +25,7 @@ import com.swuos.ALLFragment.library.lib.adapters.RecyclerAdapterLibMain;
 import com.swuos.ALLFragment.library.lib.model.BookItem;
 import com.swuos.ALLFragment.library.lib.presenter.ILibPresenter;
 import com.swuos.ALLFragment.library.lib.presenter.LibPresenterImp;
-import com.swuos.swuassistant.MainActivity;
+import com.swuos.swuassistant.MainActivity.view.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -47,6 +49,7 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
     private boolean isLogin = false;
     private MaterialDialog dialog;
     private LinearLayout linearLayoutError;
+    private SharedPreferences sharedPreferences;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -87,8 +90,9 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
         linearLayoutError = (LinearLayout) view.findViewById(R.id.linearLayoutLibError);
         iLibPresenter = new LibPresenterImp(this);
         initDialog();
-        userName = MainActivity.sharedPreferences.getString("userName", "nothing");
-        passwd = MainActivity.sharedPreferences.getString("password", "nothing");
+        sharedPreferences = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        userName = sharedPreferences.getString("userName", "nothing");
+        passwd = sharedPreferences.getString("password", "nothing");
         if (userName.equals("nothing") || passwd.equals("nothing")) { //表示未登录
             iLibPresenter.setTipDialogVisible(View.VISIBLE);
             iLibPresenter.setErrorLayoutVisible(View.VISIBLE);
@@ -106,6 +110,7 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
                     }
                 }
             }).start();
+
         }
         return view;
     }

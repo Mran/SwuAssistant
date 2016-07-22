@@ -25,7 +25,7 @@ import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity;
+import com.swuos.swuassistant.MainActivity.view.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -36,6 +36,7 @@ import java.util.List;
  * Created by 张孟尧 on 2016/2/29.
  */
 public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private static SharedPreferences sharedPreferences;
     /*viewpager*/
     private ViewPager sceduleViewPager;
     private View schedule_layout;
@@ -49,8 +50,6 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
     private SwipeRefreshLayout swipeRefreshLayout;
     private ScrollView scrollView;
     private LocalBroadcastManager localBroadcastManager;
-    private static SharedPreferences sharedPreferences;
-
     private List<Fragment> scheduleTabblefragmentList;    //保存所有的单周课表fragment
     private TotalInfo totalInfo = new TotalInfo();
 

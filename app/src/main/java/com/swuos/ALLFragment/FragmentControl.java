@@ -15,7 +15,7 @@ import com.swuos.ALLFragment.swujw.grade.GradesFragment;
 import com.swuos.ALLFragment.swujw.schedule.ScheduleFragment;
 import com.swuos.ALLFragment.wifi.WifiFragment;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity;
+import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -49,86 +49,8 @@ public class FragmentControl {
 
     public FragmentControl(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
-        name = MainActivity.sharedPreferences.getString("userName", "nothing");
-        pd = MainActivity.sharedPreferences.getString("password", "nothing");
-    }
-
-    public void initFragment(FragmentManager fragmentManager) {
-        FragmentTransaction transaction;
-        // 开启一个Fragment事务
-        transaction = fragmentManager.beginTransaction();
-
-        mainPageFragment = new MainPageFragment();
-        transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
-
-
-        scheduleFragment = new ScheduleFragment();
-        transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
-
-        gradesFragment = new GradesFragment();
-        transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
-
-        cardfragment = new EcardFragmentImp();
-        transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
-
-        studyMaterialsFragment = new StudyMaterialsFragment();
-        transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
-
-        findLostFragment = new FindLostFragment();
-        transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
-
-        chargeFragment = new ChargeFragment();
-        transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
-
-
-        libraryFragment = new LibFragment();
-        transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
-        transaction.commit();
-        hideFragments(transaction);
-    }
-
-
-    public void fragmentStateCheck(Bundle saveInstanceState, FragmentManager fragmentManager, int fragmentPosition) {
-        if (saveInstanceState == null) {
-            //            initFragment(fragmentManager);
-            fragmentSelection(fragmentPosition);
-            SALog.d("MainActity", "加载各个fragment");
-        } else {
-            SALog.d("MainActity", "saveInstanceState存在数据,重新加载fragment");
-            if (mainPageFragment != null) {
-                mainPageFragment = (MainPageFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[0]);
-                SALog.d("MainActity", "saveInstanceState存在数据,findMainPage");
-            }
-
-            if (scheduleFragment != null) {
-                scheduleFragment = (ScheduleFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[1]);
-                SALog.d("MainActity", "saveInstanceState存在数据,findSchedulFragment");
-            }
-            if (gradesFragment != null) {
-                gradesFragment = (GradesFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[2]);
-            }
-            if (cardfragment != null) {
-                cardfragment = (EcardFragmentImp) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[8]);
-            }
-
-            if (studyMaterialsFragment != null) {
-                studyMaterialsFragment = (StudyMaterialsFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
-            }
-            if (findLostFragment != null) {
-                findLostFragment = (FindLostFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[4]);
-            }
-            if (chargeFragment != null) {
-                chargeFragment = (ChargeFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[5]);
-            }
-            if (WifiFragment != null) {
-                WifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
-            }
-            if (libraryFragment != null) {
-                libraryFragment = (LibFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
-                SALog.d("MainActity", "saveInstanceState存在数据,findLibraryFragment");
-            }
-            fragmentSelection(fragmentPosition);
-        }
+        //        name = MainActivity.sharedPreferences.getString("userName", "nothing");
+        //        pd = MainActivity.sharedPreferences.getString("password", "nothing");
     }
 
     public static void fragmentSelection(int id) {
@@ -282,5 +204,82 @@ public class FragmentControl {
             fragmentTransaction.hide(findLostFragment);
         }
 
+    }
+
+    public void initFragment(FragmentManager fragmentManager) {
+        FragmentTransaction transaction;
+        // 开启一个Fragment事务
+        transaction = fragmentManager.beginTransaction();
+
+        mainPageFragment = new MainPageFragment();
+        transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
+
+
+        scheduleFragment = new ScheduleFragment();
+        transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
+
+        gradesFragment = new GradesFragment();
+        transaction.add(R.id.content, gradesFragment, Constant.FRAGMENTTAG[2]);
+
+        cardfragment = new EcardFragmentImp();
+        transaction.add(R.id.content, cardfragment, Constant.FRAGMENTTAG[3]);
+
+        studyMaterialsFragment = new StudyMaterialsFragment();
+        transaction.add(R.id.content, studyMaterialsFragment, Constant.FRAGMENTTAG[3]);
+
+        findLostFragment = new FindLostFragment();
+        transaction.add(R.id.content, findLostFragment, Constant.FRAGMENTTAG[4]);
+
+        chargeFragment = new ChargeFragment();
+        transaction.add(R.id.content, chargeFragment, Constant.FRAGMENTTAG[5]);
+
+
+        libraryFragment = new LibFragment();
+        transaction.add(R.id.content, libraryFragment, Constant.FRAGMENTTAG[6]);
+        transaction.commit();
+        hideFragments(transaction);
+    }
+
+    public void fragmentStateCheck(Bundle saveInstanceState, FragmentManager fragmentManager, int fragmentPosition) {
+        if (saveInstanceState == null) {
+            //            initFragment(fragmentManager);
+            fragmentSelection(fragmentPosition);
+            SALog.d("MainActity", "加载各个fragment");
+        } else {
+            SALog.d("MainActity", "saveInstanceState存在数据,重新加载fragment");
+            if (mainPageFragment != null) {
+                mainPageFragment = (MainPageFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[0]);
+                SALog.d("MainActity", "saveInstanceState存在数据,findMainPage");
+            }
+
+            if (scheduleFragment != null) {
+                scheduleFragment = (ScheduleFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[1]);
+                SALog.d("MainActity", "saveInstanceState存在数据,findSchedulFragment");
+            }
+            if (gradesFragment != null) {
+                gradesFragment = (GradesFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[2]);
+            }
+            if (cardfragment != null) {
+                cardfragment = (EcardFragmentImp) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[8]);
+            }
+
+            if (studyMaterialsFragment != null) {
+                studyMaterialsFragment = (StudyMaterialsFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[3]);
+            }
+            if (findLostFragment != null) {
+                findLostFragment = (FindLostFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[4]);
+            }
+            if (chargeFragment != null) {
+                chargeFragment = (ChargeFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[5]);
+            }
+            if (WifiFragment != null) {
+                WifiFragment = (WifiFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[7]);
+            }
+            if (libraryFragment != null) {
+                libraryFragment = (LibFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[6]);
+                SALog.d("MainActity", "saveInstanceState存在数据,findLibraryFragment");
+            }
+            fragmentSelection(fragmentPosition);
+        }
     }
 }

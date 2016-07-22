@@ -23,7 +23,7 @@ import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity;
+import com.swuos.swuassistant.MainActivity.view.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -35,9 +35,13 @@ import java.util.List;
  */
 public class ScheduleTableFragment extends Fragment implements View.OnTouchListener, View.OnClickListener {
 
+    private static TotalInfo totalInfo = new TotalInfo();
+    private static SwipeRefreshLayout swipeRefreshLayout;
+    private static MainActivity mainActivity;
+    private static int curretweek = -1;
+    View scheduleTableLayout;
     /*课程表布局*/
     private RelativeLayout relativeLayout;
-
     private ScrollView scrollView;
     /*星期一的textView*/
     private TextView day1TextView;
@@ -45,12 +49,7 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
     private TextView class1TextView;
     /*保存所有课程的textview列表*/
     private List<ScheduleData.ScheduleDetail> textViewList = new ArrayList<>();
-    private static TotalInfo totalInfo = new TotalInfo();
-    View scheduleTableLayout;
-    private static SwipeRefreshLayout swipeRefreshLayout;
-    private static MainActivity mainActivity;
     private int week;
-    private static int curretweek = -1;
     private Boolean late_Load = false;  //标记是否需要刷新
     private IntentFilter intentFilter;
     private LocalRecevier localRecevier;
@@ -279,6 +278,11 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
 
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+    }
 
     class MyThread extends Thread {
         @Override
@@ -292,7 +296,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
         }
     }
 
-
     /*设置广播接收刷新消息*/
     class LocalRecevier extends BroadcastReceiver {
         @Override
@@ -303,12 +306,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
                 late_Load = true;
             //  new MyUpdate().execute();
         }
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
     }
 
 }

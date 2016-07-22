@@ -1,4 +1,4 @@
-package com.swuos.swuassistant;
+package com.swuos.swuassistant.MainActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -32,40 +30,34 @@ import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
 import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
-import com.swuos.swuassistant.LoginActivity.view.LonginActivity;
+import com.swuos.swuassistant.AboutActivity;
+import com.swuos.swuassistant.Constant;
+import com.swuos.swuassistant.LoginActivity.LoginActivity;
+import com.swuos.swuassistant.R;
+import com.swuos.swuassistant.SettingActivity;
 import com.swuos.util.SALog;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView
         .OnNavigationItemSelectedListener, View.OnClickListener {
+    /*用户信息的本地储存文件*/
+    public static SharedPreferences sharedPreferences;
     /*账户名*/
     private static String userName;
     /*密码*/
     private static String password;
-    TextView nameTextView;
-    TextView swuIDTextView;
     /*保存用户信息*/
     private static TotalInfo totalInfo = new TotalInfo();
-
-    /*用户信息的本地储存文件*/
-    public static SharedPreferences sharedPreferences;
-
-    private FragmentControl fragmentControl;
     private static int fragmentPosition = R.id.nav_wifi;
-
+    TextView nameTextView;
+    TextView swuIDTextView;
+    private FragmentControl fragmentControl;
     private LocalBroadcastManager localBroadcastManager;
     private boolean isFragmentLibSelected=false;
 
     private Toolbar toolbar;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                default:
-                    break;
-            }
-        }
-    };
+
 
 
     @Override
@@ -74,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         //        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
 
+        inintdate();
 
         initView();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
@@ -164,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView
         nameTextView = (TextView) view.findViewById(R.id.name);
         swuIDTextView = (TextView) view.findViewById(R.id.swuid);
 
-        inintdate();
         setNavigationViewHeader();
     }
 
@@ -369,7 +361,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView
                 break;
             case R.id.name:
                 //             开启登陆活动,并要求获得回复信息
-                startActivityForResult(new Intent(MainActivity.this, LonginActivity.class), Constant.LOGIN_RESULT_CODE);
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Constant.LOGIN_RESULT_CODE);
         }
     }
 
