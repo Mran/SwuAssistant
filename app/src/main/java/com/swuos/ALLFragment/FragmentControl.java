@@ -27,10 +27,7 @@ public class FragmentControl {
     private static MainPageFragment mainPageFragment;
     /*课程表界面布局*/
     private static ScheduleFragment scheduleFragment;
-    //    private static ScheduleTableFragment scheduleTableFragment;
-
     private static EcardFragmentImp cardfragment;
-
     /*成绩界面布局*/
     private static GradesFragment gradesFragment;
     /*学习资料界面布局*/
@@ -41,47 +38,27 @@ public class FragmentControl {
     private static ChargeFragment chargeFragment;
     /*失物找寻界面布局*/
     private static FindLostFragment findLostFragment;
-    private static SettingFragment settingFragment;
     private static WifiFragment WifiFragment;
     private static FragmentManager fragmentManager;
-    private static String name;
-    private static String pd;
 
     public FragmentControl(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
-        //        name = MainActivity.sharedPreferences.getString("userName", "nothing");
-        //        pd = MainActivity.sharedPreferences.getString("password", "nothing");
     }
 
-    public static void fragmentSelection(int id) {
+    public  void fragmentSelection(int id) {
         FragmentTransaction transaction;
         transaction = fragmentManager.beginTransaction();
 
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         hideFragments(transaction);
         switch (id) {
-            //            case R.id.nav_main:
-            //                if (mainPageFragment == null) {
-            //                    // 如果mainPageFragment为空，则创建一个并添加到界面上
-            //                    mainPageFragment = new MainPageFragment();
-            //                    transaction.add(R.id.content, mainPageFragment, Constant.FRAGMENTTAG[0]);
-            //
-            //                } else {
-            //                    // 如果mainPageFragment不为空，则直接将它显示出来
-            //                    transaction.show(mainPageFragment);
-            //
-            //                }
-            //
-            //                break;
             case R.id.nav_schedule:
                 if (scheduleFragment == null) {
                     // 如果scheduleTableFragment为空，则创建一个并添加到界面上
                     scheduleFragment = new ScheduleFragment();
                     transaction.add(R.id.content, scheduleFragment, Constant.FRAGMENTTAG[1]);
-                    ;
                 } else {
                     // 如果scheduleFragment不为空，则直接将它显示出来
-
                     transaction.show(scheduleFragment);
                 }
 
@@ -249,6 +226,7 @@ public class FragmentControl {
             SALog.d("MainActity", "saveInstanceState存在数据,重新加载fragment");
             if (mainPageFragment != null) {
                 mainPageFragment = (MainPageFragment) fragmentManager.findFragmentByTag(Constant.FRAGMENTTAG[0]);
+
                 SALog.d("MainActity", "saveInstanceState存在数据,findMainPage");
             }
 

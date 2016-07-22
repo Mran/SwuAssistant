@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
@@ -34,7 +35,7 @@ public class ScheduleNotificationService extends Service {
          /*打开本地存储文件*/
         //        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
         /*加载课程表数据*/
-        TotalInfo totalInfo = new TotalInfo();
+        TotalInfos totalInfo = TotalInfos.getInstance();
         //        totalInfo.setScheduleDataJson(sharedPreferences.getString("scheduleDataJson", ""));
         if (totalInfo.getScheduleItemList().isEmpty()) {
             stopSelf();

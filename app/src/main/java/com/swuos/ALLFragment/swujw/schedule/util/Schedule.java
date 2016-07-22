@@ -2,6 +2,7 @@ package com.swuos.ALLFragment.swujw.schedule.util;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
 
@@ -25,7 +26,7 @@ public class Schedule {
         okhttpNet.doGet(Constant.urlEms);
     }
 
-    public String setSchedule(TotalInfo totalInfo, String xnm, String xqm) {
+    public String setSchedule(TotalInfos totalInfo, String xnm, String xqm) {
 
         RequestBody requestBody = new FormBody.Builder()
                 .add("xnm", xnm)
@@ -42,7 +43,7 @@ public class Schedule {
         return Constant.CLIENT_OK;
     }
 
-    public static List<ScheduleItem> getScheduleList(TotalInfo totalInfo) {
+    public static List<ScheduleItem> getScheduleList(TotalInfos totalInfo) {
         /*储存课程表的列表*/
         List<ScheduleItem> scheduleItemList = new ArrayList<>();
         /*处理后的课程表的列表,直接用*/

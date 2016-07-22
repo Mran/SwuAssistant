@@ -22,10 +22,11 @@ import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity.view.MainActivity;
+import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -51,7 +52,7 @@ public class ScheduleFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ScrollView scrollView;
     private LocalBroadcastManager localBroadcastManager;
     private List<Fragment> scheduleTabblefragmentList;    //保存所有的单周课表fragment
-    private TotalInfo totalInfo = new TotalInfo();
+    private TotalInfos totalInfo =TotalInfos.getInstance();
 
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {

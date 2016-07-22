@@ -2,6 +2,7 @@ package com.swuos.ALLFragment.swujw.grade.util;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
 
@@ -26,7 +27,7 @@ public class Grades
         /*进入教务系统*/
         okhttpNet.doGet(Constant.urlEms);
     }
-    public String setGrades(TotalInfo totalInfo, String xnm, String xqm)
+    public String setGrades(TotalInfos totalInfo, String xnm, String xqm)
     {
         /*构建一个post的参数*/
         RequestBody requestBody = new FormBody.Builder()
@@ -54,7 +55,7 @@ public class Grades
         return Constant.CLIENT_OK;
     }
 
-    public List<GradeItem> getGradesList(TotalInfo totalInfo)
+    public List<GradeItem> getGradesList(TotalInfos totalInfo)
     {
 
         /*储存成绩的列表*/

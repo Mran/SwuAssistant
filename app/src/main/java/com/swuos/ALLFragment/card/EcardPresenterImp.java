@@ -90,7 +90,7 @@ public class EcardPresenterImp implements IEcardPresenter {
 
     @Override
     public String getSwuId() {
-        String swuId = MainActivity.sharedPreferences.getString("swuID", "nothing");
+        String swuId = sharedPreferences.getString("swuID", "nothing");
         return swuId;
     }
 

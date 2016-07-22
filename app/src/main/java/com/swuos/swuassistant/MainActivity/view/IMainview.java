@@ -1,6 +1,6 @@
 package com.swuos.swuassistant.MainActivity.view;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 
 /**
  * Created by 张孟尧 on 2016/7/20.
@@ -8,5 +8,5 @@ import com.swuos.ALLFragment.swujw.TotalInfo;
 public interface IMainview {
     void showQuitDialog();
 
-    void setNavigationViewHeader(TotalInfo totalInfo);
+    void setNavigationViewHeader(TotalInfos totalInfo);
 }

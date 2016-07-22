@@ -19,11 +19,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity.view.MainActivity;
+import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -35,7 +36,7 @@ import java.util.List;
  */
 public class ScheduleTableFragment extends Fragment implements View.OnTouchListener, View.OnClickListener {
 
-    private static TotalInfo totalInfo = new TotalInfo();
+    private static TotalInfos totalInfo = TotalInfos.getInstance();
     private static SwipeRefreshLayout swipeRefreshLayout;
     private static MainActivity mainActivity;
     private static int curretweek = -1;

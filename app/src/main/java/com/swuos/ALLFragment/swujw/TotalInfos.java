@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 张孟尧 on 2016/1/6.
+ * Created by 张孟尧 on 2016/7/23.
  */
-@Deprecated
-public class TotalInfo {
+public class TotalInfos {
+    private static TotalInfos ourInstance = new TotalInfos();
+    public static TotalInfos getInstance() {
+        return ourInstance;
+    }
     //    姓名
     private static String name = null;
     //    学号
@@ -29,21 +32,17 @@ public class TotalInfo {
     private static int position;
     /*成绩*/
     private static GradesData gradesData;
+    private TotalInfos() {
+    }
+
+
 
     public int getPosition() {
-        return position;
+        return this.position;
     }
 
     public void setPosition(int position) {
-        TotalInfo.position = position;
-    }
-
-    public void setName(String name) {
-        TotalInfo.name = name;
-    }
-
-    public void setSwuID(String swuID) {
-        TotalInfo.swuID = swuID;
+        this.position = position;
     }
 
     public String getScheduleDataJson() {
@@ -51,7 +50,7 @@ public class TotalInfo {
     }
 
     public void setScheduleDataJson(String scheduleDataJson) {
-        TotalInfo.scheduleDataJson = scheduleDataJson;
+        this.scheduleDataJson = scheduleDataJson;
     }
 
     public List<ScheduleItem> getScheduleItemList() {
@@ -59,15 +58,23 @@ public class TotalInfo {
     }
 
     public void setScheduleItemList(List<ScheduleItem> scheduleItemList) {
-        TotalInfo.scheduleItemList = scheduleItemList;
+        this.scheduleItemList = scheduleItemList;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSwuID() {
         return swuID;
+    }
+
+    public void setSwuID(String swuID) {
+        this.swuID = swuID;
     }
 
     public String getPassword() {
@@ -75,7 +82,7 @@ public class TotalInfo {
     }
 
     public void setPassword(String password) {
-        TotalInfo.password = password;
+        this.password = password;
     }
 
     public String getUserName() {
@@ -83,15 +90,15 @@ public class TotalInfo {
     }
 
     public void setUserName(String userName) {
-        TotalInfo.userName = userName;
-    }
-
-    public void setGrades(GradesData gradesData) {
-        TotalInfo.gradesData = gradesData;
+        this.userName = userName;
     }
 
     public GradesData getGrades() {
         return gradesData;
+    }
+
+    public void setGrades(GradesData gradesData) {
+        this.gradesData = gradesData;
     }
 
     public ScheduleData getScheduleData() {
@@ -99,6 +106,7 @@ public class TotalInfo {
     }
 
     public void setScheduleData(ScheduleData scheduleData) {
-        TotalInfo.scheduleData = scheduleData;
+        this.scheduleData = scheduleData;
     }
+
 }

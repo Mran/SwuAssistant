@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.util.wifi.WifiExit;
@@ -27,7 +28,6 @@ public class wifi_widgets extends AppWidgetProvider {
     private String username;
     private String password;
 
-    private TotalInfo totalInfo;
     private Context context;
     private static RemoteViews views;
     private static AppWidgetManager mappWidgetManager;

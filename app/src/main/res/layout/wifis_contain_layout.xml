@@ -2,7 +2,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/wifi_SwipeRefreshLayout"
@@ -35,38 +36,61 @@
                     android:id="@+id/wifi_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
+                    android:layout_alignBottom="@+id/wifi_state"
+                    android:layout_alignEnd="@+id/wifi_buttons"
+                    android:layout_alignRight="@+id/wifi_buttons"
                     android:text="当前用户:"
                     android:textAlignment="center"
                     android:textColor="@android:color/primary_text_dark_nodisable"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:layout_marginBottom="10dp"/>
 
-                <Button
-                    android:id="@+id/wifi_login_button"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/wifi_buttons"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:layout_below="@+id/wifi_state"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="22dp"
-                    android:text="登录"/>
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/each_class_hight"
+                    android:orientation="horizontal"
+                    >
 
-                <Button
-                    android:id="@+id/wifi_logout_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_toEndOf="@+id/wifi_login_button"
-                    android:layout_toRightOf="@+id/wifi_login_button"
-                    android:text="登出"/>
+                    <Button
+                        android:id="@+id/wifi_login_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="登录"/>
 
+                    <Button
+                        android:id="@+id/wifi_logout_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/wifi_login_button"
+                        android:layout_weight="1"
+                        android:text="登出"/>
+                </LinearLayout>
+
+                <com.appyvet.rangebar.RangeBar
+                    android:id="@+id/rangebar"
+                    xmlns:custom="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:layout_below="@id/wifi_buttons"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    custom:connectingLineColor="@color/colorAccent"
+                    custom:pinColor="@color/colorAccent"
+                    custom:rangeBar="false"
+                    custom:rangeBarColor="@color/colorAccent"
+                    custom:selectorColor="@color/colorAccent"
+                    custom:tickColor="@color/colorAccent"
+                    custom:tickEnd="10"/>
 
             </RelativeLayout>
 
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
 </FrameLayout>

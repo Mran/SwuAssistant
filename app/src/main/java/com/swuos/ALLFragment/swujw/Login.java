@@ -19,7 +19,7 @@ public class Login {
     /*新建一个连接*/
     public OkhttpNet okhttpNet;
     /*TotalInfo类用来保存用户的基本信息*/
-    private static TotalInfo totalInfo = new TotalInfo();
+    private static TotalInfos totalInfo =TotalInfos.getInstance();
 
     public Login() {
         okhttpNet = new OkhttpNet();
@@ -38,7 +38,7 @@ public class Login {
         return okhttpNet.doPost(Constant.urlLogin, requestBody);
     }
 
-    public TotalInfo getBasicInfo() {
+    public TotalInfos getBasicInfo() {
 /*进入教务系统*/
         okhttpNet.doGet(Constant.urlEms);
 /*获得基本信息名字和学号*/
@@ -46,7 +46,7 @@ public class Login {
         return totalInfo;
     }
 
-    private String setBasicInfo(TotalInfo totalInfo) {
+    private String setBasicInfo(TotalInfos totalInfo) {
 /*获得学号*/
         String respones = okhttpNet.doGet("http://jw.swu.edu.cn/jwglxt/xtgl/index_initMenu.html", "utf-8");
 /*判断是否正确获得结果*/

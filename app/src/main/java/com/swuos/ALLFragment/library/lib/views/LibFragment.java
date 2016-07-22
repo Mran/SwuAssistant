@@ -25,7 +25,7 @@ import com.swuos.ALLFragment.library.lib.adapters.RecyclerAdapterLibMain;
 import com.swuos.ALLFragment.library.lib.model.BookItem;
 import com.swuos.ALLFragment.library.lib.presenter.ILibPresenter;
 import com.swuos.ALLFragment.library.lib.presenter.LibPresenterImp;
-import com.swuos.swuassistant.MainActivity.view.MainActivity;
+import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -235,8 +235,8 @@ public class LibFragment extends Fragment implements ILibView, SwipeRefreshLayou
         switch (v.getId()) {
             case R.id.linearLayoutLibError:
                 iLibPresenter.setProgressDialogVisible(View.VISIBLE);
-                userName = MainActivity.sharedPreferences.getString("userName", "nothing");
-                passwd = MainActivity.sharedPreferences.getString("password", "nothing");
+                userName =sharedPreferences.getString("userName", "nothing");
+                passwd = sharedPreferences.getString("password", "nothing");
                 if (userName.equals("nothing") || passwd.equals("nothing")) {
                     isLogin = false;
                     iLibPresenter.setProgressDialogVisible(View.GONE);

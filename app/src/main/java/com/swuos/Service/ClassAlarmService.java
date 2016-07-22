@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.os.SystemClock;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.util.Schedule;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
@@ -26,7 +27,7 @@ public class ClassAlarmService extends Service {
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList;
     /*保存用户信息*/
-    private static TotalInfo totalInfo = new TotalInfo();
+    private static TotalInfos totalInfo = TotalInfos.getInstance();
     private static SharedPreferences sharedPreferences;
     private static int curretweek = -1;
     private Boolean mwait = false;

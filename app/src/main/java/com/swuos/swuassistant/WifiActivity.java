@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.util.wifi.WifiExit;
 import com.swuos.util.wifi.WifiLogin;
 
@@ -37,7 +38,7 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
     private Button logout_button;
     private String username;
     private String password;
-    private TotalInfo totalInfo = new TotalInfo();
+    private TotalInfos totalInfo = TotalInfos.getInstance();
     private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView wifiStateTextView;

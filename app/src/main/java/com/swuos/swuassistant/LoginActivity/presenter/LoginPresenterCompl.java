@@ -7,6 +7,7 @@ import android.os.Looper;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.LoginActivity.view.ILoginView;
 import com.swuos.swuassistant.R;
@@ -21,7 +22,7 @@ public class LoginPresenterCompl implements ILoginPresenter {
     /*保存登陆信息*/
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    TotalInfo totalInfo;
+    TotalInfos totalInfo;
     String result;
 
     public LoginPresenterCompl(ILoginView iLoginView, Context context) {

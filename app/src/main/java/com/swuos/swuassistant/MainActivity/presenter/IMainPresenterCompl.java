@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
 import com.swuos.swuassistant.Constant;
@@ -50,7 +51,7 @@ public class IMainPresenterCompl implements IMainPresenter {
     }
 
     @Override
-    public void initData(TotalInfo totalInfo) {
+    public void initData(TotalInfos totalInfo) {
          /*打开保存用户信息的文件*/
         sharedPreferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         totalInfo.setUserName(sharedPreferences.getString("userName", ""));

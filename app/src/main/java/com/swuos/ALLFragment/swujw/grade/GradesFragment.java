@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.grade.util.GradeItem;
 import com.swuos.ALLFragment.swujw.grade.util.Grades;
 import com.swuos.swuassistant.Constant;
@@ -51,7 +52,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
 
     /*保存用户信息*/
-    private static TotalInfo totalInfo = new TotalInfo();
+    private static TotalInfos totalInfo =TotalInfos.getInstance();
     /*listview的适配器*/
     private static GradesAdapter adapter = null;
     /*选择学年的下拉列表*/
