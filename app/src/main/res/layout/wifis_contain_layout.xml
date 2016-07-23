@@ -39,11 +39,11 @@
                     android:layout_alignBottom="@+id/wifi_state"
                     android:layout_alignEnd="@+id/wifi_buttons"
                     android:layout_alignRight="@+id/wifi_buttons"
+                    android:layout_marginBottom="10dp"
                     android:text="当前用户:"
                     android:textAlignment="center"
                     android:textColor="@android:color/primary_text_dark_nodisable"
-                    android:textSize="20sp"
-                    android:layout_marginBottom="10dp"/>
+                    android:textSize="20sp"/>
 
                 <LinearLayout
                     android:id="@+id/wifi_buttons"
@@ -86,7 +86,7 @@
                     custom:rangeBarColor="@color/colorAccent"
                     custom:selectorColor="@color/colorAccent"
                     custom:tickColor="@color/colorAccent"
-                    custom:tickEnd="10"/>
+                    />
 
             </RelativeLayout>
 

@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -22,28 +21,28 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
+import com.appyvet.rangebar.RangeBar;
+import com.swuos.ALLFragment.wifi.presenter.IWifiPresenetrCompl;
+import com.swuos.ALLFragment.wifi.presenter.IWifiPresenter;
+import com.swuos.ALLFragment.wifi.view.IWifiFragmentView;
 import com.swuos.swuassistant.R;
-import com.swuos.util.wifi.WifiExit;
-import com.swuos.util.wifi.WifiLogin;
 
 /**
  * Created by 张孟尧 on 2016/4/27.
  */
-public class WifiFragment extends Fragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WifiFragment extends Fragment implements IWifiFragmentView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RangeBar.OnRangeBarChangeListener {
     private Button login_button;
     private Button logout_button;
-    private String username;
-    private String password;
-    private TotalInfo totalInfo = new TotalInfo();
     private View view;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView wifiStateTextView;
-    private WifiStateBroad wifiStateBroad;
     private TextView wifiUsername;
-    private IntentFilter intentFilter;
+    private RangeBar rangeBar;
+
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
+    private IWifiPresenter iWifiPresenter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +53,8 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.wifis_contain_layout, container, false);
-
-        initdata();
+        iWifiPresenter = new IWifiPresenetrCompl(this, getContext());
+        iWifiPresenter.initdata();
         initview();
         setReceiver();
         return view;
@@ -72,23 +71,16 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         logout_button = (Button) view.findViewById(R.id.wifi_logout_button);
         wifiStateTextView = (TextView) view.findViewById(R.id.wifi_state);
         wifiUsername = (TextView) view.findViewById(R.id.wifi_username);
+        rangeBar = (RangeBar) view.findViewById(R.id.rangebar);
+        rangeBar.setOnRangeBarChangeListener(this);
         logout_button.setOnClickListener(this);
         login_button.setOnClickListener(this);
         wifiStateTextView.setOnClickListener(this);
-        wifiUsername.setText("当前用户:" + username);
-    }
+        wifiUsername.setText("当前用户:" + iWifiPresenter.getUsername());
 
-    private void initdata() {
-        wifiStateBroad = new WifiStateBroad();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(WifiManager.RSSI_CHANGED_ACTION);
-        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-        getActivity().registerReceiver(wifiStateBroad, filter);
-        username = totalInfo.getUserName();
-        password = totalInfo.getPassword();
-    }
+        rangeBar.setTickEnd(10);
 
+    }
 
 
     @Override
@@ -99,14 +91,13 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         WifiManager wifiManager = (WifiManager) getActivity().getSystemService(getActivity().WIFI_SERVICE);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         String wifiSsid = wifiInfo.toString();
-        //        int ip=wifiInfo.getIpAddress();
         switch (id) {
             case R.id.wifi_login_button:
-                login(wifiSsid);
+                iWifiPresenter.login(iWifiPresenter.getUsername(), iWifiPresenter.getPassword(), wifiSsid);
                 swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_logout_button:
-                logout(wifiSsid);
+                iWifiPresenter.logout(iWifiPresenter.getUsername(), iWifiPresenter.getPassword(), wifiSsid);
                 swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_state:
@@ -116,83 +107,31 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         }
     }
 
-    private void login(String wifissid) {
-        new Mytask().execute(wifissid, "login");
+
+    @Override
+    public void showResult(String result) {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar.make(view, result, Snackbar.LENGTH_SHORT).show();
     }
 
-    private void logout(String wifissid) {
-
-        new Mytask().execute(wifissid, "logout");
+    @Override
+    public void changeWifiState(String state) {
+        wifiStateTextView.setText("WIFI已关闭");
     }
-
 
     @Override
     public void onRefresh() {
 
     }
 
-    class Mytask extends AsyncTask<String, Integer, String> {
+    @Override
+    public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
 
-
-        @Override
-        protected String doInBackground(String... params) {
-            String wifissid = params[0];
-            String todo = params[1];
-            if (todo.equals("logout")) {
-                return WifiExit.logout(username, password, wifissid);
-            } else
-                return WifiLogin.login(username, password, wifissid);
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            swipeRefreshLayout.setRefreshing(false);
-
-            Snackbar.make(view, s, Snackbar.LENGTH_SHORT).show();
-        }
-    }
-
-    class WifiStateBroad extends BroadcastReceiver {
-        @Override
-
-
-        public void onReceive(Context context, Intent intent) {
-
-            WifiManager wifiManager = (WifiManager) context
-                    .getSystemService(Context.WIFI_SERVICE);
-            //            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            int wifiState = wifiManager.getWifiState();
-            if (wifiState == WifiManager.WIFI_STATE_ENABLING) {
-                wifiStateTextView.setText("正在打开WIFI");
-            } else if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                wifiStateTextView.setText("WIFI未连接");
-
-                ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(getActivity().CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                        String wifissid = wifiInfo.getSSID();
-                        wifiStateTextView.setText(wifissid.replace("\"", ""));
-                    }
-                } else if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-                    if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-                        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                        String wifissid = wifiInfo.getSSID();
-                        wifiStateTextView.setText("正在连接 " + wifissid);
-                    }
-
-                }
-            } else if (wifiState == WifiManager.WIFI_STATE_DISABLED) {
-                wifiStateTextView.setText("WIFI已关闭");
-            }
-
-        }
     }
 
     private void setReceiver() {
+        //注册本地广播接收器
+        IntentFilter intentFilter;
         intentFilter = new IntentFilter();
         intentFilter.addAction("com.swuos.Logined");
         localRecevier = new LocalRecevier();
@@ -200,13 +139,13 @@ public class WifiFragment extends Fragment implements View.OnClickListener, Swip
         localBroadcastManager.registerReceiver(localRecevier, intentFilter);
     }
 
+
     /*设置广播接收刷新消息*/
     class LocalRecevier extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            username = totalInfo.getUserName();
-            password = totalInfo.getPassword();
-            wifiUsername.setText("当前用户:" + username);
+
+            wifiUsername.setText("当前用户:" + iWifiPresenter.getUsername());
 
         }
     }
