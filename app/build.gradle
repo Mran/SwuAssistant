@@ -55,6 +55,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:x.y.z'
-    compile 'com.appyvet:materialrangebar:1.3'
-
+//    compile 'com.appyvet:materialrangebar:1.3'
+    compile project(':rangebar')
 }

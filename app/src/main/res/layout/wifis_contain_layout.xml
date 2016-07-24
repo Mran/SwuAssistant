@@ -86,7 +86,19 @@
                     custom:rangeBarColor="@color/colorAccent"
                     custom:selectorColor="@color/colorAccent"
                     custom:tickColor="@color/colorAccent"
-                    />
+                    android:layout_marginTop="35dp"/>
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="定时退出"
+                    android:id="@+id/timing_switch"
+                    android:switchPadding="14.5sp"
+                    android:layout_below="@+id/wifi_buttons"
+                    android:layout_alignLeft="@+id/rangebar"
+                    android:layout_alignStart="@+id/rangebar"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="15dp"/>
 
             </RelativeLayout>
 

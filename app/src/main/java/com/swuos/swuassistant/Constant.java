@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final long TIMEOUT = 8*1000;
+    public static final long TIMEOUT = 8 * 1000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;
@@ -37,7 +37,6 @@ public class Constant {
     public static final long ONE_MIN_TIME = 1000 * 60; //一分钟的毫秒秒数
     public static final int LOGIN_RESULT_CODE = 17;
     public static final int EMPTY = 18;
-
 
 
     public static final String NO_NET = "网络出现了问题";
@@ -115,22 +114,18 @@ public class Constant {
     public static final String NOTIFICATION_LOGOUT = "NOTIFICATION_LOGOUT";
     public static final int NOTIFICATION_WIFI_ID = 100001;
 
-    public static final String CARD_FRAGMENT_ID="card_id";
-    public static final String CARD_FRAGMENT_PD="card_pd";
-    public static final String CARD_FRAGMENT_ECARD="card_ecard";
+    public static final String CARD_FRAGMENT_ID = "card_id";
+    public static final String CARD_FRAGMENT_PD = "card_pd";
+    public static final String CARD_FRAGMENT_ECARD = "card_ecard";
 
 
     public static final String urlReportIssue = "http://202.202.111.145:29527/openswu/reportIssue";
-
+        public static final String urlQuitnet="http://202.202.111.145:29527/openswu/quitnet";
 
     public static final String librarySearch = "http://202.202.121.3:99/opac/search";
     public static final String libraryBookDetail = "http://202.202.121.3:99/opac/book/";
     public static final String libraryHoldingsInformation = "http://202.202.121.3:99/opac/book/getHoldingsInformation/";
     public static final String libraryCollectingAddress = "http://202.202.121.10/xndxrfidweb/TSDW/GotoFlash.aspx?szBarCode=";
-
-
-
-
 
 
     public static final int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
@@ -141,7 +136,10 @@ public class Constant {
     public static final int[] STARTtIMES = {8 * 60, 8 * 60 + 50, 9 * 60 + 40, 10 * 60 + 40, 11 * 60 + 30, 12 * 60 + 30, 13 * 60 + 20, 14 * 60 + 30, 15 * 60 + 20, 16 * 60 + 10, 17 * 60, 19 * 60, 19 * 60 + 50, 20 * 60 + 40};
 
     public static final int[] STARTtIMEMIN = {0, 50, 40, 40, 30, 30, 50, 30, 20, 10, 0, 0, 50, 40};
-
     public static final int REQUEST_CODE_ASK_CALL_PHONE = 123;
+
+    public static final String TIMING_SUCCESS = "定时退网排队成功";
+    public static final String TIMING_USER_ERROR = "用户名或密码错误。";
+    public static final String TIMING_USER_NOLOGIN = "您的账户当前没有登陆。";
 }
 

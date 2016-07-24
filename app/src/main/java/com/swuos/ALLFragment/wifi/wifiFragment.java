@@ -1,13 +1,11 @@
 package com.swuos.ALLFragment.wifi;
 
+import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -19,7 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appyvet.rangebar.RangeBar;
 import com.swuos.ALLFragment.wifi.presenter.IWifiPresenetrCompl;
@@ -30,7 +31,9 @@ import com.swuos.swuassistant.R;
 /**
  * Created by 张孟尧 on 2016/4/27.
  */
-public class WifiFragment extends Fragment implements IWifiFragmentView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener, RangeBar.OnRangeBarChangeListener {
+public class WifiFragment extends Fragment implements IWifiFragmentView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener,CompoundButton.OnCheckedChangeListener, RangeBar.OnThumbMoveListener {
+    int delaytime;
+    boolean rangerFcoused;
     private Button login_button;
     private Button logout_button;
     private View view;
@@ -38,7 +41,7 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
     private TextView wifiStateTextView;
     private TextView wifiUsername;
     private RangeBar rangeBar;
-
+    private Switch aSwitch;
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
     private IWifiPresenter iWifiPresenter;
@@ -72,13 +75,21 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
         wifiStateTextView = (TextView) view.findViewById(R.id.wifi_state);
         wifiUsername = (TextView) view.findViewById(R.id.wifi_username);
         rangeBar = (RangeBar) view.findViewById(R.id.rangebar);
-        rangeBar.setOnRangeBarChangeListener(this);
+        aSwitch = (Switch) view.findViewById(R.id.timing_switch);
+        aSwitch.setOnCheckedChangeListener(this);
         logout_button.setOnClickListener(this);
         login_button.setOnClickListener(this);
         wifiStateTextView.setOnClickListener(this);
         wifiUsername.setText("当前用户:" + iWifiPresenter.getUsername());
 
+//        rangeBar.setTickEnd(240);
+//        rangeBar.setTickInterval(10);
         rangeBar.setTickEnd(10);
+        rangeBar.setSeekPinByIndex(0);
+        rangeBar.setVisibility(View.INVISIBLE);
+        rangeBar.setEnabled(false);
+        rangeBar.setThumbMoveListener(this);
+        aSwitch.setChecked(false);
 
     }
 
@@ -87,17 +98,15 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
     public void onClick(View v) {
         int id = v.getId();
 
-        //wifi ssid状态获取
-        WifiManager wifiManager = (WifiManager) getActivity().getSystemService(getActivity().WIFI_SERVICE);
-        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-        String wifiSsid = wifiInfo.toString();
         switch (id) {
             case R.id.wifi_login_button:
-                iWifiPresenter.login(iWifiPresenter.getUsername(), iWifiPresenter.getPassword(), wifiSsid);
+                login_button.setClickable(false);
+                iWifiPresenter.login(iWifiPresenter.getUsername(), iWifiPresenter.getPassword());
                 swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_logout_button:
-                iWifiPresenter.logout(iWifiPresenter.getUsername(), iWifiPresenter.getPassword(), wifiSsid);
+                logout_button.setClickable(false);
+                iWifiPresenter.logout(iWifiPresenter.getUsername(), iWifiPresenter.getPassword());
                 swipeRefreshLayout.setRefreshing(true);
                 break;
             case R.id.wifi_state:
@@ -111,21 +120,19 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
     @Override
     public void showResult(String result) {
         swipeRefreshLayout.setRefreshing(false);
+        login_button.setClickable(true);
+        logout_button.setClickable(true);
+        rangeBar.setEnabled(true);
         Snackbar.make(view, result, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void changeWifiState(String state) {
-        wifiStateTextView.setText("WIFI已关闭");
+        wifiStateTextView.setText(state);
     }
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
 
     }
 
@@ -137,6 +144,30 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
         localRecevier = new LocalRecevier();
         localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
         localBroadcastManager.registerReceiver(localRecevier, intentFilter);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (isChecked) {
+            rangeBar.setVisibility(View.VISIBLE);
+            rangeBar.setEnabled(true);
+        } else {
+            rangeBar.setVisibility(View.INVISIBLE);
+            rangeBar.setEnabled(false);
+        }
+    }
+
+    @Override
+    public void onThumbMovingStart(RangeBar rangeBar, boolean isLeftThumb) {
+
+    }
+
+    @Override
+    public void onThumbMovingStop(RangeBar rangeBar, boolean isLeftThumb) {
+//        Toast.makeText(getContext(), "rangeBar.getRight():" + rangeBar.getRightPinValue(), Toast.LENGTH_SHORT).show();
+        swipeRefreshLayout.setRefreshing(true);
+        rangeBar.setEnabled(false);
+        iWifiPresenter.timingLogout(iWifiPresenter.getUsername(),iWifiPresenter.getPassword(),Integer.valueOf(rangeBar.getRightPinValue()));
     }
 
 
