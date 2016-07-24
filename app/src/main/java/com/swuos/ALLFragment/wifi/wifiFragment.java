@@ -82,9 +82,9 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
         wifiStateTextView.setOnClickListener(this);
         wifiUsername.setText("当前用户:" + iWifiPresenter.getUsername());
 
-//        rangeBar.setTickEnd(240);
-//        rangeBar.setTickInterval(10);
-        rangeBar.setTickEnd(10);
+        rangeBar.setTickEnd(240);
+        rangeBar.setTickInterval(10);
+//        rangeBar.setTickEnd(10);
         rangeBar.setSeekPinByIndex(0);
         rangeBar.setVisibility(View.INVISIBLE);
         rangeBar.setEnabled(false);
@@ -164,7 +164,6 @@ public class WifiFragment extends Fragment implements IWifiFragmentView, View.On
 
     @Override
     public void onThumbMovingStop(RangeBar rangeBar, boolean isLeftThumb) {
-//        Toast.makeText(getContext(), "rangeBar.getRight():" + rangeBar.getRightPinValue(), Toast.LENGTH_SHORT).show();
         swipeRefreshLayout.setRefreshing(true);
         rangeBar.setEnabled(false);
         iWifiPresenter.timingLogout(iWifiPresenter.getUsername(),iWifiPresenter.getPassword(),Integer.valueOf(rangeBar.getRightPinValue()));
