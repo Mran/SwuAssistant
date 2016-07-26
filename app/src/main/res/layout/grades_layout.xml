@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="#ecebeb"
               android:orientation="vertical">
 
     <TableLayout
         android:id="@+id/show_gaades_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <LinearLayout
@@ -27,7 +28,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-
                 android:entries="@array/xqm"/>
 
             <Button
@@ -38,13 +38,14 @@
         </LinearLayout>
 
 
-        <TableRow>
+        <TableRow android:background="@color/colorPrimary">
 
             <TextView
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:text="科目"
+                android:textColor="@color/white"
                 android:textSize="20dp"/>
 
             <TextView
@@ -53,6 +54,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="成绩"
+                android:textColor="@color/white"
                 android:textSize="20dp"/>
 
             <TextView
@@ -60,8 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-
                 android:text="绩点"
+                android:textColor="@color/white"
                 android:textSize="20dp"/>
 
             <TextView
@@ -70,19 +72,25 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="学分"
+                android:textColor="@color/white"
                 android:textSize="20dp"/>
 
 
         </TableRow>
 
-        <ListView
-            android:id="@+id/grades_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-        </ListView>
-
 
     </TableLayout>
+    <!--<ListView-->
+    <!--android:id="@+id/grades_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true">-->
+    <!--</ListView>-->
+    <com.twotoasters.jazzylistview.JazzyListView
+        android:id="@+id/grades_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </LinearLayout>

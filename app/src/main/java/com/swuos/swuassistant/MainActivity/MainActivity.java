@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
                 toolbar.setTitle(R.string.schedule_title);
                 fragmentPosition = id;
                 isFragmentLibSelected = false;
+                break;
             case R.id.nav_library:
                 fragmentControl.fragmentSelection(id);
                 toolbar.setTitle(R.string.library_title);

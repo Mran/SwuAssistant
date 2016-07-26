@@ -12,16 +12,17 @@ import com.swuos.swuassistant.R;
 
 import java.util.List;
 /*自定义的ListView的适配器*/
-public class GradesAdapter extends ArrayAdapter<GradeItem>
-{
+public class GradesAdapter extends ArrayAdapter<GradeItem>{
+
 
     private int resourceId;
-
+private  Context mcontext;
     public GradesAdapter(Context context, int textViewResourceId,
                          List<GradeItem> objects)
     {
-        super(context, textViewResourceId, objects);
+        super(context,textViewResourceId,objects);
         resourceId = textViewResourceId;
+        mcontext=context;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class GradesAdapter extends ArrayAdapter<GradeItem>
         ViewHolder viewHolder;
         if (convertView == null)
         {
-            view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+            view = LayoutInflater.from(mcontext).inflate(resourceId, null);
             viewHolder = new ViewHolder();
             viewHolder.gradesKcmc = (TextView) view.findViewById(R.id.kcmc);
             viewHolder.gradesCj = (TextView) view.findViewById(R.id.cj);

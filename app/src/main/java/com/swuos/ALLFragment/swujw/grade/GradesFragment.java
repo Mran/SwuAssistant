@@ -22,12 +22,14 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.Login;
-import com.swuos.ALLFragment.swujw.TotalInfo;
+
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.grade.util.GradeItem;
 import com.swuos.ALLFragment.swujw.grade.util.Grades;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
+import com.twotoasters.jazzylistview.JazzyListView;
+import com.twotoasters.jazzylistview.effects.CardsEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +43,12 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     /*保存成绩的列表,用于listview*/
     private static List<GradeItem> gradeItemList = new ArrayList<>();
     /*listview*/
-    private static ListView listView;
+//    private static ListView listView;
+    private static JazzyListView listView;
     /*账户名*/
     private static String userName;
     /*密码*/
     private static String password;
-
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
 
@@ -67,6 +69,7 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     private IntentFilter intentFilter;
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
+
     View gradesLayout;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -81,6 +84,10 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
                         /*设置listview适配器*/
                         adapter = new GradesAdapter(gradesLayout.getContext(), R.layout.grades_item, gradeItemList);
                         listView.setAdapter(adapter);
+//                        swingLeftInAnimationAdapter=new SwingLeftInAnimationAdapter(adapter);
+//                        swingLeftInAnimationAdapter.setAbsListView(listView);
+//                        listView.setAdapter(swingLeftInAnimationAdapter);
+
                     } else {/*如果已经设置过就更新*/
                         adapter.clear();
                         adapter.addAll(gradeItemList);
@@ -108,7 +115,9 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         gradesLayout = inflater.inflate(R.layout.grades_layout, container, false);
-        listView = (ListView) gradesLayout.findViewById(R.id.grades_list);
+//        listView = (ListView) gradesLayout.findViewById(R.id.grades_list);
+        listView=(JazzyListView)gradesLayout.findViewById(R.id.grades_list);
+        listView.setTransitionEffect(new CardsEffect());
         spinnerXnm = (Spinner) gradesLayout.findViewById(R.id.xnm);
         spinnerXqm = (Spinner) gradesLayout.findViewById(R.id.xqm);
         ArrayAdapter<CharSequence> arrayAdapterxnm = ArrayAdapter.createFromResource(getActivity(), R.array.xnm, R.layout.grades_spinner_layout);
