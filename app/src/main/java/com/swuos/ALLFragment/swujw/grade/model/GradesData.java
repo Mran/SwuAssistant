@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.util;
+package com.swuos.ALLFragment.swujw.grade.model;
 
 import java.util.List;
 
@@ -9,6 +9,16 @@ import java.util.List;
 public class GradesData
 {
     private List<Items> items;
+
+    public List<Items> getItems()
+    {
+        return items;
+    }
+
+    public void setItems(List<Items> items)
+    {
+        this.items = items;
+    }
 
     public static class Items
     {
@@ -25,55 +35,38 @@ public class GradesData
         public void setJxb_id(String jxb_id) {
             this.jxb_id = jxb_id;
         }
-        public void setCj(String cj)
-        {
-            this.cj = cj;
-        }
 
-        public String getCj()
-        {
+        public String getCj() {
             return cj;
         }
 
-        public void setJd(String jd)
-        {
-            this.jd = jd;
+        public void setCj(String cj) {
+            this.cj = cj;
         }
 
-        public String getJd()
-        {
+        public String getJd() {
             return jd;
         }
 
-        public void setKcmc(String kcmc)
-        {
-            this.kcmc = kcmc;
+        public void setJd(String jd) {
+            this.jd = jd;
         }
 
-        public String getKcmc()
-        {
+        public String getKcmc() {
             return kcmc;
         }
 
-        public void setXf(String xf)
-        {
-            this.xf = xf;
+        public void setKcmc(String kcmc) {
+            this.kcmc = kcmc;
         }
 
-        public String getXf()
-        {
+        public String getXf() {
             return xf;
         }
-    }
 
-    public void setItems(List<Items> items)
-    {
-        this.items = items;
-    }
-
-    public List<Items> getItems()
-    {
-        return items;
+        public void setXf(String xf) {
+            this.xf = xf;
+        }
     }
 
 }

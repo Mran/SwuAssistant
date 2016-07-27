@@ -6,9 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
@@ -17,44 +16,29 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.swuos.ALLFragment.swujw.Login;
-
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.grade.util.GradeItem;
-import com.swuos.ALLFragment.swujw.grade.util.Grades;
+import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
+import com.swuos.ALLFragment.swujw.grade.persenter.GradePresenterCompl;
+import com.swuos.ALLFragment.swujw.grade.persenter.IGradePersenter;
+import com.swuos.ALLFragment.swujw.grade.view.GradesAdapter;
+import com.swuos.ALLFragment.swujw.grade.view.IGradeview;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.CardsEffect;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class GradesFragment extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener
+public class GradesFragment extends Fragment implements IGradeview, AdapterView.OnItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
-{
-    /*保存成绩的列表,用于listview*/
-    private static List<GradeItem> gradeItemList = new ArrayList<>();
-    /*listview*/
-//    private static ListView listView;
     private static JazzyListView listView;
-    /*账户名*/
-    private static String userName;
-    /*密码*/
-    private static String password;
     /*等待窗口*/
     private static ProgressDialog progressDialogLoading;
-
-
-    /*保存用户信息*/
-    private static TotalInfos totalInfo =TotalInfos.getInstance();
     /*listview的适配器*/
     private static GradesAdapter adapter = null;
     /*选择学年的下拉列表*/
@@ -65,58 +49,24 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
     private static String xnm;
     private static String xqm;
     private static Button buttonGradesInquire;
-
+    View gradesLayout;
+    IGradePersenter iGradePersenter;
     private IntentFilter intentFilter;
     private LocalRecevier localRecevier;
     private LocalBroadcastManager localBroadcastManager;
 
-    View gradesLayout;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            progressDialogLoading.cancel();
-
-            switch (msg.what) {
-                /*成功获取成绩*/
-                case Constant.GRADES_OK:
-                    /*关闭登陆窗口*/
-
-                    if (adapter == null) {
-                        /*设置listview适配器*/
-                        adapter = new GradesAdapter(gradesLayout.getContext(), R.layout.grades_item, gradeItemList);
-                        listView.setAdapter(adapter);
-//                        swingLeftInAnimationAdapter=new SwingLeftInAnimationAdapter(adapter);
-//                        swingLeftInAnimationAdapter.setAbsListView(listView);
-//                        listView.setAdapter(swingLeftInAnimationAdapter);
-
-                    } else {/*如果已经设置过就更新*/
-                        adapter.clear();
-                        adapter.addAll(gradeItemList);
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
-                case Constant.LOGIN_FAILED://登录失败
-
-                    Toast.makeText(getActivity(), R.string.no_user_or_password_error, Toast
-                            .LENGTH_SHORT).show();
-                    break;
-                case Constant.SHOW:
-
-                    Toast.makeText(getActivity(), (CharSequence) msg.obj, Toast
-                            .LENGTH_SHORT).show();
-
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         gradesLayout = inflater.inflate(R.layout.grades_layout, container, false);
-//        listView = (ListView) gradesLayout.findViewById(R.id.grades_list);
-        listView=(JazzyListView)gradesLayout.findViewById(R.id.grades_list);
+        iGradePersenter = new GradePresenterCompl(getContext(), this);
+        initView();
+        return gradesLayout;
+    }
+
+    private void initView() {
+        listView = (JazzyListView) gradesLayout.findViewById(R.id.grades_list);
         listView.setTransitionEffect(new CardsEffect());
         spinnerXnm = (Spinner) gradesLayout.findViewById(R.id.xnm);
         spinnerXqm = (Spinner) gradesLayout.findViewById(R.id.xqm);
@@ -137,25 +87,18 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
         spinnerXqm.setSelection(1, true);
         progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
 
-        //        MainActivity mainActivity = (MainActivity) getActivity();
-        userName = totalInfo.getUserName();
-        password = totalInfo.getPassword();
         buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
         buttonGradesInquire.setOnClickListener(this);
         listView.setOnItemClickListener(this);
-        return gradesLayout;
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         /*选择了xnm的下拉列表*/
         if (parent == spinnerXnm) {
-
             xnm = Constant.ALL_XNM[position];
-
         } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/ {
             xqm = Constant.ALL_XQM[position];
-
         }
     }
 
@@ -164,47 +107,12 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
     }
 
-    private void getGrades() {
-
-                /*设置等待窗口文字*/
-        progressDialogLoading.setMessage("正在查询请稍后");
-                /*设置不可取消*/
-        progressDialogLoading.setCancelable(false);
-                /*显示等待窗口*/
-        progressDialogLoading.show();
-                /*开启线程开始查询*/
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                Login login = new Login();
-
-                Message message = new Message();
-                String response = login.doLogin(userName, password);
-                if (response.contains("LoginSuccessed")) {
-                    Grades grades = new Grades(login.okhttpNet);
-                    grades.setGrades(totalInfo, xnm, xqm);
-                    gradeItemList = grades.getGradesList(totalInfo);
-                    message.what = Constant.GRADES_OK;
-                    handler.sendMessage(message);
-                } else if (response.contains("LoginFailure")) {
-                    message.what = Constant.LOGIN_FAILED;
-                    handler.sendMessage(message);
-                } else {
-                    message.what = Constant.SHOW;
-                    message.obj = response;
-                    handler.sendMessage(message);
-                }
-            }
-        }).start();
-
-    }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.grade_inquire) {
-            if (totalInfo.getUserName() != null && !totalInfo.getUserName().equals(""))
-                getGrades();
+            if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals(""))
+                iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm);
             else
                 Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
         }
@@ -220,17 +128,50 @@ public class GradesFragment extends Fragment implements AdapterView.OnItemSelect
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), (CharSequence) gradeItemList.get(position).getKcmc(), Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(getActivity(), (CharSequence) gradeItemList.get(position).getKcmc(), Toast.LENGTH_SHORT).show();
 
     }
 
-    /*设置广播接收刷新消息*/
-    class LocalRecevier extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            userName = totalInfo.getUserName();
-            password = totalInfo.getPassword();
-
+    @Override
+    public void showDialog(Boolean isShow) {
+        if (isShow) {
+            /* &#x8bbe;&#x7f6e;&#x7b49;&#x5f85;&#x7a97;&#x53e3;&#x6587;&#x5b57; */
+            progressDialogLoading.setMessage("正在查询请稍后");
+            /*设置不可取消*/
+            progressDialogLoading.setCancelable(false);
+            /*显示等待窗口*/
+            progressDialogLoading.show();
+        } else {
+            progressDialogLoading.cancel();
         }
     }
+
+    @Override
+    public void showResult(List<GradeItem> gradeItemList) {
+        if (adapter == null) {
+            /*设置listview适配器*/
+            adapter = new GradesAdapter(gradesLayout.getContext(), R.layout.grades_item, gradeItemList);
+            listView.setAdapter(adapter);
+        } else {/*如果已经设置过就更新*/
+            adapter.clear();
+            adapter.addAll(gradeItemList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void showError(String error) {
+        Snackbar.make(gradesLayout, error, Snackbar.LENGTH_SHORT);
+    }
 }
+
+
+/*设置广播接收刷新消息*/
+class LocalRecevier extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+
+    }
+}
+

@@ -1,6 +1,6 @@
 package com.swuos.ALLFragment.swujw;
 
-import com.swuos.ALLFragment.swujw.grade.util.GradesData;
+import com.swuos.ALLFragment.swujw.grade.model.GradesData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 
@@ -12,9 +12,6 @@ import java.util.List;
  */
 public class TotalInfos {
     private static TotalInfos ourInstance = new TotalInfos();
-    public static TotalInfos getInstance() {
-        return ourInstance;
-    }
     //    姓名
     private static String name = null;
     //    学号
@@ -35,7 +32,9 @@ public class TotalInfos {
     private TotalInfos() {
     }
 
-
+    public static TotalInfos getInstance() {
+        return ourInstance;
+    }
 
     public int getPosition() {
         return this.position;

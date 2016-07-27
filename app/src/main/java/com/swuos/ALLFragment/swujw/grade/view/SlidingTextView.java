@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade;
+package com.swuos.ALLFragment.swujw.grade.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

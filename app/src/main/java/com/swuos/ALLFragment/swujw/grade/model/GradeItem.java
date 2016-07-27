@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.util;
+package com.swuos.ALLFragment.swujw.grade.model;
 /*用于listview显示*/
 public class GradeItem
 {
@@ -19,13 +19,14 @@ public class GradeItem
     public void setJxb_id(String jxb_id) {
         this.jxb_id = jxb_id;
     }
+
+    public String getKcmc() {
+        return kcmc;
+    }
+
     public void setKcmc(String kcmc)
     {
         this.kcmc = kcmc;
-    }
-    public String getKcmc()
-    {
-        return kcmc;
     }
 
     public String getCj()

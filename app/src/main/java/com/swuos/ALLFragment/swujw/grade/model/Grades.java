@@ -1,7 +1,6 @@
-package com.swuos.ALLFragment.swujw.grade.util;
+package com.swuos.ALLFragment.swujw.grade.model;
 
 import com.google.gson.Gson;
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
@@ -131,6 +130,5 @@ public class Grades
         gradeItemFooter2.setJd(String.format("%.2f", jdCount));
         gradeItemList.add(gradeItemFooter2);
         return gradeItemList;
-
     }
 }

@@ -1,6 +1,6 @@
 package com.swuos.ALLFragment.swujw;
 
-import com.swuos.ALLFragment.swujw.grade.util.GradesData;
+import com.swuos.ALLFragment.swujw.grade.model.GradesData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
 
@@ -38,14 +38,6 @@ public class TotalInfo {
         TotalInfo.position = position;
     }
 
-    public void setName(String name) {
-        TotalInfo.name = name;
-    }
-
-    public void setSwuID(String swuID) {
-        TotalInfo.swuID = swuID;
-    }
-
     public String getScheduleDataJson() {
         return scheduleDataJson;
     }
@@ -66,8 +58,16 @@ public class TotalInfo {
         return name;
     }
 
+    public void setName(String name) {
+        TotalInfo.name = name;
+    }
+
     public String getSwuID() {
         return swuID;
+    }
+
+    public void setSwuID(String swuID) {
+        TotalInfo.swuID = swuID;
     }
 
     public String getPassword() {
@@ -86,12 +86,12 @@ public class TotalInfo {
         TotalInfo.userName = userName;
     }
 
-    public void setGrades(GradesData gradesData) {
-        TotalInfo.gradesData = gradesData;
-    }
-
     public GradesData getGrades() {
         return gradesData;
+    }
+
+    public void setGrades(GradesData gradesData) {
+        TotalInfo.gradesData = gradesData;
     }
 
     public ScheduleData getScheduleData() {
