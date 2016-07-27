@@ -11,29 +11,27 @@ import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
 import com.swuos.swuassistant.R;
 
 import java.util.List;
+
 /*自定义的ListView的适配器*/
-public class GradesAdapter extends ArrayAdapter<GradeItem>{
+public class GradesAdapter extends ArrayAdapter<GradeItem> {
 
 
     private int resourceId;
-private  Context mcontext;
+    private Context mcontext;
+
     public GradesAdapter(Context context, int textViewResourceId,
-                         List<GradeItem> objects)
-    {
-        super(context,textViewResourceId,objects);
+            List<GradeItem> objects) {
+        super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
-        mcontext=context;
+        mcontext = context;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         GradeItem gradeItem = getItem(position);
         View view;
-//        View gradesItems=getView(position, convertView, parent);
         ViewHolder viewHolder;
-        if (convertView == null)
-        {
+        if (convertView == null) {
             view = LayoutInflater.from(mcontext).inflate(resourceId, null);
             viewHolder = new ViewHolder();
             viewHolder.gradesKcmc = (TextView) view.findViewById(R.id.kcmc);
@@ -42,8 +40,7 @@ private  Context mcontext;
             viewHolder.gradesXf = (TextView) view.findViewById(R.id.xf);
 
             view.setTag(viewHolder);
-        } else
-        {
+        } else {
 
             view = convertView;
             viewHolder = (ViewHolder) view.getTag();
@@ -56,8 +53,7 @@ private  Context mcontext;
         return view;
     }
 
-    class ViewHolder
-    {
+    class ViewHolder {
         TextView gradesKcmc;
         TextView gradesCj;
         TextView gradesJd;

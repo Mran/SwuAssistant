@@ -13,4 +13,6 @@ public interface IGradeview {
     void showResult(List<GradeItem> gradeItemList);
 
     void showError(String error);
+
+    void showGradeDetial(GradeItem gradeItem);
 }

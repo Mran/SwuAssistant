@@ -12,6 +12,6 @@ public interface IGradePersenter {
 
     String getPassword();
 
-    void getGradeDetial();
+    void getGradeDetial(String username, String password, String xqm, String xnm, int Position);
 
 }

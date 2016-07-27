@@ -1,27 +1,26 @@
 package com.swuos.ALLFragment.swujw.grade;
 
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
 import com.swuos.ALLFragment.swujw.grade.persenter.GradePresenterCompl;
 import com.swuos.ALLFragment.swujw.grade.persenter.IGradePersenter;
+import com.swuos.ALLFragment.swujw.grade.view.GradeDetaiAdapter;
 import com.swuos.ALLFragment.swujw.grade.view.GradesAdapter;
 import com.swuos.ALLFragment.swujw.grade.view.IGradeview;
 import com.swuos.swuassistant.Constant;
@@ -30,6 +29,8 @@ import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.CardsEffect;
 
 import java.util.List;
+
+import io.github.zhitaocai.toastcompat.MIUIToast;
 
 /**
  * Created by 张孟尧 on 2016/2/29.
@@ -51,9 +52,7 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     private static Button buttonGradesInquire;
     View gradesLayout;
     IGradePersenter iGradePersenter;
-    private IntentFilter intentFilter;
-    private LocalRecevier localRecevier;
-    private LocalBroadcastManager localBroadcastManager;
+
 
     @Nullable
     @Override
@@ -107,7 +106,6 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
     }
 
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.grade_inquire) {
@@ -118,24 +116,14 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         }
     }
 
-    private void setReceiver() {
-        intentFilter = new IntentFilter();
-        intentFilter.addAction("com.swuos.Logined");
-        localRecevier = new LocalRecevier();
-        localBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
-        localBroadcastManager.registerReceiver(localRecevier, intentFilter);
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //        Toast.makeText(getActivity(), (CharSequence) gradeItemList.get(position).getKcmc(), Toast.LENGTH_SHORT).show();
-
+        iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm, position);
     }
 
     @Override
     public void showDialog(Boolean isShow) {
         if (isShow) {
-            /* &#x8bbe;&#x7f6e;&#x7b49;&#x5f85;&#x7a97;&#x53e3;&#x6587;&#x5b57; */
             progressDialogLoading.setMessage("正在查询请稍后");
             /*设置不可取消*/
             progressDialogLoading.setCancelable(false);
@@ -161,17 +149,33 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
     @Override
     public void showError(String error) {
-        Snackbar.make(gradesLayout, error, Snackbar.LENGTH_SHORT);
+        MIUIToast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
-}
 
-
-/*设置广播接收刷新消息*/
-class LocalRecevier extends BroadcastReceiver {
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void showGradeDetial(GradeItem gradeItem) {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.grade_detail_layout, null);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        ListView gradeDetailListview = (ListView) view.findViewById(R.id.grade_detail_list);
+        GradeDetaiAdapter gradeDetaiAdapter = new GradeDetaiAdapter(gradesLayout.getContext(), R.layout.grade_detail_item, gradeItem.getDetial());
+        gradeDetailListview.setAdapter(gradeDetaiAdapter);
+        alertDialog.setTitle(gradeItem.getKcmc());
+        alertDialog.setView(view);
+        AlertDialog adl = alertDialog.create();
+        adl.show();
 
+
+        //        View view = LayoutInflater.from(gradesLayout.getContext()).inflate(R.layout.grade_detail_layout, null);
+        ////        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        //        ListView gradeDetailListview = (ListView) view.findViewById(R.id.grade_detail_list);
+        //        GradeDetaiAdapter gradeDetaiAdapter = new GradeDetaiAdapter(gradesLayout.getContext(), R.layout.grade_detail_item, gradeItem.getDetial());
+        //        gradeDetailListview.setAdapter(gradeDetaiAdapter);
+        //        PopupWindow popupWindow = new PopupWindow();
+        //        popupWindow.setContentView(view);
+        //        popupWindow.showAsDropDown(gradesLayout);
 
     }
 }
+
+
 

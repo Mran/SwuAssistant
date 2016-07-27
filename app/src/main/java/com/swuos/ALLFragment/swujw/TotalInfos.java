@@ -24,12 +24,30 @@ public class TotalInfos {
     private static ScheduleData scheduleData = null;
     /*课表表源json数据*/
     private static String scheduleDataJson = null;
+    private static String gradesDataJson = null;
     /*保存课程表的列表*/
     private static List<ScheduleItem> scheduleItemList = new ArrayList<>();
     private static int position;
     /*成绩*/
     private static GradesData gradesData;
+
     private TotalInfos() {
+    }
+
+    public static String getGradesDataJson() {
+        return gradesDataJson;
+    }
+
+    public static void setGradesDataJson(String gradesDataJson) {
+        TotalInfos.gradesDataJson = gradesDataJson;
+    }
+
+    public static GradesData getGradesData() {
+        return gradesData;
+    }
+
+    public static void setGradesData(GradesData gradesData) {
+        TotalInfos.gradesData = gradesData;
     }
 
     public static TotalInfos getInstance() {

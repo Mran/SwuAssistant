@@ -5,6 +5,12 @@ import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,19 +21,17 @@ import okhttp3.RequestBody;
 /**
  * Created by 张孟尧 on 2016/1/23.
  */
-public class Grades
-{
+public class Grades {
 
     private OkhttpNet okhttpNet;
 
-    public Grades(OkhttpNet okhttpNet)
-    {
+    public Grades(OkhttpNet okhttpNet) {
         this.okhttpNet = okhttpNet;
         /*进入教务系统*/
         okhttpNet.doGet(Constant.urlEms);
     }
-    public String setGrades(TotalInfos totalInfo, String xnm, String xqm)
-    {
+
+    public String setGrades(TotalInfos totalInfo, String xnm, String xqm) {
         /*构建一个post的参数*/
         RequestBody requestBody = new FormBody.Builder()
                 .add("_search", "false")
@@ -44,18 +48,18 @@ public class Grades
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
         /*发送请求*/
         String respones = okhttpNet.doPost(url, requestBody);
-        if (!respones.contains(Constant.NO_NET))
-        {
+        if (!respones.contains(Constant.NO_NET)) {
 
             /*构建gson数据来解析json数据*/
             Gson gson = new Gson();
             totalInfo.setGrades(gson.fromJson(respones, GradesData.class));
-        } else return respones;
+            totalInfo.setGradesDataJson(respones);
+        } else
+            return respones;
         return Constant.CLIENT_OK;
     }
 
-    public List<GradeItem> getGradesList(TotalInfos totalInfo)
-    {
+    public List<GradeItem> getGradesList(TotalInfos totalInfo) {
 
         /*储存成绩的列表*/
         List<GradeItem> gradeItemList = new ArrayList<>();
@@ -70,17 +74,17 @@ public class Grades
         /*设置列表的头部*/
 
         GradesData.Items items;
-        for (int i = 0; i < gradesData.getItems().size(); i++)
-        {
+        for (int i = 0; i < gradesData.getItems().size(); i++) {
             /*获得单个的科目成绩*/
             items = gradesData.getItems().get(i);
             String kcmc = items.getKcmc();
             String cj = items.getCj();
             String xf = items.getXf();
             String jd = items.getJd();
+            String xh_id = items.getXh_id();
+            String jxb_id = items.getJxb_id();
             /*用来处理成绩是按照ＡＢＣＤ评定的情况*/
-            switch (cj)
-            {
+            switch (cj) {
                 case "A":
                     cjCount += 95;
                     break;
@@ -103,8 +107,7 @@ public class Grades
             /*对成绩进行总和相加*/
             jdCount += Double.valueOf(jd);
             /*绩点不等于0时加学分*/
-            if (!jd.contains("0"))
-            {
+            if (!jd.contains("0")) {
                 xfCount += Double.valueOf(xf);
             }
             GradeItem gradeItem = new GradeItem();
@@ -112,6 +115,8 @@ public class Grades
             gradeItem.setCj(cj);
             gradeItem.setXf(xf);
             gradeItem.setJd(jd);
+            gradeItem.setJxb_id(jxb_id);
+            gradeItem.setXh_id(xh_id);
             /*添加到列表中*/
             gradeItemList.add(gradeItem);
         }
@@ -130,5 +135,38 @@ public class Grades
         gradeItemFooter2.setJd(String.format("%.2f", jdCount));
         gradeItemList.add(gradeItemFooter2);
         return gradeItemList;
+    }
+
+    public GradeItem getGradeDetial(String xnm, String xqm, GradeItem gradeItem) {
+
+        List<String[]> detial = new ArrayList<>();
+
+        /*构建一个post的参数*/
+        RequestBody requestBody = new FormBody.Builder()
+                .add("jxb_id", gradeItem.getJxb_id())
+                .add("kcmc", gradeItem.getKcmc())
+                .add("xh_id", gradeItem.getXh_id())
+                .add("xnm", xnm)
+                .add("xqm", xqm)
+                .build();
+        String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxCjxq.html?" + "time=" + String.valueOf(System.currentTimeMillis()) + "&gnmkdmKey=N305005" + "&sessionUserKey=" + gradeItem.getXh_id();
+        /*构建目标网址*/
+        /*发送请求*/
+        String respones = okhttpNet.doPost(url, requestBody);
+        if (!respones.contains(Constant.NO_NET)) {
+            Document body = Jsoup.parse(respones, "UTF-8");
+            Element subtab = body.getElementById("subtab");
+            Elements tbody = subtab.getElementsByTag("tbody");
+            for (Element links : tbody) {
+                Elements tr = links.getElementsByTag("tr");
+                for (Element link1 : tr) {
+                    Elements td = link1.getElementsByTag("td");
+                    String[] tmp = {td.get(0).text(), td.get(1).text(), td.get(2).text(),};
+                    detial.add(tmp);
+                }
+            }
+        }
+        gradeItem.setDetial(detial);
+        return gradeItem;
     }
 }

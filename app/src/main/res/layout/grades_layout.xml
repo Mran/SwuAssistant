@@ -80,13 +80,7 @@
 
 
     </TableLayout>
-    <!--<ListView-->
-    <!--android:id="@+id/grades_list"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true">-->
-    <!--</ListView>-->
+
     <com.twotoasters.jazzylistview.JazzyListView
         android:id="@+id/grades_list"
         android:layout_width="match_parent"

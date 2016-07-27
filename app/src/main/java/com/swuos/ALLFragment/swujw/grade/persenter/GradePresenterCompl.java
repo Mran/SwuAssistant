@@ -1,6 +1,7 @@
 package com.swuos.ALLFragment.swujw.grade.persenter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.swuos.ALLFragment.swujw.Login;
 import com.swuos.ALLFragment.swujw.TotalInfos;
@@ -25,11 +26,15 @@ public class GradePresenterCompl implements IGradePersenter {
     private IGradeview iGradeview;
     private TotalInfos totalInfos;
     private List<GradeItem> gradeItemList;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     public GradePresenterCompl(Context mContext, IGradeview iGradeview) {
         this.mContext = mContext;
         this.iGradeview = iGradeview;
         this.totalInfos = TotalInfos.getInstance();
+        sharedPreferences = mContext.getSharedPreferences("userInf0", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
     @Override
@@ -44,6 +49,7 @@ public class GradePresenterCompl implements IGradePersenter {
                     Grades grades = new Grades(login.okhttpNet);
                     grades.setGrades(totalInfos, xnm, xqm);
                     gradeItemList = grades.getGradesList(totalInfos);
+                    saveGradesJson(xnm, xnm);
                     subscriber.onNext(gradeItemList);
                 } else if (response.contains("LoginFailure")) {
                     subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
@@ -56,7 +62,6 @@ public class GradePresenterCompl implements IGradePersenter {
                 subscribe(new Subscriber<List<GradeItem>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
@@ -90,7 +95,48 @@ public class GradePresenterCompl implements IGradePersenter {
     }
 
     @Override
-    public void getGradeDetial() {
+    public void getGradeDetial(final String username, final String password, final String xqm, final String xnm, final int position) {
+        Observable.create(new Observable.OnSubscribe<GradeItem>() {
+            @Override
+            public void call(Subscriber<? super GradeItem> subscriber) {
+                Login login = new Login();
+                String response = login.doLogin(username, password);
+                if (response.contains("LoginSuccessed")) {
+                    Grades grades = new Grades(login.okhttpNet);
+                    //                    grades.setGrades(totalInfos, xnm, xqm);
+                    GradeItem gradeItem = grades.getGradeDetial(xnm, xqm, gradeItemList.get(position));
+                    subscriber.onNext(gradeItem);
+                } else if (response.contains("LoginFailure")) {
+                    subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
+                } else {
+                    subscriber.onError(new Throwable(response));
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<GradeItem>() {
+                    @Override
+                    public void onCompleted() {
 
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        iGradeview.showDialog(false);
+                        iGradeview.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(GradeItem gradeItem) {
+                        iGradeview.showDialog(false);
+                        iGradeview.showGradeDetial(gradeItem);
+                    }
+                });
     }
+
+    void saveGradesJson(String xnm, String xqm) {
+        editor.putString(xnm + xqm, totalInfos.getGradesDataJson());
+        editor.commit();
+    }
+
 }
