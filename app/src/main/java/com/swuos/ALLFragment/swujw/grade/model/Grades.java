@@ -49,18 +49,17 @@ public class Grades {
         /*发送请求*/
         String respones = okhttpNet.doPost(url, requestBody);
         if (!respones.contains(Constant.NO_NET)) {
-
-            /*构建gson数据来解析json数据*/
-            Gson gson = new Gson();
-            totalInfo.setGrades(gson.fromJson(respones, GradesData.class));
             totalInfo.setGradesDataJson(respones);
         } else
             return respones;
         return Constant.CLIENT_OK;
     }
 
-    public List<GradeItem> getGradesList(TotalInfos totalInfo) {
+    public static List<GradeItem> getGradesList(TotalInfos totalInfo) {
 
+        /*构建gson数据来解析json数据*/
+        Gson gson = new Gson();
+        totalInfo.setGrades(gson.fromJson(totalInfo.getGradesDataJson(), GradesData.class));
         /*储存成绩的列表*/
         List<GradeItem> gradeItemList = new ArrayList<>();
         /*成绩总和*/

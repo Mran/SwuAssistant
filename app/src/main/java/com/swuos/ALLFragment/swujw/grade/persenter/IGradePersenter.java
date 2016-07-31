@@ -17,5 +17,6 @@ public interface IGradePersenter {
     void saveUserLastCLick(int xnm,int xqm);
     int getLastxnmPosition();
     int getLastxqmPosition();
+    String getGradesDataJsonFromCache(String xnm,String xqm);
 
 }

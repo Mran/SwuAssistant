@@ -41,21 +41,29 @@ public class GradePresenterCompl implements IGradePersenter {
     @Override
     public void getGrades(final String username, final String password, final String xqm, final String xnm) {
         iGradeview.showDialog(true);
+
         Observable.create(new Observable.OnSubscribe<List<GradeItem>>() {
             @Override
             public void call(Subscriber<? super List<GradeItem>> subscriber) {
-                Login login = new Login();
-                String response = login.doLogin(username, password);
-                if (response.contains("LoginSuccessed")) {
-                    Grades grades = new Grades(login.okhttpNet);
-                    grades.setGrades(totalInfos, xnm, xqm);
-                    gradeItemList = grades.getGradesList(totalInfos);
-                    saveGradesJson(xnm, xnm);
+                String cache=getGradesDataJsonFromCache(xnm, xqm);
+                if (cache!= null) {
+                    totalInfos.setGradesDataJson(getGradesDataJsonFromCache(xnm, xqm));
+                    gradeItemList = Grades.getGradesList(totalInfos);
                     subscriber.onNext(gradeItemList);
-                } else if (response.contains("LoginFailure")) {
-                    subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
                 } else {
-                    subscriber.onError(new Throwable(response));
+                    Login login = new Login();
+                    String response = login.doLogin(username, password);
+                    if (response.contains("LoginSuccessed")) {
+                        Grades grades = new Grades(login.okhttpNet);
+                        grades.setGrades(totalInfos, xnm, xqm);
+                        gradeItemList = grades.getGradesList(totalInfos);
+                        saveGradesJson(xnm,xqm);
+                        subscriber.onNext(gradeItemList);
+                    } else if (response.contains("LoginFailure")) {
+                        subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
+                    } else {
+                        subscriber.onError(new Throwable(response));
+                    }
                 }
             }
         }).subscribeOn(Schedulers.io())
@@ -79,21 +87,6 @@ public class GradePresenterCompl implements IGradePersenter {
                 });
     }
 
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public String getUsername() {
-        return totalInfos.getUserName();
-    }
-
-    @Override
-    public String getPassword() {
-        return totalInfos.getPassword();
-    }
 
     @Override
     public void getGradeDetial(final String username, final String password, final String xqm, final String xnm, final int position) {
@@ -136,10 +129,26 @@ public class GradePresenterCompl implements IGradePersenter {
                 });
     }
 
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public String getUsername() {
+        return totalInfos.getUserName();
+    }
+
+    @Override
+    public String getPassword() {
+        return totalInfos.getPassword();
+    }
+
     @Override
     public void saveUserLastCLick(int xnm, int xqm) {
-        editor.putInt("lastxnm",xnm);
-        editor.putInt("lastxqm",xqm);
+        editor.putInt("lastxnm", xnm);
+        editor.putInt("lastxqm", xqm);
         editor.commit();
     }
 
@@ -152,6 +161,11 @@ public class GradePresenterCompl implements IGradePersenter {
     public int getLastxqmPosition() {
         return sharedPreferences.getInt("lastxqm", Constant.XQMPOSITION);
 
+    }
+
+    @Override
+    public String getGradesDataJsonFromCache(String xnm, String xqm) {
+        return sharedPreferences.getString(xnm + xqm, null);
     }
 
     void saveGradesJson(String xnm, String xqm) {
