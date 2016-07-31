@@ -28,8 +28,6 @@ import com.twotoasters.jazzylistview.effects.CardsEffect;
 
 import java.util.List;
 
-import io.github.zhitaocai.toastcompat.MIUIToast;
-
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
@@ -47,6 +45,9 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     /*用户当前选择的学期和学年*/
     private static String xnm;
     private static String xqm;
+    private static int xnmPosition = Constant.XNMPOSITION;
+    private static int xqmPosition = Constant.XQMPOSITION;
+
     private static Button buttonGradesInquire;
     View gradesLayout;
     IGradePersenter iGradePersenter;
@@ -58,8 +59,14 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
         gradesLayout = inflater.inflate(R.layout.grades_layout, container, false);
         iGradePersenter = new GradePresenterCompl(getContext(), this);
+        initData();
         initView();
         return gradesLayout;
+    }
+
+    void initData() {
+        xnmPosition = iGradePersenter.getLastxnmPosition();
+        xqmPosition = iGradePersenter.getLastxqmPosition();
     }
 
     private void initView() {
@@ -79,9 +86,9 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         spinnerXnm.setOnItemSelectedListener(this);
         spinnerXqm.setOnItemSelectedListener(this);
         /*学年下拉列表的默认值*/
-        spinnerXnm.setSelection(3, true);
+        spinnerXnm.setSelection(xnmPosition, true);
         /*学期下拉列表的默认值*/
-        spinnerXqm.setSelection(1, true);
+        spinnerXqm.setSelection(xqmPosition, true);
         progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
 
         buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
@@ -94,8 +101,10 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         /*选择了xnm的下拉列表*/
         if (parent == spinnerXnm) {
             xnm = Constant.ALL_XNM[position];
+            xnmPosition=position;
         } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/ {
             xqm = Constant.ALL_XQM[position];
+            xqmPosition=position;
         }
     }
 
@@ -107,9 +116,10 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.grade_inquire) {
-            if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals(""))
+            if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
+                iGradePersenter.saveUserLastCLick(xnmPosition, xqmPosition);
                 iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm);
-            else
+            } else
                 Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
         }
     }
@@ -149,7 +159,7 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
     @Override
     public void showError(String error) {
-        MIUIToast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -163,7 +173,6 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         alertDialog.setView(view);
         AlertDialog adl = alertDialog.create();
         adl.show();
-
     }
 }
 

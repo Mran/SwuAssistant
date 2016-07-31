@@ -14,4 +14,8 @@ public interface IGradePersenter {
 
     void getGradeDetial(String username, String password, String xqm, String xnm, int Position);
 
+    void saveUserLastCLick(int xnm,int xqm);
+    int getLastxnmPosition();
+    int getLastxqmPosition();
+
 }

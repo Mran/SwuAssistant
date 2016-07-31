@@ -37,6 +37,8 @@ public class Constant {
     public static final long ONE_MIN_TIME = 1000 * 60; //一分钟的毫秒秒数
     public static final int LOGIN_RESULT_CODE = 17;
     public static final int EMPTY = 18;
+    public static final int XNMPOSITION = 3;
+    public static final int XQMPOSITION = 1;
 
 
     public static final String NO_NET = "网络出现了问题";
@@ -120,7 +122,7 @@ public class Constant {
 
 
     public static final String urlReportIssue = "http://202.202.111.145:29527/openswu/reportIssue";
-        public static final String urlQuitnet="http://202.202.111.145:29527/openswu/quitnet";
+    public static final String urlQuitnet = "http://202.202.111.145:29527/openswu/quitnet";
 
     public static final String librarySearch = "http://202.202.121.3:99/opac/search";
     public static final String libraryBookDetail = "http://202.202.121.3:99/opac/book/";

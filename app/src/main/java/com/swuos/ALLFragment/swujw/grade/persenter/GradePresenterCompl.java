@@ -8,6 +8,7 @@ import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
 import com.swuos.ALLFragment.swujw.grade.model.Grades;
 import com.swuos.ALLFragment.swujw.grade.view.IGradeview;
+import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 
 import java.util.List;
@@ -133,6 +134,24 @@ public class GradePresenterCompl implements IGradePersenter {
                         iGradeview.showGradeDetial(gradeItem);
                     }
                 });
+    }
+
+    @Override
+    public void saveUserLastCLick(int xnm, int xqm) {
+        editor.putInt("lastxnm",xnm);
+        editor.putInt("lastxqm",xqm);
+        editor.commit();
+    }
+
+    @Override
+    public int getLastxnmPosition() {
+        return sharedPreferences.getInt("lastxnm", Constant.XNMPOSITION);
+    }
+
+    @Override
+    public int getLastxqmPosition() {
+        return sharedPreferences.getInt("lastxqm", Constant.XQMPOSITION);
+
     }
 
     void saveGradesJson(String xnm, String xqm) {
