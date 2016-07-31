@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -118,7 +116,9 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm, position);
+        if (position < adapter.getCount() - 2) {
+            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm, position);
+        }
     }
 
     @Override
@@ -163,16 +163,6 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         alertDialog.setView(view);
         AlertDialog adl = alertDialog.create();
         adl.show();
-
-
-        //        View view = LayoutInflater.from(gradesLayout.getContext()).inflate(R.layout.grade_detail_layout, null);
-        ////        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-        //        ListView gradeDetailListview = (ListView) view.findViewById(R.id.grade_detail_list);
-        //        GradeDetaiAdapter gradeDetaiAdapter = new GradeDetaiAdapter(gradesLayout.getContext(), R.layout.grade_detail_item, gradeItem.getDetial());
-        //        gradeDetailListview.setAdapter(gradeDetaiAdapter);
-        //        PopupWindow popupWindow = new PopupWindow();
-        //        popupWindow.setContentView(view);
-        //        popupWindow.showAsDropDown(gradesLayout);
 
     }
 }

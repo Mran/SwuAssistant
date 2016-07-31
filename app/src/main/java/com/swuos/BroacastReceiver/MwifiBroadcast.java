@@ -16,6 +16,7 @@ import com.swuos.util.SALog;
 import com.swuos.util.wifi.WifiExit;
 import com.swuos.util.wifi.WifiLogin;
 
+import io.github.zhitaocai.toastcompat.MIUIToast;
 import io.github.zhitaocai.toastcompat.ToastCompat;
 
 /**
@@ -56,16 +57,16 @@ public class MwifiBroadcast extends BroadcastReceiver {
                     Intent statrtIntent = new Intent(context, WifiNotificationService.class);
                     context.startService(statrtIntent);
                     SALog.d("setting", "开启前台服务");
-                    Log.d("wifi", "WIFI开启");
+                    SALog.d("wifi", "WIFI开启");
                 }
             }
         }
 
         if (action.equals(Constant.NOTIFICATION_LOGIN)) {
-            ToastCompat.makeText(context, "正在登录", Toast.LENGTH_SHORT).show();
+            MIUIToast.makeText(context, "正在登录", Toast.LENGTH_SHORT).show();
             new Mytask().execute(wifiSsid, "login");
         } else if (action.equals(Constant.NOTIFICATION_LOGOUT)) {
-            ToastCompat.makeText(context, "正在登出", Toast.LENGTH_SHORT).show();
+            MIUIToast.makeText(context, "正在登出", Toast.LENGTH_SHORT).show();
 
             new Mytask().execute(wifiSsid, "logout");
         }

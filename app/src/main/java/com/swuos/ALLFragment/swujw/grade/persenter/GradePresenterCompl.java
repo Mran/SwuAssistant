@@ -96,6 +96,7 @@ public class GradePresenterCompl implements IGradePersenter {
 
     @Override
     public void getGradeDetial(final String username, final String password, final String xqm, final String xnm, final int position) {
+        iGradeview.showDialog(true);
         Observable.create(new Observable.OnSubscribe<GradeItem>() {
             @Override
             public void call(Subscriber<? super GradeItem> subscriber) {
