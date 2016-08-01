@@ -134,7 +134,7 @@ public class GradePresenterCompl implements IGradePersenter {
 
 
     @Override
-    public void getGradeDetial(final String username, final String password, final String xqm, final String xnm, final int position) {
+    public void getGradeDetial(final String username, final String password,final int position) {
         iGradeview.showDialog(true);
         Observable.create(new Observable.OnSubscribe<GradeItem>() {
             @Override
@@ -144,7 +144,7 @@ public class GradePresenterCompl implements IGradePersenter {
                 if (response.contains("LoginSuccessed")) {
                     Grades grades = new Grades(login.okhttpNet);
                     //                    grades.setGrades(totalInfos, xnm, xqm);
-                    GradeItem gradeItem = grades.getGradeDetial(xnm, xqm, gradeItemList.get(position));
+                    GradeItem gradeItem = grades.getGradeDetial(gradeItemList.get(position));
                     subscriber.onNext(gradeItem);
                 } else if (response.contains("LoginFailure")) {
                     subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
@@ -178,7 +178,7 @@ public class GradePresenterCompl implements IGradePersenter {
     @Override
     public void initData() {
         xnmPosition = getLastxnmPosition();
-        xqmPosition = getXqmPosition();
+        xqmPosition = getLastxqmPosition();
     }
 
     @Override

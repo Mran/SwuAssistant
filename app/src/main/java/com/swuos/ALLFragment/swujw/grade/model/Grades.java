@@ -82,6 +82,8 @@ public class Grades {
             String jd = items.getJd();
             String xh_id = items.getXh_id();
             String jxb_id = items.getJxb_id();
+            String xnm=items.getXnm();
+            String xqm=items.getXqm();
             /*用来处理成绩是按照ＡＢＣＤ评定的情况*/
             switch (cj) {
                 case "A":
@@ -116,6 +118,8 @@ public class Grades {
             gradeItem.setJd(jd);
             gradeItem.setJxb_id(jxb_id);
             gradeItem.setXh_id(xh_id);
+            gradeItem.setXnm(xnm);
+            gradeItem.setXqm(xqm);
             /*添加到列表中*/
             gradeItemList.add(gradeItem);
         }
@@ -136,7 +140,7 @@ public class Grades {
         return gradeItemList;
     }
 
-    public GradeItem getGradeDetial(String xnm, String xqm, GradeItem gradeItem) {
+    public GradeItem getGradeDetial(GradeItem gradeItem) {
 
         List<String[]> detial = new ArrayList<>();
 
@@ -145,8 +149,8 @@ public class Grades {
                 .add("jxb_id", gradeItem.getJxb_id())
                 .add("kcmc", gradeItem.getKcmc())
                 .add("xh_id", gradeItem.getXh_id())
-                .add("xnm", xnm)
-                .add("xqm", xqm)
+                .add("xnm", gradeItem.getXnm())
+                .add("xqm", gradeItem.getXqm())
                 .build();
         String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxCjxq.html?" + "time=" + String.valueOf(System.currentTimeMillis()) + "&gnmkdmKey=N305005" + "&sessionUserKey=" + gradeItem.getXh_id();
         /*构建目标网址*/

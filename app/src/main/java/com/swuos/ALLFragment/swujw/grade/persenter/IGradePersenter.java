@@ -28,7 +28,7 @@ public interface IGradePersenter {
 
     void setXqmPosition(int xqmPosition);
 
-    void getGradeDetial(String username, String password, String xqm, String xnm, int Position);
+    void getGradeDetial(String username, String password,int Position);
 
     void saveUserLastCLick(int xnm, int xqm);
 

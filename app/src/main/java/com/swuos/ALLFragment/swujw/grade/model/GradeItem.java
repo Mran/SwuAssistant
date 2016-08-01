@@ -14,6 +14,9 @@ public class GradeItem {
     private String xf;
     private String jxb_id;
     private String xh_id;
+    private String xnm;
+    private String xqm;
+
 
 
     private List<String[]> detial;
@@ -72,5 +75,20 @@ public class GradeItem {
 
     public void setXf(String xf) {
         this.xf = xf;
+    }
+    public String getXnm() {
+        return xnm;
+    }
+
+    public void setXnm(String xnm) {
+        this.xnm = xnm;
+    }
+
+    public String getXqm() {
+        return xqm;
+    }
+
+    public void setXqm(String xqm) {
+        this.xqm = xqm;
     }
 }

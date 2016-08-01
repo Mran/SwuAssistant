@@ -28,6 +28,24 @@ public class GradesData
         private String xf;
         private String jxb_id;
         private String xh_id;
+        private String xnm;
+        private String xqm;
+
+        public String getXnm() {
+            return xnm;
+        }
+
+        public void setXnm(String xnm) {
+            this.xnm = xnm;
+        }
+
+        public String getXqm() {
+            return xqm;
+        }
+
+        public void setXqm(String xqm) {
+            this.xqm = xqm;
+        }
 
         public String getXh_id() {
             return xh_id;

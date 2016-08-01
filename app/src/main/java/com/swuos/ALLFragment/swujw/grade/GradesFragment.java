@@ -115,7 +115,7 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position < adapter.getCount() - 2) {
-            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), position);
+            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(),position);
         }
     }
 
