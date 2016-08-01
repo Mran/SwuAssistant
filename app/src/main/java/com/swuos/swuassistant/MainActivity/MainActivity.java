@@ -32,6 +32,7 @@ import com.swuos.swuassistant.MainActivity.view.IMainview;
 import com.swuos.swuassistant.R;
 import com.swuos.swuassistant.SettingActivity;
 import com.swuos.util.SALog;
+import com.swuos.util.tools.Tools;
 
 
 public class MainActivity extends AppCompatActivity implements IMainview, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
         fragmentControl = new FragmentControl(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
+        SALog.d("Mainactivity",Tools.getSystemProperty("ro.miui.ui.version.name"));
     }
 
     /*获得某个活动的回复信息*/

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.swuos.Service.WifiNotificationService;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
+import com.swuos.util.tools.MToast;
 import com.swuos.util.wifi.WifiExit;
 import com.swuos.util.wifi.WifiLogin;
 
@@ -63,10 +64,10 @@ public class MwifiBroadcast extends BroadcastReceiver {
         }
 
         if (action.equals(Constant.NOTIFICATION_LOGIN)) {
-            MIUIToast.makeText(context, "正在登录", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "正在登录", Toast.LENGTH_SHORT).show();
             new Mytask().execute(wifiSsid, "login");
         } else if (action.equals(Constant.NOTIFICATION_LOGOUT)) {
-            MIUIToast.makeText(context, "正在登出", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "正在登出", Toast.LENGTH_SHORT).show();
 
             new Mytask().execute(wifiSsid, "logout");
         }
@@ -90,7 +91,7 @@ public class MwifiBroadcast extends BroadcastReceiver {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            ToastCompat.makeText(mcontext, s, Toast.LENGTH_SHORT).show();
+            MToast.show(mcontext, s, Toast.LENGTH_SHORT);
 
         }
     }
