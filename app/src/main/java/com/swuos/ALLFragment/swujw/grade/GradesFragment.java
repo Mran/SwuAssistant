@@ -1,16 +1,15 @@
 package com.swuos.ALLFragment.swujw.grade;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,24 +30,18 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class GradesFragment extends Fragment implements IGradeview, AdapterView.OnItemSelectedListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class GradesFragment extends Fragment implements IGradeview, AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static JazzyListView listView;
-    /*等待窗口*/
-    private static ProgressDialog progressDialogLoading;
     /*listview的适配器*/
     private static GradesAdapter adapter = null;
     /*选择学年的下拉列表*/
     private static Spinner spinnerXnm;
     /*选择学期的下拉列表*/
     private static Spinner spinnerXqm;
-    /*用户当前选择的学期和学年*/
-    private static String xnm;
-    private static String xqm;
-    private static int xnmPosition = Constant.XNMPOSITION;
-    private static int xqmPosition = Constant.XQMPOSITION;
+    private static SwipeRefreshLayout swipeRefreshLayout;
 
-    private static Button buttonGradesInquire;
+
     View gradesLayout;
     IGradePersenter iGradePersenter;
 
@@ -59,21 +52,22 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
         gradesLayout = inflater.inflate(R.layout.grades_layout, container, false);
         iGradePersenter = new GradePresenterCompl(getContext(), this);
-        initData();
+        iGradePersenter.initData();
         initView();
         return gradesLayout;
     }
 
-    void initData() {
-        xnmPosition = iGradePersenter.getLastxnmPosition();
-        xqmPosition = iGradePersenter.getLastxqmPosition();
-    }
 
     private void initView() {
         listView = (JazzyListView) gradesLayout.findViewById(R.id.grades_list);
         listView.setTransitionEffect(new CardsEffect());
         spinnerXnm = (Spinner) gradesLayout.findViewById(R.id.xnm);
         spinnerXqm = (Spinner) gradesLayout.findViewById(R.id.xqm);
+        swipeRefreshLayout = (SwipeRefreshLayout) gradesLayout.findViewById(R.id.grade_swiperefresh);
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R
+                .color.holo_red_light, android.R.color.holo_orange_light, android.R.color
+                .holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(this);
         ArrayAdapter<CharSequence> arrayAdapterxnm = ArrayAdapter.createFromResource(getActivity(), R.array.xnm, R.layout.grades_spinner_layout);
         arrayAdapterxnm.setDropDownViewResource(R.layout.grades_spinnerdown_layout);
         spinnerXnm.setAdapter(arrayAdapterxnm);
@@ -86,13 +80,10 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         spinnerXnm.setOnItemSelectedListener(this);
         spinnerXqm.setOnItemSelectedListener(this);
         /*学年下拉列表的默认值*/
-        spinnerXnm.setSelection(xnmPosition, true);
+        spinnerXnm.setSelection(iGradePersenter.getLastxnmPosition(), true);
         /*学期下拉列表的默认值*/
-        spinnerXqm.setSelection(xqmPosition, true);
-        progressDialogLoading = new ProgressDialog(gradesLayout.getContext());
+        spinnerXqm.setSelection(iGradePersenter.getLastxqmPosition(), true);
 
-        buttonGradesInquire = (Button) gradesLayout.findViewById(R.id.grade_inquire);
-        buttonGradesInquire.setOnClickListener(this);
         listView.setOnItemClickListener(this);
     }
 
@@ -100,12 +91,19 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         /*选择了xnm的下拉列表*/
         if (parent == spinnerXnm) {
-            xnm = Constant.ALL_XNM[position];
-            xnmPosition=position;
+            iGradePersenter.setXnm(Constant.ALL_XNM[position]);
+            iGradePersenter.setXnmPosition(position);
         } else if (parent == spinnerXqm)/*选择了xqm的下拉列表*/ {
-            xqm = Constant.ALL_XQM[position];
-            xqmPosition=position;
+            iGradePersenter.setXqm(Constant.ALL_XQM[position]);
+            iGradePersenter.setXqmPosition(position);
         }
+        if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
+            if (iGradePersenter.getXqm()!=null&&iGradePersenter.getXnm()!= null) {
+                iGradePersenter.saveUserLastCLick(iGradePersenter.getXnmPosition(), iGradePersenter.getXqmPosition());
+                iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), false);
+            }
+        } else
+            Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -113,34 +111,21 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
 
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.grade_inquire) {
-            if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
-                iGradePersenter.saveUserLastCLick(xnmPosition, xqmPosition);
-                iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm);
-            } else
-                Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position < adapter.getCount() - 2) {
-            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), xqm, xnm, position);
+            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), position);
         }
     }
 
     @Override
     public void showDialog(Boolean isShow) {
         if (isShow) {
-            progressDialogLoading.setMessage("正在查询请稍后");
-            /*设置不可取消*/
-            progressDialogLoading.setCancelable(false);
-            /*显示等待窗口*/
-            progressDialogLoading.show();
+            swipeRefreshLayout.setRefreshing(true);
         } else {
-            progressDialogLoading.cancel();
+
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 
@@ -173,6 +158,15 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         alertDialog.setView(view);
         AlertDialog adl = alertDialog.create();
         adl.show();
+    }
+
+    @Override
+    public void onRefresh() {
+        if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
+            iGradePersenter.saveUserLastCLick(iGradePersenter.getXnmPosition(), iGradePersenter.getXqmPosition());
+            iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), true);
+        } else
+            Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
     }
 }
 

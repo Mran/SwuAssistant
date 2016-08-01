@@ -23,6 +23,11 @@ import rx.schedulers.Schedulers;
  * Created by 张孟尧 on 2016/7/27.
  */
 public class GradePresenterCompl implements IGradePersenter {
+    /*用户当前选择的学期和学年*/
+    private static String xnm;
+    private static String xqm;
+    private static int xnmPosition = Constant.XNMPOSITION;
+    private static int xqmPosition = Constant.XQMPOSITION;
     private Context mContext;
     private IGradeview iGradeview;
     private TotalInfos totalInfos;
@@ -39,14 +44,54 @@ public class GradePresenterCompl implements IGradePersenter {
     }
 
     @Override
-    public void getGrades(final String username, final String password, final String xqm, final String xnm) {
+    public String getXnm() {
+        return xnm;
+    }
+
+    @Override
+    public void setXnm(String xnm) {
+        GradePresenterCompl.xnm = xnm;
+    }
+
+    @Override
+    public String getXqm() {
+        return xqm;
+    }
+
+    @Override
+    public void setXqm(String xqm) {
+        GradePresenterCompl.xqm = xqm;
+    }
+
+    @Override
+    public int getXnmPosition() {
+        return xnmPosition;
+    }
+
+    @Override
+    public void setXnmPosition(int xnmPosition) {
+        GradePresenterCompl.xnmPosition = xnmPosition;
+    }
+
+    @Override
+    public int getXqmPosition() {
+        return xqmPosition;
+    }
+
+    @Override
+    public void setXqmPosition(int xqmPosition) {
+        GradePresenterCompl.xqmPosition = xqmPosition;
+    }
+
+    @Override
+    public void getGrades(final String username, final String password, final String xqm, final String xnm, final boolean isFroceFromNet) {
         iGradeview.showDialog(true);
 
         Observable.create(new Observable.OnSubscribe<List<GradeItem>>() {
             @Override
             public void call(Subscriber<? super List<GradeItem>> subscriber) {
-                String cache=getGradesDataJsonFromCache(xnm, xqm);
-                if (cache!= null) {
+                String cache = getGradesDataJsonFromCache(xnm, xqm);
+                if (cache != null && !isFroceFromNet) {
                     totalInfos.setGradesDataJson(getGradesDataJsonFromCache(xnm, xqm));
                     gradeItemList = Grades.getGradesList(totalInfos);
                     subscriber.onNext(gradeItemList);
@@ -57,7 +102,7 @@ public class GradePresenterCompl implements IGradePersenter {
                         Grades grades = new Grades(login.okhttpNet);
                         grades.setGrades(totalInfos, xnm, xqm);
                         gradeItemList = grades.getGradesList(totalInfos);
-                        saveGradesJson(xnm,xqm);
+                        saveGradesJson(xnm, xqm);
                         subscriber.onNext(gradeItemList);
                     } else if (response.contains("LoginFailure")) {
                         subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
@@ -132,7 +177,8 @@ public class GradePresenterCompl implements IGradePersenter {
 
     @Override
     public void initData() {
-
+        xnmPosition = getLastxnmPosition();
+        xqmPosition = getXqmPosition();
     }
 
     @Override

@@ -29,12 +29,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:entries="@array/xqm"/>
-
-            <Button
-                android:id="@+id/grade_inquire"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="查询"/>
         </LinearLayout>
 
 
@@ -80,6 +74,10 @@
 
 
     </TableLayout>
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/grade_swiperefresh"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
     <com.twotoasters.jazzylistview.JazzyListView
         android:id="@+id/grades_list"
@@ -87,4 +85,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
+</android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>
