@@ -18,11 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.schedule.util.CurrentWeek;
-import com.swuos.ALLFragment.swujw.schedule.util.ScheduleData;
-import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
+import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
+import com.swuos.ALLFragment.swujw.schedule.model.ScheduleData;
+import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
@@ -305,7 +304,6 @@ public class ScheduleTableFragment extends Fragment implements View.OnTouchListe
                 new MyThread().start();
             else
                 late_Load = true;
-            //  new MyUpdate().execute();
         }
     }
 

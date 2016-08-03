@@ -98,7 +98,7 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
             iGradePersenter.setXqmPosition(position);
         }
         if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
-            if (iGradePersenter.getXqm()!=null&&iGradePersenter.getXnm()!= null) {
+            if (iGradePersenter.getXqm() != null && iGradePersenter.getXnm() != null) {
                 iGradePersenter.saveUserLastCLick(iGradePersenter.getXnmPosition(), iGradePersenter.getXqmPosition());
                 iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), false);
             }
@@ -115,7 +115,7 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position < adapter.getCount() - 2) {
-            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(),position);
+            iGradePersenter.getGradeDetial(iGradePersenter.getUsername(), iGradePersenter.getPassword(), position);
         }
     }
 
@@ -165,8 +165,10 @@ public class GradesFragment extends Fragment implements IGradeview, AdapterView.
         if (iGradePersenter.getUsername() != null && !iGradePersenter.getUsername().equals("")) {
             iGradePersenter.saveUserLastCLick(iGradePersenter.getXnmPosition(), iGradePersenter.getXqmPosition());
             iGradePersenter.getGrades(iGradePersenter.getUsername(), iGradePersenter.getPassword(), iGradePersenter.getXqm(), iGradePersenter.getXnm(), true);
-        } else
+        } else {
             Toast.makeText(getActivity(), R.string.not_logged_in, Toast.LENGTH_SHORT).show();
+            showDialog(false);
+        }
     }
 }
 

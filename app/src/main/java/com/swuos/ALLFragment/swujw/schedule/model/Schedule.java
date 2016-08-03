@@ -1,7 +1,6 @@
-package com.swuos.ALLFragment.swujw.schedule.util;
+package com.swuos.ALLFragment.swujw.schedule.model;
 
 import com.google.gson.Gson;
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
@@ -24,23 +23,6 @@ public class Schedule {
         this.okhttpNet = okhttpNet;
         /*进入教务系统*/
         okhttpNet.doGet(Constant.urlEms);
-    }
-
-    public String setSchedule(TotalInfos totalInfo, String xnm, String xqm) {
-
-        RequestBody requestBody = new FormBody.Builder()
-                .add("xnm", xnm)
-                .add("xqm", xqm)
-                .build();
-         /*构建目标网址*/
-        String url = "http://jw.swu.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html?" + "gnmkdmKey=N253508&sessionUserKey=" + totalInfo.getSwuID();
-        /*发送请求*/
-        String respones = okhttpNet.doPost(url, requestBody);
-        if (!respones.contains(Constant.NO_NET) && respones.contains("kcmc")) {
-            totalInfo.setScheduleDataJson(respones);
-        } else
-            return Constant.CLIENT_ERROR;
-        return Constant.CLIENT_OK;
     }
 
     public static List<ScheduleItem> getScheduleList(TotalInfos totalInfo) {
@@ -151,5 +133,22 @@ public class Schedule {
             }
         }
         return classWeek;
+    }
+
+    public String setSchedule(TotalInfos totalInfo, String xnm, String xqm) {
+
+        RequestBody requestBody = new FormBody.Builder()
+                .add("xnm", xnm)
+                .add("xqm", xqm)
+                .build();
+         /*构建目标网址*/
+        String url = "http://jw.swu.edu.cn/jwglxt/kbcx/xskbcx_cxXsKb.html?" + "gnmkdmKey=N253508&sessionUserKey=" + totalInfo.getSwuID();
+        /*发送请求*/
+        String respones = okhttpNet.doPost(url, requestBody);
+        if (!respones.contains(Constant.NO_NET) && respones.contains("kcmc")) {
+            totalInfo.setScheduleDataJson(respones);
+        } else
+            return Constant.CLIENT_ERROR;
+        return Constant.CLIENT_OK;
     }
 }

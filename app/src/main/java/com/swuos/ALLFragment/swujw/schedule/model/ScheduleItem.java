@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.util;
+package com.swuos.ALLFragment.swujw.schedule.model;
 
 /**
  * Created by 张孟尧 on 2016/3/4.
@@ -84,9 +84,19 @@ public class ScheduleItem
         return kcmc;
     }
 
+    public void setKcmc(String kcmc)
+    {
+        this.kcmc = kcmc;
+    }
+
     public int getEnd()
     {
         return end;
+    }
+
+    public void setEnd(int end)
+    {
+        this.end = end;
     }
 
     public int getXqj()
@@ -94,14 +104,29 @@ public class ScheduleItem
         return xqj;
     }
 
+    public void setXqj(int xqj)
+    {
+        this.xqj = xqj;
+    }
+
     public int getStart()
     {
         return start;
     }
 
+    public void setStart(int start)
+    {
+        this.start = start;
+    }
+
     public String getCdmc()
     {
         return cdmc;
+    }
+
+    public void setCdmc(String cdmc)
+    {
+        this.cdmc = cdmc;
     }
 
     public int getClassCount()
@@ -119,40 +144,14 @@ public class ScheduleItem
         return jc;
     }
 
-    public String getJcor()
-    {
-        return jcor;
-    }
-
-
-    public String getXm()
-    {
-        return xm;
-    }
-
-    public String getXqjmc()
-    {
-        return xqjmc;
-    }
-
-    public String getXqmc()
-    {
-        return xqmc;
-    }
-
-    public String getZcd()
-    {
-        return zcd;
-    }
-
-    public void setCdmc(String cdmc)
-    {
-        this.cdmc = cdmc;
-    }
-
     public void setJc(String jc)
     {
         this.jc = jc;
+    }
+
+    public String getJcor()
+    {
+        return jcor;
     }
 
     public void setJcor(String jcor)
@@ -160,24 +159,9 @@ public class ScheduleItem
         this.jcor = jcor;
     }
 
-    public void setXqj(int xqj)
+    public String getXm()
     {
-        this.xqj = xqj;
-    }
-
-    public void setEnd(int end)
-    {
-        this.end = end;
-    }
-
-    public void setStart(int start)
-    {
-        this.start = start;
-    }
-
-    public void setKcmc(String kcmc)
-    {
-        this.kcmc = kcmc;
+        return xm;
     }
 
     public void setXm(String xm)
@@ -185,14 +169,29 @@ public class ScheduleItem
         this.xm = xm;
     }
 
+    public String getXqjmc()
+    {
+        return xqjmc;
+    }
+
     public void setXqjmc(String xqjmc)
     {
         this.xqjmc = xqjmc;
     }
 
+    public String getXqmc()
+    {
+        return xqmc;
+    }
+
     public void setXqmc(String xqmc)
     {
         this.xqmc = xqmc;
+    }
+
+    public String getZcd()
+    {
+        return zcd;
     }
 
     public void setZcd(String zcd)

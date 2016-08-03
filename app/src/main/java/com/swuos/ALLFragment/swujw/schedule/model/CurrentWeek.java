@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.util;
+package com.swuos.ALLFragment.swujw.schedule.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

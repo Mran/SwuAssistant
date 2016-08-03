@@ -32,8 +32,7 @@ import com.swuos.swuassistant.R;
  * Created by 张孟尧 on 2016/4/27.
  */
 public class WifiFragment extends Fragment implements IWifiFragmentView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener,CompoundButton.OnCheckedChangeListener, RangeBar.OnThumbMoveListener {
-    int delaytime;
-    boolean rangerFcoused;
+
     private Button login_button;
     private Button logout_button;
     private View view;

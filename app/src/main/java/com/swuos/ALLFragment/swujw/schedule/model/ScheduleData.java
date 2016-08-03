@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.util;
+package com.swuos.ALLFragment.swujw.schedule.model;
 
 import android.widget.TextView;
 
@@ -10,6 +10,14 @@ import java.util.List;
 public class ScheduleData
 {
     private List<KbList> kbList;
+
+    public List<KbList> getKbList() {
+        return kbList;
+    }
+
+    public void setKbList(List<KbList> kbList) {
+        this.kbList = kbList;
+    }
 
     public static class KbList
     {
@@ -36,44 +44,14 @@ public class ScheduleData
             return kcmc;
         }
 
+        public void setKcmc(String kcmc)
+        {
+            this.kcmc = kcmc;
+        }
+
         public String getCdmc()
         {
             return cdmc;
-        }
-
-        public String getJc()
-        {
-            return jc;
-        }
-
-        public String getJcor()
-        {
-            return jcor;
-        }
-
-        public String getXm()
-        {
-            return xm;
-        }
-
-        public String getXqjmc()
-        {
-            return xqjmc;
-        }
-
-        public String getXqmc()
-        {
-            return xqmc;
-        }
-
-        public String getZcd()
-        {
-            return zcd;
-        }
-
-        public String getXqj()
-        {
-            return xqj;
         }
 
         public void setCdmc(String cdmc)
@@ -81,9 +59,19 @@ public class ScheduleData
             this.cdmc = cdmc;
         }
 
+        public String getJc()
+        {
+            return jc;
+        }
+
         public void setJc(String jc)
         {
             this.jc = jc;
+        }
+
+        public String getJcor()
+        {
+            return jcor;
         }
 
         public void setJcor(String jcor)
@@ -91,9 +79,9 @@ public class ScheduleData
             this.jcor = jcor;
         }
 
-        public void setKcmc(String kcmc)
+        public String getXm()
         {
-            this.kcmc = kcmc;
+            return xm;
         }
 
         public void setXm(String xm)
@@ -101,9 +89,19 @@ public class ScheduleData
             this.xm = xm;
         }
 
+        public String getXqjmc()
+        {
+            return xqjmc;
+        }
+
         public void setXqjmc(String xqjmc)
         {
             this.xqjmc = xqjmc;
+        }
+
+        public String getXqmc()
+        {
+            return xqmc;
         }
 
         public void setXqmc(String xqmc)
@@ -111,25 +109,25 @@ public class ScheduleData
             this.xqmc = xqmc;
         }
 
+        public String getZcd()
+        {
+            return zcd;
+        }
+
         public void setZcd(String zcd)
         {
             this.zcd = zcd;
+        }
+
+        public String getXqj()
+        {
+            return xqj;
         }
 
         public void setXqj(String xqj)
         {
             this.xqj = xqj;
         }
-    }
-
-    public List<KbList> getKbList()
-    {
-        return kbList;
-    }
-
-    public void setKbList(List<KbList> kbList)
-    {
-        this.kbList = kbList;
     }
 
     /**
@@ -145,28 +143,28 @@ public class ScheduleData
             return id;
         }
 
-        public ScheduleItem getScheduleItem() {
-            return scheduleItem;
-        }
-
-        public TextView getTextView() {
-            return textView;
-        }
-
-        public int getColor() {
-            return color;
-        }
-
         public void setId(int id) {
             this.id = id;
+        }
+
+        public ScheduleItem getScheduleItem() {
+            return scheduleItem;
         }
 
         public void setScheduleItem(ScheduleItem scheduleItem) {
             this.scheduleItem = scheduleItem;
         }
 
+        public TextView getTextView() {
+            return textView;
+        }
+
         public void setTextView(TextView textView) {
             this.textView = textView;
+        }
+
+        public int getColor() {
+            return color;
         }
 
         public void setColor(int color) {

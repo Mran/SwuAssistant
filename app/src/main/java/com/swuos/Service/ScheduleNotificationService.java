@@ -9,9 +9,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.schedule.util.ScheduleItem;
+import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

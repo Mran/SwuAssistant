@@ -39,7 +39,7 @@ public class GradePresenterCompl implements IGradePersenter {
         this.mContext = mContext;
         this.iGradeview = iGradeview;
         this.totalInfos = TotalInfos.getInstance();
-        sharedPreferences = mContext.getSharedPreferences("userInf0", Context.MODE_PRIVATE);
+        sharedPreferences = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
