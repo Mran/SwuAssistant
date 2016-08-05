@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -30,7 +31,8 @@
                     android:paddingTop="20dp"
                     android:text="没有连接wifi"
                     android:textColor="@color/cardview_light_background"
-                    android:textSize="30sp"/>
+                    android:textSize="30sp"
+                    skin:enable="true"/>
 
                 <TextView
                     android:id="@+id/wifi_username"
@@ -80,25 +82,25 @@
                     android:layout_below="@id/wifi_buttons"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:layout_marginTop="35dp"
                     custom:connectingLineColor="@color/colorAccent"
                     custom:pinColor="@color/colorAccent"
                     custom:rangeBar="false"
                     custom:rangeBarColor="@color/colorAccent"
                     custom:selectorColor="@color/colorAccent"
-                    custom:tickColor="@color/colorAccent"
-                    android:layout_marginTop="35dp"/>
+                    custom:tickColor="@color/colorAccent"/>
 
                 <Switch
+                    android:id="@+id/timing_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="定时退出"
-                    android:id="@+id/timing_switch"
-                    android:switchPadding="14.5sp"
-                    android:layout_below="@+id/wifi_buttons"
                     android:layout_alignLeft="@+id/rangebar"
                     android:layout_alignStart="@+id/rangebar"
+                    android:layout_below="@+id/wifi_buttons"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="15dp"
+                    android:switchPadding="14.5sp"
+                    android:text="定时退出"/>
 
             </RelativeLayout>
 

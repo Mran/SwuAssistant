@@ -9,13 +9,11 @@ import com.swuos.ALLFragment.charge.ChargeFragment;
 import com.swuos.ALLFragment.find_lost.FindLostFragment;
 import com.swuos.ALLFragment.library.lib.views.LibFragment;
 import com.swuos.ALLFragment.main_page.MainPageFragment;
-import com.swuos.ALLFragment.setting.SettingFragment;
 import com.swuos.ALLFragment.study_materials.StudyMaterialsFragment;
 import com.swuos.ALLFragment.swujw.grade.GradesFragment;
 import com.swuos.ALLFragment.swujw.schedule.ScheduleFragment;
 import com.swuos.ALLFragment.wifi.WifiFragment;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -43,6 +41,45 @@ public class FragmentControl {
 
     public FragmentControl(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
+    }
+
+    private static void hideFragments(FragmentTransaction fragmentTransaction) {
+        if (mainPageFragment != null) {
+            SALog.d("MainActity", "Hidemain");
+            fragmentTransaction.hide(mainPageFragment);
+        }
+        if (gradesFragment != null) {
+            SALog.d("MainActity", "HideGrades");
+            fragmentTransaction.hide(gradesFragment);
+        }
+
+        if (scheduleFragment != null) {
+            SALog.d("MainActity", "Hideschedule");
+            fragmentTransaction.hide(scheduleFragment);
+        }
+        if (studyMaterialsFragment != null) {
+            fragmentTransaction.hide(studyMaterialsFragment);
+        }
+        if (WifiFragment != null) {
+            SALog.d("MainActity", "HideWifi");
+
+            fragmentTransaction.hide(WifiFragment);
+        }
+        if (libraryFragment != null) {
+            SALog.d("MainActity", "HideLibrary");
+            fragmentTransaction.hide(libraryFragment);
+        }
+        if (cardfragment != null) {
+            fragmentTransaction.hide(cardfragment);
+        }
+
+        if (chargeFragment != null) {
+            fragmentTransaction.hide(chargeFragment);
+        }
+        if (findLostFragment != null) {
+            fragmentTransaction.hide(findLostFragment);
+        }
+
     }
 
     public  void fragmentSelection(int id) {
@@ -142,45 +179,6 @@ public class FragmentControl {
                 break;
         }
         transaction.commit();
-    }
-
-    private static void hideFragments(FragmentTransaction fragmentTransaction) {
-        if (mainPageFragment != null) {
-            SALog.d("MainActity", "Hidemain");
-            fragmentTransaction.hide(mainPageFragment);
-        }
-        if (gradesFragment != null) {
-            SALog.d("MainActity", "HideGrades");
-            fragmentTransaction.hide(gradesFragment);
-        }
-
-        if (scheduleFragment != null) {
-            SALog.d("MainActity", "Hideschedule");
-            fragmentTransaction.hide(scheduleFragment);
-        }
-        if (studyMaterialsFragment != null) {
-            fragmentTransaction.hide(studyMaterialsFragment);
-        }
-        if (WifiFragment != null) {
-            SALog.d("MainActity", "HideWifi");
-
-            fragmentTransaction.hide(WifiFragment);
-        }
-        if (libraryFragment != null) {
-            SALog.d("MainActity", "HideLibrary");
-            fragmentTransaction.hide(libraryFragment);
-        }
-        if (cardfragment != null) {
-            fragmentTransaction.hide(cardfragment);
-        }
-
-        if (chargeFragment != null) {
-            fragmentTransaction.hide(chargeFragment);
-        }
-        if (findLostFragment != null) {
-            fragmentTransaction.hide(findLostFragment);
-        }
-
     }
 
     public void initFragment(FragmentManager fragmentManager) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:skin="http://schemas.android.com/android/skin"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="#ecebeb"
@@ -9,10 +10,11 @@
         android:id="@+id/show_gaades_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/colorPrimary"
+        skin:enable="true">
 
         <LinearLayout
-            android:background="@color/colorPrimary">
+            >
 
             <Spinner
                 android:id="@+id/xnm"
@@ -32,7 +34,7 @@
         </LinearLayout>
 
 
-        <TableRow android:background="@color/colorPrimary">
+        <TableRow>
 
             <TextView
                 android:layout_width="160dp"

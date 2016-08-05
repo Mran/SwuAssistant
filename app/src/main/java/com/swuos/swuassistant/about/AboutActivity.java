@@ -1,4 +1,4 @@
-package com.swuos.swuassistant;
+package com.swuos.swuassistant.about;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,12 +23,15 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.swuos.net.OkhttpNet;
+import com.swuos.swuassistant.BaseActivity;
+import com.swuos.swuassistant.Constant;
+import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/5/17.
  */
-public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
+public class AboutActivity extends BaseActivity implements View.OnClickListener {
     private TextView zmy;
     private TextView yk;
     private TextView csd;
@@ -65,9 +68,10 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         setSupportActionBar(toolbar);
         this.setTitle("关于我们");
         toolbar.setTitleTextColor(Color.WHITE);
-        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationIcon(d);
         initview();
+        dynamicAddView(toolbar, "background", R.color.colorPrimary);
     }
 
     private void initview() {

@@ -1,4 +1,4 @@
-package com.swuos.swuassistant;
+package com.swuos.swuassistant.setting;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,12 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.swuos.ALLFragment.setting.SettingFragment;
+import com.swuos.swuassistant.BaseActivity;
+import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
 /**
  * Created by 张孟尧 on 2016/4/8.
  */
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class SettingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         this.setTitle(R.string.action_settings);
         toolbar.setTitleTextColor(Color.WHITE);
-        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationIcon(d);
         /*打开preferenceFragment*/
         SettingFragment settingFragment=new SettingFragment();
@@ -36,6 +38,7 @@ public class SettingActivity extends AppCompatActivity {
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.add(R.id.setting_fragment,settingFragment, getString(R.string.action_settings));
         transaction.commit();
+        dynamicAddView(toolbar, "background", R.color.colorPrimary);
     }
 
     @Override

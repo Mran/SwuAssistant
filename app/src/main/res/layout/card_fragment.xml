@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:skin="http://schemas.android.com/android/skin"
+
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:orientation="vertical">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshEcard"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
-        android:id="@+id/recyclerViewEcard"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp">
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewEcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+        </android.support.v7.widget.RecyclerView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -28,15 +30,15 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="获取数据失败,点击重试"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#f0f0f0"
             android:layout_weight="6"
-            android:textSize="28sp"
-            android:textStyle="bold"
+            android:background="#f0f0f0"
             android:gravity="bottom|center"
-            android:paddingBottom="8dp"/>
+            android:paddingBottom="8dp"
+            android:text="获取数据失败,点击重试"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -46,7 +48,8 @@
             android:gravity="top|center"
             android:paddingTop="10dp"
             android:text="请检查是否连接swu-wifi或者swu-wifi-dorm"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -55,16 +58,18 @@
             android:gravity="top|center"
             android:paddingTop="10dp"
             android:text="或者在wifi信号好的地方重试"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabCard"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_marginRight="16dp"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="18dp"
-        app:backgroundTint="@color/colorPrimaryDark"
-        android:src="@drawable/lib_consume"/>
+        android:layout_marginRight="16dp"
+        android:background="@color/colorPrimaryDark"
+        android:src="@drawable/lib_consume"
+        skin:enable="true"
+        />
 </android.support.design.widget.CoordinatorLayout>

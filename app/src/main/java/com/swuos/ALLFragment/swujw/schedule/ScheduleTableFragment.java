@@ -23,7 +23,7 @@ import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.model.ScheduleData;
 import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity.MainActivity;
+import com.swuos.swuassistant.main.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

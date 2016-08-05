@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#3f51b5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
 
@@ -17,6 +17,12 @@
     <color name="tablayoutslectcolor">#48f550</color>
     <color name="white">#ffffff</color>
     <color name="newcolor">#009900</color>
+
+
+    <color name="yellow_skin">#e9cf0b</color>
+    <color name="black_skin">#0d0c08</color>
+    <color name="green_skin">#34b96d</color>
+    <color name="cyan_skin">#44D4A8</color>
 
 
 </resources>

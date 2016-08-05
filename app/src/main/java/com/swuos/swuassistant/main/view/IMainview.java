@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.MainActivity.view;
+package com.swuos.swuassistant.main.view;
 
 import com.swuos.ALLFragment.swujw.TotalInfos;
 

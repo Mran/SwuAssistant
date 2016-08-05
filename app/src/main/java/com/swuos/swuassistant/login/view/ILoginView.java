@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.LoginActivity.view;
+package com.swuos.swuassistant.login.view;
 
 /**
  * Created by 张孟尧 on 2016/7/19.

@@ -3,7 +3,6 @@ package com.swuos.ALLFragment.card;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.util.SALog;
 
 import java.util.ArrayList;

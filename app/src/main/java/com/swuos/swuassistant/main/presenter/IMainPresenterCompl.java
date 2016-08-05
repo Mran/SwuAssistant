@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.MainActivity.presenter;
+package com.swuos.swuassistant.main.presenter;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,12 +10,11 @@ import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.MainActivity.view.IMainview;
+import com.swuos.swuassistant.main.view.IMainview;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 /**

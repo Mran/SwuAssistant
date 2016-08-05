@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -24,13 +25,16 @@ import com.swuos.ALLFragment.library.search.model.BookInfoSearch;
 import com.swuos.ALLFragment.library.search.presenter.ISearchPresenter;
 import com.swuos.ALLFragment.library.search.presenter.SearchPresenterImp;
 import com.swuos.ALLFragment.library.search.utils.LibSearch;
+import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 import com.swuos.util.tools.Tools;
 
 import java.util.List;
 
-public class SearchAtyImp extends AppCompatActivity implements View.OnClickListener, ISearchView, RecycleAdapterSearch.OnRecyclerItemClickedListener,SwipeRefreshLayout.OnRefreshListener{
+public class SearchAtyImp extends BaseActivity implements View.OnClickListener, ISearchView, RecycleAdapterSearch.OnRecyclerItemClickedListener, SwipeRefreshLayout.OnRefreshListener {
+    public static final int REFRESH_BEGIN = 0;
+    public static final int REFRESH_STOP = 1;
     private AppCompatEditText editText;
     private ImageButton imageButtonBack;
     private ImageButton imageButtonClear;
@@ -43,10 +47,7 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
     private List<BookInfoSearch> bookInfoSearches;
     private RecycleAdapterSearch recycleAdapter;
     private LinearLayout linearLayoutTip;
-
-    public static final int REFRESH_BEGIN = 0;
-    public static final int REFRESH_STOP = 1;
-
+    private AppBarLayout appBarLayout;
     private String resultStr;
     private Handler mHandler = new Handler() {
         @Override
@@ -86,10 +87,13 @@ public class SearchAtyImp extends AppCompatActivity implements View.OnClickListe
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+
     }
 
     private void initsAndBinds() {
         iSearchPresenter = new SearchPresenterImp(this);
+        appBarLayout = (AppBarLayout) findViewById(R.id.appbarLayoutSearch);
+        dynamicAddView(appBarLayout, "background", R.color.colorPrimary);
         imageButtonBack = (ImageButton) findViewById(R.id.imgBtnSearchBack);
         imageButtonClear = (ImageButton) findViewById(R.id.imgBtnSearchClear);
         editText = (AppCompatEditText) findViewById(R.id.editTextInput);

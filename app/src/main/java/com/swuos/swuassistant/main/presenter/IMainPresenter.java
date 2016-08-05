@@ -1,6 +1,5 @@
-package com.swuos.swuassistant.MainActivity.presenter;
+package com.swuos.swuassistant.main.presenter;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 
 /**

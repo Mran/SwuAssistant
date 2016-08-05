@@ -25,7 +25,6 @@ import com.swuos.ALLFragment.library.lib.adapters.RecyclerAdapterLibMain;
 import com.swuos.ALLFragment.library.lib.model.BookItem;
 import com.swuos.ALLFragment.library.lib.presenter.ILibPresenter;
 import com.swuos.ALLFragment.library.lib.presenter.LibPresenterImp;
-import com.swuos.swuassistant.MainActivity.MainActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

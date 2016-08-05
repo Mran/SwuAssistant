@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.LoginActivity;
+package com.swuos.swuassistant.login;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.LoginActivity.presenter.ILoginPresenter;
-import com.swuos.swuassistant.LoginActivity.presenter.LoginPresenterCompl;
-import com.swuos.swuassistant.LoginActivity.view.ILoginView;
+import com.swuos.swuassistant.login.presenter.ILoginPresenter;
+import com.swuos.swuassistant.login.presenter.LoginPresenterCompl;
+import com.swuos.swuassistant.login.view.ILoginView;
 import com.swuos.swuassistant.R;
 
 import butterknife.BindView;

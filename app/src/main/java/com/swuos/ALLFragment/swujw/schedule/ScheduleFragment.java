@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.swuos.ALLFragment.BaseFragment;
 import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
 import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
 import com.swuos.ALLFragment.swujw.schedule.presenter.ISchedulePresenter;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * Created by 张孟尧 on 2016/2/29.
  */
-public class ScheduleFragment extends Fragment implements IScheduleView, SwipeRefreshLayout.OnRefreshListener {
+public class ScheduleFragment extends BaseFragment implements IScheduleView, SwipeRefreshLayout.OnRefreshListener {
 
     /*viewpager*/
     private ViewPager sceduleViewPager;

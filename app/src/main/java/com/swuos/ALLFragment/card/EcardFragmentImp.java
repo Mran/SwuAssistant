@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.swuos.ALLFragment.BaseFragment;
+import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -37,7 +39,7 @@ import java.util.List;
  * Created by codekk on 2016/5/13.
  * Email:  645326280@qq.com
  */
-public class EcardFragmentImp extends Fragment implements IEcardView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class EcardFragmentImp extends BaseFragment implements IEcardView, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView recyclerView;
     private IEcardPresenter iEcardPresenter;
     private ProgressDialog progressDialog;

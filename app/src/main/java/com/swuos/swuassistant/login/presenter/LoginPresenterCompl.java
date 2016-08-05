@@ -1,4 +1,4 @@
-package com.swuos.swuassistant.LoginActivity.presenter;
+package com.swuos.swuassistant.login.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,10 +6,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.swuos.ALLFragment.swujw.Login;
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.LoginActivity.view.ILoginView;
+import com.swuos.swuassistant.login.view.ILoginView;
 import com.swuos.swuassistant.R;
 
 /**

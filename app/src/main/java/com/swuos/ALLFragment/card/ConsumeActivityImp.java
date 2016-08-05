@@ -1,5 +1,6 @@
 package com.swuos.ALLFragment.card;
 
+import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import java.util.List;
  * Created by codekk on 2016/5/13.
  * Email:  645326280@qq.com
  */
-public class ConsumeActivityImp extends AppCompatActivity implements IConsumeView, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
+public class ConsumeActivityImp extends BaseActivity implements IConsumeView, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private String lastIndex;
     private String currentIndex="0";
     private RecyclerView recyclerView;
@@ -67,14 +69,16 @@ public class ConsumeActivityImp extends AppCompatActivity implements IConsumeVie
     };
 
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.consmue_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBarConsume);
         toolbar.setTitle("消费记录");
+        toolbar.setTitleTextColor(getColor(R.color.white));
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        dynamicAddView(toolbar, "background", R.color.colorPrimary);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         consumeInfos=new ArrayList<>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

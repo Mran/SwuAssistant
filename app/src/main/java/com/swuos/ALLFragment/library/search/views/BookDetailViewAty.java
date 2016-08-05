@@ -25,6 +25,7 @@ import com.swuos.ALLFragment.library.search.presenter.BookDetailViewPresenterImp
 import com.swuos.ALLFragment.library.search.presenter.IBookDeatilPresenter;
 import com.swuos.ALLFragment.library.search.presenter.SearchPresenterImp;
 import com.swuos.ALLFragment.library.search.utils.LibSearch;
+import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 
@@ -37,7 +38,7 @@ import me.relex.circleindicator.CircleIndicator;
  * Created by youngkaaa on 2016/5/26.
  * Email:  645326280@qq.com
  */
-public class BookDetailViewAty extends AppCompatActivity implements IBookDetailView {
+public class BookDetailViewAty extends BaseActivity implements IBookDetailView {
     private TextView textViewIsbnPrice;
     private TextView textViewLanguage;
     private TextView textViewBookNameAuthor;
@@ -111,7 +112,7 @@ public class BookDetailViewAty extends AppCompatActivity implements IBookDetailV
         setSupportActionBar(toolbar);
         this.setTitle(bookName);
         toolbar.setTitleTextColor(Color.WHITE);
-        Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable drawable = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationIcon(drawable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));

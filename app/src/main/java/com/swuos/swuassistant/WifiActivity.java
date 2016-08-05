@@ -55,7 +55,7 @@ public class WifiActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         this.setTitle(R.string.wifi);
         toolbar.setTitleTextColor(Color.WHITE);
-        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        Drawable d = getResources().getDrawable(R.drawable.abc_ic_ab_back_material);
         toolbar.setNavigationIcon(d);
         initdata();
         initview();

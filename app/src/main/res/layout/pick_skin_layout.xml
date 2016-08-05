@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
+    <TableRow
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_blue"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/button"
+            android:layout_margin="10dp"
+            android:background="@drawable/pick_skin_blue_button"/>
+
+        <Button
+            android:id="@+id/button_black"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/pick_skin_black_button"/>
+
+        <Button
+            android:id="@+id/button_yellow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/pick_skin_yellow_button"/>
+
+        <Button
+            android:id="@+id/button_green"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/pick_skin_green_button"
+            />
+
+        <Button
+            android:id="@+id/button_cyan"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/pick_skin_cyan_button"
+            />
+    </TableRow>
+
+
+</TableLayout>

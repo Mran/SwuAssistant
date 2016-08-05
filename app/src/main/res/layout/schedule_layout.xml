@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,6 +26,7 @@
                 android:elevation="4dp"
                 app:tabSelectedTextColor="@color/colorclass3"
                 app:tabTextColor="@color/white"
+                skin:enable="true"
 
                 >
 

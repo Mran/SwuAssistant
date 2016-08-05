@@ -1,46 +1,53 @@
-package com.swuos.swuassistant.MainActivity;
+package com.swuos.swuassistant.main;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.swuos.ALLFragment.FragmentControl;
 import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
-import com.swuos.ALLFragment.swujw.TotalInfo;
 import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.swuassistant.AboutActivity;
+import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.Constant;
-import com.swuos.swuassistant.LoginActivity.LoginActivity;
-import com.swuos.swuassistant.MainActivity.presenter.IMainPresenter;
-import com.swuos.swuassistant.MainActivity.presenter.IMainPresenterCompl;
-import com.swuos.swuassistant.MainActivity.view.IMainview;
 import com.swuos.swuassistant.R;
-import com.swuos.swuassistant.SettingActivity;
+import com.swuos.swuassistant.about.AboutActivity;
+import com.swuos.swuassistant.login.LoginActivity;
+import com.swuos.swuassistant.main.presenter.IMainPresenter;
+import com.swuos.swuassistant.main.presenter.IMainPresenterCompl;
+import com.swuos.swuassistant.main.view.IMainview;
+import com.swuos.swuassistant.setting.SettingActivity;
 import com.swuos.util.SALog;
 import com.swuos.util.tools.Tools;
 
+import solid.ren.skinlibrary.loader.SkinManager;
 
-public class MainActivity extends AppCompatActivity implements IMainview, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+
+public class MainActivity extends BaseActivity implements IMainview, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private static TotalInfos totalInfo = TotalInfos.getInstance();
     private static int fragmentPosition = R.id.nav_wifi;
     TextView nameTextView;
     TextView swuIDTextView;
     IMainPresenter iMainPresenter;
+    View headerView;
+    NavigationView navigationView;
     private FragmentControl fragmentControl;
     private LocalBroadcastManager localBroadcastManager;
     private boolean isFragmentLibSelected = false;
@@ -56,10 +63,12 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
         iMainPresenter.initData(totalInfo);
         iMainPresenter.startServier();
         initView();
+        initChangeskin();
         fragmentControl = new FragmentControl(getSupportFragmentManager());
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
-        SALog.d("Mainactivity",Tools.getSystemProperty("ro.miui.ui.version.name"));
+        SALog.d("Mainactivity", Tools.getSystemProperty("ro.miui.ui.version.name"));
+
     }
 
     /*获得某个活动的回复信息*/
@@ -87,19 +96,23 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
                 .navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View view = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
 
         /*显示退出按钮*/
-        ImageButton imageButtonLoginOut = (ImageButton) view.findViewById(R.id.logout);
+        ImageButton imageButtonLoginOut = (ImageButton) headerView.findViewById(R.id.logout);
         imageButtonLoginOut.setOnClickListener(MainActivity.this);
-
         navigationView.setNavigationItemSelectedListener(MainActivity.this);
         /*侧边栏显示姓名学号*/
-        nameTextView = (TextView) view.findViewById(R.id.name);
-        swuIDTextView = (TextView) view.findViewById(R.id.swuid);
-
+        nameTextView = (TextView) headerView.findViewById(R.id.name);
+        swuIDTextView = (TextView) headerView.findViewById(R.id.swuid);
         setNavigationViewHeader(totalInfo);
+    }
+
+    private void initChangeskin() {
+        dynamicAddView(toolbar, "background", R.color.colorPrimary);
+        dynamicAddView(headerView, "background", R.color.colorPrimary);
+        dynamicAddView(navigationView, "navigationViewMenu", R.color.colorPrimary);
     }
 
     @Override
@@ -152,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -194,6 +208,9 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
                 overridePendingTransition(R.anim.about_activity_in, 0);
                 isFragmentLibSelected = false;
                 return true;
+            case R.id.change_skin:
+                pickSkin();
+                break;
             default:
                 break;
 
@@ -202,6 +219,26 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
         drawer.closeDrawer(GravityCompat.START);
         invalidateOptionsMenu();
         return true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void pickSkin() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View pickSkinView = LayoutInflater.from(this).inflate(R.layout.pick_skin_layout, null);
+        Button blueButton = (Button) pickSkinView.findViewById(R.id.button_blue);
+        Button greenButton = (Button) pickSkinView.findViewById(R.id.button_green);
+        Button blackButton = (Button) pickSkinView.findViewById(R.id.button_black);
+        Button yellowButton = (Button) pickSkinView.findViewById(R.id.button_yellow);
+        Button cyanButton = (Button) pickSkinView.findViewById(R.id.button_cyan);
+        blueButton.setOnClickListener(this);
+        greenButton.setOnClickListener(this);
+        blackButton.setOnClickListener(this);
+        yellowButton.setOnClickListener(this);
+        cyanButton.setOnClickListener(this);
+
+        builder.setView(pickSkinView);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override
@@ -225,6 +262,24 @@ public class MainActivity extends AppCompatActivity implements IMainview, Naviga
             case R.id.name:
                 //开启登陆活动,并要求获得回复信息
                 startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), Constant.LOGIN_RESULT_CODE);
+                break;
+            case R.id.button_blue:
+                SkinManager.getInstance().restoreDefaultTheme();
+                break;
+            case R.id.button_black:
+                SkinManager.getInstance().loadSkin("black.skin", null);
+                break;
+            case R.id.button_yellow:
+                SkinManager.getInstance().loadSkin("yellow.skin", null);
+                break;
+            case R.id.button_cyan:
+                SkinManager.getInstance().loadSkin("cyan.skin", null);
+                break;
+            case R.id.button_green:
+                SkinManager.getInstance().loadSkin("green.skin", null);
+                break;
+            default:
+                break;
         }
     }
 
