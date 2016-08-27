@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:skin="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarBookDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        skin:enable="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolBarBookDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways"
+            skin:enable="true"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -38,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingLeft="8dp"
-                android:text="ISBN/价格：" />
+                android:text="ISBN/价格："/>
 
             <TextView
                 android:id="@+id/textViewBookDetailLanguage"
@@ -46,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="作品语种：" />
+                android:text="作品语种："/>
 
             <TextView
                 android:id="@+id/textViewBookDetailBookName_author"
@@ -54,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="题名责任者项：" />
+                android:text="题名责任者项："/>
 
             <TextView
                 android:id="@+id/textViewBookDetailPublisher"
@@ -62,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="出版发行项：" />
+                android:text="出版发行项："/>
 
             <TextView
                 android:id="@+id/textViewBookDetailPages"
@@ -70,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="载体形态项：" />
+                android:text="载体形态项："/>
 
             <TextView
                 android:id="@+id/textViewBookDetailCL_kind"
@@ -78,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="中图分类：	" />
+                android:text="中图分类：	"/>
 
             <TextView
                 android:id="@+id/textViewBookDetailNameMajor"
@@ -86,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="个人名称等同" />
+                android:text="个人名称等同"/>
 
             <TextView
                 android:id="@+id/textViewBookDetailNameMinor"
@@ -94,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:paddingLeft="8dp"
-                android:text="个人名称次要：" />
+                android:text="个人名称次要："/>
 
             <TextView
                 android:id="@+id/textViewBookRecordResource"
@@ -103,7 +107,7 @@
                 android:layout_marginTop="12dp"
                 android:paddingBottom="8dp"
                 android:paddingLeft="8dp"
-                android:text="记录来源：" />
+                android:text="记录来源："/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -116,7 +120,7 @@
         android:gravity="center"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:text="馆藏信息如下" />
+        android:text="馆藏信息如下"/>
 
 
     <android.support.v7.widget.CardView
@@ -147,7 +151,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="馆藏正在加载中..."
-            android:textSize="22sp" />
+            android:textSize="22sp"/>
 
 
     </android.support.v7.widget.CardView>

@@ -27,7 +27,7 @@
                 android:layout_height="48dp"
                 android:background="@null"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_action_arrow_left"/>
+                android:src="@drawable/abc_ic_ab_back_material"/>
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/editTextInput"

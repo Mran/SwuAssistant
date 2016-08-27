@@ -3,6 +3,7 @@ package com.swuos.ALLFragment.card;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.util.SALog;
 
 import java.util.ArrayList;
@@ -19,10 +20,11 @@ public class EcardPresenterImp implements IEcardPresenter {
     private Context mContext;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-
+    private TotalInfos totalInfos;
     public EcardPresenterImp(IEcardView ecardView, Context context) {
         this.iEcardView = ecardView;
         this.mContext = context;
+        totalInfos = TotalInfos.getInstance();
         ecardTools = new EcardTools();
         ecardInfos = new ArrayList<>();
         sharedPreferences = mContext.getSharedPreferences("eCardInfo", Context.MODE_PRIVATE);
@@ -90,7 +92,7 @@ public class EcardPresenterImp implements IEcardPresenter {
     @Override
     public String getSwuId() {
         String swuId = sharedPreferences.getString("swuID", "nothing");
-        return swuId;
+        return totalInfos.getSwuID();
     }
 
     @Override

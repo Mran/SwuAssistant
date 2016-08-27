@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.view;
+package com.swuos.ALLFragment.swujw.schedule.adapter;
 
 
 import android.support.v4.app.Fragment;

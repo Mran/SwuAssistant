@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.view;
+package com.swuos.ALLFragment.swujw.grade.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

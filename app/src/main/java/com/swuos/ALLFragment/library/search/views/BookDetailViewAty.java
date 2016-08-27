@@ -117,6 +117,7 @@ public class BookDetailViewAty extends BaseActivity implements IBookDetailView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+        dynamicAddView(toolbar, "background", R.color.colorPrimary);
 
         deatilPresenter.setProgressDialogVisible(View.VISIBLE);
         new Thread(new Runnable() {
