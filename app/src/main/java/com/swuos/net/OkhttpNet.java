@@ -1,19 +1,30 @@
 package com.swuos.net;
 
+import android.app.Application;
+
 import com.google.gson.JsonObject;
+import com.swuos.swuassistant.BaseApplication;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.security.KeyStore;
+import java.security.SecureRandom;
+import java.security.cert.CertificateFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
 
 import okhttp3.Authenticator;
 import okhttp3.Cookie;
@@ -50,6 +61,7 @@ public class OkhttpNet implements Serializable {
 
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .cookieJar(cookieJar)
+            //            .sslSocketFactory(getCertificates())
             .authenticator(new Authenticator() {
                 @Override
                 public Request authenticate(Route route, Response response) throws IOException {
@@ -63,8 +75,72 @@ public class OkhttpNet implements Serializable {
             .connectTimeout(Constant.TIMEOUT, TimeUnit.MILLISECONDS)
             .build();
 
+    private static SSLSocketFactory getCertificates() {
+        SSLContext sslContext = null;
+        try {
+
+            InputStream inputStream = BaseApplication.getContext().getAssets().open("1.cer");
+            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null);
+
+            int index = 0;
+            String certificateAlias = Integer.toString(index++);
+            keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(inputStream));
+
+            sslContext = SSLContext.getInstance("TLS");
+            TrustManagerFactory trustManagerFactory =
+                    TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init(keyStore);
+            sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sslContext.getSocketFactory();
+
+    }
+
     //采用utf-8编码
     public String doGet(String url) {
+        Request request = new Request.Builder().url(url).build();
+        Response response = null;
+        String responses = null;
+        try {
+            response = okHttpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.body().byteStream(), "GBK"));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                //                    将收到的内容转化为字符串
+                responses = stringBuilder.toString();
+
+            } else
+                responses = Constant.CLIENT_ERROR;
+        } catch (ConnectException e) {
+            e.printStackTrace();
+            responses = Constant.NO_NET;
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            responses = Constant.CLIENT_TIMEOUT;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (responses == null) {
+            responses = Constant.NO_NET;
+        }
+        SALog.d("post", responses);
+        return responses;
+    }
+
+    public String doGet(String url, Cookie cookie) {
+        List<Cookie> cookies1 = new ArrayList<>();
+        cookies1.add(cookie);
+
+        cookieJar.saveFromResponse(HttpUrl.parse("http://jw.swu.edu.cn"), cookies1);
         Request request = new Request.Builder().url(url).build();
         Response response = null;
         String responses = null;

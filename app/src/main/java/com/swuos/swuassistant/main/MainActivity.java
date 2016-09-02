@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -26,6 +27,7 @@ import com.swuos.ALLFragment.FragmentControl;
 import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.swuassistant.BaseActivity;
+import com.swuos.swuassistant.BaseApplication;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.swuassistant.about.AboutActivity;
@@ -68,6 +70,7 @@ public class MainActivity extends BaseActivity implements IMainview, NavigationV
         fragmentControl.fragmentStateCheck(savedInstanceState, getSupportFragmentManager(), fragmentPosition);
         SALog.d("Mainactivity", "OnCreatview");
         SALog.d("Mainactivity", Tools.getSystemProperty("ro.miui.ui.version.name"));
+        iMainPresenter.startUpdata();
 
     }
 
@@ -322,6 +325,25 @@ public class MainActivity extends BaseActivity implements IMainview, NavigationV
                     }
                 });
             /*显示警告框*/
+        dialogsQuit.show();
+    }
+
+    @Override
+    public void showUpdata(String changelog, final String url) {
+        final AlertDialog.Builder dialogsQuit;
+        dialogsQuit = new AlertDialog.Builder(this);
+        dialogsQuit.setTitle("发现新版本");
+        dialogsQuit.setMessage(changelog);
+        dialogsQuit.setCancelable(false);
+        dialogsQuit.setPositiveButton("马上更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setData(Uri.parse(url));
+                BaseApplication.getContext().startActivity(intent);
+            }
+        });
         dialogsQuit.show();
     }
 }

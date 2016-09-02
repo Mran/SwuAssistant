@@ -8,5 +8,7 @@ import com.swuos.ALLFragment.swujw.TotalInfos;
 public interface IMainview {
     void showQuitDialog();
 
+    void showUpdata(String changelog, final String url);
+
     void setNavigationViewHeader(TotalInfos totalInfo);
 }

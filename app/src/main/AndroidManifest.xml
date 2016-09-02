@@ -85,11 +85,11 @@
 
             </intent-filter>
         </receiver>
-        <receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
-            </intent-filter>
-        </receiver>
+
+        <meta-data
+            android:name="BUG_HD_SDK_GENERAL_KEY"
+            android:value="cd41ce86222f389887a06882d79a08bf"/>
+
     </application>
 
 </manifest>

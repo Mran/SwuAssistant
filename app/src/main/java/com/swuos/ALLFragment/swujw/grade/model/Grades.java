@@ -10,7 +10,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,36 +22,12 @@ import okhttp3.RequestBody;
  */
 public class Grades {
 
-    private OkhttpNet okhttpNet;
+    private static OkhttpNet okhttpNet;
 
     public Grades(OkhttpNet okhttpNet) {
         this.okhttpNet = okhttpNet;
         /*进入教务系统*/
         okhttpNet.doGet(Constant.urlEms);
-    }
-
-    public String setGrades(TotalInfos totalInfo, String xnm, String xqm) {
-        /*构建一个post的参数*/
-        RequestBody requestBody = new FormBody.Builder()
-                .add("_search", "false")
-                .add("nd", Long.toString(new Date().getTime()))
-                .add("queryModel.currentPage", "1")
-                .add("queryModel.showCount", "1000")
-                .add("queryModel.sortName", "")
-                .add("queryModel.sortOrder", "asc")
-                .add("time", "0")
-                .add("xnm", xnm)
-                .add("xqm", xqm)
-                .build();
-        /*构建目标网址*/
-        String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
-        /*发送请求*/
-        String respones = okhttpNet.doPost(url, requestBody);
-        if (!respones.contains(Constant.NO_NET)) {
-            totalInfo.setGradesDataJson(respones);
-        } else
-            return respones;
-        return Constant.CLIENT_OK;
     }
 
     public static List<GradeItem> getGradesList(TotalInfos totalInfo) {
@@ -82,8 +57,8 @@ public class Grades {
             String jd = items.getJd();
             String xh_id = items.getXh_id();
             String jxb_id = items.getJxb_id();
-            String xnm=items.getXnm();
-            String xqm=items.getXqm();
+            String xnm = items.getXnm();
+            String xqm = items.getXqm();
             /*用来处理成绩是按照ＡＢＣＤ评定的情况*/
             switch (cj) {
                 case "A":
@@ -140,22 +115,22 @@ public class Grades {
         return gradeItemList;
     }
 
-    public GradeItem getGradeDetial(GradeItem gradeItem) {
+    public static GradeItem getGradeDetial(String respones, GradeItem gradeItem) {
 
         List<String[]> detial = new ArrayList<>();
-
-        /*构建一个post的参数*/
-        RequestBody requestBody = new FormBody.Builder()
-                .add("jxb_id", gradeItem.getJxb_id())
-                .add("kcmc", gradeItem.getKcmc())
-                .add("xh_id", gradeItem.getXh_id())
-                .add("xnm", gradeItem.getXnm())
-                .add("xqm", gradeItem.getXqm())
-                .build();
-        String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxCjxq.html?" + "time=" + String.valueOf(System.currentTimeMillis()) + "&gnmkdmKey=N305005" + "&sessionUserKey=" + gradeItem.getXh_id();
-        /*构建目标网址*/
-        /*发送请求*/
-        String respones = okhttpNet.doPost(url, requestBody);
+        //
+        //        /*构建一个post的参数*/
+        //        RequestBody requestBody = new FormBody.Builder()
+        //                .add("jxb_id", gradeItem.getJxb_id())
+        //                .add("kcmc", gradeItem.getKcmc())
+        //                .add("xh_id", gradeItem.getXh_id())
+        //                .add("xnm", gradeItem.getXnm())
+        //                .add("xqm", gradeItem.getXqm())
+        //                .build();
+        //        String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxCjxq.html?" + "time=" + String.valueOf(System.currentTimeMillis()) + "&gnmkdmKey=N305005" + "&sessionUserKey=" + gradeItem.getXh_id();
+        //        /*构建目标网址*/
+        //        /*发送请求*/
+        //        String respones = okhttpNet.doPost(url, requestBody);
         if (!respones.contains(Constant.NO_NET)) {
             Document body = Jsoup.parse(respones, "UTF-8");
             Element subtab = body.getElementById("subtab");
@@ -171,5 +146,29 @@ public class Grades {
         }
         gradeItem.setDetial(detial);
         return gradeItem;
+    }
+
+    public String setGrades(TotalInfos totalInfo, String xnm, String xqm) {
+        /*构建一个post的参数*/
+        RequestBody requestBody = new FormBody.Builder()
+                .add("_search", "false")
+                .add("nd", Long.toString(new Date().getTime()))
+                .add("queryModel.currentPage", "1")
+                .add("queryModel.showCount", "1000")
+                .add("queryModel.sortName", "")
+                .add("queryModel.sortOrder", "asc")
+                .add("time", "0")
+                .add("xnm", xnm)
+                .add("xqm", xqm)
+                .build();
+        /*构建目标网址*/
+        String url = "http://jw.swu.edu.cn/jwglxt/cjcx/cjcx_cxDgXscj.html?" + "doType=query&gnmkdmKey=N305005&sessionUserKey=" + totalInfo.getSwuID();
+        /*发送请求*/
+        String respones = okhttpNet.doPost(url, requestBody);
+        if (!respones.contains(Constant.NO_NET)) {
+            totalInfo.setGradesDataJson(respones);
+        } else
+            return respones;
+        return Constant.CLIENT_OK;
     }
 }

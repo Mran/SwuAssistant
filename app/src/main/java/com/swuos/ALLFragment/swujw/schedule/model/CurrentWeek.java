@@ -16,7 +16,7 @@ public class CurrentWeek {
         Date smdate = null;
 
         try {
-            smdate = sdf.parse("20160229");
+            smdate = sdf.parse("20160905");
         } catch (ParseException e) {
             e.printStackTrace();
         }

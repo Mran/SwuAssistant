@@ -9,13 +9,22 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
+import com.swuos.swuassistant.BaseApplication;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.main.view.IMainview;
-import com.xiaomi.market.sdk.XiaomiUpdateAgent;
+import com.swuos.util.updata.GetAppVersion;
+import com.swuos.util.updata.Updatajson;
+
+import im.fir.sdk.FIR;
+import im.fir.sdk.VersionCheckCallback;
+
 
 /**
  * Created by 张孟尧 on 2016/7/20.
@@ -74,8 +83,35 @@ public class IMainPresenterCompl implements IMainPresenter {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_PHONE_STATE}, Constant.REQUEST_CODE_ASK_CALL_PHONE);
             return;
         } else {
-            XiaomiUpdateAgent.update(context);
-            XiaomiUpdateAgent.arrange();
+
+            FIR.checkForUpdateInFIR("ab63d4ce50e42ddbbc200d7c939a8da7", new VersionCheckCallback() {
+                @Override
+                public void onSuccess(String versionJson) {
+                    Log.i("fir", "check from fir.im success! " + "\n" + versionJson);
+                    Gson gson = new Gson();
+                    Updatajson updatajson = gson.fromJson(versionJson, Updatajson.class);
+                    final String versionName = GetAppVersion.getPackageInfo(BaseApplication.getContext()).versionName;
+
+                    if (!updatajson.getVersionShort().contains(versionName)) {
+                        iMainview.showUpdata(updatajson.getChangelog(), updatajson.getDirect_install_url());
+                    }
+                }
+
+                @Override
+                public void onFail(Exception exception) {
+                    Log.i("fir", "check fir.im fail! " + "\n" + exception.getMessage());
+                }
+
+                @Override
+                public void onStart() {
+                    //                    Toast.makeText(BaseApplication.getContext(), "正在获取", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFinish() {
+                    //                    Toast.makeText(BaseApplication.getContext(), "获取完成", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 }

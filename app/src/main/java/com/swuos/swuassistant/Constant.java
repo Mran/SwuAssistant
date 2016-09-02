@@ -45,6 +45,8 @@ public class Constant {
     public static final String CLIENT_OK = "成功";
     public static final String CLIENT_ERROR = "连接出错";
     public static final String CLIENT_TIMEOUT = "连接超时";
+    public static final String USERNAMEORPSWERRR = "用户名或密码错误";
+
 
     public static final String XQM_ONE = "3";
     public static final String XQM_TWO = "12";
@@ -56,8 +58,11 @@ public class Constant {
     public static final String[] FRAGMENTTAG = {"mainPageFragment", "scheduleFragment", "gradesFragment", "studyMaterialsFragment", "findLostFragment", "chargeFragment", "libraryFragrment", "WifiFragment", "ecardFragment"};
     //    校内门户地址
     public static final String urlUrp = "http://urp6.swu.edu.cn/login.portal";
+    public static final String urlRedrictjw = "https://uaaap.swu.edu.cn/cas/login?service=http%3A%2F%2Fjw.swu.edu.cn%2Fssoserver%2Flogin%3Fywxt%3Djw";
     //    用户信息发送目标地址
-    public static final String urlLogin = "http://urp6.swu.edu.cn/userPasswordValidate.portal";
+    //    public static final String urlLogin = "http://urp6.swu.edu.cn/userPasswordValidate.portal";
+    public static final String urlLogin = "http://i.swu.edu.cn/remote/service/process";
+
     //    登陆后跳转网页
     public static final String urlPortal = "http://urp6.swu.edu.cn/index.portal";
     //    #教务系统网站 Ems意为swu Educational management system
