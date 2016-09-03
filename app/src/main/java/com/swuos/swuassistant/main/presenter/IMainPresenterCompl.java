@@ -10,7 +10,6 @@ import android.net.wifi.WifiManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.swuos.ALLFragment.swujw.TotalInfos;
@@ -88,12 +87,14 @@ public class IMainPresenterCompl implements IMainPresenter {
                 @Override
                 public void onSuccess(String versionJson) {
                     Log.i("fir", "check from fir.im success! " + "\n" + versionJson);
-                    Gson gson = new Gson();
-                    Updatajson updatajson = gson.fromJson(versionJson, Updatajson.class);
-                    final String versionName = GetAppVersion.getPackageInfo(BaseApplication.getContext()).versionName;
+                    if (versionJson.contains("西大助手")) {
+                        Gson gson = new Gson();
+                        Updatajson updatajson = gson.fromJson(versionJson, Updatajson.class);
+                        final String versionName = GetAppVersion.getPackageInfo(BaseApplication.getContext()).versionName;
 
-                    if (!updatajson.getVersionShort().contains(versionName)) {
-                        iMainview.showUpdata(updatajson.getChangelog(), updatajson.getDirect_install_url());
+                        if (!updatajson.getVersionShort().contains(versionName)) {
+                            iMainview.showUpdata(updatajson.getChangelog(), updatajson.getDirect_install_url());
+                        }
                     }
                 }
 
