@@ -1,0 +1,6 @@
+<manifest package="com.appyvet.rangebar"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          android:versionCode="2"
+          android:versionName="1.1">
+
+</manifest>
