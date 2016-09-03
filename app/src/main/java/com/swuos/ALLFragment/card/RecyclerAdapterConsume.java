@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.card;
+package com.swuos.allfragment.card;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

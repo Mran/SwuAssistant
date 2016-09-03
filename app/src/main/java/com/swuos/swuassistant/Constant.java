@@ -4,7 +4,7 @@ package com.swuos.swuassistant;
  * Created by 张孟尧 on 2016/1/10.
  */
 public class Constant {
-    public static final long TIMEOUT = 8 * 1000;
+    public static final long TIMEOUT = 15 * 1000;
     //    设置Message标记
     public static final int SHOW_RESPONSE = 0;
     public static final int ERROR = 1;
@@ -125,15 +125,17 @@ public class Constant {
     public static final String CARD_FRAGMENT_PD = "card_pd";
     public static final String CARD_FRAGMENT_ECARD = "card_ecard";
 
-
-    public static final String urlReportIssue = "http://202.202.111.145:29527/openswu/reportIssue";
-    public static final String urlQuitnet = "http://202.202.111.145:29527/openswu/quitnet";
-
-    public static final String librarySearch = "http://202.202.121.3:99/opac/search";
-    public static final String libraryBookDetail = "http://202.202.121.3:99/opac/book/";
-    public static final String libraryHoldingsInformation = "http://202.202.121.3:99/opac/book/getHoldingsInformation/";
+    //内网服务器反馈地址
+    public static final String urlReportIssue = "http://opensource.desu.pub/openswu/reportIssue";
+    //内网定时退出网络地址
+    public static final String urlQuitnet = "http://opensource.desu.pub/openswu/quitnet";
+    //图书馆搜索地址一
+    public static final String librarySearch = "http://202.202.121.3:99/gold/opac/search";
+    public static final String libraryBookDetail = "http://202.202.121.3:99/gold/opac/book/";
+    public static final String libraryHoldingsInformation = "http://202.202.121.3:99/gold/opac/book/getHoldingsInformation/";
     public static final String libraryCollectingAddress = "http://202.202.121.10/xndxrfidweb/TSDW/GotoFlash.aspx?szBarCode=";
-
+    //图书馆搜索地址二
+    public static final String LIBRARYSEARCH = "http://202.202.121.3/";
 
     public static final int[] background = {R.color.colorclass1, R.color.colorclass2, R.color.colorclass3, R.color.colorclass4, R.color.colorclass5, R.color.colorclass6};
     public static final String[] SCHEDULE_WEEK_TITLE = {"整学期", "第一周", "第二周", "第三周", "第四周", "第五周", "第六周", "第七周", "第八周", "第九周", "第十周", "第十一周", "第十二周", "第十三周", "第十四周", "第十五周", "第十六周", "第十七周", "第十八周", "第十九周", "第二十周"};

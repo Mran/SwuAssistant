@@ -37,6 +37,7 @@
     <string name="yk"><a href="https://github.com/youngkaaa/">youngkaaa</a></string>
     <string name="you_hava_logined_successful">您已通过登录审核</string>
     <string name="zmy"><a href="https://www.github.com/mran">Mran</a></string>
+    <string name="sloginout">登出</string>
     <string-array name="headway_before_class_string">
         <item>10分钟</item>
         <item>15分钟</item>

@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.main_page;
+package com.swuos.allfragment.main_page;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.swuos.ALLFragment.FragmentControl;
+import com.swuos.allfragment.FragmentControl;
 import com.swuos.swuassistant.R;
 
 /**

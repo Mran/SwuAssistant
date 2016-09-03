@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.persenter;
+package com.swuos.allfragment.swujw.grade.persenter;
 
 /**
  * Created by 张孟尧 on 2016/7/27.

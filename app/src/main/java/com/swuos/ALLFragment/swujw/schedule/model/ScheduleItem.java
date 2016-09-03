@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.model;
+package com.swuos.allfragment.swujw.schedule.model;
 
 /**
  * Created by 张孟尧 on 2016/3/4.

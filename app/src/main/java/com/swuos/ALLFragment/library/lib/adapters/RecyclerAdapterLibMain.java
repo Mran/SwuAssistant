@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.lib.adapters;
+package com.swuos.allfragment.library.lib.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.library.lib.model.BookItem;
+import com.swuos.allfragment.library.lib.model.BookItem;
 import com.swuos.swuassistant.R;
 
 import java.util.List;

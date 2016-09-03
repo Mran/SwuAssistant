@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade;
+package com.swuos.allfragment.swujw.grade;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,12 +14,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
-import com.swuos.ALLFragment.swujw.grade.persenter.GradePresenterCompl;
-import com.swuos.ALLFragment.swujw.grade.persenter.IGradePersenter;
-import com.swuos.ALLFragment.swujw.grade.adapter.GradeDetaiAdapter;
-import com.swuos.ALLFragment.swujw.grade.adapter.GradesAdapter;
-import com.swuos.ALLFragment.swujw.grade.view.IGradeview;
+import com.swuos.allfragment.swujw.grade.model.GradeItem;
+import com.swuos.allfragment.swujw.grade.persenter.GradePresenterCompl;
+import com.swuos.allfragment.swujw.grade.persenter.IGradePersenter;
+import com.swuos.allfragment.swujw.grade.adapter.GradeDetaiAdapter;
+import com.swuos.allfragment.swujw.grade.adapter.GradesAdapter;
+import com.swuos.allfragment.swujw.grade.view.IGradeview;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.twotoasters.jazzylistview.JazzyListView;

@@ -1,9 +1,9 @@
-package com.swuos.ALLFragment.library.search.utils;
+package com.swuos.allfragment.library.search.utils;
 
 
-import com.swuos.ALLFragment.library.search.model.BookDetail;
-import com.swuos.ALLFragment.library.search.model.BookInfoSearch;
-import com.swuos.ALLFragment.library.search.model.LibHoldInfo;
+import com.swuos.allfragment.library.search.model.BookDetail;
+import com.swuos.allfragment.library.search.model.BookInfoSearch;
+import com.swuos.allfragment.library.search.model.LibHoldInfo;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 

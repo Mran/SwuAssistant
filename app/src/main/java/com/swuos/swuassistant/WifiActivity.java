@@ -24,8 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
-import com.swuos.ALLFragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.TotalInfos;
 import com.swuos.util.wifi.WifiExit;
 import com.swuos.util.wifi.WifiLogin;
 

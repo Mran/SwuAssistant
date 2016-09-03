@@ -1,4 +1,4 @@
-package com.swuos.net.jsona;
+package com.swuos.allfragment.swujw.net.jsona;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -9,10 +9,10 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
-import com.swuos.ALLFragment.swujw.schedule.model.Schedule;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.schedule.model.CurrentWeek;
+import com.swuos.allfragment.swujw.schedule.model.Schedule;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 

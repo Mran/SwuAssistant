@@ -1,7 +1,7 @@
-package com.swuos.ALLFragment.library.search.views;
+package com.swuos.allfragment.library.search.views;
 
 
-import com.swuos.ALLFragment.library.search.model.BookInfoSearch;
+import com.swuos.allfragment.library.search.model.BookInfoSearch;
 
 import java.util.List;
 

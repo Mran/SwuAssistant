@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.wifi.presenter;
+package com.swuos.allfragment.wifi.presenter;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.TextUtils;
 
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.wifi.view.IWifiFragmentView;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.wifi.view.IWifiFragmentView;
 import com.swuos.swuassistant.R;
 import com.swuos.util.wifi.WifiExit;
 import com.swuos.util.wifi.WifiLogin;

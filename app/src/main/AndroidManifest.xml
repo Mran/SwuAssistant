@@ -51,13 +51,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.swuos.ALLFragment.card.ConsumeActivityImp"
+            android:name="com.swuos.allfragment.card.ConsumeActivityImp"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
-            android:name="com.swuos.ALLFragment.swujw.schedule.SchedulDetialActivity"
+            android:name="com.swuos.allfragment.swujw.schedule.SchedulDetialActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="com.swuos.ALLFragment.library.search.views.SearchAtyImp"/>
-        <activity android:name="com.swuos.ALLFragment.library.search.views.BookDetailViewAty"/>
+        <activity android:name="com.swuos.allfragment.library.search.views.SearchAtyImp"/>
+        <activity android:name="com.swuos.allfragment.library.libsearchs.search.SearchActity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="com.swuos.allfragment.library.search.views.BookDetailViewAty"/>
 
         <service android:name="com.swuos.Service.ClassAlarmService"/>
         <service android:name="com.swuos.Service.ScheduleNotificationService"/>

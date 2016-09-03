@@ -1,7 +1,6 @@
-package com.swuos.net.interfacelmpl;
+package com.swuos.allfragment.swujw.net.interfacelmpl;
 
 import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import rx.Observable;
 

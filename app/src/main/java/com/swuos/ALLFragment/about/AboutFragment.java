@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.about;
+package com.swuos.allfragment.about;
 
 
 import android.os.Bundle;

@@ -1,8 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.view;
-
-import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
-
-import java.util.List;
+package com.swuos.allfragment.swujw.schedule.view;
 
 /**
  * Created by 张孟尧 on 2016/8/3.

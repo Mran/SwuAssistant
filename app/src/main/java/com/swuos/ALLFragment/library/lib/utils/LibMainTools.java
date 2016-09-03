@@ -1,8 +1,8 @@
-package com.swuos.ALLFragment.library.lib.utils;
+package com.swuos.allfragment.library.lib.utils;
 
 
-import com.swuos.ALLFragment.library.lib.model.BookCell;
-import com.swuos.ALLFragment.library.lib.model.BookItem;
+import com.swuos.allfragment.library.lib.model.BookCell;
+import com.swuos.allfragment.library.lib.model.BookItem;
 
 import java.util.ArrayList;
 import java.util.List;

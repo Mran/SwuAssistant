@@ -12,7 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.swuos.ALLFragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.TotalInfos;
 import com.swuos.Service.ClassAlarmService;
 import com.swuos.Service.WifiNotificationService;
 import com.swuos.swuassistant.BaseApplication;

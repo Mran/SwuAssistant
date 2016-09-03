@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.model;
+package com.swuos.allfragment.library.search.model;
 
 /**
  * Created by youngkaaa on 2016/5/25.

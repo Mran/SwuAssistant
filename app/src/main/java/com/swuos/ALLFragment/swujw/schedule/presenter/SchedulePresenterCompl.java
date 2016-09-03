@@ -1,16 +1,16 @@
-package com.swuos.ALLFragment.swujw.schedule.presenter;
+package com.swuos.allfragment.swujw.schedule.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 
 import com.google.gson.Gson;
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.schedule.model.Schedule;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleData;
-import com.swuos.ALLFragment.swujw.schedule.view.IScheduleView;
-import com.swuos.net.api.SwuApi;
-import com.swuos.net.jsona.LoginJson;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.schedule.model.Schedule;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleData;
+import com.swuos.allfragment.swujw.schedule.view.IScheduleView;
+import com.swuos.allfragment.swujw.net.api.SwuApi;
+import com.swuos.allfragment.swujw.net.jsona.LoginJson;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 

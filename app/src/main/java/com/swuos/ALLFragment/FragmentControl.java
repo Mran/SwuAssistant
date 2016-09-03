@@ -1,18 +1,18 @@
-package com.swuos.ALLFragment;
+package com.swuos.allfragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.swuos.ALLFragment.card.EcardFragmentImp;
-import com.swuos.ALLFragment.charge.ChargeFragment;
-import com.swuos.ALLFragment.find_lost.FindLostFragment;
-import com.swuos.ALLFragment.library.lib.views.LibFragment;
-import com.swuos.ALLFragment.main_page.MainPageFragment;
-import com.swuos.ALLFragment.study_materials.StudyMaterialsFragment;
-import com.swuos.ALLFragment.swujw.grade.GradesFragment;
-import com.swuos.ALLFragment.swujw.schedule.ScheduleFragment;
-import com.swuos.ALLFragment.wifi.WifiFragment;
+import com.swuos.allfragment.card.EcardFragmentImp;
+import com.swuos.allfragment.charge.ChargeFragment;
+import com.swuos.allfragment.find_lost.FindLostFragment;
+import com.swuos.allfragment.library.lib.views.LibFragment;
+import com.swuos.allfragment.main_page.MainPageFragment;
+import com.swuos.allfragment.study_materials.StudyMaterialsFragment;
+import com.swuos.allfragment.swujw.grade.GradesFragment;
+import com.swuos.allfragment.swujw.schedule.ScheduleFragment;
+import com.swuos.allfragment.wifi.WifiFragment;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;

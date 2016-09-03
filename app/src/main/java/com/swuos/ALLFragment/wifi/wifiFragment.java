@@ -1,11 +1,9 @@
-package com.swuos.ALLFragment.wifi;
+package com.swuos.allfragment.wifi;
 
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -20,12 +18,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appyvet.rangebar.RangeBar;
-import com.swuos.ALLFragment.wifi.presenter.IWifiPresenetrCompl;
-import com.swuos.ALLFragment.wifi.presenter.IWifiPresenter;
-import com.swuos.ALLFragment.wifi.view.IWifiFragmentView;
+import com.swuos.allfragment.wifi.presenter.IWifiPresenetrCompl;
+import com.swuos.allfragment.wifi.presenter.IWifiPresenter;
+import com.swuos.allfragment.wifi.view.IWifiFragmentView;
 import com.swuos.swuassistant.R;
 
 /**

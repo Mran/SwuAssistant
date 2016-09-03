@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.wifi.view;
+package com.swuos.allfragment.wifi.view;
 
 /**
  * Created by 张孟尧 on 2016/7/23.

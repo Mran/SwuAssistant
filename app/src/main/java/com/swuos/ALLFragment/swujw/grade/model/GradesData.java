@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.model;
+package com.swuos.allfragment.swujw.grade.model;
 
 import java.util.List;
 

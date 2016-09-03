@@ -1,9 +1,9 @@
-package com.swuos.ALLFragment.library.search.presenter;
+package com.swuos.allfragment.library.search.presenter;
 
 
-import com.swuos.ALLFragment.library.search.model.BookInfoSearch;
-import com.swuos.ALLFragment.library.search.utils.LibTools;
-import com.swuos.ALLFragment.library.search.views.ISearchView;
+import com.swuos.allfragment.library.search.model.BookInfoSearch;
+import com.swuos.allfragment.library.search.utils.LibTools;
+import com.swuos.allfragment.library.search.views.ISearchView;
 
 import java.util.List;
 

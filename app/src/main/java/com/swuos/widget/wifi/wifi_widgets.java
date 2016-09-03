@@ -13,8 +13,6 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.swuos.ALLFragment.swujw.TotalInfo;
-import com.swuos.ALLFragment.swujw.TotalInfos;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.util.wifi.WifiExit;

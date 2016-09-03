@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.presenter;
+package com.swuos.allfragment.swujw.schedule.presenter;
 
 /**
  * Created by 张孟尧 on 2016/8/3.

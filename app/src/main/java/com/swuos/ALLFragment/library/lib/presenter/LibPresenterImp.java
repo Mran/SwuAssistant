@@ -1,9 +1,9 @@
-package com.swuos.ALLFragment.library.lib.presenter;
+package com.swuos.allfragment.library.lib.presenter;
 
 
-import com.swuos.ALLFragment.library.lib.model.BookItem;
-import com.swuos.ALLFragment.library.lib.utils.LibMainTools;
-import com.swuos.ALLFragment.library.lib.views.ILibView;
+import com.swuos.allfragment.library.lib.model.BookItem;
+import com.swuos.allfragment.library.lib.utils.LibMainTools;
+import com.swuos.allfragment.library.lib.views.ILibView;
 
 import java.util.List;
 

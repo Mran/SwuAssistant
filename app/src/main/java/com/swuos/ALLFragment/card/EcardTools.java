@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.card;
+package com.swuos.allfragment.card;
 
 import com.swuos.net.OkhttpNet;
 import com.swuos.util.SALog;

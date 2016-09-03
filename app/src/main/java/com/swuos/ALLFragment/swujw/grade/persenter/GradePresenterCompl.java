@@ -1,18 +1,15 @@
-package com.swuos.ALLFragment.swujw.grade.persenter;
+package com.swuos.allfragment.swujw.grade.persenter;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.util.ArrayMap;
 import android.util.Base64;
 
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
-import com.swuos.ALLFragment.swujw.grade.model.Grades;
-import com.swuos.ALLFragment.swujw.grade.view.IGradeview;
-import com.swuos.net.api.SwuApi;
-import com.swuos.net.jsona.LoginJson;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.grade.model.GradeItem;
+import com.swuos.allfragment.swujw.grade.model.Grades;
+import com.swuos.allfragment.swujw.grade.view.IGradeview;
+import com.swuos.allfragment.swujw.net.api.SwuApi;
+import com.swuos.allfragment.swujw.net.jsona.LoginJson;
 import com.swuos.swuassistant.Constant;
 
 import java.net.SocketTimeoutException;
@@ -117,7 +114,6 @@ public class GradePresenterCompl implements IGradePersenter {
                 @Override
                 public void onCompleted() {
                     iGradeview.showDialog(false);
-
                 }
 
                 @Override
@@ -130,9 +126,7 @@ public class GradePresenterCompl implements IGradePersenter {
                         error = Constant.CLIENT_TIMEOUT;
                     }
                     iGradeview.showError(error);
-
                 }
-
                 @Override
                 public void onNext(List<GradeItem> gradeItems) {
                     iGradeview.showDialog(false);
@@ -207,40 +201,6 @@ public class GradePresenterCompl implements IGradePersenter {
     @Override
     public void getGradeDetial(final String username, final String password, final int position) {
         iGradeview.showDialog(true);
-        //        Observable.create(new Observable.OnSubscribe<GradeItem>() {
-        //            @Override
-        //            public void call(Subscriber<? super GradeItem> subscriber) {
-        //                Login login = new Login();
-        //                LoginJson loginJson = login.doLogin(username, password);
-        //                if (loginJson.getData().getGetUserInfoByUserNameResponse().getReturnX().isSuccess()) {
-        //                    Grades grades = new Grades(login.okhttpNet);
-        //                    //                    grades.setGrades(totalInfos, xnm, xqm);
-        //                    GradeItem gradeItem = grades.getGradeDetial(gradeItemList.get(position));
-        //                    subscriber.onNext(gradeItem);
-        //                } else if (loginJson.getData().getGetUserInfoByUserNameResponse().getReturnX().isSuccess()) {
-        //                    subscriber.onError(new Throwable(mContext.getResources().getString(R.string.no_user_or_password_error)));
-        //                }
-        //            }
-        //        }).subscribeOn(Schedulers.io())
-        //                .observeOn(AndroidSchedulers.mainThread())
-        //                .subscribe(new Subscriber<GradeItem>() {
-        //                    @Override
-        //                    public void onCompleted() {
-        //
-        //                    }
-        //
-        //                    @Override
-        //                    public void onError(Throwable e) {
-        //                        iGradeview.showDialog(false);
-        //                        iGradeview.showError(e.getMessage());
-        //                    }
-        //
-        //                    @Override
-        //                    public void onNext(GradeItem gradeItem) {
-        //                        iGradeview.showDialog(false);
-        //                        iGradeview.showGradeDetial(gradeItem);
-        //                    }
-        //                });
         gradeItem = gradeItemList.get(position);
         Map<String, String> data = new HashMap<String, String>();
         data.put("jxb_id", gradeItem.getJxb_id());
@@ -286,7 +246,6 @@ public class GradePresenterCompl implements IGradePersenter {
             @Override
             public void onCompleted() {
                 iGradeview.showDialog(false);
-
             }
 
             @Override

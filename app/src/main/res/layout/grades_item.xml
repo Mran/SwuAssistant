@@ -11,7 +11,7 @@
         android:layout_weight="3"
         android:gravity="left|center">
 
-        <com.swuos.ALLFragment.swujw.grade.view.SlidingTextView
+        <com.swuos.allfragment.swujw.grade.view.SlidingTextView
             android:id="@+id/kcmc"
             android:layout_width="160dp"
             android:layout_height="wrap_content"

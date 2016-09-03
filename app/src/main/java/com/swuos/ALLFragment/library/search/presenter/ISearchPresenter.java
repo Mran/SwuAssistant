@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.presenter;
+package com.swuos.allfragment.library.search.presenter;
 
 /**
  * Created by youngkaaa on 2016/5/25.

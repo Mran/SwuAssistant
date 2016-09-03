@@ -1,6 +1,6 @@
-package com.swuos.ALLFragment.swujw.grade.view;
+package com.swuos.allfragment.swujw.grade.view;
 
-import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
+import com.swuos.allfragment.swujw.grade.model.GradeItem;
 
 import java.util.List;
 

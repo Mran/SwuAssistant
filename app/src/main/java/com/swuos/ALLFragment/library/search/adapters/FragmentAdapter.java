@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.adapters;
+package com.swuos.allfragment.library.search.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

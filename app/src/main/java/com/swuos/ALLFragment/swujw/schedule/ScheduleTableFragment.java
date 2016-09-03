@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule;
+package com.swuos.allfragment.swujw.schedule;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -18,10 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleData;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.schedule.model.CurrentWeek;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleData;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleItem;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.main.MainActivity;
 import com.swuos.swuassistant.R;

@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.model;
+package com.swuos.allfragment.library.search.model;
 
 /**
  * Created by ASUS on 2016/3/12.

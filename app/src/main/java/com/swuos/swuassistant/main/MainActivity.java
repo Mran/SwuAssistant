@@ -23,9 +23,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.swuos.ALLFragment.FragmentControl;
-import com.swuos.ALLFragment.library.search.views.SearchAtyImp;
-import com.swuos.ALLFragment.swujw.TotalInfos;
+import com.swuos.allfragment.FragmentControl;
+import com.swuos.allfragment.library.libsearchs.search.SearchActity;
+import com.swuos.allfragment.library.search.views.SearchAtyImp;
+import com.swuos.allfragment.swujw.TotalInfos;
 import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.BaseApplication;
 import com.swuos.swuassistant.Constant;
@@ -161,7 +162,8 @@ public class MainActivity extends BaseActivity implements IMainview, NavigationV
                 SALog.d("MainActivity", "click_main");
                 break;
             case R.id.search:
-                startActivity(new Intent(this, SearchAtyImp.class));
+//                startActivity(new Intent(this, SearchAtyImp.class));
+                startActivity(new Intent(this, SearchActity.class));
                 break;
         }
 

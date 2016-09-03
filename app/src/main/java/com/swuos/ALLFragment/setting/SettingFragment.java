@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.setting;
+package com.swuos.allfragment.setting;
 
 import android.content.Intent;
 import android.net.wifi.WifiManager;

@@ -1,15 +1,11 @@
-package com.swuos.ALLFragment.swujw;
+package com.swuos.allfragment.swujw;
 
 import android.util.Base64;
 
 import com.google.gson.Gson;
 import com.swuos.net.OkhttpNet;
-import com.swuos.net.jsona.LoginJson;
+import com.swuos.allfragment.swujw.net.jsona.LoginJson;
 import com.swuos.swuassistant.Constant;
-import com.swuos.util.SALog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Cookie;
 import okhttp3.FormBody;

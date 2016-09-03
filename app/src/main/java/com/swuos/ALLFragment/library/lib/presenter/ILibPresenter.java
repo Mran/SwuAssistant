@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.lib.presenter;
+package com.swuos.allfragment.library.lib.presenter;
 
 /**
  * Created by youngkaaa on 2016/5/27.

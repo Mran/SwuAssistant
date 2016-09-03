@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:skin="http://schemas.android.com/android/skin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -71,24 +72,8 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/wifi_login_button"
                         android:layout_weight="1"
-                        android:text="登出"/>
+                        android:text="@string/sloginout"/>
                 </LinearLayout>
-
-                <com.appyvet.rangebar.RangeBar
-                    android:id="@+id/rangebar"
-                    xmlns:custom="http://schemas.android.com/apk/res-auto"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:layout_below="@id/wifi_buttons"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="35dp"
-                    custom:connectingLineColor="@color/colorAccent"
-                    custom:pinColor="@color/colorAccent"
-                    custom:rangeBar="false"
-                    custom:rangeBarColor="@color/colorAccent"
-                    custom:selectorColor="@color/colorAccent"
-                    custom:tickColor="@color/colorAccent"/>
 
                 <Switch
                     android:id="@+id/timing_switch"
@@ -101,6 +86,21 @@
                     android:layout_marginTop="15dp"
                     android:switchPadding="14.5sp"
                     android:text="定时退出"/>
+
+                <com.appyvet.rangebar.RangeBar
+                    android:id="@+id/rangebar"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    custom:connectingLineColor="@color/colorAccent"
+                    custom:pinColor="@color/colorAccent"
+                    custom:rangeBar="false"
+                    custom:rangeBarColor="@color/colorAccent"
+                    custom:selectorColor="@color/colorAccent"
+                    custom:tickColor="@color/colorAccent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignLeft="@+id/wifi_buttons"
+                    android:layout_alignStart="@+id/wifi_buttons"
+                    android:layout_alignTop="@+id/timing_switch"/>
 
             </RelativeLayout>
 

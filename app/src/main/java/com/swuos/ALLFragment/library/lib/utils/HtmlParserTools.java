@@ -1,7 +1,7 @@
-package com.swuos.ALLFragment.library.lib.utils;
+package com.swuos.allfragment.library.lib.utils;
 
-import com.swuos.ALLFragment.library.lib.model.BookCell;
-import com.swuos.ALLFragment.library.lib.model.BookInfo;
+import com.swuos.allfragment.library.lib.model.BookCell;
+import com.swuos.allfragment.library.lib.model.BookInfo;
 import com.swuos.util.SALog;
 
 import org.jsoup.Jsoup;

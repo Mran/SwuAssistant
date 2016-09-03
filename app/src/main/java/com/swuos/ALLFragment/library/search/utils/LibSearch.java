@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.utils;
+package com.swuos.allfragment.library.search.utils;
 
 
 

@@ -1,7 +1,7 @@
-package com.swuos.ALLFragment.swujw.grade.model;
+package com.swuos.allfragment.swujw.grade.model;
 
 import com.google.gson.Gson;
-import com.swuos.ALLFragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.TotalInfos;
 import com.swuos.net.OkhttpNet;
 import com.swuos.swuassistant.Constant;
 

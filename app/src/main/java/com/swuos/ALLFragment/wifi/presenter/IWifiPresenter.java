@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.wifi.presenter;
+package com.swuos.allfragment.wifi.presenter;
 
 /**
  * Created by 张孟尧 on 2016/7/23.

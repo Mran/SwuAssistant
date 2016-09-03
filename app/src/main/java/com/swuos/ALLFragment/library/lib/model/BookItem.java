@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.lib.model;
+package com.swuos.allfragment.library.lib.model;
 
 /**
  * Created by youngkaaa on 2016/5/27.

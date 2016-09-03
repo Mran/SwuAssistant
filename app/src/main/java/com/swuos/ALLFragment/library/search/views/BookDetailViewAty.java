@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.views;
+package com.swuos.allfragment.library.search.views;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -11,20 +11,19 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.swuos.ALLFragment.library.search.adapters.FragmentAdapter;
-import com.swuos.ALLFragment.library.search.model.BookDetail;
-import com.swuos.ALLFragment.library.search.model.LibHoldInfo;
-import com.swuos.ALLFragment.library.search.presenter.BookDetailViewPresenterImp;
-import com.swuos.ALLFragment.library.search.presenter.IBookDeatilPresenter;
-import com.swuos.ALLFragment.library.search.presenter.SearchPresenterImp;
-import com.swuos.ALLFragment.library.search.utils.LibSearch;
+import com.swuos.allfragment.library.search.adapters.FragmentAdapter;
+import com.swuos.allfragment.library.search.model.BookDetail;
+import com.swuos.allfragment.library.search.model.LibHoldInfo;
+import com.swuos.allfragment.library.search.presenter.BookDetailViewPresenterImp;
+import com.swuos.allfragment.library.search.presenter.IBookDeatilPresenter;
+import com.swuos.allfragment.library.search.presenter.SearchPresenterImp;
+import com.swuos.allfragment.library.search.utils.LibSearch;
 import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;

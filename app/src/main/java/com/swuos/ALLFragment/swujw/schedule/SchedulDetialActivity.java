@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule;
+package com.swuos.allfragment.swujw.schedule;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.swuos.swuassistant.BaseActivity;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

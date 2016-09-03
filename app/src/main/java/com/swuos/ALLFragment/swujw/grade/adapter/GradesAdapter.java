@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.grade.adapter;
+package com.swuos.allfragment.swujw.grade.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.swuos.ALLFragment.swujw.grade.model.GradeItem;
+import com.swuos.allfragment.swujw.grade.model.GradeItem;
 import com.swuos.swuassistant.R;
 
 import java.util.List;

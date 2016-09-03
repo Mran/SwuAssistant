@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.search.views;
+package com.swuos.allfragment.library.search.views;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,13 +17,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.swuos.ALLFragment.library.search.model.LibHoldInfo;
-import com.swuos.ALLFragment.library.search.utils.LibTools;
+import com.swuos.allfragment.library.search.model.LibHoldInfo;
+import com.swuos.allfragment.library.search.utils.LibTools;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
-
-import io.github.zhitaocai.toastcompat.ToastCompat;
 
 
 /**

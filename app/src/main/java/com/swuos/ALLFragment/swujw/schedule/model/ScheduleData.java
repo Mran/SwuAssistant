@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule.model;
+package com.swuos.allfragment.swujw.schedule.model;
 
 import android.widget.TextView;
 

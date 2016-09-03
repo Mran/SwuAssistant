@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.library.lib.views;
+package com.swuos.allfragment.library.lib.views;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,11 +20,11 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.swuos.ALLFragment.card.MyItemDecoration;
-import com.swuos.ALLFragment.library.lib.adapters.RecyclerAdapterLibMain;
-import com.swuos.ALLFragment.library.lib.model.BookItem;
-import com.swuos.ALLFragment.library.lib.presenter.ILibPresenter;
-import com.swuos.ALLFragment.library.lib.presenter.LibPresenterImp;
+import com.swuos.allfragment.card.MyItemDecoration;
+import com.swuos.allfragment.library.lib.adapters.RecyclerAdapterLibMain;
+import com.swuos.allfragment.library.lib.model.BookItem;
+import com.swuos.allfragment.library.lib.presenter.ILibPresenter;
+import com.swuos.allfragment.library.lib.presenter.LibPresenterImp;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

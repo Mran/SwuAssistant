@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.study_materials;
+package com.swuos.allfragment.study_materials;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

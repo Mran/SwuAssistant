@@ -7,9 +7,9 @@ import android.os.Looper;
 import android.util.Base64;
 import android.util.Log;
 
-import com.swuos.ALLFragment.swujw.TotalInfos;
-import com.swuos.net.api.SwuApi;
-import com.swuos.net.jsona.LoginJson;
+import com.swuos.allfragment.swujw.TotalInfos;
+import com.swuos.allfragment.swujw.net.api.SwuApi;
+import com.swuos.allfragment.swujw.net.jsona.LoginJson;
 import com.swuos.swuassistant.Constant;
 import com.swuos.swuassistant.R;
 import com.swuos.swuassistant.login.view.ILoginView;

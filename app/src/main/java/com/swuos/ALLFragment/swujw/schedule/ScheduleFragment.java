@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.swujw.schedule;
+package com.swuos.allfragment.swujw.schedule;
 
 
 import android.content.Intent;
@@ -15,12 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.swuos.ALLFragment.BaseFragment;
-import com.swuos.ALLFragment.swujw.schedule.model.CurrentWeek;
-import com.swuos.ALLFragment.swujw.schedule.presenter.ISchedulePresenter;
-import com.swuos.ALLFragment.swujw.schedule.presenter.SchedulePresenterCompl;
-import com.swuos.ALLFragment.swujw.schedule.view.IScheduleView;
-import com.swuos.ALLFragment.swujw.schedule.adapter.ScheduleViewpagerAdapter;
+import com.swuos.allfragment.BaseFragment;
+import com.swuos.allfragment.swujw.schedule.model.CurrentWeek;
+import com.swuos.allfragment.swujw.schedule.presenter.ISchedulePresenter;
+import com.swuos.allfragment.swujw.schedule.presenter.SchedulePresenterCompl;
+import com.swuos.allfragment.swujw.schedule.view.IScheduleView;
+import com.swuos.allfragment.swujw.schedule.adapter.ScheduleViewpagerAdapter;
 import com.swuos.swuassistant.R;
 import com.swuos.util.SALog;
 

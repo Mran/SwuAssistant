@@ -1,10 +1,10 @@
-package com.swuos.net.api;
+package com.swuos.allfragment.swujw.net.api;
 
-import com.swuos.net.interfacelmpl.JwGrade;
-import com.swuos.net.interfacelmpl.JwGradeDetail;
-import com.swuos.net.interfacelmpl.JwSchedule;
-import com.swuos.net.interfacelmpl.LoginIswu;
-import com.swuos.net.interfacelmpl.LoginJw;
+import com.swuos.allfragment.swujw.net.interfacelmpl.JwGrade;
+import com.swuos.allfragment.swujw.net.interfacelmpl.JwGradeDetail;
+import com.swuos.allfragment.swujw.net.interfacelmpl.JwSchedule;
+import com.swuos.allfragment.swujw.net.interfacelmpl.LoginIswu;
+import com.swuos.allfragment.swujw.net.interfacelmpl.LoginJw;
 import com.swuos.swuassistant.Constant;
 import com.swuos.util.SALog;
 

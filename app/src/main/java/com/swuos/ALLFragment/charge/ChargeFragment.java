@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.charge;
+package com.swuos.allfragment.charge;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

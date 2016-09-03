@@ -1,4 +1,4 @@
-package com.swuos.ALLFragment.find_lost;
+package com.swuos.allfragment.find_lost;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

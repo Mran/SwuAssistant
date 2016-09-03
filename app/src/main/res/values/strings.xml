@@ -53,6 +53,7 @@
     <string name="swuos"><a href="https://github.com/swuos/openswu-android">西南大学开源协会</a></string>
     <string name="tp"><a href="99240947@qq.com">鲨鱼辣椒</a></string>
     <string name="gky"><a href="610524299@qq.com">管苛伊</a></string>
+    <string name="sloginout">登出</string>
 
 
 </resources>

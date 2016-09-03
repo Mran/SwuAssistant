@@ -1,8 +1,8 @@
-package com.swuos.ALLFragment.swujw;
+package com.swuos.allfragment.swujw;
 
-import com.swuos.ALLFragment.swujw.grade.model.GradesData;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleData;
-import com.swuos.ALLFragment.swujw.schedule.model.ScheduleItem;
+import com.swuos.allfragment.swujw.grade.model.GradesData;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleData;
+import com.swuos.allfragment.swujw.schedule.model.ScheduleItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.swuos.ALLFragment.library.lib.views;
+package com.swuos.allfragment.library.lib.views;
 
 
-import com.swuos.ALLFragment.library.lib.model.BookItem;
+import com.swuos.allfragment.library.lib.model.BookItem;
 
 import java.util.List;
 
