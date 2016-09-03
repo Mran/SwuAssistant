@@ -126,12 +126,12 @@ public class Constant {
     public static final String CARD_FRAGMENT_ECARD = "card_ecard";
 
 
-    public static final String urlReportIssue = "http://202.202.111.145:29527/openswu/reportIssue";
-    public static final String urlQuitnet = "http://202.202.111.145:29527/openswu/quitnet";
+    public static final String urlReportIssue = "http://opensource.desu.pub/openswu/reportIssue";
+    public static final String urlQuitnet = "http://opensource.desu.pub/openswu/quitnet";
 
-    public static final String librarySearch = "http://202.202.121.3:99/opac/search";
-    public static final String libraryBookDetail = "http://202.202.121.3:99/opac/book/";
-    public static final String libraryHoldingsInformation = "http://202.202.121.3:99/opac/book/getHoldingsInformation/";
+    public static final String librarySearch = "http://202.202.121.3:99/gold/opac/search";
+    public static final String libraryBookDetail = "http://202.202.121.3:99/gold/opac/book/";
+    public static final String libraryHoldingsInformation = "http://202.202.121.3:99/gold/opac/book/getHoldingsInformation/";
     public static final String libraryCollectingAddress = "http://202.202.121.10/xndxrfidweb/TSDW/GotoFlash.aspx?szBarCode=";
 
 
